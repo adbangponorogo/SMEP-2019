@@ -1,0 +1,39 @@
+<section class="content-header">
+  <h1>
+    Misc
+    <small>Rekapitulasi Tambahan</small>
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="#" class="smep-app-dashboard-page"><i class="fa fa-home"></i>&nbsp;Dashboard</a></li>
+    <li class="active">Administrator</li>
+    <li class="active">Misc</li>
+  </ol>
+</section>
+<section class="content">
+	<div class="row">
+    <?php
+      include_once 'form.html';
+      include_once 'modal.html';
+    ?>
+	</div>
+</section>
+
+<!-- Javascript -->
+<script type="text/javascript">
+  jQuery(document).on("click", ".smep-adminmisc-download", function(){
+    jQuery(".smep-adminmisc-download-modal").modal("show");
+      jQuery(".adminmisc-jenis").val(jQuery(this).data("id"));
+        if (jQuery(this).data("id") == 1) {
+              jQuery(".adminmisc-nama").val("Misc - Pajak");
+        }
+        if (jQuery(this).data("id") == 2) {
+              jQuery(".adminmisc-nama").val("Misc - BKU");
+        }
+    return false;
+  });
+
+  jQuery(document).on("click", ".smep-adminmisc-cancel-btn", function(){
+    jQuery(".smep-adminmisc-download-modal").modal("hide");
+    return false;
+  });
+</script>

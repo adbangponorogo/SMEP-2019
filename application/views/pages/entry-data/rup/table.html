@@ -1,0 +1,320 @@
+<div class="col-md-12">
+  <div class="box box-primary">
+    <div class="box-header with-border" style="padding: 10px 0px;">
+      <div class="col-md-12" style="padding-top: 5px;">
+        <h3 class="box-title smep-rupenda-main-box-header">
+        	Tabel Data
+        </h3>
+      </div>
+      <div class="box-body">
+      	<div class="col-md-12">
+      		<div class="row">
+      			<div class="col-md-12" style="margin-bottom: 10px;">
+		         	<div class="col-md-3">
+		            	<div class="form-group" style="margin:10px 0px;">
+		            		<b>Kode & Nama Program</b>
+		              	</div>
+		          	</div>
+		          	<div class="col-md-9" style="padding-top: 2.5px;">
+		            	<select class="form-control smep-rup-enda-program-option" style="float:left; width: 100%;">
+		            	</select>
+		          	</div>
+		        </div>
+		        <div class="col-md-12" style="margin-bottom: 10px;">
+		          	<div class="col-md-3">
+		            	<div class="form-group" style="margin:10px 0px;">
+		                	<b>Kode & Nama Kegiatan</b>
+		              	</div>
+		          	</div>
+		          	<div class="col-md-9" style="padding-top: 2.5px;">
+		            	<select class="form-control smep-rup-enda-kegiatan-option" style="float:left; width: 100%;">
+		            	</select>
+		          	</div>
+		        </div>
+		        <div class="col-md-12" style="margin-bottom: 10px;">
+		        	<div class="col-md-3">
+		            	<div class="form-group" style="margin:10px 0px;">
+		                	<b>Kode Rekening & Rincian Obyek</b>
+		              	</div>
+		          	</div>
+		          	<div class="col-md-9" style="padding-top: 2.5px;">
+		            	<select class="form-control smep-rup-enda-ro-option" style="float:left; width: 100%;">
+		            	</select>
+		          	</div>
+		        </div>
+      		</div>
+      	</div>
+        <div class="col-md-12">
+        	<div class="row">
+        		<div class="table-responsive">
+              <form action="#" method="POST" class="rupenda-multidelete-form">
+                <div class="col-md-12">
+                  <span class="pull-right">
+                    <input type="checkbox" class="smep-rupenda-allcheck-delete">&nbsp;<span class="label bg-red color-pallete">select semua data</span>
+                    <button class="btn btn-danger btn-sm smep-rupenda-multidelete-btn"><i class="fa fa-exclamation"></i>&nbsp;Hapus</button>
+                  </span>
+                </div>
+                <div class="col-md-12" style="margin-top: 10px;">
+                  <table class="table smep-rup-enda-table" width="100%" cellspacing="0">
+                    <thead>
+                      <tr>
+                        <th width="5%" style="text-align: center;">No</th>
+                        <th width="35%" style="text-align: center;">Nama Paket</th>
+                        <th width="15%" style="text-align: center;">Jenis Belanja</th>
+                        <th width="15%" style="text-align: center;">Cara PBJ</th>
+                        <th width="15%" style="text-align: center;">Pagu</th>
+                        <th width="15%" style="text-align: center;">Aksi</th>
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>  
+                </div>
+              </form>
+		        </div>
+        	</div>
+        </div>
+      </div>
+    </div>   
+</div>
+
+<!-- Javascript -->
+<script type="text/javascript">
+
+// ---------------- Select2 ---------------- //
+jQuery(".smep-rup-enda-program-option").select2();
+jQuery(".smep-rup-enda-kegiatan-option").select2().prop("disabled", true);
+jQuery(".smep-rup-enda-ro-option").select2().prop("disabled", true);
+
+
+// ---------------- User Logic ---------------- //
+  endaRUPUserData();
+    function endaRUPUserData() {
+        jQuery.ajax({
+          type      : 'AJAX',
+          method    : 'GET',
+          url       : 'entry-data/data-rup/users-data',
+          async     : true,
+          dataType  : 'JSON',
+          success   : function(JSON){
+            if (JSON[0][2] == 3) {
+              var button = " <button class='btn btn-primary btn-sm smep-rupenda-register-btn'>"+
+                      "<i class='fa fa-plus'></i>&nbsp;Tambah Data"+
+                     "</button>";
+              jQuery(".smep-rupenda-main-box-header").append(button);
+            }
+          },
+          error     : function(jqXHR, textStatus, errorThrown){
+              console.log('failed');
+          }
+        });
+    }
+    
+  // ---------------- Program Option and Value ---------------- //
+  endaRUPProgramData();
+  function endaRUPProgramData() {
+      jQuery.ajax({
+        type      : 'AJAX',
+        method    : 'GET',
+        url       : 'entry-data/data-rup/program-data/'+jQuery(".smep-skpd-main").val(),
+        async     : true,
+        dataType  : 'JSON',
+        success   : function(JSON){
+          var option = "<option value='*'>:: Semua Program ::</option>";
+            for (var program = 0; program < JSON.length; program++) {
+              option += "<option value='"+JSON[program][0]+"'>"+
+              "["+JSON[program][2]+"] - "+JSON[program][3]+"</option>";
+            }
+            jQuery(".smep-rup-enda-program-option").html(option);
+            jQuery(".smep-rup-enda-program-option").val("*").change();
+        },
+        error     : function(jqXHR, textStatus, errorThrown){
+            console.log('failed');
+        }
+      });
+  }
+
+  // ---------------- Kegiatan Option and Value ---------------- //
+  jQuery(document).on("change", ".smep-rup-enda-program-option", function(){
+    if (jQuery(this).val() == "*") {
+      jQuery.ajax({
+          type      : 'AJAX',
+          method    : 'GET',
+          url       : 'entry-data/data-rup/main-data/program/all/'+jQuery(".smep-skpd-main").val(),
+          async     : true,
+          dataType  : 'JSON',
+          success   : function(JSON){
+            jQuery(".smep-rup-enda-table").dataTable({
+                destroy     : true,
+                processing  : true,
+                "lengthMenu"    : [["10"], ["10"]],
+                data        : JSON
+            });
+          },
+          error     : function(jqXHR, textStatus, errorThrown){
+              console.log('failed');
+          }
+      });
+
+      jQuery(".smep-rup-enda-kegiatan-option").select2().prop("disabled", true);
+      jQuery(".smep-rup-enda-ro-option").select2().prop("disabled", true);
+    }
+    else{
+      jQuery.ajax({
+          type      : 'AJAX',
+          method    : 'GET',
+          url       : 'entry-data/data-rup/kegiatan-data/'+jQuery(this).val(),
+          async     : true,
+          dataType  : 'JSON',
+          success   : function(JSON){
+              var option = "<option value='*'>:: Semua Kegiatan ::</option>";
+              for (var kegiatan = 0; kegiatan < JSON.length; kegiatan++) {
+                option += "<option value='"+JSON[kegiatan][0]+"'>"+
+                "["+JSON[kegiatan][3]+"] - "+JSON[kegiatan][4]+"</option>";
+              }
+              jQuery(".smep-rup-enda-kegiatan-option").html(option);
+              jQuery(".smep-rup-enda-kegiatan-option").val("*").change();
+              jQuery(".smep-rup-enda-kegiatan-option").select2().prop("disabled", false);
+          },
+          error     : function(jqXHR, textStatus, errorThrown){
+              console.log('failed');
+          }
+      });
+    }
+  });
+
+  // ---------------- Rincian Obyek Option and Value ---------------- //
+  jQuery(document).on("change", ".smep-rup-enda-kegiatan-option", function(){
+    if (jQuery(this).val() == "*") {
+      jQuery.ajax({
+          type      : 'AJAX',
+          method    : 'GET',
+          url       : 'entry-data/data-rup/main-data/kegiatan/all/'+jQuery(".smep-skpd-main").val()+"/"+jQuery(".smep-rup-enda-program-option").val(),
+          async     : true,
+          dataType  : 'JSON',
+          success   : function(JSON){
+            jQuery(".smep-rup-enda-table").dataTable({
+                destroy     : true,
+                processing  : true,
+                "lengthMenu"    : [["10"], ["10"]],
+                data        : JSON
+            });
+          },
+          error     : function(jqXHR, textStatus, errorThrown){
+              console.log('failed');
+          }
+      });
+
+      jQuery(".smep-rup-enda-ro-option").select2().prop("disabled", true);
+    }
+    else{
+      jQuery.ajax({
+        type      : 'AJAX',
+        method    : 'GET',
+        url       : 'entry-data/data-rup/rincian-obyek-data/'+jQuery(this).val(),
+        async     : true,
+        dataType  : 'JSON',
+        success   : function(JSON){
+            var option = "<option value='*'>:: Semua Rincian Obyek ::</option>";
+            for (var ro = 0; ro < JSON.length; ro++) {
+              option += "<option value='"+JSON[ro][0]+"'>"+
+              "["+JSON[ro][3]+"] - "+JSON[ro][4]+"</option>";
+            }
+            jQuery(".smep-rup-enda-ro-option").html(option);
+            jQuery(".smep-rup-enda-ro-option").val("*").change();
+            jQuery(".smep-rup-enda-ro-option").select2().prop("disabled", false);
+        },
+        error     : function(jqXHR, textStatus, errorThrown){
+            console.log('failed');
+        }
+      });
+    }
+  });
+
+  // ---------------- Rincian Obyek Value ---------------- //
+  jQuery(document).on("change", ".smep-rup-enda-ro-option", function(){
+    if (jQuery(this).val() == "*") {
+      jQuery.ajax({
+          type      : 'AJAX',
+          method    : 'GET',
+          url       : 'entry-data/data-rup/main-data/rincian-obyek/all/'+jQuery(".smep-skpd-main").val()+"/"+jQuery(".smep-rup-enda-program-option").val()+"/"+jQuery(".smep-rup-enda-kegiatan-option").val(),
+          async     : true,
+          dataType  : 'JSON',
+          success   : function(JSON){
+            jQuery(".smep-rup-enda-table").dataTable({
+                destroy     : true,
+                processing  : true,
+                "lengthMenu"    : [["10"], ["10"]],
+                data        : JSON
+            });
+          },
+          error     : function(jqXHR, textStatus, errorThrown){
+              console.log('failed');
+          }
+      });
+    }
+    else{
+      jQuery.ajax({
+          type      : 'AJAX',
+          method    : 'GET',
+          url       : 'entry-data/data-rup/main-data/rincian-obyek/unique/'+jQuery(".smep-skpd-main").val()+"/"+jQuery(".smep-rup-enda-program-option").val()+"/"+jQuery(".smep-rup-enda-kegiatan-option").val()+"/"+jQuery(this).val(),
+          async     : true,
+          dataType  : 'JSON',
+          success   : function(JSON){
+            jQuery(".smep-rup-enda-table").dataTable({
+                destroy     : true,
+                processing  : true,
+                "lengthMenu"    : [["10"], ["10"]],
+                data        : JSON
+            });
+          },
+          error     : function(jqXHR, textStatus, errorThrown){
+              console.log('failed');
+          }
+      });
+    }
+  });
+
+
+  // ---------------- Delete ---------------- //
+  jQuery(document).on("click", ".smep-rupenda-delete-btn", function(){
+    jQuery.ajax({
+        type    : 'AJAX',
+        method    : 'GET',
+        url     : 'entry-data/data-rup/delete-data/'+jQuery(this).data("id"),
+        async   : true,
+        dataType  : 'JSON',
+        success   : function(JSON){
+          endaRUPProgramData();
+        },
+        error     : function(jqXHR, textStatus, errorThrown){
+          console.log('failed');
+        }
+      });
+    return false;
+  });
+
+  jQuery(document).on("click", ".smep-rupenda-allcheck-delete", function(){
+    var status = this.checked;
+    jQuery(".rupenda-delete-data").each(function(){
+      jQuery(this).prop("checked", status);
+    });
+  });
+
+  jQuery(document).on("click", ".smep-rupenda-multidelete-btn", function(){
+    jQuery.ajax({
+        type      : 'AJAX',
+        method    : 'POST',
+        url       : 'entry-data/data-rup/multi-delete-data',
+        async     : true,
+        data      : jQuery(".rupenda-multidelete-form").serialize(),
+        dataType  : 'JSON',
+        success   : function(JSON){
+          endaRUPProgramData();
+        },
+        error     : function(jqXHR, textStatus, errorThrown){
+          console.log('failed');
+        }
+      });
+    return false;
+  });
+</script>

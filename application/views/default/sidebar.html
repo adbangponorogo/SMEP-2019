@@ -1,0 +1,116 @@
+<aside class="main-sidebar">
+  <section class="sidebar">
+    <div class="user-panel">
+      <div class="pull-left image">
+        <img src="<?=base_url('assets/uploads/kabupaten-ponorogo-vector-logo.png')?>" class="img-circle" alt="User Image">
+      </div>
+      <div class="pull-left info" style="padding: 0px 5px 5px 15px;">
+        <p style="line-height: 17px;">Sistem Monitoring Evaluasi Pelaporan</p>
+      </div>
+    </div>
+    <ul class="sidebar-menu">
+      <li class="header">MAIN NAVIGATION</li>
+      <?php
+          foreach ($user_data->result() as $user) {
+      ?>
+          <li><a href="#" class="smep-app-dashboard-page"><i class="fa fa-home" style="font-size: 16px;"></i> <span>Dashboard</span></a></li>
+          <?php
+            if ($user->status == 1 || $user->status == 2){
+          ?>
+          <li class="treeview">
+            <a href="#"><i class="fa fa-clone"></i> <span>Data Umum</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="#" class="smep-datum-penja-page">Penanggung Jawab</a></li>
+                <li><a href="#" class="smep-datum-daftan-page">Kegiatan</a></li>
+                <li><a href="#" class="smep-datum-dator-page">Data Organisasi</a></li>
+                <li><a href="#" class="smep-datum-patan-page">Pagu Kegiatan</a></li>
+                <li><a href="#" class="smep-datum-dapan-page">Data Pencairan SP2D</a></li>
+                <li><a href="#" class="smep-datum-tangan-page">Target Keuangan</a></li>
+                <li><a href="#" class="smep-datum-tasik-page">Target Fisik</a></li>
+            </ul>
+          </li>
+          <?php
+            }
+          ?>
+          <li class="treeview">
+            <a href="#"><i class="fa fa-edit"></i> <span>Entry Data</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="#" class="smep-enda-rup-page">Data RUP</a></li>
+              <?php 
+                if ($user->status == 1 || $user->status == 2){
+              ?>
+                <li><a href="#" class="smep-enda-sirup-page">Realisasi RUP</a></li>
+                <li><a href="#" class="smep-enda-sitepra-page">Realisasi TEPRA</a></li>
+              <?php 
+                }
+              ?>
+            </ul>
+          </li>
+          <?php
+            if ($user->status == 1 || $user->status == 2){
+          ?>
+            <li class="treeview">
+              <a href="#"><i class="fa fa-bar-chart-o"></i> <span>Laporan</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="#" class="smep-lapor-rapan-page">Rencana Pengadaan</a></li>
+                <li>
+                  <a href="#">Tepra
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu">
+                    <li><a href="#" class="smep-lapor-tepra-perencanaan-page">Perencanaan</a></li>
+                    <li><a href="#" class="smep-lapor-tepra-realisasi-page">Realisasi</a></li>
+                  </ul>
+                </li>
+                <li><a href="#" class="smep-lapor-lapan-page">Laporan Pengadaan</a></li>
+                <li><a href="#" class="smep-lapor-rebela-page">Realisasi Belanja Langsung</a></li>
+                <li><a href="#" class="smep-lapor-bast-page">Berita Acara Serah Terima</a></li>
+                <li><a href="#" class="smep-lapor-rup-page">Rencana Umum Pengadaan</a></li>
+              </ul>
+            </li>
+          <?php
+            }
+          ?>
+          <?php
+            if ($user->status == 1){
+          ?>
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-code-fork"></i> <span>Administrator</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="#" class="smep-admin-pengsi-page">Pengguna Aplikasi</a></li>
+                <li><a href="#" class="smep-admin-rup-page">Rekap Rencana Umum Pengadaan</a></li>
+                <li><a href="#" class="smep-admin-rapan-page">Rekap Rencana Pengadaan</a></li>
+                <li><a href="#" class="smep-admin-lapan-page">Rekap Laporan Pengadaan</a></li>
+                <li><a href="#" class="smep-admin-rebela-page">Rekap Realisasi Belanja Langsung</a></li>
+                <li><a href="#" class="smep-admin-misc-page">Misc</a></li>
+                <li><a href="#" class="smep-admin-rup-aktual-page">Rekap Rencana Umum Pengadaan - Aktual</a></li>
+              </ul>
+            </li>
+          <?php
+            }
+          ?>
+      <?php
+          }
+      ?>
+    </ul>
+  </section>
+</aside>

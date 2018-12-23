@@ -1,0 +1,93 @@
+<div class="col-md-12 paket-box hidden-show">
+	<div class="box box-primary tepraperencanaan-box">
+		<div class="box-header with-border">
+			<div class="col-md-12">
+				<div class="col-md-6" style="padding-top: 5px;">
+					<h3 class="box-title">Tabel Data</h3>
+				</div>
+				<div class="col-md-6">
+		        </div>
+			</div>
+		</div>
+		<div class="box-body tepraperencanaan-body">
+			<div class="col-md-12">
+				<div class="col-md-3">
+					<div class="form-group" style="padding: 10px 0px;">
+						<label>Keterangan</label>
+					</div>
+				</div>
+				<div class="col-md-9">
+					<div class="form-group">
+						<input type="text" name="" class="form-control" placeholder="" readonly="readonly" value="Rekapitulasi Rencana Pencairan Berdasarkan Metode Dirinci menurut Belanja Kegiatan">
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div class="col-md-3">
+					<div class="form-group" style="padding: 10px 0px;">
+						<label>Total Nilai Paket</label>
+					</div>
+				</div>
+				<div class="col-md-9">
+					<div class="form-group">
+						<input type="text" class="form-control laportepra-perencanaan-total-pagu-rup" placeholder="0" readonly="readonly">
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div class="table-responsive">
+					<table class="table smep-tepra-perencanaan-laporan-table" width="100%" cellspacing="0">
+						<thead>
+							<tr>
+								<th width="10%">No</th>
+								<th width="65%">Program / Kegiatan / Paket</th>
+								<th width="25%">Pagu</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Javascript -->
+<script type="text/javascript">
+	function laporTepraPerencanaanPaguPaket(MetodePemilihan){
+  		jQuery.ajax({
+          type      : 'AJAX',
+          method    : 'GET',
+          url       : 'laporan/tepra/perencanaan/pagu-paket/'+jQuery(".laportepra-perencanaan-skpd").val()+"/"+MetodePemilihan,
+          async     : true,
+          dataType  : 'JSON',
+          success   : function(JSON){
+          	jQuery(".laportepra-perencanaan-total-pagu-rup").val(JSON[0][0]);
+          },
+          error     : function(jqXHR, textStatus, errorThrown){
+            console.log('failed');
+          }
+        });
+  	}
+
+  	function laporTepraPerencanaanPaket(MetodePemilihan){
+  		jQuery.ajax({
+          type      : 'AJAX',
+          method    : 'GET',
+          url       : 'laporan/tepra/perencanaan/paket/'+jQuery(".laportepra-perencanaan-skpd").val()+"/"+MetodePemilihan,
+          async     : true,
+          dataType  : 'JSON',
+          success   : function(JSON){
+          	jQuery(".smep-tepra-perencanaan-laporan-table").dataTable({
+			  	destroy			: true,
+			  	processing		: true,
+			  	lengthMenu		: [["10"], ["10"]],
+			  	data 			: JSON
+			});
+          },
+          error     : function(jqXHR, textStatus, errorThrown){
+            console.log('failed');
+          }
+        });
+  	}
+</script>

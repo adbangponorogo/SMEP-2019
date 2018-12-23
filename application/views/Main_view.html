@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<?php
+		include_once 'lib/head.html';
+		include_once 'lib/style.html';
+	?>
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+	<?php
+		include_once 'default/header.html';
+		include_once 'default/sidebar.html';
+	?>
+	<input type="hidden" class="smep-year-value" value="2019">
+	<input type="hidden" class="smep-unique-token">
+	<input type="hidden" class="smep-unique-edit-token">
+	<div class="content-wrapper smep-content-page">
+		<?php
+			include_once 'pages/app/dashboard/data.html';
+		?>
+	</div>
+	<?php
+		include_once 'default/footer.html';
+		include_once 'lib/unique.js.html';
+	?>
+</div>
+</body>
+<?php
+	include_once 'lib/js.html';
+?>
+</html>

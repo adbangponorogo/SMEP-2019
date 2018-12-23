@@ -1,0 +1,181 @@
+<div class="col-md-12">
+  <div class="box box-primary">
+    <div class="box-header with-border" style="padding: 10px 0px;">
+      <div class="col-md-12" style="padding-top: 5px;">
+        <h3 class="box-title">Form Perubahan Data Kegiatan</h3>
+      </div>
+      <div class="box-header with-border" style="padding: 10px 0px;">
+        <div class="col-md-12" style="margin-bottom: 10px;">
+          <div class="col-md-3">
+            <div class="form-group" style="margin:10px 0px;">
+              <b>Program</b>
+            </div>
+          </div>
+          <div class="col-md-9" style="padding-top: 2.5px;">
+            <input type="text" class="form-control daftandatum-program-form-kegiatan" readonly="readonly" style="float: left; width: 100%;">
+          </div>
+        </div>
+        <div class="col-md-12" style="margin-bottom: 10px;">
+          <div class="col-md-3">
+            <div class="form-group" style="margin:10px 0px;">
+              <b>Kegiatan</b>
+            </div>
+          </div>
+          <div class="col-md-9" style="padding-top: 2.5px;">
+            <input type="text" class="form-control daftandatum-kegiatan-form-kegiatan" readonly="readonly" style="float: left; width: 100%;">
+          </div>
+        </div>
+      </div>
+      <div class="box-body">
+        <form action="#" method="POST" class="daftandatum-edit-form">
+          <div class="col-md-12" style="margin-bottom: 20px;">
+            <h5 class="box-title"><b>- Data Kegiatan -</b></h5>
+            <input type="hidden" name="id_kegiatan" class="daftandatum-id-kegiatan-edit">
+            <div class="form-group">
+              <label>Lokasi Kegiatan</label>
+              <input type="text" name="lokasi_kegiatan" class="form-control daftandatum-lokasikegiatan-edit" placeholder="">
+            </div>
+            <div class="form-group">
+              <label>Kelompok Sasaran</label>
+              <input type="text" name="kelompok_sasaran_kegiatan" class="form-control daftandatum-kelompoksasaran-edit" placeholder="">
+            </div>
+            <div class="form-group">
+              <label>Jangka Waktu Pelaksanaan</label>
+              <input type="text" name="jangka_waktu_kegiatan" class="form-control daftandatum-jangkawaktu-edit" placeholder="">
+            </div>
+            <div class="form-group">
+              <label>Narasi/Indikator Keluaran Kegiatan</label>
+              <input type="text" name="output_kegiatan" class="form-control daftandatum-outputkegiatan-edit" placeholder="">
+            </div>
+          </div>
+          <div class="col-md-12">
+            <h5 class="box-title"><b>- Data Penanggung Jawab -</b></h5>
+            <input type="hidden" name="id_pptk" class="daftandatum-id-pptk-edit">
+            <div class="form-group">
+              <label>Pilih PPTK</label><br>
+              <button class="btn btn-primary btn-sm smep-daftandatum-pptk-btn">
+                <i class="fa fa-share-square-o"></i>Pilih Penanggung Jawab
+              </button>
+            </div>
+            <div class="form-group">
+              <label>Nama</label>
+              <input type="text" class="form-control daftandatum-nama-pptk-edit" placeholder="Nama PPTK" readonly="">
+            </div>
+            <div class="form-group">
+              <label>NIP</label>
+              <input type="text" class="form-control daftandatum-nip-pptk-edit" placeholder="NIP PPTK" readonly="">
+            </div>
+            <div class="form-group">
+              <label>Jabatan</label>
+              <input type="text" class="form-control daftandatum-jabatan-pptk-edit" placeholder="Jabatan PPTK" readonly="">
+            </div>
+            <div class="form-group">
+              <label>Status</label>
+              <input type="text" class="form-control daftandatum-status-pptk-edit" placeholder="Status PPTK" readonly="">
+            </div>
+          </div>
+          <div class="col-md-12">
+            <input type="hidden" name="id_skpd" class="daftandatum-id-skpd-edit">
+            <button class="btn btn-primary smep-daftandatum-save-btn"><i class="fa fa-save"></i>&nbsp;Simpan Data</button>
+          </div>
+        </form>
+      </div>
+    </div>   
+</div>
+
+<script type="text/javascript">
+  // ---------------- Edit Data ---------------- //
+  datumDaftanKegiatanData()
+  function datumDaftanKegiatanData() {
+    jQuery.ajax({
+      type      : 'AJAX',
+      method    : 'GET',
+      url       : 'data-umum/kegiatan/edit-data-kegiatan/'+jQuery(".smep-skpd-main").val()+'/'+jQuery(".smep-unique-token").val(),
+      async     : true,
+      dataType  : 'JSON',
+      success   : function(JSON){
+        jQuery(".daftandatum-program-form-kegiatan").val(JSON[0][2]);
+        jQuery(".daftandatum-kegiatan-form-kegiatan").val(JSON[0][3]);
+
+        jQuery(".daftandatum-id-skpd-edit").val(JSON[0][0]);
+        jQuery(".daftandatum-id-kegiatan-edit").val(JSON[0][1]);
+        jQuery(".daftandatum-lokasikegiatan-edit").val(JSON[0][4]);
+        jQuery(".daftandatum-kelompoksasaran-edit").val(JSON[0][5]);
+        jQuery(".daftandatum-jangkawaktu-edit").val(JSON[0][6]);
+        jQuery(".daftandatum-outputkegiatan-edit").val(JSON[0][7]);
+        jQuery(".daftandatum-id-pptk-edit").val(JSON[0][8]);
+        jQuery(".daftandatum-nama-pptk-edit").val(JSON[0][9]);
+        jQuery(".daftandatum-nip-pptk-edit").val(JSON[0][10]);
+        jQuery(".daftandatum-jabatan-pptk-edit").val(JSON[0][11]);
+        jQuery(".daftandatum-status-pptk-edit").val(JSON[0][12]);
+      },
+      error     : function(jqXHR, textStatus, errorThrown){
+        console.log('failed');
+      }
+    });
+  }
+
+  jQuery(document).on("click", ".smep-daftandatum-pptk-btn", function(){
+    jQuery.ajax({
+      type      : 'AJAX',
+      method    : 'GET',
+      url       : 'data-umum/kegiatan/pptk-data/'+jQuery(".smep-skpd-main").val(),
+      async     : true,
+      dataType  : 'JSON',
+      success   : function(JSON){
+        jQuery(".smep-daftan-datum-pptk-table").DataTable({
+          "destroy"       : true,
+          "processing"    : true,
+          "lengthMenu"    : [["10"], ["10"]],
+          "data"          : JSON
+        });
+        jQuery(".smep-daftandatum-pptk-modal").modal("show");        
+      },
+      error     : function(jqXHR, textStatus, errorThrown){
+        console.log('failed');
+      }
+    });
+    return false;
+  });
+
+  jQuery(document).on("click", ".smep-daftandatum-pptk-get-btn", function(){
+    jQuery.ajax({
+      type      : 'AJAX',
+      method    : 'GET',
+      url       : 'data-umum/kegiatan/edit-pptk-data/'+jQuery(this).data("id"),
+      async     : true,
+      dataType  : 'JSON',
+      success   : function(JSON){
+        jQuery(".daftandatum-id-pptk-edit").val(JSON[0][0]);
+        jQuery(".daftandatum-nama-pptk-edit").val(JSON[0][1]);
+        jQuery(".daftandatum-nip-pptk-edit").val(JSON[0][2]);
+        jQuery(".daftandatum-jabatan-pptk-edit").val(JSON[0][3]);
+        jQuery(".daftandatum-status-pptk-edit").val(JSON[0][4]);       
+        jQuery(".smep-daftandatum-pptk-modal").modal("hide");        
+      },
+      error     : function(jqXHR, textStatus, errorThrown){
+        console.log('failed');
+      }
+    });
+    return false;
+  });
+
+  jQuery(document).on("click", ".smep-daftandatum-save-btn", function(){
+    jQuery.ajax({
+      type      : 'AJAX',
+      method    : 'POST',
+      url       : 'data-umum/kegiatan/save-data',
+      async     : true,
+      data      : jQuery(".daftandatum-edit-form").serialize(),
+      dataType  : 'JSON',
+      success   : function(JSON){
+        jQuery(".smep-content-page").load("data-umum/kegiatan/main-page");
+        jQuery(".smep-unique-token").val("");
+      },
+      error     : function(jqXHR, textStatus, errorThrown){
+        console.log('failed');
+      }
+    });
+    return false;
+  });
+</script>

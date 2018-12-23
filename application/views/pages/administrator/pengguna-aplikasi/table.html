@@ -1,0 +1,56 @@
+<div class="col-md-12">
+  <div class="box box-primary">
+    <div class="box-header with-border" style="padding: 10px 0px;">
+      <div class="col-md-6" style="padding-top: 5px;">
+        <h3 class="box-title">Tabel Data</h3>
+      </div>
+      <div class="col-md-6">
+        <div class="box-tools pull-right">
+          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+        </div>
+      </div>
+    </div>
+    <div class="box-body">
+      <div class="table-responsive">
+        <table class="table smep-pengsi-admin-table" width="100%" cellspacing="0">
+          <thead>
+            <tr> 
+              <th width="5%">No</th>
+              <th width="15%">Kode Unit Kerja</th>
+              <th width="45%">Nama Organisasi / Unit Kerja</th>
+              <th width="20%">Keterangan</th>
+              <th width="15%">Option</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Javascript -->
+<script type="text/javascript">
+  // --------------- Data Table --------------- //
+  jQuery.ajax({
+    type      : 'AJAX',
+    method    : 'GET',
+    url       : 'administrator/pengguna-aplikasi/main-data',
+    async     : true,
+    dataType  : 'JSON',
+    success   : function(JSON){
+      console.log('success');
+      jQuery(".smep-pengsi-admin-table").dataTable({
+        "destroy"       : true,
+        "processing"    : true,
+        "lengthMenu"    : [["10"], ["10"]],
+        "data"          : JSON
+      });
+    },
+    error     : function(jqXHR, textStatus, errorThrown){
+      console.log('failed');
+    }
+  });
+</script>

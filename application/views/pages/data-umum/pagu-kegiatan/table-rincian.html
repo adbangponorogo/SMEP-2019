@@ -1,0 +1,112 @@
+<div class="col-md-12">
+  <div class="box box-primary">
+    <div class="box-header with-border" style="padding: 10px 0px;">
+      <div class="col-md-12">
+        <h3 class="box-title">Tabel Rincian Sumber Dana</h3>
+      </div>
+    </div>
+    <div class="box-body patan-rincian-body-box">
+      <div class="col-md-12">
+        <div class="col-md-3">
+          <div class="form-group" style="margin: 10px 0px">
+            <b>Kode - Nama Program</b>
+          </div>
+        </div>
+        <div class="col-md-9" style="margin: 10px 0px;">
+          <div class="form-group">
+            <input type="text" class="form-control patandatum-program-update" readonly="readonly">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-3">
+          <div class="form-group" style="margin: 10px 0px">
+            <b>Kode - Nama Kegiatan</b>
+          </div>
+        </div>
+        <div class="col-md-9" style="margin: 10px 0px;">
+          <div class="form-group">
+            <input type="text" class="form-control patandatum-kegiatan-update" readonly="readonly">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-3">
+          <div class="form-group" style="margin: 10px 0px">
+            <b>Total Pagu</b>
+          </div>
+        </div>
+        <div class="col-md-9" style="margin: 10px 0px;">
+          <div class="form-group">
+            <input type="text" class="form-control patandatum-pagu-update" readonly="readonly">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="table-responsive">
+          <table class="table patandatum-sumber-dana-table" width="100%" cellspacing="0">
+            <thead>
+              <tr>
+                <th width="5%">No</th>
+                <th width="10%">Kode Rekening</th>
+                <th width="50%">Nama Belanja</th>
+                <th width="20%">Pagu</th>
+                <th width="15%">Sumber Dana</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>    
+</div>
+
+<!-- Javascript -->
+<script type="text/javascript">
+  //---------------- Select Option -----------------
+
+  //---------------- Data Program dan Kegiatan -----------------
+  datumPatanProgramKegiatanData();
+  function datumPatanProgramKegiatanData(){
+    jQuery.ajax({
+      type      : 'AJAX',
+      method    : 'GET',
+      url       : 'data-umum/pagu-kegiatan/program-kegiatan-data/'+jQuery(".smep-skpd-main").val()+'/'+jQuery(".smep-unique-token").val(),
+      async     : true,
+      dataType  : 'JSON',
+      success   : function(JSON){
+        jQuery(".patandatum-program-update").val(JSON[0][0]);
+        jQuery(".patandatum-kegiatan-update").val(JSON[0][1]);
+        jQuery(".patandatum-pagu-update").val(JSON[0][2]);
+      },
+      error     : function(jqXHR, textStatus, errorThrown){
+        console.log('failed');
+      }
+    });
+  }
+
+  //---------------- Data Sumber Dana -----------------
+  datumPatanSumberDanaData();
+  function datumPatanSumberDanaData(){
+    jQuery.ajax({
+      type      : 'AJAX',
+      method    : 'GET',
+      url       : 'data-umum/pagu-kegiatan/sumber-dana-data/'+jQuery(".smep-skpd-main").val()+'/'+jQuery(".smep-unique-token").val(),
+      async     : true,
+      dataType  : 'JSON',
+      success   : function(JSON){
+        jQuery(".patandatum-sumber-dana-table").dataTable({
+          destroy     : true,
+          processing  : true,
+          "lengthMenu"    : [["10"], ["10"]],
+          data        : JSON
+        });
+        jQuery(".patandatum-sumber-rincian-obyek-update").select2();
+      },
+      error     : function(jqXHR, textStatus, errorThrown){
+        console.log('failed');
+      }
+    });
+  }
+</script>

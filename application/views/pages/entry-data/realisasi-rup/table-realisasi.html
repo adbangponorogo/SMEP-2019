@@ -1,0 +1,176 @@
+<div class="col-md-12">
+	<div class="box box-primary">
+		<div class="box-header with-border">
+			<div class="col-md-12">
+				<h3 class="box-title">Keterangan Paket</h3>
+				<div class="box-tools pull-right">
+					<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+				</div>
+			</div>
+		</div>
+		<div class="box-body">
+			<div class="col-md-12">
+				<div class="row">
+					<div class="col-md-12" style="margin-bottom: 10px;">
+			          	<div class="col-md-3">
+			            	<div class="form-group" style="margin:10px 0px;">
+			                	<b>Nama Paket RUP</b>
+			              	</div>
+			          	</div>
+			          	<div class="col-md-9" style="padding-top: 2.5px;">
+			          		<input type="text" class="form-control smep-sirup-enda-nama-paket" readonly="readonly">
+			          	</div>
+			        </div>
+			        <div class="col-md-12" style="margin-bottom: 10px;">
+			          	<div class="col-md-3">
+			            	<div class="form-group" style="margin:10px 0px;">
+			                	<b>Kode dan Nama Rincian Obyek</b>
+			              	</div>
+			          	</div>
+			          	<div class="col-md-9" style="padding-top: 2.5px;">
+			          		<input type="text" class="form-control smep-sirup-enda-rincian-obyek" readonly="readonly">
+			          	</div>
+			        </div>
+			        <div class="col-md-12" style="margin-bottom: 10px;">
+			          	<div class="col-md-3">
+			            	<div class="form-group" style="margin:10px 0px;">
+			                	<b>Pagu Paket</b>
+			              	</div>
+			          	</div>
+			          	<div class="col-md-9" style="padding-top: 2.5px;">
+			          		<input type="text" class="form-control smep-sirup-enda-pagu-paket" readonly="readonly">
+			          	</div>
+			        </div>
+			        <div class="col-md-12" style="margin-bottom: 10px;">
+			          	<div class="col-md-3">
+			            	<div class="form-group" style="margin:10px 0px;">
+			                	<b>Sisa Pagu Paket</b>
+			              	</div>
+			          	</div>
+			          	<div class="col-md-9" style="padding-top: 2.5px;">
+			          		<input type="text" class="form-control smep-sirup-enda-sisa-pagu-paket" readonly="readonly">
+			          	</div>
+			        </div>
+			        <div class="col-md-12" style="margin-bottom: 10px;">
+			          	<div class="col-md-3">
+			            	<div class="form-group" style="margin:10px 0px;">
+			                	<b>Realisasi Keuangan</b>
+			              	</div>
+			          	</div>
+			          	<div class="col-md-9" style="padding-top: 2.5px;">
+			          		<input type="text" class="form-control smep-sirup-enda-realisasi-keuangan" readonly="readonly">
+			          	</div>
+			        </div>
+			        <div class="col-md-12" style="margin-bottom: 10px;">
+			          	<div class="col-md-3">
+			            	<div class="form-group" style="margin:10px 0px;">
+			                	<b>Realisasi Fisik</b>
+			              	</div>
+			          	</div>
+			          	<div class="col-md-9" style="padding-top: 2.5px;">
+			          		<input type="text" class="form-control smep-sirup-enda-realisasi-fisik" readonly="readonly">
+			          	</div>
+			        </div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="col-md-12">
+	<div class="box box-primary">
+		<form action="#" method="POST" class="sirupenda-multidelete-form">
+			<div class="box-header with-border">
+				<div class="col-md-12">
+					<h3 class="box-title smep-sirup-enda-realisasi-box-title">
+						Tabel Data&nbsp;
+					</h3>
+					<div class="box-tools pull-right">
+						<input type="checkbox" class="smep-sirupenda-allcheck-delete">&nbsp;<span class="label bg-red color-pallete">select semua data</span>
+	                    <button class="btn btn-danger btn-sm smep-sirupenda-multidelete-btn"><i class="fa fa-exclamation"></i>&nbsp;Hapus</button>
+					</div>
+				</div>
+			</div>
+			<div class="box-body">
+				<div class="col-md-12">
+					<div class="table-responsive">
+						<table class="table smep-sirup-enda-realisasi-table" width="100%" cellspacing="0">
+							<thead>
+								<tr>
+									<th width="5%">No</th>
+									<th width="30%">Pemenang</th>
+									<th width="20%">Tanggal</th>
+									<th width="20%">Pencairan</th>
+									<th width="10%">Fisik</th>
+									<th width="15%">Aksi</th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+<!-- Javascript -->
+<script type="text/javascript">
+	//------------ Data Realisasi - RUP --------------
+
+	endaSiRUPRUPRealisasiData();
+	function endaSiRUPRUPRealisasiData(){
+		jQuery.ajax({
+          type      : 'AJAX',
+          method    : 'GET',
+          url       : 'entry-data/realisasi-rup/main-data/rup-realisasi/all/'+jQuery(".smep-unique-token").val(),
+          async     : true,
+          dataType  : 'JSON',
+          success   : function(JSON){
+          	jQuery(".smep-sirup-enda-nama-paket").val(JSON[0][0]);
+          	jQuery(".smep-sirup-enda-rincian-obyek").val(JSON[0][1]);
+          	jQuery(".smep-sirup-enda-pagu-paket").val(JSON[0][2]);
+          	jQuery(".smep-sirup-enda-sisa-pagu-paket").val(JSON[0][3]);
+          	jQuery(".smep-sirup-enda-realisasi-keuangan").val(JSON[0][4]);
+          	jQuery(".smep-sirup-enda-realisasi-fisik").val(JSON[0][5]);
+
+          	if (JSON[0][6] == 0) {
+          		var button = "Table Data "+
+          					 "<button class='btn btn-primary btn-sm smep-sirupenda-ro-rup-register-btn'>"+
+								"<i class='fa fa-plus'></i>&nbsp;Tambah"+
+							 "</button>";
+          	}
+          	else{
+          		var button = "Table Data ";
+          	}
+          	jQuery(".smep-sirup-enda-realisasi-box-title").append().html(button);
+          },
+          error     : function(jqXHR, textStatus, errorThrown){
+              console.log('failed');
+          }
+        });
+	}
+
+	//------------ Data Realisasi --------------
+	endaSiRUPRealisasiData();
+	function endaSiRUPRealisasiData(){
+		jQuery.ajax({
+          type      : 'AJAX',
+          method    : 'GET',
+          url       : 'entry-data/realisasi-rup/main-data/realisasi/all/'+jQuery(".smep-unique-token").val(),
+          async     : true,
+          dataType  : 'JSON',
+          success   : function(JSON){
+          	jQuery(".smep-sirup-enda-realisasi-table").dataTable({
+				destroy		: true,
+				processing	: true,
+				"lengthMenu"    : [["10"], ["10"]],
+				data 		: JSON
+			});
+          },
+          error     : function(jqXHR, textStatus, errorThrown){
+              console.log('failed');
+          }
+        });
+	}
+	
+</script>

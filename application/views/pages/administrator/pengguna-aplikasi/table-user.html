@@ -1,0 +1,60 @@
+<div class="col-md-12">
+  <div class="box box-primary">
+    <div class="box-header with-border" style="padding: 10px 0px;">
+      <div class="col-md-6" style="padding-top: 5px;">
+        <h3 class="box-title">Tabel Data&nbsp;<button class="btn btn-primary btn-sm smep-pengsiadmin-user-register-btn">Tambah Data</button></h3>
+      </div>
+      <div class="col-md-6">
+        <div class="box-tools pull-right">
+          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+        </div>
+      </div>
+    </div>
+    <div class="box-body">
+      <div class="table-responsive">
+        <table class="table smep-pengsi-admin-user-table" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th width="5%">No</th>
+              <th width="20%">Name</th>
+              <th width="20%">Username</th>
+              <th width="20%">Status</th>
+              <th width="20%">Alamat</th>
+              <th width="15%">Option</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Javascript -->
+<script type="text/javascript">
+  adminPengsiUserData();
+  function adminPengsiUserData() {
+    // --------------- Data Table --------------- //
+    jQuery.ajax({
+      type      : 'AJAX',
+      method    : 'GET',
+      url       : 'administrator/pengguna-aplikasi/user-data/'+jQuery(".smep-unique-token").val(),
+      async     : true,
+      dataType  : 'JSON',
+      success   : function(JSON){
+        console.log('success');
+        jQuery(".smep-pengsi-admin-user-table").DataTable({
+          "destroy"       : true,
+          "processing"    : true,
+          "lengthMenu"    : [["10"], ["10"]],
+          "data"          : JSON
+        });
+        
+      },
+      error     : function(jqXHR, textStatus, errorThrown){
+        console.log('failed');
+      }
+    });
+  }
+</script>

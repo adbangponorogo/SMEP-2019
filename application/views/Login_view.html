@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>SMEP 2019 | LPSE PONOROGO</title>
+  <link rel="icon" type="image/png" sizes="16x16" href="<?=base_url('assets/uploads/logo-lpse.png')?>">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <meta name="description" content="">
+  <meta name="author" content="LPSE PONOROGO DEVELOPER">
+  <script type="text/javascript" src="<?=base_url('assets/js/jquery-2.2.3.min.js')?>"></script>
+  <link rel="stylesheet" href="<?=base_url('assets/css/bootstrap.min.css')?>">
+  <link rel="stylesheet" href="<?=base_url('assets/css/font-awesome.min.css')?>">
+  <link rel="stylesheet" href="<?=base_url('assets/css/build/AdminLTE.min.css')?>">
+  <link rel="stylesheet" href="<?=base_url('assets/css/build/_all-skins.min.css')?>">
+  <link rel="stylesheet" href="<?=base_url('assets/css/build/style.css')?>">
+</head>
+<body class="hold-transition login-page">
+  <?php
+    include_once 'pages/app/login/modal.html';
+  ?>
+<div class="login-box">
+  <div class="login-logo">
+    <img src="<?=base_url('assets/uploads/kabupaten-ponorogo-vector-logo.png')?>" style="width:170px; height:115px;"><br>
+    <a><b>SMEP</b>LTE</a><br>
+    <h5><b>SMEP Tahun Anggaran 2019 - Sebelum PAK</b></h5>
+  </div>
+  <div class="login-box-body">
+    <p class="login-box-msg">Sign in to start your session</p>
+    <form action="#" method="POST" class="auth-login-form">
+      <div class="form-group has-feedback">
+        <input type="email" name="username" class="form-control smep-username-auth" placeholder="Username">
+        <span class="fa fa-envelope-o form-control-feedback"></span>
+      </div>
+      <div class="form-group has-feedback">
+        <input type="password" name="password" class="form-control smep-password-auth" placeholder="Password">
+        <span class="fa fa-lock form-control-feedback"></span>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <button type="submit" class="btn btn-primary btn-block btn-flat smep-auth-login-btn">
+            <i class="fa fa-paper-plane"></i>&nbsp; LOGIN
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+</body>
+  <script type="text/javascript" src="<?=base_url('assets/js/bootstrap.min.js')?>"></script>
+  <script type="text/javascript" src="<?=base_url('assets/js/jquery.dataTables.min.js')?>"></script>
+  <script type="text/javascript" src="<?=base_url('assets/js/dataTables.bootstrap.min.js')?>"></script>
+  <script type="text/javascript" src="<?=base_url('assets/js/app/smep.auth.app.js')?>"></script>
+</html>

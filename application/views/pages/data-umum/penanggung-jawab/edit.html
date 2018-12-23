@@ -1,0 +1,54 @@
+<div class="modal fade smep-penjadatum-edit-modal" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Update Pengguna Aplikasi</h4>
+      </div>
+        <form action="#" method="POST" enctype="multipart/form-data" class="penjadatum-edit-form">
+          <div class="modal-body">
+            <div class="form-group">
+                <label>Nama Pegawai</label>
+                <input type="text" name="nama" class="form-control penjadatum-nama-edit" placeholder="Nama Pegawai">
+            </div>
+            <div class="form-group">
+                <label>NIP</label>
+                <input type="text" name="nip" class="form-control penjadatum-nip-edit" placeholder="Nomor Induk Pegawai">
+            </div>
+            <div class="form-group">
+                <label>Jabatan</label>
+                <input type="text" name="jabatan" class="form-control penjadatum-jabatan-edit" placeholder="Jabatan">
+            </div>
+            <div class="form-group">
+                <label>Status Dalam Monev</label>
+                <select name="status" class="form-control penjadatum-status-edit">
+                    <option value="1">1 - PPTK Perangkat Daerah</option>
+                    <option value="2">2 - Kepala Perangkat Daerah</option>
+                    <option value="3">3 - PPK (Pejabat Pembuat Komitmen)</option>
+                    <option value="4">4 - KPA (Kuasa Pengguna Anggaran)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Golongan</label>
+                <input type="text" name="golongan" class="form-control penjadatum-golongan-edit" placeholder="Golongan">
+            </div>
+            <div class="form-group">
+                <label>Pangkat</label>
+                <input type="text" name="pangkat" class="form-control penjadatum-pangkat-edit" placeholder="Pangkat">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <div class="col-md-12">
+                <div class="pull-left">
+                    <div class="form-group">
+                        <input type="hidden" name="token" class="penjadatum-token-edit">
+                        <button class="btn btn-primary smep-penjadatum-edit-update-btn">Update</button>
+                        <button class="btn btn-danger smep-penjadatum-edit-cancel-btn">Batal</button>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </form>
+    </div>
+  </div>
+</div>

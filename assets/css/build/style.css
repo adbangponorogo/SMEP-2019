@@ -1,0 +1,254 @@
+.login-box{
+	margin: 5% auto;
+}
+.sidebar-menu, .main-sidebar .user-panel, .sidebar-menu>li.header{
+	white-space: normal;
+}
+
+.dataTables_processing{
+    z-index: 3000 !important;
+}
+
+.ui-datepicker-calendar {
+	display: none;
+}
+
+.wrapper {
+	/*min-height: 100%;
+	position: relative;
+	overflow: hidden;*/
+	width: 100%;
+	min-height: 100%;
+	height: auto !important;
+	position: absolute;
+}
+
+div.dataTables_wrapper div.dataTables_length label,
+div.dataTables_wrapper div.dataTables_filter label,
+div.dataTables_wrapper div.dataTables_info{
+	color: #807979;
+}
+
+.table thead tr th, .table tfoot tr th, .table tbody tr td{
+	color: #5a5959;
+}
+
+.table thead tr th, .table tfoot tr th{
+	border: none;
+}
+
+.action-column a{
+	text-decoration: none;
+	color: #919191;
+	margin: 5px;
+	display: inline-block;
+	transition: 0.2s;
+}
+
+.action-column a:hover{
+	color: #47a7bc;
+}
+
+.box-body{
+	overflow: hidden;
+}
+
+.delete-button{
+	margin-left: 5px;
+}
+
+.checkbox-delete{
+	margin-left: 10px !important;
+}
+
+.loader{
+	position: fixed;
+	float: left;
+	width: 100%;
+	height: 100%;
+	background: #fff;
+	z-index: 9999;
+	text-align: center;
+}
+
+.loader img{
+	margin-top: 20%;
+}
+
+.skin-blue .main-header .navbar .sidebar-toggle{
+	float: left;
+}
+
+.main-header .navbar-custom-menu, .main-header .navbar-right{
+	float: left;
+	width: 90%;
+}
+
+.navbar-nav{
+	float: right;
+	width: 60%;
+}
+
+.navbar-custom-menu .navbar-nav .second-header{
+	width: 70%;
+	padding: 8px 10px;
+	color: #fff;
+}
+
+.navbar-custom-menu .navbar-nav .second-header b{
+	float: left;
+	width: 100%;
+	margin-top: 3px;
+	margin-bottom: 1px;
+	text-align: right;
+}
+.navbar-custom-menu .navbar-nav .second-header:hover{
+	background:#337ab7;
+}
+
+.select-with-search{
+	float: left;
+	width: 100%;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered{
+	line-height: 27px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow{
+	top: -2px;
+	right: 7px;
+    width: 10px;
+}
+
+.visible-show{
+	display: block !important;
+}
+
+.hidden-show{
+	display: none !important;
+}
+
+.download-title{
+	font-weight: bold;
+	color: #a69e9e;
+	font-weight: bold;
+	font-size: 15px;
+	text-transform: uppercase;
+}
+
+.download-thumbnail{
+	margin-top: 20px;
+	margin-bottom: 20px;
+	font-size: 60px;
+	font-weight: bold;
+	color: #7aacf4;
+}
+
+.download-sub-thumbnail{
+	margin-top: 10px;
+	margin-bottom: 20px;
+	font-size: 16px;
+	color: #9a9a9a;
+}
+
+.line-control{
+	margin-top: 10px;
+	margin-bottom: 10px;
+	width: 100%;
+	height: 1px;
+	background: #e2e2e2;
+}
+
+.download-btn{
+	float: left;
+	width: 100%;
+}
+
+
+/*------- Responsive --------*/
+@media(max-width: 1254px){
+	.navbar-custom-menu .navbar-nav .second-header{
+		width: 68%;
+		/*padding: 12px 10px;*/
+	}
+	.select2-container--default .select2-selection--single .select2-selection__arrow{
+		right: 7px;
+	    width: 8px;
+	}
+	.navbar-custom-menu .navbar-nav .second-header b{
+		margin-bottom: 2px;
+	}
+}
+@media(max-width: 1154px){
+	.navbar-nav{
+		width: 75%;
+	}
+	.navbar-custom-menu .navbar-nav .second-header{
+		width: 65%;
+	}
+}
+@media(max-width: 991px){
+	.navbar-nav{
+		width: 80%;
+	}
+	.navbar-custom-menu .navbar-nav .second-header{
+		width: 60%;
+	}
+}
+@media(max-width: 925px){
+	.navbar-nav{
+		width: 95%;
+	}
+}
+@media(max-width: 900px){
+	.navbar-nav{
+		width: 100%;
+	}
+}
+@media(max-width: 725px){
+	.navbar-nav{
+		width: 72%;
+	}
+	.navbar-custom-menu .navbar-nav .second-header{
+		width: 80%;
+		/*padding: 11px 10px;*/
+	}
+	.navbar-custom-menu .navbar-nav .second-header b{
+		margin-bottom: 4px;
+	}
+}
+
+@media(max-width: 625px){
+	.navbar-nav{
+		width: 80%;
+	}
+}
+@media(max-width: 500px){
+	.main-header .navbar-custom-menu, .main-header .navbar-right{
+		width: 85%;
+	}
+	.navbar-nav{
+		width: 100%;
+	}
+	.navbar-custom-menu .navbar-nav .second-header b{
+		margin-bottom: 5px;
+	}
+}
+@media(max-width: 450px){
+	.main-header .navbar-custom-menu, .main-header .navbar-right{
+		width: 80%;
+	}
+	.navbar-nav{
+		width: 100%;
+	}
+	.nav>li>a{
+		padding: 10px;
+	}
+	.navbar-nav>.user-menu .user-image{
+		width: 20px;
+		height: 20px;
+	}
+}
+
+

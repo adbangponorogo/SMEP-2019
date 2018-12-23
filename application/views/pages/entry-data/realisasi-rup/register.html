@@ -1,0 +1,229 @@
+<div class="col-md-12">
+	<div class="box box-primary">
+		<div class="box-header with-border">
+			<div class="col-md-12">
+				<h3 class="box-title">Form Data</h3>
+				<div class="box-tools pull-right">
+			        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+			    </div>
+			</div>
+		</div>
+		<div class="box-body">
+			<form action="#" method="POST" class="sirupenda-register-form">
+				<div class="col-md-12">
+					<div class="col-md-12">
+						<h3 class="page-header" style="font-size: 15px;"><b>TEPRA</b></h3>
+						<div class="col-md-6" style="padding: 0px 5px;">
+							<div class="form-group">
+								<label>Program</label>
+								<input type="text" class="form-control sirupenda-program-reg" placeholder="" readonly="readonly">
+							</div>
+							<div class="form-group">
+								<label>Kegiatan</label>
+								<input type="text" class="form-control sirupenda-kegiatan-reg" readonly="readonly">
+							</div>
+							<div class="form-group">
+								<label>Nama Paket</label>
+								<input type="text" class="form-control sirupenda-nama-paket-reg" readonly="readonly">
+							</div>
+							<div class="form-group">
+								<label>Pagu Paket</label>
+								<input type="text" class="form-control sirupenda-pagu-paket-reg" readonly="readonly">
+								<input type="hidden" name="pagu_paket" class="sirupenda-real-pagu-paket-reg">
+							</div>
+							<div class="form-group">
+								<label>Sumber Dana</label>
+								<input type="text" class="form-control sirupenda-sumber-dana-reg" readonly="readonly">
+							</div>
+							<div class="form-group">
+								<label>Jenis Pengadaan (TEPRA)</label>
+								<input type="text" class="form-control sirupenda-jenis-pengadaan-reg" readonly="readonly">
+							</div>
+							<div class="form-group">
+								<label>Metode Pemilihan (TEPRA)</label>
+								<input type="text" class="form-control sirupenda-metode-pemilihan-reg" readonly="readonly">
+							</div>
+						</div>
+						<div class="col-md-6" style="padding: 0px 5px;">
+							<div class="form-group">
+								<label>Tanggal Pencairan</label>
+								<input type="text" name="tanggal_pencairan" class="form-control month-picker sirupenda-tanggal-pencairan-reg" placeholder="Pencairan">
+							</div>
+							<div class="form-group">
+								<label>Realisasi Keuangan</label>
+								<input type="number" name="realisasi_keuangan" class="form-control sirupenda-realisasi-keuangan-reg" min="0" placeholder="0" value="0">
+								<input type="hidden" class="sirupenda-sisa-pagu-paket-reg">
+							</div>
+							<div class="form-group">
+								<label>Presentase Realisasi Fisik (%)</label>
+								<div class="input-group">
+									<input type="text" name="realisasi_fisik" class="form-control sirupenda-realisasi-fisik-reg" readonly="readonly" value="0">
+									<div class="input-group-addon smep-sirupenda-register-count-realisasi-fisik-btn" data-toggle="tooltip" data-placement="top" title="Lihat Realisasi Fisik" style="cursor: pointer;">
+										<i class="fa fa-calculator"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="col-md-12">
+						<h3 class="page-header" style="font-size: 15px;"><b>Riwayat Pengadaan</b></h3>
+						<div class="col-md-12" style="padding: 0px;">
+							<div class="col-md-4" style="padding: 0px 5px;">
+								<div class="form-group">
+									<label>H.P.S</label>
+									<input type="number" name="nilai_hps" class="form-control sirupenda-hps-reg" min="0" placeholder="0">
+								</div>
+								<div class="form-group">
+									<label>Jumlah Mendaftar</label>
+									<input type="number" name="jumlah_mendaftar" class="form-control sirupenda-jumlah-mendaftar-reg" min="0" placeholder="0">
+								</div>
+								<div class="form-group">
+									<label>Lulus Pra-Kualifikasi</label>
+									<input type="number" name="jumlah_lulus_kualifikasi" class="form-control sirupenda-lulus-kualifikasi-reg" min="0" placeholder="0">
+								</div>
+								<div class="form-group">
+									<label>Jumlah Menawar</label>
+									<input type="number" name="jumlah_menawar" class="form-control sirupenda-jumlah-menawar-reg" min="0" placeholder="0">
+								</div>
+								<div class="form-group">
+									<label>Lulus Teknis</label>
+									<input type="number" name="jumlah_lulus_teknis" class="form-control sirupenda-lulus-teknis-reg" min="0" placeholder="0">	
+								</div>
+							</div>
+							<div class="col-md-4" style="padding: 0px 5px;">
+								<div class="form-group">
+									<label>Tanggal Pengumuman</label>
+									<input type="text" name="tanggal_pengumuman" class="form-control month-picker sirupenda-tanggal-pengumuman-reg" placeholder="Pengumuman">
+								</div>
+								<div class="form-group">
+									<label>Tanggal Anwijzing</label>
+									<input type="text" name="tanggal_anwijzing" class="form-control month-picker sirupenda-tanggal-anwijzing-reg" placeholder="Anwijzing">
+								</div>
+								<div class="form-group">
+									<label>Tanggal Pembukaan Penawaran</label>
+									<input type="text" name="tanggal_pembukaan_penawaran" class="form-control month-picker sirupenda-tanggal-pembukaan-penawaran-reg" placeholder="Pembukaan Penawaran">
+								</div>
+								<div class="form-group">
+									<label>Tanggal Klarifikasi & Negosiasi</label>
+									<input type="text" name="tanggal_klarifikasi_negosiasi" class="form-control month-picker sirupenda-tanggal-klarifikasi-negosiasi-reg" placeholder="Klarifikasi & Negosiasi">
+								</div>
+								<div class="form-group">
+									<label>Tanggal Kontrak</label>
+									<input type="text" name="tanggal_kontrak" class="form-control month-picker sirupenda-tanggal-kontrak-reg" placeholder="Kontrak">
+								</div>
+								<div class="form-group">
+									<label>Tanggal SPMK/SP</label>
+									<input type="text" name="tanggal_spmk" class="form-control month-picker sirupenda-tanggal-spmk-reg" placeholder="SPMK/SP">
+								</div>
+							</div>
+							<div class="col-md-4" style="padding: 0px 5px;">
+								<div class="form-group">
+									<label>No Kontrak</label>
+									<input type="text" name="nomor_kontrak" class="form-control sirupenda-nomor-kontrak-reg" placeholder="No. Kontrak">
+								</div>
+								<div class="form-group">
+									<label>Nama Pemenang</label>
+									<input type="text" name="nama_pemenang" class="form-control sirupenda-nama-pemenang-reg" placeholder="Nama Pemenang">
+								</div>
+								<div class="form-group">
+									<label>Nilai Kontrak</label>
+									<input type="number" name="nilai_kontrak" class="form-control sirupenda-nilai-kontrak-reg" min="0" placeholder="0">
+								</div>
+								<div class="form-group">
+									<label>Sanggah</label>
+									<select name="sanggah" class="form-control sirupenda-sanggah-reg">
+										<option value="1">Tanpa Sanggahan</option>
+										<option value="2">Sanggah</option>
+										<option value="3">Sanggah Banding</option>
+										<option value="4">Pengaduan</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="col-md-12">
+						<h3 class="page-header" style="font-size: 15px;"><b>Serah Terima PPK Kepada PA/KPA</b></h3>
+						<div class="col-md-12" style="padding: 0px;">
+							<div class="col-md-12" style="padding: 0px">
+								<div class="form-group">
+									<label>Nomor Surat</label>
+									<input type="text" name="nomor_surat" class="form-control sirupenda-nomor-surat-reg" placeholder="Nomor Surat">
+								</div>
+								<div class="form-group">
+									<label>Tanggal Surat</label>
+									<input type="text" name="tanggal_surat_serah_terima" class="form-control month-picker sirupenda-tanggal-surat-serah-terima-reg" placeholder="Surat Serah Terima">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="col-md-12">
+						<h3 class="page-header"></h3>
+						<div class="col-md-12">
+							<div class="form-gorup">
+								<input type="hidden" name="id_rup" class="sirupenda-idrup-reg">
+								<input type="hidden" name="id_skpd" class="sirupenda-idskpd-reg">
+								<button class="btn btn-primary smep-sirupenda-register-send-btn">Simpan</button>
+								<button class="btn btn-danger smep-sirupenda-register-cancel-btn">Batal</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<!-- Javascript -->
+<script type="text/javascript">
+	jQuery(".month-picker").datepicker({
+		format		: 'dd-mm-yyyy',
+		viewMode	: 'dates',
+		minViewMode	: 'dates'
+	});
+
+	// ---------------- Users PPK ---------------- //
+	jQuery(".sirupenda-idrup-reg").val(jQuery(".smep-unique-token").val());
+	jQuery(".sirupenda-idskpd-reg").val(jQuery(".smep-skpd-main").val());
+
+	// ---------------- Data RUP ---------------- //
+	endaSiRUPRUPData();
+	function endaSiRUPRUPData() {
+	    jQuery.ajax({
+		    type      : 'AJAX',
+		    method    : 'GET',
+		    url       : 'entry-data/realisasi-rup/rup-data/'+jQuery(".smep-unique-token").val(),
+		    async     : true,
+		    dataType  : 'JSON',
+		    success   : function(JSON){
+		    	jQuery(".sirupenda-program-reg").val(JSON[0][0]);
+		    	jQuery(".sirupenda-kegiatan-reg").val(JSON[0][1]);
+		    	jQuery(".sirupenda-nama-paket-reg").val(JSON[0][2]);
+		    	jQuery(".sirupenda-pagu-paket-reg").val(JSON[0][3]);
+		    	jQuery(".sirupenda-real-pagu-paket-reg").val(JSON[0][4]);
+		    	jQuery(".sirupenda-sisa-pagu-paket-reg").val(JSON[0][5]);
+		    	jQuery(".sirupenda-sumber-dana-reg").val(JSON[0][6]);
+		    	jQuery(".sirupenda-jenis-pengadaan-reg").val(JSON[0][7]);
+		    	jQuery(".sirupenda-metode-pemilihan-reg").val(JSON[0][8]);
+		    },
+		    error     : function(jqXHR, textStatus, errorThrown){
+		        console.log('failed');
+		    }
+	    });
+	}
+
+	// ---------------- Count Realisasi Fisik ---------------- //
+	jQuery("[data-toggle='tooltip']").tooltip();
+	jQuery(document).on("click", ".smep-sirupenda-register-count-realisasi-fisik-btn", function(){
+		var realisasi_keuangan = parseInt(jQuery(".sirupenda-realisasi-keuangan-reg").val());
+		var pagu_paket = parseInt(jQuery(".sirupenda-real-pagu-paket-reg").val());
+		var hasil_fisik = (realisasi_keuangan/pagu_paket)*100;
+		jQuery(".sirupenda-realisasi-fisik-reg").val(hasil_fisik);
+		return false;
+	});
+</script>
