@@ -78,13 +78,8 @@ if ($_SERVER["SERVER_NAME"] == "localhost") {
 		'dsn'	=> '',
 		'hostname' => 'localhost',
 		'username' => 'root',
-<<<<<<< HEAD
 		'password' => 'Bismillah123',
 		'database' => 'db_smep_2019',
-=======
-		'password' => '',
-		'database' => 'lpsepono_smep',
->>>>>>> 0dc0da75eb2468032dc0f974f3b0bddd55b5038d
 		'dbdriver' => 'mysqli',
 		'dbprefix' => '',
 		'pconnect' => FALSE,
