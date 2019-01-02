@@ -221,6 +221,8 @@ class Laporlapan_controller extends CI_Controller {
 			$object->getActiveSheet()->getStyle('A10:R11')->getFIll()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('D9D9D9');
 
  			$sumber_dana = ["", "APBD","APBDP","APBN","APBNP","BLU","BLUD","BUMD","BUMN","PHLN","PNBP","Lainnya"];
+ 			$metode_pemilihan = ["-", "E-Purchasing", "Tender", "Tender Cepat", "Pengadaan Langsung", "Penunjukan Langsung", "Seleksi"];
+ 			$sanggah = ["-", "Tanpa Sanggah", "Sanggah", "Sanggah Banding", "Pengaduan"];
  			$no = 1;
  			$mulai = 12;
 			$result_skpd = $this->model->getDataSKPDUnique($skpd);
@@ -269,7 +271,6 @@ class Laporlapan_controller extends CI_Controller {
 							$result_realisasi_rup = $this->model->getDataRealisasiRUP($rows_rup->id);
 							if ($result_realisasi_rup->num_rows() > 0) {
 								foreach ($result_realisasi_rup->result() as $rows_realisasi_rup) {
-									$sumber_dana = array("", "APBD", "APBDP", "APBN", "APBNP", "BLU", "BLUD", "BUMD", "BUMN", "PHLN", "PNBP", "LAINNYA");
 									// -------- Value ---------
 									$object->getActiveSheet()->setCellValue('A'.($mulai++), $no++);					
 									$object->getActiveSheet()->setCellValue('B'.(($mulai++)-1), $rows_rup->nama_paket);
@@ -278,7 +279,7 @@ class Laporlapan_controller extends CI_Controller {
 									$object->getActiveSheet()->setCellValue('E'.(($mulai)-2), $this->null_value($rows_realisasi_rup->nilai_hps));
 									$object->getActiveSheet()->setCellValue('F'.(($mulai)-2), $this->null_value($rows_realisasi_rup->realisasi_keuangan));
 									$object->getActiveSheet()->setCellValue('G'.(($mulai)-2), "=sum(D".(($mulai)-2)."-F".(($mulai)-2).")");
-									$object->getActiveSheet()->setCellValue('H'.(($mulai)-2), $this->null_value($rows_rup->metode_pemilihan));
+									$object->getActiveSheet()->setCellValue('H'.(($mulai)-2), $metode_pemilihan[$this->null_value($rows_rup->metode_pemilihan)]);
 									$object->getActiveSheet()->setCellValue('I'.(($mulai)-2), $this->null_value($rows_realisasi_rup->jumlah_mendaftar));
 									$object->getActiveSheet()->setCellValue('J'.(($mulai)-2), $this->null_value($rows_realisasi_rup->jumlah_menawar));
 									$object->getActiveSheet()->setCellValue('K'.(($mulai)-2), $this->null_value($rows_realisasi_rup->tanggal_pengumuman));
@@ -287,12 +288,11 @@ class Laporlapan_controller extends CI_Controller {
 									$object->getActiveSheet()->setCellValue('N'.(($mulai)-2), $this->null_value($rows_realisasi_rup->tanggal_penetapan_pemenang));
 									$object->getActiveSheet()->setCellValue('O'.(($mulai)-2), $this->null_value($rows_realisasi_rup->nama_pemenang));
 									$object->getActiveSheet()->setCellValue('P'.(($mulai)-2), $this->null_value($rows_realisasi_rup->tanggal_spmk));
-									$object->getActiveSheet()->setCellValue('Q'.(($mulai)-2), $this->null_value($rows_realisasi_rup->sanggah));
+									$object->getActiveSheet()->setCellValue('Q'.(($mulai)-2), $sanggah[$this->null_value($rows_realisasi_rup->sanggah)]);
 									$object->getActiveSheet()->setCellValue('R'.(($mulai)-2), '-');
 								}
 							}
 							else{
-								$sumber_dana = array("", "APBD", "APBDP", "APBN", "APBNP", "BLU", "BLUD", "BUMD", "BUMN", "PHLN", "PNBP", "LAINNYA");
 									// -------- Value ---------
 									$object->getActiveSheet()->setCellValue('A'.($mulai++), $no++);					
 									$object->getActiveSheet()->setCellValue('B'.(($mulai++)-1), $rows_rup->nama_paket);
