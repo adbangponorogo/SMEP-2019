@@ -288,9 +288,9 @@ class Laporteprarealisasi_controller extends CI_Controller {
 
 
 
-			$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
+			$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel2007');
 			header('Content-type: application/vnd.ms-excel');
-			header('Content-Disposition: attachment; filename="Laporan TEPRA Realisasi - '.$nama_skpd.'.xls"');
+			header('Content-Disposition: attachment; filename="Laporan TEPRA Realisasi - '.$nama_skpd.'.xlsx"');
 			$object_writer->save('php://output');
 		}
 	}
