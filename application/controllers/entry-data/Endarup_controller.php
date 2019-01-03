@@ -32,13 +32,25 @@ class Endarup_controller extends CI_Controller {
 			$result = $this->model->getDataUsers($this->session->userdata('auth_id'));
 			$data = array();
 			foreach ($result->result() as $rows) {
-				$data[] = array(
-							$rows->id,
-							$rows->nama,
-							$rows->status
-						);
+                    if ($rows->status == 3) {
+     				$data[] = array(
+     							$rows->id,
+     							$rows->nama,
+     							$rows->status
+     						);
+                    }
+                    else{
+                         $result_all = $this->model->getDataUsersAllPPK($rows->id_skpd);
+                         foreach ($result_all->result() as $rows_all) {
+                              $data[] = array(
+                                        $rows_all->id,
+                                        $rows_all->nama,
+                                        $rows_all->status
+                                   );
+                         }
+                    }
 			}
-			echo json_encode($data);
+			echo json_encode($data); 
 		}
 	}
 

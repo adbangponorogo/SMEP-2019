@@ -14,26 +14,21 @@ jQuery(document).ready(function(){
 		var november = jQuery(".tasikdatum-november-update").val();
 		var desember = jQuery(".tasikdatum-desember-update").val();
 		var hasil_fisik = januari+februari+maret+april+mei+juni+juli+agustus+september+oktober+november+desember;
-		if (parseFloat(hasil_fisik).toFixed(2) <= parseFloat(100).toFixed(2)) {
-			jQuery.ajax({
-		      type      : 'AJAX',
-		      method    : 'POST',
-		      url       : 'data-umum/target-fisik/save-data',
-		      async     : true,
-		      data  	: jQuery(".tasikdatum-update-form").serialize(),
-		      dataType  : 'JSON',
-		      success   : function(JSON){
-		      	datumTasikMainData();
+		jQuery.ajax({
+		    type      : 'AJAX',
+		    method    : 'POST',
+		    url       : 'data-umum/target-fisik/save-data',
+		    async     : true,
+		    data  	: jQuery(".tasikdatum-update-form").serialize(),
+		    dataType  : 'JSON',
+		    success   : function(JSON){
+		    	datumTasikMainData();
 		      	datumTasikRencanaFisikData();
-		      },
-		      error     : function(jqXHR, textStatus, errorThrown){
+		    },
+		    error     : function(jqXHR, textStatus, errorThrown){
 		        console.log('failed');
-		      }
-		    });
-		}
-		else{
-			alert("Rencana Realisasi Fisik tidak boleh melebihi 100%");
-		}
+		    }
+		});
 		return false;
 	});
 });
