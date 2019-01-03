@@ -27,7 +27,22 @@ class Endarup_controller extends CI_Controller {
 		}
 	}
 
-	public function getDataUser(){
+     public function getDataUser(){
+          if ($this->session->userdata("auth_id") != "") {
+               $result = $this->model->getDataUsers($this->session->userdata('auth_id'));
+               $data = array();
+               foreach ($result->result() as $rows) {
+                    $data[] = array(
+                                   $rows->id,
+                                   $rows->nama,
+                                   $rows->status
+                              );
+               }
+               echo json_encode($data); 
+          }
+     }
+
+	public function getDataUserPPK($id_skpd){
 		if ($this->session->userdata("auth_id") != "") {
 			$result = $this->model->getDataUsers($this->session->userdata('auth_id'));
 			$data = array();
@@ -40,7 +55,7 @@ class Endarup_controller extends CI_Controller {
      						);
                     }
                     else{
-                         $result_all = $this->model->getDataUsersAllPPK($rows->id_skpd);
+                         $result_all = $this->model->getDataUsersAllPPK($id_skpd);
                          foreach ($result_all->result() as $rows_all) {
                               $data[] = array(
                                         $rows_all->id,
