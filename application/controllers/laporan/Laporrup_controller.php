@@ -322,9 +322,9 @@ class Laporrup_controller extends CI_Controller {
 	 				$object->getActiveSheet()->setCellValue('B10', 'NIHIL');
 	 			}
 
-				$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel2007');
+				$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
 				header('Content-type: application/vnd.ms-excel');
-				header('Content-Disposition: attachment; filename="Laporan RUP - '.$nama_cara_pengadaan.'.xlsx"');
+				header('Content-Disposition: attachment; filename="Laporan RUP - '.$nama_cara_pengadaan.'.xls"');
 				$object_writer->save('php://output');
 			}
 

@@ -20,7 +20,8 @@ class Adminmisc_model extends CI_Model {
         $this->db->select("a.*");
         $this->db->from("simda_skpd a");
         $this->db->join("tb_skpd_urutan b", "a.kd_skpd = b.kd_skpd");
-        $this->db->order_by('b.urutan', 'ASC');
+        $this->db->where("b.urutan >", 0);
+        $this->db->order_by("b.urutan", "ASC");
         $data = $this->db->get();
         return $data;
     }

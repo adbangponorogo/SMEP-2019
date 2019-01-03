@@ -99,6 +99,7 @@ class Datumdaftan_model extends CI_Model {
     public function getDataPPTK($id_skpd){
         $this->db->select("*");
         $this->db->from("tb_pptk");
+        $this->db->where("id_skpd", $id_skpd);
         $data = $this->db->get();
         return $data;
     }
@@ -106,7 +107,7 @@ class Datumdaftan_model extends CI_Model {
     public function getDataPPTKUnique($id){
         $this->db->select("*");
         $this->db->from("tb_pptk");
-        $this->db->where("id", $id);
+        $this->db->where("id", $id); 
         $data = $this->db->get();
         return $data;
     }

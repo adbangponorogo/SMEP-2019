@@ -857,9 +857,9 @@ class Laportepraperencanaan_controller extends CI_Controller {
 				$object->getActiveSheet()->getStyle('A21:O28')->applyFromArray(array('borders'=>array('allborders'=>array('style'=> PHPExcel_Style_Border::BORDER_THIN))));
 
 
-			$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel2007');
+			$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
 			header('Content-type: application/vnd.ms-excel');
-			header('Content-Disposition: attachment; filename="Laporan TEPRA Perencanaan - '.$nama_skpd.'.xlsx"');
+			header('Content-Disposition: attachment; filename="Laporan TEPRA Perencanaan - '.$nama_skpd.'.xls"');
 			$object_writer->save('php://output');
 		}
 	}

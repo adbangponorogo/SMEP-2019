@@ -12,7 +12,7 @@ class Main_Controller extends CI_Controller {
 	public function index(){
 		if ($this->session->userdata('auth_id') != "") {
 			$data["user_data"] = $this->getUserData();
-			$this->load->view('Main_view', $data);
+			$this->load->view('main_view', $data);
 		}
 		else{
 			redirect("app/auth/loginPage");

@@ -171,9 +171,9 @@ class Adminlapan_controller extends CI_Controller {
 			$object->getActiveSheet()->getStyle('A'.$mulai.':H'.$mulai)->getFIll()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('D9D9D9');
 
 
-			$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel2007');
+			$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
 			header('Content-type: application/vnd.ms-excel');
-			header('Content-Disposition: attachment; filename="Rekap - LP'.$jenis_pengadaan.'.xlsx"');
+			header('Content-Disposition: attachment; filename="Rekap - LP'.$jenis_pengadaan.'.xls"');
 			$object_writer->save('php://output');
 		}
 	}

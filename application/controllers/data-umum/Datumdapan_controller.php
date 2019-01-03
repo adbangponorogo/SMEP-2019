@@ -203,7 +203,7 @@ class Datumdapan_controller extends CI_Controller {
 
 			$no = 1;
 			$start_content_column = 7;
-			
+			 
 			$result_skpd = $this->model->getDataSKPDUnique($skpd);
 			foreach ($result_skpd->result() as $rows_skpd) {
 				$result_realisasi_ro = $this->model->getDataRealisasiRO($rows_skpd->kd_skpd, $kegiatan, $bulan, $order);
@@ -256,9 +256,9 @@ class Datumdapan_controller extends CI_Controller {
 				}
 			}
 
-			$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel2007');
+			$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
 			header('Content-type: application/vnd.ms-excel');
-			header('Content-Disposition: attachment; filename="Data Pencairan SPPD.xlsx"');
+			header('Content-Disposition: attachment; filename="Data Pencairan SPPD.xls"');
 			$object_writer->save('php://output');
 		}
 	}

@@ -1142,9 +1142,9 @@ class Laporrebela_controller extends CI_Controller {
 
 			}
 
-			$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel2007');
+			$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
 			header('Content-type: application/vnd.ms-excel');
-			header('Content-Disposition: attachment; filename="Laporan Realisasi - AP'.$jenis_realisasi.'.xlsx"');
+			header('Content-Disposition: attachment; filename="Laporan Realisasi - AP'.$jenis_realisasi.'.xls"');
 			$object_writer->save('php://output');
 		}
 	}
