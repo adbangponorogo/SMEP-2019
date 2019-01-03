@@ -447,7 +447,7 @@ class Endarup_controller extends CI_Controller {
                     $pelaksanaan_pekerjaan_akhir = '-';
                }
 			$data = array(
-				"tahun" => "2019",
+				"tahun" => $this->input->post("tahun"),
 				"id_skpd" => $this->input->post("idskpd"),
 				"id_program" => $this->input->post("idprogram"),
 				"id_kegiatan" => $this->input->post("idkegiatan"),

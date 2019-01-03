@@ -259,6 +259,7 @@
 						<div class="col-md-12">
 							<div class="form-gorup">
 								<input type="hidden" name="idskpd" class="rupenda-idskpd-reg">
+								<input type="hidden" name="tahun" class="rupenda-tahun-reg">
 								<button class="btn btn-primary smep-rupenda-register-send-btn">Simpan</button>
 								<button class="btn btn-danger smep-rupenda-register-cancel-btn">Batal</button>
 							</div>
@@ -277,6 +278,9 @@
 		viewMode	: 'months',
 		minViewMode	: 'months'
 	});
+	
+	// --------------- Year Data --------------- //
+    jQuery(".rupenda-tahun-reg").val(jQuery(".smep-year-value").val());
 
 	// ---------------- Users PPK ---------------- //
 	jQuery(".rupenda-idskpd-reg").val(jQuery(".smep-skpd-main").val());

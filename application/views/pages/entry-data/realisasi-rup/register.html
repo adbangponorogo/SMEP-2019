@@ -168,6 +168,7 @@
 							<div class="form-gorup">
 								<input type="hidden" name="id_rup" class="sirupenda-idrup-reg">
 								<input type="hidden" name="id_skpd" class="sirupenda-idskpd-reg">
+								<input type="hidden" name="tahun" class="sirupenda-tahun-reg">
 								<button class="btn btn-primary smep-sirupenda-register-send-btn">Simpan</button>
 								<button class="btn btn-danger smep-sirupenda-register-cancel-btn">Batal</button>
 							</div>
@@ -186,6 +187,9 @@
 		viewMode	: 'dates',
 		minViewMode	: 'dates'
 	});
+
+	// --------------- Year Data --------------- //
+    jQuery(".sirupenda-tahun-reg").val(jQuery(".smep-year-value").val());
 
 	// ---------------- Users PPK ---------------- //
 	jQuery(".sirupenda-idrup-reg").val(jQuery(".smep-unique-token").val());

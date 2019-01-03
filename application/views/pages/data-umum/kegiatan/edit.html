@@ -24,7 +24,7 @@
           <div class="col-md-9" style="padding-top: 2.5px;">
             <input type="text" class="form-control daftandatum-kegiatan-form-kegiatan" readonly="readonly" style="float: left; width: 100%;">
           </div>
-        </div>
+        </div> 
       </div>
       <div class="box-body">
         <form action="#" method="POST" class="daftandatum-edit-form">
@@ -76,6 +76,7 @@
           </div>
           <div class="col-md-12">
             <input type="hidden" name="id_skpd" class="daftandatum-id-skpd-edit">
+            <input type="hidden" name="tahun" class="daftandatum-tahun-edit">
             <button class="btn btn-primary smep-daftandatum-save-btn"><i class="fa fa-save"></i>&nbsp;Simpan Data</button>
           </div>
         </form>
@@ -84,6 +85,9 @@
 </div>
 
 <script type="text/javascript">
+  // --------------- Year Data --------------- //
+  jQuery(".daftandatum-tahun-edit").val(jQuery(".smep-year-value").val());
+
   // ---------------- Edit Data ---------------- //
   datumDaftanKegiatanData()
   function datumDaftanKegiatanData() {

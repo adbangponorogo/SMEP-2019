@@ -291,7 +291,7 @@ class Endasirup_controller extends CI_Controller {
                $realisasi_keuangan = $this->input->post("realisasi_keuangan");
                $realisasi_fisik = ($realisasi_keuangan/$pagu_paket)*100;
                $data = array(
-                         "tahun" => 2018,
+                         "tahun" => $this->input->post("tahun"),
                          "id_skpd" => $this->input->post("id_skpd"),
                          "id_rup" => $this->input->post("id_rup"),
                          "tanggal_pencairan" => $this->input->post("tanggal_pencairan"),
