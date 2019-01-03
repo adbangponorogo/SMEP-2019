@@ -50,8 +50,8 @@
 <!-- Javascript -->
 <script type="text/javascript">
 	// ---------------- Kegiatan Value dan Option ---------------- //
-	endaSirupKegiatanData();
-	function endaSirupKegiatanData(){
+	endaSirupKegiatanData(jQuery(".smep-idkegiatan-token").val());
+	function endaSirupKegiatanData(id_kegiatan){
 		jQuery.ajax({
           type      : 'AJAX',
           method    : 'GET',
@@ -65,8 +65,13 @@
               "["+JSON[kegiatan][1]+"] - "+JSON[kegiatan][2]+"</option>";
             }
             jQuery(".smep-sirup-enda-kegiatan-option").html(option);
-            jQuery(".smep-sirup-enda-kegiatan-option").val("all").change();
             jQuery(".smep-sirup-enda-kegiatan-option").select2();
+            if (id_kegiatan == "") {
+            	jQuery(".smep-sirup-enda-kegiatan-option").val("all").change();
+            }
+            else{
+            	jQuery(".smep-sirup-enda-kegiatan-option").val(id_kegiatan).change();
+            }
           },
           error     : function(jqXHR, textStatus, errorThrown){
               console.log('failed');
@@ -94,5 +99,6 @@
               console.log('failed');
           }
         });
+        jQuery(".smep-idkegiatan-token").val(jQuery(this).val());
 	});
 </script>

@@ -270,7 +270,7 @@
 		</div>
 	</div>
 </div>
-
+ 
 <!-- Javascript -->
 <script type="text/javascript">
 	jQuery(".month-picker").datepicker({
@@ -296,11 +296,13 @@
 		    dataType  : 'JSON',
 		    success   : function(JSON){
 		    	option = '';
-		    	for (var ppk = 0; ppk < JSON.length; ppk++) {
+		    	if (JSON.length > 0) {
+		    		for (var ppk = 0; ppk < JSON.length; ppk++) {
 		    		option += "<option value="+JSON[ppk][0]+">"+JSON[ppk][1]+"</option>";
 		    	}
-		    	jQuery(".rupenda-user-ppk-reg").html(option);
 		    	jQuery(".rupenda-user-ppk-reg").val(JSON[0][0]).change();
+		    	}
+		    	jQuery(".rupenda-user-ppk-reg").html(option);
 		        jQuery(".rupenda-user-ppk-reg").select2();
 		    },
 		    error     : function(jqXHR, textStatus, errorThrown){
@@ -336,7 +338,7 @@
 		    type      : 'AJAX',
 		    method    : 'GET',
 		    url       : 'entry-data/data-rup/program-data/'+jQuery(".smep-skpd-main").val(),
-		    async     : true,
+		    async     : true, 
 		    dataType  : 'JSON',
 		    success   : function(JSON){
 		        var option = '';

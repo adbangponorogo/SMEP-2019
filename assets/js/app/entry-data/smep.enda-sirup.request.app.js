@@ -69,7 +69,7 @@ jQuery(document).ready(function(){
 		jQuery(".smep-sirupenda-edit-modal").modal("show");
 	}
 
-
+ 
 	// ---------------- Register ---------------- //
 	jQuery(document).on("click", ".smep-sirupenda-ro-rup-register-btn", function(){
 		jQuery(".smep-content-page").load("entry-data/realisasi-rup/register-page");
