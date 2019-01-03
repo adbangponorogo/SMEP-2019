@@ -47,6 +47,7 @@ class Laportepraperencanaan_controller extends CI_Controller {
 
 	public function getDataDana($id_skpd){
 		if ($this->session->userdata('auth_id') != '') {
+			date_default_timezone_set("Asia/Jakarta");
 			$result_skpd = $this->model->getDataSKPDUnique($id_skpd);
 			foreach ($result_skpd->result() as $rows_skpd) {
 				$result_ref_rup = $this->model->getDataRefRUP($rows_skpd->kd_skpd);
@@ -857,9 +858,9 @@ class Laportepraperencanaan_controller extends CI_Controller {
 				$object->getActiveSheet()->getStyle('A21:O28')->applyFromArray(array('borders'=>array('allborders'=>array('style'=> PHPExcel_Style_Border::BORDER_THIN))));
 
 
-			$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel2007');
+			$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
 			header('Content-type: application/vnd.ms-excel');
-			header('Content-Disposition: attachment; filename="Laporan TEPRA Perencanaan - '.$nama_skpd.'.xlsx"');
+			header('Content-Disposition: attachment; filename="Laporan TEPRA Perencanaan - '.$nama_skpd.'.xls"');
 			$object_writer->save('php://output');
 		}
 	}

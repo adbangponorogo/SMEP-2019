@@ -96,7 +96,7 @@ jQuery(".smep-rup-enda-ro-option").select2().prop("disabled", true);
           async     : true,
           dataType  : 'JSON',
           success   : function(JSON){
-            if (JSON[0][2] == 3) {
+            if (JSON[0][2] == 1 || JSON[0][2] == 2 || JSON[0][2] == 3) {
               var button = " <button class='btn btn-primary btn-sm smep-rupenda-register-btn'>"+
                       "<i class='fa fa-plus'></i>&nbsp;Tambah Data"+
                      "</button>";

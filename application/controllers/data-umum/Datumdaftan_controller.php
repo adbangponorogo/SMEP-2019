@@ -195,6 +195,7 @@ class Datumdaftan_controller extends CI_Controller {
 	}
 
 	public function saveData(){
+		$tahun = $this->input->post("tahun");
 		$id_skpd = $this->input->post("id_skpd");
 		$id_kegiatan = $this->input->post("id_kegiatan");
 		$id_pptk = $this->input->post("id_pptk");
@@ -213,7 +214,7 @@ class Datumdaftan_controller extends CI_Controller {
 							"output" => $output
 						);
 				$data_pptk_kegiatan = array(
-							"Tahun" => "2019",
+							"tahun" => $tahun,
 							"id_skpd" => $id_skpd,
 							"id_kegiatan" => $id_kegiatan,
 							"id_pptk" => $id_pptk

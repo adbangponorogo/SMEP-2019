@@ -61,6 +61,7 @@ class Adminmisc_controller extends CI_Controller {
 
 	public function getPrintData(){
 		if ($this->session->userdata("auth_id") != "") {
+			date_default_timezone_set("Asia/Jakarta");
 			$skpd = $this->input->post("skpd");
 			$kegiatan = $this->input->post("kegiatan");
 			$jenis = $this->input->post("jenis");
@@ -438,9 +439,9 @@ class Adminmisc_controller extends CI_Controller {
 			}
 
 
-			$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel2007');
+			$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
 			header('Content-type: application/vnd.ms-excel');
-			header('Content-Disposition: attachment; filename="'.$nama_jenis.'.xlsx"');
+			header('Content-Disposition: attachment; filename="'.$nama_jenis.'.xls"');
 			$object_writer->save('php://output');
 		}
 	}

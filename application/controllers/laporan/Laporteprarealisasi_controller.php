@@ -66,6 +66,7 @@ class Laporteprarealisasi_controller extends CI_Controller {
 
 	public function getPrintData(){
 		if ($this->session->userdata('auth_id') != '') {
+			date_default_timezone_set("Asia/Jakarta");
 			$skpd = $this->input->post("skpd");
 			$bulan = $this->input->post("bulan");
 			$tahun = $this->input->post("tahun");
@@ -288,9 +289,9 @@ class Laporteprarealisasi_controller extends CI_Controller {
 
 
 
-			$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel2007');
+			$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
 			header('Content-type: application/vnd.ms-excel');
-			header('Content-Disposition: attachment; filename="Laporan TEPRA Realisasi - '.$nama_skpd.'.xlsx"');
+			header('Content-Disposition: attachment; filename="Laporan TEPRA Realisasi - '.$nama_skpd.'.xls"');
 			$object_writer->save('php://output');
 		}
 	}
@@ -407,7 +408,7 @@ class Laporteprarealisasi_controller extends CI_Controller {
 
 			$result_rup = $this->model->getDataPaketRUP($id_skpd);
 			foreach ($result_rup->result() as $rows_rup) {
-				$total_paket_rup = $rows_rup->jumlah_paket;
+				$total_paket_rup = $this->nullValue($this->getIsNan($rows_rup->jumlah_paket));
 			}
 
 
@@ -428,23 +429,81 @@ class Laporteprarealisasi_controller extends CI_Controller {
 			$get_rup_pp_november = $this->getMonthValue($get_rup_pp_oktober + $this->nullValue($this->dataRealisasiTepra($id_skpd, 'proses_pengadaan', '11')), $bulan, 11);
 			$get_rup_pp_desember = $this->getMonthValue($get_rup_pp_november + $this->nullValue($this->dataRealisasiTepra($id_skpd, 'proses_pengadaan', '12')), $bulan, 12);
 
-			$rup_pp_januari = number_format(($get_rup_pp_januari / $total_paket_rup) * 100, 2, ".", ",");
-			$rup_pp_februari = number_format(($get_rup_pp_februari / $total_paket_rup) * 100, 2, ".", ",");
-			$rup_pp_maret = number_format(($get_rup_pp_maret / $total_paket_rup) * 100, 2, ".", ",");
-			$rup_pp_april = number_format(($get_rup_pp_april / $total_paket_rup) * 100, 2, ".", ",");
-			$rup_pp_mei = number_format(($get_rup_pp_mei / $total_paket_rup) * 100, 2, ".", ",");
-			$rup_pp_juni = number_format(($get_rup_pp_juni / $total_paket_rup) * 100, 2, ".", ",");
-			$rup_pp_juli = number_format(($get_rup_pp_juli / $total_paket_rup) * 100, 2, ".", ",");
-			$rup_pp_agustus = number_format(($get_rup_pp_agustus / $total_paket_rup) * 100, 2, ".", ",");
-			$rup_pp_september = number_format(($get_rup_pp_september / $total_paket_rup) * 100, 2, ".", ",");
-			$rup_pp_oktober = number_format(($get_rup_pp_oktober / $total_paket_rup) * 100, 2, ".", ",");
-			$rup_pp_november = number_format(($get_rup_pp_november / $total_paket_rup) * 100, 2, ".", ",");
-			$rup_pp_desember = number_format(($get_rup_pp_desember / $total_paket_rup) * 100, 2, ".", ",");
-
-
-
+			if ($get_rup_pp_januari != 0 || $total_paket_rup != 0) {
+				$rup_pp_januari = number_format(($get_rup_pp_januari / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_pp_januari == 0 && $total_paket_rup == 0) {
+				$rup_pp_januari = number_format(0, 2, ".", ",");
+			}
+			if ($get_rup_pp_februari != 0 || $total_paket_rup != 0) {
+				$rup_pp_februari = number_format(($get_rup_pp_februari / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_pp_februari == 0 && $total_paket_rup == 0) {
+				$rup_pp_februari = number_format(0, 2, ".", ",");
+			}
+			if ($get_rup_pp_maret != 0 || $total_paket_rup != 0) {
+				$rup_pp_maret = number_format(($get_rup_pp_maret / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_pp_maret == 0 && $total_paket_rup == 0) {
+				$rup_pp_maret = number_format(0, 2, ".", ",");
+			}
+			if ($get_rup_pp_april != 0 || $total_paket_rup != 0) {
+				$rup_pp_april = number_format(($get_rup_pp_april / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_pp_april == 0 && $total_paket_rup == 0) {
+				$rup_pp_april = number_format(0, 2, ".", ",");
+			}
+			if ($get_rup_pp_mei != 0 || $total_paket_rup != 0) {
+				$rup_pp_mei = number_format(($get_rup_pp_mei / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_pp_mei == 0 && $total_paket_rup == 0) {
+				$rup_pp_mei = number_format(0, 2, ".", ",");
+			}
+			if ($get_rup_pp_juni != 0 || $total_paket_rup != 0) {
+				$rup_pp_juni = number_format(($get_rup_pp_juni / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_pp_juni == 0 && $total_paket_rup == 0) {
+				$rup_pp_juni = number_format(0, 2, ".", ",");
+			}
+			if ($get_rup_pp_juli != 0 || $total_paket_rup != 0) {
+				$rup_pp_juli = number_format(($get_rup_pp_juli / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_pp_juli == 0 && $total_paket_rup == 0) {
+				$rup_pp_juli = number_format(0, 2, ".", ",");
+			}
+			if ($get_rup_pp_agustus != 0 || $total_paket_rup != 0) {
+				$rup_pp_agustus = number_format(($get_rup_pp_agustus / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_pp_agustus == 0 && $total_paket_rup == 0) {
+				$rup_pp_agustus = number_format(0, 2, ".", ",");
+			}
+			if ($get_rup_pp_september != 0 || $total_paket_rup != 0) {
+				$rup_pp_september = number_format(($get_rup_pp_september / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_pp_september == 0 && $total_paket_rup == 0) {
+				$rup_pp_september = number_format(0, 2, ".", ",");
+			}
+			if ($get_rup_pp_oktober != 0 || $total_paket_rup != 0) {
+				$rup_pp_oktober = number_format(($get_rup_pp_oktober / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_pp_oktober == 0 && $total_paket_rup == 0) {
+				$rup_pp_oktober = number_format(0, 2, ".", ",");
+			}
+			if ($get_rup_pp_november != 0 || $total_paket_rup != 0) {
+				$rup_pp_november = number_format(($get_rup_pp_november / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_pp_november == 0 && $total_paket_rup == 0) {
+				$rup_pp_november = number_format(0, 2, ".", ",");
+			}
+			if ($get_rup_pp_desember != 0 || $total_paket_rup != 0) {
+				$rup_pp_desember = number_format(($get_rup_pp_desember / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_pp_desember == 0 && $total_paket_rup == 0) {
+				$rup_pp_desember = number_format(0, 2, ".", ",");
+			}
 
 			
+
 			// ----- PAKET RUP - TANDA TANGAN KONTRAK-----//
 			
 			$get_rup_ttk_januari = $this->getMonthValue($this->nullValue($this->dataRealisasiTepra($id_skpd, 'tanda_tangan_kontrak', '01')), $bulan, 1);
@@ -460,21 +519,81 @@ class Laporteprarealisasi_controller extends CI_Controller {
 			$get_rup_ttk_november = $this->getMonthValue($get_rup_ttk_oktober + $this->nullValue($this->dataRealisasiTepra($id_skpd, 'tanda_tangan_kontrak', '11')), $bulan, 11);
 			$get_rup_ttk_desember = $this->getMonthValue($get_rup_ttk_november + $this->nullValue($this->dataRealisasiTepra($id_skpd, 'tanda_tangan_kontrak', '12')), $bulan, 12);
 
-			$rup_ttk_januari = number_format(($get_rup_ttk_januari / $total_paket_rup) * 100, 2, ".", ",");
-			$rup_ttk_februari = number_format(($get_rup_ttk_februari / $total_paket_rup) * 100, 2, ".", ",");
-			$rup_ttk_maret = number_format(($get_rup_ttk_maret / $total_paket_rup) * 100, 2, ".", ",");
-			$rup_ttk_april = number_format(($get_rup_ttk_april / $total_paket_rup) * 100, 2, ".", ",");
-			$rup_ttk_mei = number_format(($get_rup_ttk_mei / $total_paket_rup) * 100, 2, ".", ",");
-			$rup_ttk_juni = number_format(($get_rup_ttk_juni / $total_paket_rup) * 100, 2, ".", ",");
-			$rup_ttk_juli = number_format(($get_rup_ttk_juli / $total_paket_rup) * 100, 2, ".", ",");
-			$rup_ttk_agustus = number_format(($get_rup_ttk_agustus / $total_paket_rup) * 100, 2, ".", ",");
-			$rup_ttk_september = number_format(($get_rup_ttk_september / $total_paket_rup) * 100, 2, ".", ",");
-			$rup_ttk_oktober = number_format(($get_rup_ttk_oktober / $total_paket_rup) * 100, 2, ".", ",");
-			$rup_ttk_november = number_format(($get_rup_ttk_november / $total_paket_rup) * 100, 2, ".", ",");
-			$rup_ttk_desember = number_format(($get_rup_ttk_desember / $total_paket_rup) * 100, 2, ".", ",");
 
+			if ($get_rup_ttk_januari != 0 || $total_paket_rup != 0) {
+				$rup_ttk_januari = number_format(($get_rup_ttk_januari / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_ttk_januari == 0 && $total_paket_rup == 0) {
+				$rup_ttk_januari = number_format(0, 2, ".", ",");
+			}
+			if ($get_rup_ttk_februari != 0 || $total_paket_rup != 0) {
+				$rup_ttk_februari = number_format(($get_rup_ttk_februari / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_ttk_februari == 0 && $total_paket_rup == 0) {
+				$rup_ttk_februari = number_format(0, 2, ".", ",");
+			}
+			if ($get_rup_ttk_maret != 0 || $total_paket_rup != 0) {
+				$rup_ttk_maret = number_format(($get_rup_ttk_maret / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_ttk_maret == 0 && $total_paket_rup == 0) {
+				$rup_ttk_maret = number_format(0, 2, ".", ",");
+			}
+			if ($get_rup_ttk_april != 0 || $total_paket_rup != 0) {
+				$rup_ttk_april = number_format(($get_rup_ttk_april / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_ttk_april == 0 && $total_paket_rup == 0) {
+				$rup_ttk_april = number_format(0, 2, ".", ",");
+			}
+			if ($get_rup_ttk_mei != 0 || $total_paket_rup != 0) {
+				$rup_ttk_mei = number_format(($get_rup_ttk_mei / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_ttk_mei == 0 && $total_paket_rup == 0) {
+				$rup_ttk_mei = number_format(0, 2, ".", ",");
+			}
+			if ($get_rup_ttk_juni != 0 || $total_paket_rup != 0) {
+				$rup_ttk_juni = number_format(($get_rup_ttk_juni / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_ttk_juni == 0 && $total_paket_rup == 0) {
+				$rup_ttk_juni = number_format(0, 2, ".", ",");
+			}
+			if ($get_rup_ttk_juli != 0 || $total_paket_rup != 0) {
+				$rup_ttk_juli = number_format(($get_rup_ttk_juli / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_ttk_juli == 0 && $total_paket_rup == 0) {
+				$rup_ttk_juli = number_format(0, 2, ".", ",");
+			}
+			if ($get_rup_ttk_agustus != 0 || $total_paket_rup != 0) {
+				$rup_ttk_agustus = number_format(($get_rup_ttk_agustus / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_ttk_agustus == 0 && $total_paket_rup == 0) {
+				$rup_ttk_agustus = number_format(0, 2, ".", ",");
+			}
+			if ($get_rup_ttk_september != 0 || $total_paket_rup != 0) {
+				$rup_ttk_september = number_format(($get_rup_ttk_september / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_ttk_september == 0 && $total_paket_rup == 0) {
+				$rup_ttk_september = number_format(0, 2, ".", ",");
+			}
+			if ($get_rup_ttk_oktober != 0 || $total_paket_rup != 0) {
+				$rup_ttk_oktober = number_format(($get_rup_ttk_oktober / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_ttk_oktober == 0 && $total_paket_rup == 0) {
+				$rup_ttk_oktober = number_format(0, 2, ".", ",");
+			}
+			if ($get_rup_ttk_november != 0 || $total_paket_rup != 0) {
+				$rup_ttk_november = number_format(($get_rup_ttk_november / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_ttk_november == 0 && $total_paket_rup == 0) {
+				$rup_ttk_november = number_format(0, 2, ".", ",");
+			}
+			if ($get_rup_ttk_desember != 0 || $total_paket_rup != 0) {
+				$rup_ttk_desember = number_format(($get_rup_ttk_desember / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_ttk_desember == 0 && $total_paket_rup == 0) {
+				$rup_ttk_desember = number_format(0, 2, ".", ",");
+			}
 
-
+			
 
 			// ----- PAKET RUP - PELAKSANAAN PEKERJAAN -----//
 			
@@ -491,22 +610,80 @@ class Laporteprarealisasi_controller extends CI_Controller {
 			$get_rup_ppj_november = $this->getMonthValue($get_rup_ppj_oktober + $this->nullValue($this->dataRealisasiTepra($id_skpd, 'pelaksanaan_pekerjaan', '11')), $bulan, 11);
 			$get_rup_ppj_desember = $this->getMonthValue($get_rup_ppj_november + $this->nullValue($this->dataRealisasiTepra($id_skpd, 'pelaksanaan_pekerjaan', '12')), $bulan, 12);
 
-			$rup_ppj_januari = number_format(($get_rup_ppj_januari / $total_paket_rup) * 100, 2, ".", ",");
-			$rup_ppj_februari = number_format(($get_rup_ppj_februari / $total_paket_rup) * 100, 2, ".", ",");
-			$rup_ppj_maret = number_format(($get_rup_ppj_maret / $total_paket_rup) * 100, 2, ".", ",");
-			$rup_ppj_april = number_format(($get_rup_ppj_april / $total_paket_rup) * 100, 2, ".", ",");
-			$rup_ppj_mei = number_format(($get_rup_ppj_mei / $total_paket_rup) * 100, 2, ".", ",");
-			$rup_ppj_juni = number_format(($get_rup_ppj_juni / $total_paket_rup) * 100, 2, ".", ",");
-			$rup_ppj_juli = number_format(($get_rup_ppj_juli / $total_paket_rup) * 100, 2, ".", ",");
-			$rup_ppj_agustus = number_format(($get_rup_ppj_agustus / $total_paket_rup) * 100, 2, ".", ",");
-			$rup_ppj_september = number_format(($get_rup_ppj_september / $total_paket_rup) * 100, 2, ".", ",");
-			$rup_ppj_oktober = number_format(($get_rup_ppj_oktober / $total_paket_rup) * 100, 2, ".", ",");
-			$rup_ppj_november = number_format(($get_rup_ppj_november / $total_paket_rup) * 100, 2, ".", ",");
-			$rup_ppj_desember = number_format(($get_rup_ppj_desember / $total_paket_rup) * 100, 2, ".", ",");
+			if ($get_rup_ppj_januari != 0 || $total_paket_rup != 0) {
+				$rup_ppj_januari = number_format(($get_rup_ppj_januari / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_ppj_januari == 0 && $total_paket_rup == 0) {
+				$rup_ppj_januari = number_format(0, 2, ".", ",");
+			}
+			if ($get_rup_ppj_februari != 0 || $total_paket_rup != 0) {
+				$rup_ppj_februari = number_format(($get_rup_ppj_februari / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_ppj_februari == 0 && $total_paket_rup == 0) {
+				$rup_ppj_februari = number_format(0, 2, ".", ",");
+			}
+			if ($get_rup_ppj_maret != 0 || $total_paket_rup != 0) {
+				$rup_ppj_maret = number_format(($get_rup_ppj_maret / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_ppj_maret == 0 && $total_paket_rup == 0) {
+				$rup_ppj_maret = number_format(0, 2, ".", ",");
+			}
+			if ($get_rup_ppj_april != 0 || $total_paket_rup != 0) {
+				$rup_ppj_april = number_format(($get_rup_ppj_april / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_ppj_april == 0 && $total_paket_rup == 0) {
+				$rup_ppj_april = number_format(0, 2, ".", ",");
+			}
+			if ($get_rup_ppj_mei != 0 || $total_paket_rup != 0) {
+				$rup_ppj_mei = number_format(($get_rup_ppj_mei / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_ppj_mei == 0 && $total_paket_rup == 0) {
+				$rup_ppj_mei = number_format(0, 2, ".", ",");
+			}
+			if ($get_rup_ppj_juni != 0 || $total_paket_rup != 0) {
+				$rup_ppj_juni = number_format(($get_rup_ppj_juni / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_ppj_juni == 0 && $total_paket_rup == 0) {
+				$rup_ppj_juni = number_format(0, 2, ".", ",");
+			}
+			if ($get_rup_ppj_juli != 0 || $total_paket_rup != 0) {
+				$rup_ppj_juli = number_format(($get_rup_ppj_juli / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_ppj_juli == 0 && $total_paket_rup == 0) {
+				$rup_ppj_juli = number_format(0, 2, ".", ",");
+			}
+			if ($get_rup_ppj_agustus != 0 || $total_paket_rup != 0) {
+				$rup_ppj_agustus = number_format(($get_rup_ppj_agustus / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_ppj_agustus == 0 && $total_paket_rup == 0) {
+				$rup_ppj_agustus = number_format(0, 2, ".", ",");
+			}
+			if ($get_rup_ppj_september != 0 || $total_paket_rup != 0) {
+				$rup_ppj_september = number_format(($get_rup_ppj_september / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_ppj_september == 0 && $total_paket_rup == 0) {
+				$rup_ppj_september = number_format(0, 2, ".", ",");
+			}
+			if ($get_rup_ppj_oktober != 0 || $total_paket_rup != 0) {
+				$rup_ppj_oktober = number_format(($get_rup_ppj_oktober / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_ppj_oktober == 0 && $total_paket_rup == 0) {
+				$rup_ppj_oktober = number_format(0, 2, ".", ",");
+			}
+			if ($get_rup_ppj_november != 0 || $total_paket_rup != 0) {
+				$rup_ppj_november = number_format(($get_rup_ppj_november / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_ppj_november == 0 && $total_paket_rup == 0) {
+				$rup_ppj_november = number_format(0, 2, ".", ",");
+			}
+			if ($get_rup_ppj_desember != 0 || $total_paket_rup != 0) {
+				$rup_ppj_desember = number_format(($get_rup_ppj_desember / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_ppj_desember == 0 && $total_paket_rup == 0) {
+				$rup_ppj_desember = number_format(0, 2, ".", ",");
+			}
 
-
-
-
+			
 
 			$get_rup_pho_januari = $this->getMonthValue($this->nullValue($this->dataRealisasiTepra($id_skpd, 'proses_hand_over', '01')), $bulan, 1);
 			$get_rup_pho_februari = $this->getMonthValue($get_rup_pho_januari + $this->nullValue($this->dataRealisasiTepra($id_skpd, 'proses_hand_over', '02')), $bulan, 2);
@@ -521,21 +698,80 @@ class Laporteprarealisasi_controller extends CI_Controller {
 			$get_rup_pho_november = $this->getMonthValue($get_rup_pho_oktober + $this->nullValue($this->dataRealisasiTepra($id_skpd, 'proses_hand_over', '11')), $bulan, 11);
 			$get_rup_pho_desember = $this->getMonthValue($get_rup_pho_november + $this->nullValue($this->dataRealisasiTepra($id_skpd, 'proses_hand_over', '12')), $bulan, 12);
 
-			$rup_pho_januari = number_format(($get_rup_pho_januari / $total_paket_rup) * 100, 2, ".", ",");
-			$rup_pho_februari = number_format(($get_rup_pho_februari / $total_paket_rup) * 100, 2, ".", ",");
-			$rup_pho_maret = number_format(($get_rup_pho_maret / $total_paket_rup) * 100, 2, ".", ",");
-			$rup_pho_april = number_format(($get_rup_pho_april / $total_paket_rup) * 100, 2, ".", ",");
-			$rup_pho_mei = number_format(($get_rup_pho_mei / $total_paket_rup) * 100, 2, ".", ",");
-			$rup_pho_juni = number_format(($get_rup_pho_juni / $total_paket_rup) * 100, 2, ".", ",");
-			$rup_pho_juli = number_format(($get_rup_pho_juli / $total_paket_rup) * 100, 2, ".", ",");
-			$rup_pho_agustus = number_format(($get_rup_pho_agustus / $total_paket_rup) * 100, 2, ".", ",");
-			$rup_pho_september = number_format(($get_rup_pho_september / $total_paket_rup) * 100, 2, ".", ",");
-			$rup_pho_oktober = number_format(($get_rup_pho_oktober / $total_paket_rup) * 100, 2, ".", ",");
-			$rup_pho_november = number_format(($get_rup_pho_november / $total_paket_rup) * 100, 2, ".", ",");
-			$rup_pho_desember = number_format(($get_rup_pho_desember / $total_paket_rup) * 100, 2, ".", ",");
+			if ($get_rup_pho_januari != 0 || $total_paket_rup != 0) {
+				$rup_pho_januari = number_format(($get_rup_pho_januari / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_pho_januari == 0 && $total_paket_rup == 0) {
+				$rup_pho_januari = number_format(0, 2, ".", ",");
+			}
+			if ($get_rup_pho_februari != 0 || $total_paket_rup != 0) {
+				$rup_pho_februari = number_format(($get_rup_pho_februari / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_pho_februari == 0 && $total_paket_rup == 0) {
+				$rup_pho_februari = number_format(0, 2, ".", ",");
+			}
+			if ($get_rup_pho_maret != 0 || $total_paket_rup != 0) {
+				$rup_pho_maret = number_format(($get_rup_pho_maret / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_pho_maret == 0 && $total_paket_rup == 0) {
+				$rup_pho_maret = number_format(0, 2, ".", ",");
+			}
+			if ($get_rup_pho_april != 0 || $total_paket_rup != 0) {
+				$rup_pho_april = number_format(($get_rup_pho_april / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_pho_april == 0 && $total_paket_rup == 0) {
+				$rup_pho_april = number_format(0, 2, ".", ",");
+			}
+			if ($get_rup_pho_mei != 0 || $total_paket_rup != 0) {
+				$rup_pho_mei = number_format(($get_rup_pho_mei / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_pho_mei == 0 && $total_paket_rup == 0) {
+				$rup_pho_mei = number_format(0, 2, ".", ",");
+			}
+			if ($get_rup_pho_juni != 0 || $total_paket_rup != 0) {
+				$rup_pho_juni = number_format(($get_rup_pho_juni / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_pho_juni == 0 && $total_paket_rup == 0) {
+				$rup_pho_juni = number_format(0, 2, ".", ",");
+			}
+			if ($get_rup_pho_juli != 0 || $total_paket_rup != 0) {
+				$rup_pho_juli = number_format(($get_rup_pho_juli / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_pho_juli == 0 && $total_paket_rup == 0) {
+				$rup_pho_juli = number_format(0, 2, ".", ",");
+			}
+			if ($get_rup_pho_agustus != 0 || $total_paket_rup != 0) {
+				$rup_pho_agustus = number_format(($get_rup_pho_agustus / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_pho_agustus == 0 && $total_paket_rup == 0) {
+				$rup_pho_agustus = number_format(0, 2, ".", ",");
+			}
+			if ($get_rup_pho_september != 0 || $total_paket_rup != 0) {
+				$rup_pho_september = number_format(($get_rup_pho_september / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_pho_september == 0 && $total_paket_rup == 0) {
+				$rup_pho_september = number_format(0, 2, ".", ",");
+			}
+			if ($get_rup_pho_oktober != 0 || $total_paket_rup != 0) {
+				$rup_pho_oktober = number_format(($get_rup_pho_oktober / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_pho_oktober == 0 && $total_paket_rup == 0) {
+				$rup_pho_oktober = number_format(0, 2, ".", ",");
+			}
+			if ($get_rup_pho_november != 0 || $total_paket_rup != 0) {
+				$rup_pho_november = number_format(($get_rup_pho_november / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_pho_november == 0 && $total_paket_rup == 0) {
+				$rup_pho_november = number_format(0, 2, ".", ",");
+			}
+			if ($get_rup_pho_desember != 0 || $total_paket_rup != 0) {
+				$rup_pho_desember = number_format(($get_rup_pho_desember / $total_paket_rup) * 100, 2, ".", ",");
+			}
+			if ($get_rup_pho_desember == 0 && $total_paket_rup == 0) {
+				$rup_pho_desember = number_format(0, 2, ".", ",");
+			}
 
-
-
+			
 
 			// ----- RESULT ----- //
 
@@ -717,6 +953,30 @@ class Laporteprarealisasi_controller extends CI_Controller {
 	public function getMonthValue($value, $bulan, $max_bulan){
 		if ($this->session->userdata('auth_id') != '') {
 			if ($bulan >= $max_bulan && $bulan > 0) {
+				$data = $value;
+			}
+			else{
+				$data = 0;
+			}
+			return $data;
+		}
+	}
+
+	public function getDivisionByZero($value){
+		if ($this->session->userdata('auth_id') != '') {
+			if ($value >= 0) {
+				$data = $value;
+			}
+			else{
+				$data = 0;
+			}
+			return $data;
+		}
+	}
+
+	public function getIsNan($value){
+		if ($this->session->userdata('auth_id') != '') {
+			if (!is_nan($value)) {
 				$data = $value;
 			}
 			else{

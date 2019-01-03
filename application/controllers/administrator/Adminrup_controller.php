@@ -47,6 +47,7 @@ class Adminrup_controller extends CI_Controller {
 
 	public function getPrintData(){
 		if ($this->session->userdata('auth_id') != '') {
+			date_default_timezone_set("Asia/Jakarta");
 			$skpd = $this->input->post("skpd");
 			$cara_pengadaan = $this->input->post("cara_pengadaan");
 			$tahun = $this->input->post("tahun");
@@ -78,49 +79,48 @@ class Adminrup_controller extends CI_Controller {
 			$object->getActiveSheet()->getSheetView()->setZoomScale(80);
 			$object->getActiveSheet()->getHeaderFooter()->setOddFooter('&L https:://smep.ponorogo.go.id/smep_2019 | RUP '.$nama_cara_pengadaan.' - '.$nama_skpd.'&R&P');
 			
+			// -------- Title Form -------- //
+			$title_form = 'RENCANA UMUM PENGADAAN MELALUI '.strtoupper($nama_cara_pengadaan);
+			$object->getActiveSheet()->setCellValue('A1', $title_form);
+			$object->getActiveSheet()->getStyle('A1')->getFont()->setBold(TRUE);
+			$object->getActiveSheet()->getStyle('A1')->getFont()->setSize(14);
+			$object->getActiveSheet()->mergeCells('A1:Q1');
+			$object->getActiveSheet()->getStyle('A1:Q1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+
+			// -------- Nama Organisasi -------- //
+			$info_organisasi = 'NAMA ORGANISASI ';
+			$nama_organisasi = ': '.strtoupper($nama_skpd);
+			$object->getActiveSheet()->setCellValue('A3', $info_organisasi);
+			$object->getActiveSheet()->setCellValue('C3', $nama_organisasi);
+			$object->getActiveSheet()->getStyle('A3')->getFont()->setSize(10);
+			$object->getActiveSheet()->getStyle('C3')->getFont()->setSize(10);
+			$object->getActiveSheet()->mergeCells('A3:B3');
+			$object->getActiveSheet()->mergeCells('C3:Q3');
+			$object->getActiveSheet()->getStyle('A3:Q3')->getFont()->setBold(TRUE);
+
+			// -------- Kabupaten -------- //
+			$info_kabupaten = 'KABUPATEN ';
+			$nama_kabupaten = ': PONOROGO';
+			$object->getActiveSheet()->setCellValue('A4', $info_kabupaten);
+			$object->getActiveSheet()->setCellValue('C4', $nama_kabupaten);
+			$object->getActiveSheet()->getStyle('A4')->getFont()->setSize(10);
+			$object->getActiveSheet()->getStyle('C4')->getFont()->setSize(10);
+			$object->getActiveSheet()->mergeCells('A4:B4');
+			$object->getActiveSheet()->mergeCells('C4:Q4');
+			$object->getActiveSheet()->getStyle('A4:Q4')->getFont()->setBold(TRUE);
+
+			// -------- Tahun Anggaran -------- //
+			$info_anggaran = 'TAHUN ANGGARAN ';
+			$nama_anggaran = ': '.$tahun;
+			$object->getActiveSheet()->setCellValue('A5', $info_anggaran);
+			$object->getActiveSheet()->setCellValue('C5', $nama_anggaran);
+			$object->getActiveSheet()->getStyle('A5')->getFont()->setSize(10);
+			$object->getActiveSheet()->getStyle('C5')->getFont()->setSize(10);
+			$object->getActiveSheet()->mergeCells('A5:B5');
+			$object->getActiveSheet()->mergeCells('C5:Q5');
+			$object->getActiveSheet()->getStyle('A5:Q5')->getFont()->setBold(TRUE);
 
 			if ($cara_pengadaan == 1) {
-				// -------- Title Form -------- //
-				$title_form = 'RENCANA UMUM PENGADAAN MELALUI '.strtoupper($nama_cara_pengadaan);
-				$object->getActiveSheet()->setCellValue('A1', $title_form);
-				$object->getActiveSheet()->getStyle('A1')->getFont()->setBold(TRUE);
-				$object->getActiveSheet()->getStyle('A1')->getFont()->setSize(14);
-				$object->getActiveSheet()->mergeCells('A1:Q1');
-				$object->getActiveSheet()->getStyle('A1:Q1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
-
-				// -------- Nama Organisasi -------- //
-				$info_organisasi = 'NAMA ORGANISASI ';
-				$nama_organisasi = ': '.strtoupper($nama_skpd);
-				$object->getActiveSheet()->setCellValue('A3', $info_organisasi);
-				$object->getActiveSheet()->setCellValue('C3', $nama_organisasi);
-				$object->getActiveSheet()->getStyle('A3')->getFont()->setSize(10);
-				$object->getActiveSheet()->getStyle('C3')->getFont()->setSize(10);
-				$object->getActiveSheet()->mergeCells('A3:B3');
-				$object->getActiveSheet()->mergeCells('C3:Q3');
-				$object->getActiveSheet()->getStyle('A3:Q3')->getFont()->setBold(TRUE);
-
-				// -------- Kabupaten -------- //
-				$info_kabupaten = 'KABUPATEN ';
-				$nama_kabupaten = ': PONOROGO';
-				$object->getActiveSheet()->setCellValue('A4', $info_kabupaten);
-				$object->getActiveSheet()->setCellValue('C4', $nama_kabupaten);
-				$object->getActiveSheet()->getStyle('A4')->getFont()->setSize(10);
-				$object->getActiveSheet()->getStyle('C4')->getFont()->setSize(10);
-				$object->getActiveSheet()->mergeCells('A4:B4');
-				$object->getActiveSheet()->mergeCells('C4:Q4');
-				$object->getActiveSheet()->getStyle('A4:Q4')->getFont()->setBold(TRUE);
-
-				// -------- Tahun Anggaran -------- //
-				$info_anggaran = 'TAHUN ANGGARAN ';
-				$nama_anggaran = ': '.$tahun;
-				$object->getActiveSheet()->setCellValue('A5', $info_anggaran);
-				$object->getActiveSheet()->setCellValue('C5', $nama_anggaran);
-				$object->getActiveSheet()->getStyle('A5')->getFont()->setSize(10);
-				$object->getActiveSheet()->getStyle('C5')->getFont()->setSize(10);
-				$object->getActiveSheet()->mergeCells('A5:B5');
-				$object->getActiveSheet()->mergeCells('C5:Q5');
-				$object->getActiveSheet()->getStyle('A5:Q5')->getFont()->setBold(TRUE);
-
 				// TABLE HEADER
 				$table_header_first = array("NO", "SATUAN KERJA", "KEGIATAN", "NAMA PAKET", "LOKASI", "JENIS BELANJA", "JENIS PENGADAAN", "VOLUME", "SUMBER DANA", "KODE MAK", "PAGU (Rupiah)", "METODE PEMILIHAN PENYEDIA", "PELAKSANAAN PENGADAAN", "", "PELAKSANAAN KONTRAK", "", "DESKRIPSI");
 				$table_header_second = array("AWAL", "AKHIR", "AWAL", "AKHIR");
@@ -221,52 +221,12 @@ class Adminrup_controller extends CI_Controller {
 					$object->getActiveSheet()->setCellValue('B10', 'NIHIL');
 	 			}
 
-				$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel2007');
+				$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
 				header('Content-type: application/vnd.ms-excel');
-				header('Content-Disposition: attachment; filename="Laporan RUP - '.$nama_cara_pengadaan.'.xlsx"');
+				header('Content-Disposition: attachment; filename="Laporan RUP - '.$nama_cara_pengadaan.'.xls"');
 				$object_writer->save('php://output');
 			}
 			if ($cara_pengadaan == 2) {
-				// -------- Title Form -------- //
-				$title_form = 'RENCANA UMUM PENGADAAN MELALUI '.strtoupper($nama_cara_pengadaan);
-				$object->getActiveSheet()->setCellValue('A1', $title_form);
-				$object->getActiveSheet()->getStyle('A1')->getFont()->setBold(TRUE);
-				$object->getActiveSheet()->getStyle('A1')->getFont()->setSize(14);
-				$object->getActiveSheet()->mergeCells('A1:M1');
-				$object->getActiveSheet()->getStyle('A1:M1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
-
-				// -------- Nama Organisasi -------- //
-				$info_organisasi = 'NAMA ORGANISASI ';
-				$nama_organisasi = ': '.strtoupper($nama_skpd);
-				$object->getActiveSheet()->setCellValue('A3', $info_organisasi);
-				$object->getActiveSheet()->setCellValue('C3', $nama_organisasi);
-				$object->getActiveSheet()->getStyle('A3')->getFont()->setSize(10);
-				$object->getActiveSheet()->getStyle('C3')->getFont()->setSize(10);
-				$object->getActiveSheet()->mergeCells('A3:B3');
-				$object->getActiveSheet()->mergeCells('C3:M3');
-				$object->getActiveSheet()->getStyle('A3:M3')->getFont()->setBold(TRUE);
-
-				// -------- Kabupaten -------- //
-				$info_kabupaten = 'KABUPATEN ';
-				$nama_kabupaten = ': PONOROGO';
-				$object->getActiveSheet()->setCellValue('A4', $info_kabupaten);
-				$object->getActiveSheet()->setCellValue('C4', $nama_kabupaten);
-				$object->getActiveSheet()->getStyle('A4')->getFont()->setSize(10);
-				$object->getActiveSheet()->getStyle('C4')->getFont()->setSize(10);
-				$object->getActiveSheet()->mergeCells('A4:B4');
-				$object->getActiveSheet()->mergeCells('C4:M4');
-				$object->getActiveSheet()->getStyle('A4:M4')->getFont()->setBold(TRUE);
-
-				// -------- Tahun Anggaran -------- //
-				$info_anggaran = 'TAHUN ANGGARAN ';
-				$nama_anggaran = ': '.$tahun;
-				$object->getActiveSheet()->setCellValue('A5', $info_anggaran);
-				$object->getActiveSheet()->setCellValue('C5', $nama_anggaran);
-				$object->getActiveSheet()->getStyle('A5')->getFont()->setSize(10);
-				$object->getActiveSheet()->getStyle('C5')->getFont()->setSize(10);
-				$object->getActiveSheet()->mergeCells('A5:B5');
-				$object->getActiveSheet()->mergeCells('C5:M5');
-				$object->getActiveSheet()->getStyle('A5:M5')->getFont()->setBold(TRUE);
 				// TABLE HEADER
 				$table_header_first = array("NO", "NAMA ORGANISASI", "NAMA KEGIATAN", " LOKASI", "JENIS BELANJA", "SUMBER DANA", "KODE MAK", "JENIS PENGADAAN", "PAGU (Rupiah)", "VOLUME", "DESKRIPSI", "PELAKSANAAN PEKERJAAN", "");
 				$table_header_second = array("AWAL", "AKHIR");
@@ -362,9 +322,9 @@ class Adminrup_controller extends CI_Controller {
 	 				$object->getActiveSheet()->setCellValue('B10', 'NIHIL');
 	 			}
 
-				$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel2007');
+				$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
 				header('Content-type: application/vnd.ms-excel');
-				header('Content-Disposition: attachment; filename="Laporan Rekap RUP - '.$nama_cara_pengadaan.'.xlsx"');
+				header('Content-Disposition: attachment; filename="Laporan Rekap RUP - '.$nama_cara_pengadaan.'.xls"');
 				$object_writer->save('php://output');
 			}
 

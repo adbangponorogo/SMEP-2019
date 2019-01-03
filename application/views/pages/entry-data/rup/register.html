@@ -65,8 +65,7 @@
 						<div class="col-md-6" style="padding: 0px 5px;">
 							<div class="form-gorup">
 								<label>Nama PPK</label>
-								<input type="text" class="form-control rupenda-user-ppk-reg" placeholder="Nama Pejabat Pembuat Komitmen" readonly="readonly">
-								<input type="hidden" name="iduserppk" class="rupenda-idppk-reg">
+								<select name="iduserppk" class="form-control rupenda-user-ppk-reg"></select>
 							</div>
 							<div class="form-gorup">
 								<label>Nama Paket *</label>
@@ -260,6 +259,7 @@
 						<div class="col-md-12">
 							<div class="form-gorup">
 								<input type="hidden" name="idskpd" class="rupenda-idskpd-reg">
+								<input type="hidden" name="tahun" class="rupenda-tahun-reg">
 								<button class="btn btn-primary smep-rupenda-register-send-btn">Simpan</button>
 								<button class="btn btn-danger smep-rupenda-register-cancel-btn">Batal</button>
 							</div>
@@ -278,6 +278,9 @@
 		viewMode	: 'months',
 		minViewMode	: 'months'
 	});
+	
+	// --------------- Year Data --------------- //
+    jQuery(".rupenda-tahun-reg").val(jQuery(".smep-year-value").val());
 
 	// ---------------- Users PPK ---------------- //
 	jQuery(".rupenda-idskpd-reg").val(jQuery(".smep-skpd-main").val());
@@ -288,12 +291,17 @@
 	    jQuery.ajax({
 		    type      : 'AJAX',
 		    method    : 'GET',
-		    url       : 'entry-data/data-rup/users-data',
+		    url       : 'entry-data/data-rup/users-data/ppk/'+jQuery(".smep-skpd-main").val(),
 		    async     : true,
 		    dataType  : 'JSON',
 		    success   : function(JSON){
-		    	jQuery(".rupenda-idppk-reg").val(JSON[0][0]);
-		    	jQuery(".rupenda-user-ppk-reg").val(JSON[0][1]);
+		    	option = '';
+		    	for (var ppk = 0; ppk < JSON.length; ppk++) {
+		    		option += "<option value="+JSON[ppk][0]+">"+JSON[ppk][1]+"</option>";
+		    	}
+		    	jQuery(".rupenda-user-ppk-reg").html(option);
+		    	jQuery(".rupenda-user-ppk-reg").val(JSON[0][0]).change();
+		        jQuery(".rupenda-user-ppk-reg").select2();
 		    },
 		    error     : function(jqXHR, textStatus, errorThrown){
 		        console.log('failed');

@@ -27,18 +27,45 @@ class Endarup_controller extends CI_Controller {
 		}
 	}
 
-	public function getDataUser(){
+     public function getDataUser(){
+          if ($this->session->userdata("auth_id") != "") {
+               $result = $this->model->getDataUsers($this->session->userdata('auth_id'));
+               $data = array();
+               foreach ($result->result() as $rows) {
+                    $data[] = array(
+                                   $rows->id,
+                                   $rows->nama,
+                                   $rows->status
+                              );
+               }
+               echo json_encode($data); 
+          }
+     }
+
+	public function getDataUserPPK($id_skpd){
 		if ($this->session->userdata("auth_id") != "") {
 			$result = $this->model->getDataUsers($this->session->userdata('auth_id'));
 			$data = array();
 			foreach ($result->result() as $rows) {
-				$data[] = array(
-							$rows->id,
-							$rows->nama,
-							$rows->status
-						);
+                    if ($rows->status == 3) {
+     				$data[] = array(
+     							$rows->id,
+     							$rows->nama,
+     							$rows->status
+     						);
+                    }
+                    else{
+                         $result_all = $this->model->getDataUsersAllPPK($id_skpd);
+                         foreach ($result_all->result() as $rows_all) {
+                              $data[] = array(
+                                        $rows_all->id,
+                                        $rows_all->nama,
+                                        $rows_all->status
+                                   );
+                         }
+                    }
 			}
-			echo json_encode($data);
+			echo json_encode($data); 
 		}
 	}
 
@@ -420,7 +447,7 @@ class Endarup_controller extends CI_Controller {
                     $pelaksanaan_pekerjaan_akhir = '-';
                }
 			$data = array(
-				"tahun" => "2019",
+				"tahun" => $this->input->post("tahun"),
 				"id_skpd" => $this->input->post("idskpd"),
 				"id_program" => $this->input->post("idprogram"),
 				"id_kegiatan" => $this->input->post("idkegiatan"),

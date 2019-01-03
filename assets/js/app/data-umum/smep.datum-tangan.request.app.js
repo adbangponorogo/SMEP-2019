@@ -15,19 +15,18 @@ jQuery(document).ready(function(){
 		var november = parseInt(jQuery(".tangandatum-november-update").val());
 		var desember = parseInt(jQuery(".tangandatum-desember-update").val());
 		var total_rencana = januari+februari+maret+april+mei+juni+juli+agustus+september+oktober+november+desember;
-		if (total_rencana < pagu) {
-			if (januari >= 0) {
-				if (februari >= 0) {
-					if (maret >= 0) {
-						if (april >= 0) {
-							if (mei >= 0) {
-								if (juni >= 0) {
-									if (juli >= 0) {
-										if (agustus >= 0) {
-											if (september >= 0) {
-												if (oktober >= 0) {
-													if (november >= 0) {
-														if (januari >= 0) {
+			if (januari >= 0 && januari <= pagu) {
+				if (februari >= 0 && februari <= pagu) {
+					if (maret >= 0 && maret <= pagu) {
+						if (april >= 0 && april <= pagu) {
+							if (mei >= 0 && mei <= pagu) {
+								if (juni >= 0 && juni <= pagu) {
+									if (juli >= 0 && juli <= pagu) {
+										if (agustus >= 0 && agustus <= pagu) {
+											if (september >= 0 && september <= pagu) {
+												if (oktober >= 0 && oktober <= pagu) {
+													if (november >= 0 && november <= pagu) {
+														if (januari >= 0 && desember <= pagu) {
 															jQuery.ajax({
 														      type      : 'AJAX',
 														      method    : 'POST',
@@ -91,10 +90,6 @@ jQuery(document).ready(function(){
 			else{
 				jQuery(".tangandatum-januari-update").focus();
 			}
-		}
-		else{
-			alert("Rencana tidak boleh melebihi total pagu kegiatan !!!");
-		}
 		return false;
 	});
 });

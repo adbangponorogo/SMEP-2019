@@ -17,9 +17,11 @@ class Datumdapan_model extends CI_Model {
     }
 
     public function getDataSKPD(){
-        $this->db->select("*");
-        $this->db->from("simda_skpd");
-        $this->db->order_by('id', 'ASC');
+        $this->db->select("a.*");
+        $this->db->from("simda_skpd a");
+        $this->db->join("tb_skpd_urutan b", "a.kd_skpd = b.kd_skpd");
+        $this->db->where("b.urutan >", 0);
+        $this->db->order_by("b.urutan", "ASC");
         $data = $this->db->get();
         return $data;
     }
@@ -27,25 +29,33 @@ class Datumdapan_model extends CI_Model {
     public function getDataSKPDUnique($token){
         $this->db->select("*");
         $this->db->from("simda_skpd");
-        $this->db->where("id", $token);
+        if ($token != 'all') {
+            $this->db->where("id", $token);
+        }
         $this->db->order_by('id', 'ASC');
         $data = $this->db->get();
         return $data;
     }
 
     public function getDataKegiatan(){
-        $this->db->select("*");
-        $this->db->from("simda_kegiatan");
-        $this->db->order_by("id", "ASC");
+        $this->db->select("a.*");
+        $this->db->from("simda_kegiatan a");
+        $this->db->join("simda_skpd b", "a.kd_skpd = b.kd_skpd");
+        $this->db->join("tb_skpd_urutan c", "b.kd_skpd = c.kd_skpd");
+        $this->db->where("c.urutan >", 0);
+        $this->db->order_by("c.urutan", "ASC");
         $data = $this->db->get();
         return $data;
     }
 
     public function getDataKegiatanUnique($kd_skpd){
-        $this->db->select("*");
-        $this->db->from("simda_kegiatan");
-        $this->db->where("kd_skpd", $kd_skpd);
-        $this->db->order_by("id", "ASC");
+        $this->db->select("a.*");
+        $this->db->from("simda_kegiatan a");
+        $this->db->join("simda_skpd b", "a.kd_skpd = b.kd_skpd");
+        $this->db->join("tb_skpd_urutan c", "b.kd_skpd = c.kd_skpd");
+        $this->db->where("c.urutan >", 0);
+        $this->db->where("b.kd_skpd", $kd_skpd);
+        $this->db->order_by("c.urutan", "ASC");
         $data = $this->db->get();
         return $data;
     }

@@ -47,6 +47,7 @@ class Adminrupaktual_controller extends CI_Controller {
 
 	public function getPrintData(){
 		if ($this->session->userdata("auth_id") != "") {
+			date_default_timezone_set("Asia/Jakarta");
 			$skpd = $this->input->post("skpd");
 			$cara_pengadaan = $this->input->post("cara_pengadaan");
 			$tahun = $this->input->post("tahun");
@@ -345,9 +346,9 @@ class Adminrupaktual_controller extends CI_Controller {
 	 			}
 			}
 
-			$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel2007');
+			$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
 			header('Content-type: application/vnd.ms-excel');
-			header('Content-Disposition: attachment; filename="Rekap - RUP Aktual '.$cara_pengadaan.'.xlsx"');
+			header('Content-Disposition: attachment; filename="Rekap - RUP Aktual '.$cara_pengadaan.'.xls"');
 			$object_writer->save('php://output');
 		}
 	}

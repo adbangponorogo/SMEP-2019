@@ -133,6 +133,7 @@ $route['data-umum/target-fisik/save-data'] = 'data-umum/Datumtasik_controller/sa
 // ------ Rencana Umum Pengadaan ------ //
 $route['entry-data/data-rup/main-page'] = 'entry-data/Endarup_controller/mainPage';
 $route['entry-data/data-rup/users-data'] = 'entry-data/Endarup_controller/getDataUser';
+$route['entry-data/data-rup/users-data/ppk/(:any)'] = 'entry-data/Endarup_controller/getDataUserPPK/$1';
 $route['entry-data/data-rup/main-data/program/all/(:any)'] = 'entry-data/Endarup_controller/getMainDataAllProgram/$1';
 $route['entry-data/data-rup/main-data/kegiatan/all/(:any)/(:any)'] = 'entry-data/Endarup_controller/getMainDataAllKegiatan/$1/$2';
 $route['entry-data/data-rup/main-data/rincian-obyek/all/(:any)/(:any)/(:any)'] = 'entry-data/Endarup_controller/getMainDataAllRincianObyek/$1/$2/$3';

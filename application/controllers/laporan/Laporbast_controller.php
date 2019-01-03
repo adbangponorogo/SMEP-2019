@@ -26,8 +26,8 @@ class Laporbast_controller extends CI_Controller {
 							$no++,
 							$rows_rup->nama_paket,
 							$this->nullValue($rows_realisasi->nomor_surat)."<br>".$this->nullValue($rows_realisasi->tanggal_surat_serah_terima),
-							$this->nullValue($rows_realisasi->nilai_kontrak),
-							$this->nullValue($rows_realisasi->realisasi_keuangan),
+							"Rp. ".number_format($this->nullIntValue($rows_realisasi->nilai_kontrak)),
+							"Rp. ".number_format($this->nullIntValue($rows_realisasi->realisasi_keuangan)),
 							$this->nullValue($rows_realisasi->nama_pemenang),
 							"<button class='btn btn-info btn-sm smep-bastlapor-bast-btn' data-id='".$rows_realisasi->id."' onclick='return false;'>Bast</button>&nbsp;".
                 			"<button class='btn btn-primary btn-sm smep-bastlapor-lampiranbast-btn' data-id='".$rows_realisasi->id."' onclick='return false;'>Lampiran Bast</button>"
@@ -42,6 +42,18 @@ class Laporbast_controller extends CI_Controller {
 		if ($this->session->userdata('auth_id') != '') {
 			if ($value == '' || is_null($value)) {
 				$data = '-';
+			}
+			else{
+				$data = $value;
+			}
+			return $data;
+		}
+	}
+
+	public function nullIntValue($value){
+		if ($this->session->userdata('auth_id') != '') {
+			if ($value == '' || is_null($value)) {
+				$data = 0;
 			}
 			else{
 				$data = $value;

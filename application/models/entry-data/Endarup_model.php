@@ -24,6 +24,15 @@ class Endarup_model extends CI_Model {
         return $data;
     }
 
+    public function getDataUsersAllPPK($id_skpd){
+        $this->db->select("*");
+        $this->db->from("tb_users");
+        $this->db->where("status", 3);
+        $this->db->where("id_skpd", $id_skpd);
+        $data = $this->db->get();
+        return $data;
+    }
+
     public function getDataProgram($id_skpd){
         $result_skpd = $this->getDataSKPD($id_skpd);
         $data = array();
