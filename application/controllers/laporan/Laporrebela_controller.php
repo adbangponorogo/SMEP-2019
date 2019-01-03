@@ -47,6 +47,7 @@ class Laporrebela_controller extends CI_Controller {
 
 	public function getPrintData(){
 		if ($this->session->userdata('auth_id') != '') {
+			date_default_timezone_set("Asia/Jakarta");
 			$skpd = $this->input->post("skpd");
 			$jenis_realisasi = $this->input->post("jenis_realisasi");
 			$tahun = $this->input->post("tahun");

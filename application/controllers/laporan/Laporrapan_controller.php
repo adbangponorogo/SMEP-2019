@@ -46,6 +46,7 @@ class Laporrapan_controller extends CI_Controller {
 	}
 
 	public function getPrintData(){
+		date_default_timezone_set("Asia/Jakarta");
 		$skpd = $this->input->post("skpd");
 		$jenis_pengadaan = $this->input->post("jenis_pengadaan");
 		$bulan = $this->input->post("bulan");

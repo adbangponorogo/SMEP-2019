@@ -47,6 +47,7 @@ class Laportepraperencanaan_controller extends CI_Controller {
 
 	public function getDataDana($id_skpd){
 		if ($this->session->userdata('auth_id') != '') {
+			date_default_timezone_set("Asia/Jakarta");
 			$result_skpd = $this->model->getDataSKPDUnique($id_skpd);
 			foreach ($result_skpd->result() as $rows_skpd) {
 				$result_ref_rup = $this->model->getDataRefRUP($rows_skpd->kd_skpd);

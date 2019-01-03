@@ -47,6 +47,7 @@ class Adminrup_controller extends CI_Controller {
 
 	public function getPrintData(){
 		if ($this->session->userdata('auth_id') != '') {
+			date_default_timezone_set("Asia/Jakarta");
 			$skpd = $this->input->post("skpd");
 			$cara_pengadaan = $this->input->post("cara_pengadaan");
 			$tahun = $this->input->post("tahun");
