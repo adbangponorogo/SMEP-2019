@@ -287,12 +287,18 @@ class Laporteprarealisasi_controller extends CI_Controller {
 			$object->getActiveSheet()->getStyle('A10:O18')->applyFromArray(array('borders'=>array('allborders'=>array('style'=> PHPExcel_Style_Border::BORDER_THIN))));
 
 
-
-
-			$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
-			header('Content-type: application/vnd.ms-excel');
-			header('Content-Disposition: attachment; filename="Laporan TEPRA Realisasi - '.$nama_skpd.'.xls"');
-			$object_writer->save('php://output');
+			if ($_SERVER["SERVER_NAME"] == "localhost") {
+				$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel2007');
+				header('Content-type: application/vnd.ms-excel');
+				header('Content-Disposition: attachment; filename="Laporan TEPRA Realisasi - '.$nama_skpd.'.xlsx"');
+				$object_writer->save('php://output');
+			}
+			else{
+				$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
+				header('Content-type: application/vnd.ms-excel');
+				header('Content-Disposition: attachment; filename="Laporan TEPRA Realisasi - '.$nama_skpd.'.xls"');
+				$object_writer->save('php://output');
+			}
 		}
 	}
 

@@ -222,10 +222,19 @@ class Adminrapan_controller extends CI_Controller {
 			$object->getActiveSheet()->getStyle('A'.$mulai.':L'.$mulai)->getFIll()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('D9D9D9');
 
 
-			$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
-			header('Content-type: application/vnd.ms-excel');
-			header('Content-Disposition: attachment; filename="Rekap - RP'.$jenis_pengadaan.'.xls"');
-			$object_writer->save('php://output');
+			
+			if ($_SERVER["SERVER_NAME"] == "localhost") {
+				$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel2007');
+				header('Content-type: application/vnd.ms-excel');
+				header('Content-Disposition: attachment; filename="Rekap - RP'.$jenis_pengadaan.'.xlsx"');
+				$object_writer->save('php://output');
+			}
+			else{
+				$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
+				header('Content-type: application/vnd.ms-excel');
+				header('Content-Disposition: attachment; filename="Rekap - RP'.$jenis_pengadaan.'.xls"');
+				$object_writer->save('php://output');
+			}
 		}
 	}
 

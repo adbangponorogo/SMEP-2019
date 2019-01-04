@@ -365,10 +365,19 @@ class Laporlapan_controller extends CI_Controller {
 			$object->getActiveSheet()->getStyle('A'.($mulai))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 			$object->getActiveSheet()->getStyle('A'.($mulai))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
 
-			$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
-			header('Content-type: application/vnd.ms-excel');
-			header('Content-Disposition: attachment; filename="Laporan Pengadaan - '.$nama_jenis_pengadaan.'.xls"');
-			$object_writer->save('php://output');
+			
+			if ($_SERVER["SERVER_NAME"] == "localhost") {
+				$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel2007');
+				header('Content-type: application/vnd.ms-excel');
+				header('Content-Disposition: attachment; filename="Laporan Pengadaan - '.$nama_jenis_pengadaan.'.xlsx"');
+				$object_writer->save('php://output');
+			}
+			else{
+				$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
+				header('Content-type: application/vnd.ms-excel');
+				header('Content-Disposition: attachment; filename="Laporan Pengadaan - '.$nama_jenis_pengadaan.'.xls"');
+				$object_writer->save('php://output');	
+			}
 		}
 	}
 

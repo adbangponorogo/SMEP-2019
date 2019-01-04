@@ -222,10 +222,20 @@ class Laporrup_controller extends CI_Controller {
 					$object->getActiveSheet()->setCellValue('B10', 'NIHIL');
 	 			}
 
-				$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
-				header('Content-type: application/vnd.ms-excel');
-				header('Content-Disposition: attachment; filename="Laporan RUP - '.$nama_cara_pengadaan.'.xls"');
-				$object_writer->save('php://output');
+				
+				if ($_SERVER["SERVER_NAME"] == "localhost") {
+					$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel2007');
+					header('Content-type: application/vnd.ms-excel');
+					header('Content-Disposition: attachment; filename="Laporan RUP - '.$nama_cara_pengadaan.'.xlsx"');
+					$object_writer->save('php://output');
+				}
+				if ($_SERVER["SERVER_NAME"] != "localhost") {
+					$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
+					header('Content-type: application/vnd.ms-excel');
+					header('Content-Disposition: attachment; filename="Laporan RUP - '.$nama_cara_pengadaan.'.xls"');
+					$object_writer->save('php://output');
+				}
+
 			}
 			if ($cara_pengadaan == 2) {
 				// TABLE HEADER
@@ -323,10 +333,19 @@ class Laporrup_controller extends CI_Controller {
 	 				$object->getActiveSheet()->setCellValue('B10', 'NIHIL');
 	 			}
 
-				$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
-				header('Content-type: application/vnd.ms-excel');
-				header('Content-Disposition: attachment; filename="Laporan RUP - '.$nama_cara_pengadaan.'.xls"');
-				$object_writer->save('php://output');
+
+				if ($_SERVER["SERVER_NAME"] == "localhost") {
+					$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel2007');
+					header('Content-type: application/vnd.ms-excel');
+					header('Content-Disposition: attachment; filename="Laporan RUP - '.$nama_cara_pengadaan.'.xlsx"');
+					$object_writer->save('php://output');
+				}
+				if ($_SERVER["SERVER_NAME"] != "localhost") {
+					$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
+					header('Content-type: application/vnd.ms-excel');
+					header('Content-Disposition: attachment; filename="Laporan RUP - '.$nama_cara_pengadaan.'.xls"');
+					$object_writer->save('php://output');
+				}
 			}
 
 		}
