@@ -165,6 +165,10 @@ div.dataTables_wrapper div.dataTables_info{
 	width: 100%;
 }
 
+.form-group{
+	margin-bottom: 10px;
+}
+
 
 /*------- Responsive --------*/
 @media(max-width: 1254px){

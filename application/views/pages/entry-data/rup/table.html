@@ -109,19 +109,19 @@ jQuery(".smep-rup-enda-ro-option").select2().prop("disabled", true);
         });
     }
 
-  // ---------------- Instant Option ---------------- //
+//   // ---------------- Instant Option ---------------- //
   endaRUPOptionInstant();
   function endaRUPOptionInstant(){
-    if (jQuery(".smep-idprogram-token").val() == "") {
+    if (jQuery(".smep-idprogram-token").val() == "" && jQuery(".smep-idkegiatan-token").val() == "" && jQuery(".smep-idro-token").val() == "") {
       endaRUPProgramData("");
     }
-    if (jQuery(".smep-idprogram-token").val() != "") {
+    if (jQuery(".smep-idprogram-token").val() != "" && jQuery(".smep-idkegiatan-token").val() == "" && jQuery(".smep-idro-token").val() == "") {
       endaRUPProgramData(jQuery(".smep-idprogram-token").val());
     }
-    if (jQuery(".smep-idkegiatan-token").val() != "") {
+    if (jQuery(".smep-idprogram-token").val() != "" && jQuery(".smep-idkegiatan-token").val() != "" && jQuery(".smep-idro-token").val() == "") {
       endaRUPfromProgram(jQuery(".smep-idprogram-token").val(), jQuery(".smep-idkegiatan-token").val());
     }
-    if (jQuery(".smep-idro-token").val() != "") {
+    if (jQuery(".smep-idprogram-token").val() != "" && jQuery(".smep-idkegiatan-token").val() != "" && jQuery(".smep-idro-token").val() != "") {
       endaRUPfromKegiatan(jQuery(".smep-idprogram-token").val(), jQuery(".smep-idkegiatan-token").val(), jQuery(".smep-idro-token").val());
     }
   }

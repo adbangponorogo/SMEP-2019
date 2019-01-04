@@ -147,7 +147,8 @@ class Endarup_model extends CI_Model {
                 $pagu,
                 sprintf("%01s", $kd_rekening[0]).".".sprintf("%01s", $kd_rekening[1]).".".
                 sprintf("%01s", $kd_rekening[2]).".".sprintf("%02s", $kd_rekening[3]).".".
-                sprintf("%02s", $kd_rekening[4])
+                sprintf("%02s", $kd_rekening[4]),
+                $rows_ro->nama_rekening
             );
         }
         return $data;
