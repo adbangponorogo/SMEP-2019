@@ -119,9 +119,12 @@ jQuery(".smep-rup-enda-ro-option").select2().prop("disabled", true);
       endaRUPProgramData(jQuery(".smep-idprogram-token").val());
     }
     if (jQuery(".smep-idprogram-token").val() != "" && jQuery(".smep-idkegiatan-token").val() != "" && jQuery(".smep-idro-token").val() == "") {
+      endaRUPProgramData(jQuery(".smep-idprogram-token").val());
       endaRUPfromProgram(jQuery(".smep-idprogram-token").val(), jQuery(".smep-idkegiatan-token").val());
     }
     if (jQuery(".smep-idprogram-token").val() != "" && jQuery(".smep-idkegiatan-token").val() != "" && jQuery(".smep-idro-token").val() != "") {
+      endaRUPProgramData(jQuery(".smep-idprogram-token").val());
+      endaRUPfromProgram(jQuery(".smep-idprogram-token").val(), jQuery(".smep-idkegiatan-token").val());
       endaRUPfromKegiatan(jQuery(".smep-idprogram-token").val(), jQuery(".smep-idkegiatan-token").val(), jQuery(".smep-idro-token").val());
     }
   }
