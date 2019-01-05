@@ -134,7 +134,7 @@
 								</div>
 								<div class="form-group">
 									<label>Sanggah</label>
-									<select name="sanggah" class="form-control sirupenda-sanggah-edit">
+									<select name="sanggah" class="form-control sirupenda-sanggah-edit select2-option">
 										<option value="1">Tanpa Sanggahan</option>
 										<option value="2">Sanggah</option>
 										<option value="3">Sanggah Banding</option>
@@ -186,6 +186,9 @@
 		viewMode	: 'dates',
 		minViewMode	: 'dates'
 	});
+
+	// --------------- Default Select2 --------------- //
+	jQuery(".select2-option").select2();
 
 	// ---------------- Data RUP ---------------- //
 	endaSiRUPRUPData();

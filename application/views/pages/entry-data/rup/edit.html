@@ -84,7 +84,7 @@
 										<i class="fa fa-question"></i>
 									</span>
 								</label>
-								<select name="tipe_swakelola" class="form-control rupenda-tipe-swakelola-edit">
+								<select name="tipe_swakelola" class="form-control rupenda-tipe-swakelola-edit select2-option">
 									<option value="1">Swakelola Tipe 1</option>
 									<option value="2">Swakelola Tipe 2</option>
 									<option value="3">Swakelola Tipe 3</option>
@@ -93,7 +93,7 @@
 							</div>
 							<div class="form-group">
 								<label>Jenis Belanja</label>
-								<select name="jenis_belanja" class="form-control rupenda-jenis-belanja-edit">
+								<select name="jenis_belanja" class="form-control rupenda-jenis-belanja-edit select2-option">
 									<option value="1">Belanja Pegawai</option>
 									<option value="2">Belanja Barang/Jasa</option>
 									<option value="3">Belanja Modal</option>
@@ -123,7 +123,7 @@
 							</div>
 							<div class="form-group">
 								<label>Pra DIPA/DPA</label>
-								<select name="pra_dipa" class="form-control rupenda-pra-dipa-edit">
+								<select name="pra_dipa" class="form-control rupenda-pra-dipa-edit select2-option">
 									<option value="0">Ya</option>
 									<option value="1">Tidak</option>
 								</select>
@@ -134,7 +134,7 @@
 							</div>
 							<div class="form-group">
 								<label>Sumber Dana</label>
-								<select name="sumber_dana" class="form-control rupenda-sumber-dana-edit">
+								<select name="sumber_dana" class="form-control rupenda-sumber-dana-edit select2-option">
 									<option value="1">APBD</option>
 									<option value="2">APBDP</option>
 									<option value="3">APBN</option>
@@ -150,21 +150,21 @@
 							</div>
 							<div class="form-group">
 								<label>Produk Dalam Negeri</label>
-								<select name="produk_dalam_negeri" class="form-control rupenda-pdn-edit">
+								<select name="produk_dalam_negeri" class="form-control rupenda-pdn-edit select2-option">
 									<option value="0">Ya</option>
 									<option value="1">Tidak</option>
 								</select>
 							</div>
 							<div class="form-group">
 								<label>Usaha Kecil</label>
-								<select name="usaha_kecil" class="form-control rupenda-usaha-kecil-edit">
+								<select name="usaha_kecil" class="form-control rupenda-usaha-kecil-edit select2-option">
 									<option value="0">Ya</option>
 									<option value="1">Tidak</option>
 								</select>
 							</div>
 							<div class="form-group">
 								<label>Umumkan Paket</label>
-								<select name="umumkan_paket" class="form-control rupenda-umumkan-paket-edit">
+								<select name="umumkan_paket" class="form-control rupenda-umumkan-paket-edit select2-option">
 									<option value="0">Ya</option>
 									<option value="1">Tidak</option>
 								</select>
@@ -182,7 +182,7 @@
 							</div>
 							<div class="form-group">
 								<label>Jenis Pengadaan</label>
-								<select name="jenis_pengadaan" class="form-control rupenda-jenis-pengadaan-edit">
+								<select name="jenis_pengadaan" class="form-control rupenda-jenis-pengadaan-edit select2-option">
 									<option value="1">Barang</option>
 									<option value="2">Konstruksi</option>
 									<option value="3">Jasa Konsultasi</option>
@@ -191,7 +191,7 @@
 							</div>
 							<div class="form-group">
 								<label>Metode Pemilihan</label>
-								<select name="metode_pemilihan" class="form-control rupenda-metode-pemilihan-edit">
+								<select name="metode_pemilihan" class="form-control rupenda-metode-pemilihan-edit select2-option">
 									<option value="1">E-Purchasing</option>
 									<option value="2">Tender</option>
 									<option value="3">Tender Cepat</option>
@@ -277,6 +277,9 @@
 		viewMode	: 'months',
 		minViewMode	: 'months'
 	});
+
+	// --------------- Default Select2 --------------- //
+	jQuery(".select2-option").select2();
 
 	// ---------------- DataEdit ---------------- //
 	endaRUPEditData();

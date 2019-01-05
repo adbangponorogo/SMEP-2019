@@ -133,7 +133,7 @@
 								</div>
 								<div class="form-group">
 									<label>Sanggah</label>
-									<select name="sanggah" class="form-control sirupenda-sanggah-reg">
+									<select name="sanggah" class="form-control sirupenda-sanggah-reg select2-option">
 										<option value="1">Tanpa Sanggahan</option>
 										<option value="2">Sanggah</option>
 										<option value="3">Sanggah Banding</option>
@@ -194,6 +194,9 @@
 	// ---------------- Users PPK ---------------- //
 	jQuery(".sirupenda-idrup-reg").val(jQuery(".smep-unique-token").val());
 	jQuery(".sirupenda-idskpd-reg").val(jQuery(".smep-skpd-main").val());
+
+	// --------------- Default Select2 --------------- //
+	jQuery(".select2-option").select2();
 
 	// ---------------- Data RUP ---------------- //
 	endaSiRUPRUPData();

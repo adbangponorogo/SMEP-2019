@@ -377,6 +377,20 @@ class Endarup_controller extends CI_Controller {
 		}
 	}
 
+     public function getDataSKPD($id_skpd){
+          if ($this->session->userdata("auth_id") != "") {
+               $result_skpd = $this->model->getDataSKPD($id_skpd);
+               $data = array();
+               foreach ($result_skpd->result() as $rows_skpd) {
+                    $result_data = $this->model->getDataMasterRefRUP($rows_skpd->kd_skpd);
+                    foreach ($result_data->result() as $rows_data) {
+                         $data[] = array($rows_data->alamat);
+                    }
+               }
+               echo json_encode($data);
+          }
+     }
+
 	public function uploadData(){
 		if ($this->session->userdata("auth_id") != "") {
 			$kd_mak = $this->input->post("kd_urusan").".".$this->input->post("kd_bidang").".".$this->input->post("kd_opd").".".$this->input->post("kd_program").".".$this->input->post("kd_kegiatan").".".$this->input->post("kd_rekening");

@@ -188,6 +188,7 @@ class Endarup_model extends CI_Model {
         $result = $this->db->get();
         return $result;
     }
+    
     public function getMainDataUniqueRincianObyek($id_skpd, $id_program, $id_kegiatan, $id_rincian_obyek){
         $this->db->select("*");
         $this->db->from("tb_rup");
@@ -197,6 +198,14 @@ class Endarup_model extends CI_Model {
         $this->db->where("id_rincian_obyek", $id_rincian_obyek);
         $result = $this->db->get();
         return $result;
+    }
+
+    public function getDataMasterRefRUP($kd_skpd){
+        $this->db->select("*");
+        $this->db->from("simda_ref_master_rup");
+        $this->db->where("kd_skpd", $kd_skpd);
+        $data = $this->db->get();
+        return $data;
     }
 
     public function insertData($data){
