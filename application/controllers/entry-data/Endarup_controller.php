@@ -59,7 +59,7 @@ class Endarup_controller extends CI_Controller {
                          foreach ($result_all->result() as $rows_all) {
                               $data[] = array(
                                         $rows_all->id,
-                                        $rows_all->nama,
+                                        "[".strtoupper($rows_all->username)."] - ".$rows_all->nama,
                                         $rows_all->status
                                    );
                          }
