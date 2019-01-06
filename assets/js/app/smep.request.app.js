@@ -89,4 +89,19 @@ jQuery(document).ready(function(){
 		jQuery(".smep-skpd-main").val(jQuery(this).val());
 	});
 
+	// ---------------- Auto Focus Value Input ---------------- //
+	jQuery(document).on('focus', 'input[type=text]', function(){
+		jQuery(this).select();
+	});
+
+	// ---------------- Auto Focus Value Input ---------------- //
+	jQuery(document).on('focus', 'input[type=number]', function(){
+		jQuery(this).select();
+	});
+
+	// ---------------- Auto Focus Value Input ---------------- //
+	jQuery(document).on('focus', 'textarea', function(){
+		jQuery(this).select();
+	});
+
 });
