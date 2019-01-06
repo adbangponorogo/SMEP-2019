@@ -90,12 +90,7 @@ jQuery(document).ready(function(){
 	});
 
 	// ---------------- Auto Focus Value Input ---------------- //
-	jQuery(document).on('focus', 'input[type=text]', function(){
-		jQuery(this).select();
-	});
-
-	// ---------------- Auto Focus Value Input ---------------- //
-	jQuery(document).on('focus', 'input[type=number]', function(){
+	jQuery(document).on('focus', 'input', function(){
 		jQuery(this).select();
 	});
 
