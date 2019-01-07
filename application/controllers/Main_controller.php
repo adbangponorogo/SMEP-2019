@@ -58,4 +58,11 @@ class Main_Controller extends CI_Controller {
 		}
 	}
 
+	public function getDataTester(){
+		if ($this->session->userdata('auth_id') != '') {
+			// $password = 123456;
+			// echo md5($password);
+		}
+	}
+
 }

@@ -50,6 +50,7 @@ class Laporrapan_controller extends CI_Controller {
 		$skpd = $this->input->post("skpd");
 		$jenis_pengadaan = $this->input->post("jenis_pengadaan");
 		$bulan = $this->input->post("bulan");
+		$tahun = $this->input->post("tahun");
 
 		switch ($jenis_pengadaan) {
 			case '1':
@@ -69,13 +70,18 @@ class Laporrapan_controller extends CI_Controller {
 				$nama_jenis_pengadaan = 'BARANG';
 			break;
 		}
-
+ 
 		$this->load->library("Excel");
 		$object =  new PHPExcel();
 		$object->setActiveSheetIndex(0);
-		$result_skpd = $this->model->getDataSKPDUnique($skpd);
-		foreach ($result_skpd->result() as $rows_skpd) {
-			$nama_skpd = $rows_skpd->nama_skpd;
+		if ($skpd != 'all') {
+			$result_skpd = $this->model->getDataSKPDUnique($skpd);
+			foreach ($result_skpd->result() as $rows_skpd) {
+				$nama_skpd = $rows_skpd->nama_skpd;
+			}
+		}
+		else{
+			$nama_skpd = 'Pemerintah Daerah';
 		}
 
 			// -------- PAPER Setup -------- //
@@ -130,7 +136,7 @@ class Laporrapan_controller extends CI_Controller {
 
 			// -------- Tahun Anggaran -------- //
 			$info_anggaran = 'TAHUN ANGGARAN ';
-			$nama_anggaran = ': 2019';
+			$nama_anggaran = ': '.$tahun;
 			$object->getActiveSheet()->setCellValue('A5', $info_anggaran);
 			$object->getActiveSheet()->setCellValue('C5', $nama_anggaran);
 			$object->getActiveSheet()->getStyle('A5')->getFont()->setSize(10);
@@ -198,9 +204,9 @@ class Laporrapan_controller extends CI_Controller {
  			$no = 1;
  			$mulai = 11;
 			$result_skpd = $this->model->getDataSKPDUnique($skpd);
-			foreach ($result_skpd->result() as $rows_skpd) {
-				$result_program = $this->model->getDataProgramUnique($rows_skpd->kd_skpd, $jenis_pengadaan);
-				if ($result_program->num_rows() > 0) {
+			if ($result_skpd->num_rows() > 0) {
+				foreach ($result_skpd->result() as $rows_skpd) {
+					$result_program = $this->model->getDataProgramUnique($rows_skpd->kd_skpd, $jenis_pengadaan);
 					foreach ($result_program->result() as $rows_program) {
 							// -------- Value ---------
 							$object->getActiveSheet()->setCellValue('A'.($mulai), $rows_program->kd_gabungan);
@@ -318,12 +324,17 @@ class Laporrapan_controller extends CI_Controller {
 										$object->getActiveSheet()->getStyle('C'.(($mulai)-2))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
 									}
 							}
-					}			
+					}
+					$mulai++;
 				}
-				else{
-					$object->getActiveSheet()->setCellValue('B11', 'NIHIL');
+			}
+			else{
+				$table_data = array("NIHIL", "", "", "", "", "", "", "", "", "");
+
+				foreach ($table_data as $data_table) {
+					$object->getActiveSheet()->setCellValueByColumnAndRow(1, $mulai, $data_table);
+					$mulai++;
 				}
-				$mulai++;
 			}
 
 			$object->getActiveSheet()->setCellValue('A'.$mulai, 'TOTAL');
