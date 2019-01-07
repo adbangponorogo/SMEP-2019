@@ -65,6 +65,7 @@ $route['app/auth/logout'] = 'app/Applogin_controller/logoutProcess';
 // ------ Main ------ //
 $route['app/main/data-user'] = 'Main_controller/getUserData';
 $route['app/main/data-skpd'] = 'Main_controller/getDataSKPD';
+$route['app/main/tester'] = 'Main_controller/getDataTester';
 
 
 // ------ Dashboard ------ //

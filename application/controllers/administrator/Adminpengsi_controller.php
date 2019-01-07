@@ -88,7 +88,7 @@ class Adminpengsi_controller extends CI_Controller {
 							"id_skpd" => $this->input->post("skpd"),
 							"nama" => $this->input->post("nama"),
 							"username" => $this->input->post("username"),
-							"password" => password_hash($this->input->post("password"), PASSWORD_BCRYPT, array("cost"=>9)),
+							"password" => md5($this->input->post("password")),
 							"email" => $this->input->post("email"),
 							"telepon" => $this->input->post("telepon"),
 							"alamat" => $this->input->post("alamat"),
@@ -166,7 +166,7 @@ class Adminpengsi_controller extends CI_Controller {
 				else{
 					$data = array(
 							"nama" => $this->input->post("nama"),
-							"password" => password_hash($this->input->post("password"), PASSWORD_BCRYPT, array("cost"=>9)),
+							"password" => md5($this->input->post("password")),
 							"email" => $this->input->post("email"),
 							"telepon" => $this->input->post("telepon"),
 							"alamat" => $this->input->post("alamat"),

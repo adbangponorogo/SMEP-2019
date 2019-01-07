@@ -8,10 +8,11 @@ class Applogin_model extends CI_Model {
         $this->load->database();
     }
 
-    public function getDataUsers($username){
+    public function getDataUsers($username, $password){
     	$this->db->select("*");
     	$this->db->from("tb_users");
-    	$this->db->where("username", $username);
+        $this->db->where("username", $username);
+    	$this->db->where("password", $password);
     	$data = $this->db->get();
     	return $data;
     }
