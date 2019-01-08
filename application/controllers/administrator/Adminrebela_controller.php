@@ -567,43 +567,51 @@ class Adminrebela_controller extends CI_Controller {
 
 								$mulai++;
 							}
-
-							$object->getActiveSheet()->setCellValue('A'.($mulai), 'TOTAL');
-							$object->getActiveSheet()->setCellValue('C'.($mulai), '=SUM(C12:C'.($mulai-2).')');
-							$object->getActiveSheet()->setCellValue('D'.($mulai), '=SUM(D12:D'.($mulai-2).')');
-							$object->getActiveSheet()->setCellValue('E'.($mulai), '=SUM(E12:E'.($mulai-2).')');
-							$object->getActiveSheet()->setCellValue('F'.($mulai), '=SUM(G'.$mulai.'/C'.$mulai.')');
-							$object->getActiveSheet()->setCellValue('G'.($mulai), '=SUM(G12:G'.($mulai-2).')');
-							$object->getActiveSheet()->setCellValue('H'.($mulai), '=SUM(I'.$mulai.'/D'.$mulai.')');
-							$object->getActiveSheet()->setCellValue('I'.($mulai), '=SUM(I12:I'.($mulai-2).')');
-							$object->getActiveSheet()->setCellValue('J'.($mulai), '=SUM(K'.$mulai.'/E'.$mulai.')');
-							$object->getActiveSheet()->setCellValue('K'.($mulai), '=SUM(K12:K'.($mulai-2).')');
-
-							$object->getActiveSheet()->mergeCells('A'.($mulai).':B'.($mulai));
-
-							$object->getActiveSheet()->getStyle('A'.$mulai.':K'.$mulai)->getFont()->setBold(TRUE);
-
-							$object->getActiveSheet()->getStyle('C12:E'.($mulai))->getNumberFormat()->setFormatCode('#,##0');
-							$object->getActiveSheet()->getStyle('G12:G'.($mulai))->getNumberFormat()->setFormatCode('#,##0');
-							$object->getActiveSheet()->getStyle('I12:I'.($mulai))->getNumberFormat()->setFormatCode('#,##0');
-							$object->getActiveSheet()->getStyle('K11:K'.($mulai))->getNumberFormat()->setFormatCode('#,##0');
-
-							$object->getActiveSheet()->getStyle('F12:F'.$mulai)->getNumberFormat()->setFormatCode('0.00%');
-							$object->getActiveSheet()->getStyle('H12:H'.$mulai)->getNumberFormat()->setFormatCode('0.00%');
-							$object->getActiveSheet()->getStyle('J12:J'.$mulai)->getNumberFormat()->setFormatCode('0.00%');
-
-							$object->getActiveSheet()->getStyle('A'.($mulai).':K'.($mulai))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-							$object->getActiveSheet()->getStyle('A'.($mulai).':K'.($mulai))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-
-							$object->getActiveSheet()->getStyle('A'.($mulai-1).':K'.($mulai))->applyFromArray(array('borders'=>array('allborders'=>array('style'=> PHPExcel_Style_Border::BORDER_THIN))));
-
-							
 						}
 					}	
 				}
-				else{
-					$object->getActiveSheet()->setCellValue('B14', 'NIHIL');
+				else{ 
+					$table_data = array("NIHIL", "-", "-", "-", "-", "-", "-", "-", "-", "-");
+
+					foreach ($table_data as $data_table) {
+						$object->getActiveSheet()->setCellValueByColumnAndRow(1, (($mulai)+1), $data_table);
+						$object->getActiveSheet()->getStyle('A12:K'.$mulai)->applyFromArray(array('borders'=>array('allborders'=>array('style'=> PHPExcel_Style_Border::BORDER_THIN))));
+						$mulai++;
+					}
 				}
+
+
+				// VALUES
+				$object->getActiveSheet()->setCellValue('A'.($mulai), 'TOTAL');
+				$object->getActiveSheet()->setCellValue('C'.($mulai), '=SUM(C12:C'.($mulai-1).')');
+				$object->getActiveSheet()->setCellValue('D'.($mulai), '=SUM(D12:D'.($mulai-1).')');
+				$object->getActiveSheet()->setCellValue('E'.($mulai), '=SUM(E12:E'.($mulai-1).')');
+				$object->getActiveSheet()->setCellValue('F'.($mulai), '=G'.$mulai.'/C'.$mulai.'');
+				$object->getActiveSheet()->setCellValue('G'.($mulai), '=SUM(G12:G'.($mulai-1).')');
+				$object->getActiveSheet()->setCellValue('H'.($mulai), '=I'.$mulai.'/D'.$mulai.'');
+				$object->getActiveSheet()->setCellValue('I'.($mulai), '=SUM(I12:I'.($mulai-1).')');
+				$object->getActiveSheet()->setCellValue('J'.($mulai), '=K'.$mulai.'/E'.$mulai.'');
+				$object->getActiveSheet()->setCellValue('K'.($mulai), '=SUM(K12:K'.($mulai-1).')');
+
+
+				// SETUP
+				$object->getActiveSheet()->mergeCells('A'.($mulai).':B'.($mulai));
+
+				$object->getActiveSheet()->getStyle('A'.$mulai.':K'.$mulai)->getFont()->setBold(TRUE);
+
+				$object->getActiveSheet()->getStyle('C12:E'.($mulai))->getNumberFormat()->setFormatCode('#,##0');
+				$object->getActiveSheet()->getStyle('G12:G'.($mulai))->getNumberFormat()->setFormatCode('#,##0');
+				$object->getActiveSheet()->getStyle('I12:I'.($mulai))->getNumberFormat()->setFormatCode('#,##0');
+				$object->getActiveSheet()->getStyle('K11:K'.($mulai))->getNumberFormat()->setFormatCode('#,##0');
+
+				$object->getActiveSheet()->getStyle('F12:F'.$mulai)->getNumberFormat()->setFormatCode('0.00%');
+				$object->getActiveSheet()->getStyle('H12:H'.$mulai)->getNumberFormat()->setFormatCode('0.00%');
+				$object->getActiveSheet()->getStyle('J12:J'.$mulai)->getNumberFormat()->setFormatCode('0.00%');
+
+				$object->getActiveSheet()->getStyle('A'.($mulai).':K'.($mulai))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+				$object->getActiveSheet()->getStyle('A'.($mulai).':K'.($mulai))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+
+				$object->getActiveSheet()->getStyle('A'.($mulai-1).':K'.($mulai))->applyFromArray(array('borders'=>array('allborders'=>array('style'=> PHPExcel_Style_Border::BORDER_THIN))));
 			}
 
 			if ($_SERVER["SERVER_NAME"] == "localhost") {

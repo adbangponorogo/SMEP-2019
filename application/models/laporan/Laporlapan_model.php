@@ -27,12 +27,14 @@ class Laporlapan_model extends CI_Model {
     }
 
     public function getDataSKPDUnique($skpd){
-        $this->db->select("*");
-        $this->db->from("simda_skpd");
+        $this->db->select("a.*");
+        $this->db->from("simda_skpd a");
+        $this->db->join("tb_skpd_urutan b", "a.kd_skpd = b.kd_skpd");
+        $this->db->join("tb_rup c", "a.id = c.id_skpd");
         if ($skpd != "all") {
-            $this->db->where("id", $skpd);
+            $this->db->where("a.id", $skpd);
         }
-        $this->db->order_by('id', 'ASC');
+        $this->db->order_by('b.urutan', 'ASC');
         $data = $this->db->get();
         return $data;
     }

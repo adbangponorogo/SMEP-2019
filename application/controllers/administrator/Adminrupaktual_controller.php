@@ -208,14 +208,14 @@ class Adminrupaktual_controller extends CI_Controller {
 				$object->getActiveSheet()->getStyle('A'.$mulai.':I'.$mulai)->getFIll()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('D9D9D9');
 
 			}
-			if ($cara_pengadaan == 2) {
+			if ($cara_pengadaan == 2) { 
 				// -------- Title Form -------- //
 				$title_form = 'RENCANA UMUM PENGADAAN MELALUI '.strtoupper($nama_cara_pengadaan);
 				$object->getActiveSheet()->setCellValue('A1', $title_form);
 				$object->getActiveSheet()->getStyle('A1')->getFont()->setBold(TRUE);
 				$object->getActiveSheet()->getStyle('A1')->getFont()->setSize(14);
-				$object->getActiveSheet()->mergeCells('A1:Q1');
-				$object->getActiveSheet()->getStyle('A1:Q1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+				$object->getActiveSheet()->mergeCells('A1:M1');
+				$object->getActiveSheet()->getStyle('A1:M1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
 
 				// -------- Nama Organisasi -------- //
 				$info_organisasi = 'NAMA ORGANISASI ';
@@ -225,8 +225,8 @@ class Adminrupaktual_controller extends CI_Controller {
 				$object->getActiveSheet()->getStyle('A3')->getFont()->setSize(10);
 				$object->getActiveSheet()->getStyle('C3')->getFont()->setSize(10);
 				$object->getActiveSheet()->mergeCells('A3:B3');
-				$object->getActiveSheet()->mergeCells('C3:Q3');
-				$object->getActiveSheet()->getStyle('A3:Q3')->getFont()->setBold(TRUE);
+				$object->getActiveSheet()->mergeCells('C3:M3');
+				$object->getActiveSheet()->getStyle('A3:M3')->getFont()->setBold(TRUE);
 
 				// -------- Kabupaten -------- //
 				$info_kabupaten = 'KABUPATEN ';
@@ -236,8 +236,8 @@ class Adminrupaktual_controller extends CI_Controller {
 				$object->getActiveSheet()->getStyle('A4')->getFont()->setSize(10);
 				$object->getActiveSheet()->getStyle('C4')->getFont()->setSize(10);
 				$object->getActiveSheet()->mergeCells('A4:B4');
-				$object->getActiveSheet()->mergeCells('C4:Q4');
-				$object->getActiveSheet()->getStyle('A4:Q4')->getFont()->setBold(TRUE);
+				$object->getActiveSheet()->mergeCells('C4:M4');
+				$object->getActiveSheet()->getStyle('A4:M4')->getFont()->setBold(TRUE);
 
 				// -------- Tahun Anggaran -------- //
 				$info_anggaran = 'TAHUN ANGGARAN ';
@@ -247,8 +247,9 @@ class Adminrupaktual_controller extends CI_Controller {
 				$object->getActiveSheet()->getStyle('A5')->getFont()->setSize(10);
 				$object->getActiveSheet()->getStyle('C5')->getFont()->setSize(10);
 				$object->getActiveSheet()->mergeCells('A5:B5');
-				$object->getActiveSheet()->mergeCells('C5:Q5');
-				$object->getActiveSheet()->getStyle('A5:Q5')->getFont()->setBold(TRUE);
+				$object->getActiveSheet()->mergeCells('C5:M5');
+				$object->getActiveSheet()->getStyle('A5:M5')->getFont()->setBold(TRUE);
+
 
 				// TABLE HEADER
 				$table_header_first = array("NO", "NAMA ORGANISASI", "NAMA KEGIATAN", " LOKASI", "JENIS BELANJA", "SUMBER DANA", "KODE MAK", "JENIS PENGADAAN", "PAGU (Rupiah)", "VOLUME", "DESKRIPSI", "PELAKSANAAN PEKERJAAN", "");
@@ -317,33 +318,39 @@ class Adminrupaktual_controller extends CI_Controller {
 		 				$no++;
 		 				$mulai++;
 		 			}
-		 			$object->getActiveSheet()->setCellValue('G'.$mulai, 'TOTAL');
-		 			$object->getActiveSheet()->setCellValue('I'.$mulai, '=SUM(I9:I'.(($mulai)-1).')');
-
-		 			// SETUP
-		 			$object->getActiveSheet()->getStyle('G'.$mulai.':I'.$mulai)->getFont()->setBold(TRUE);
-		 			$object->getActiveSheet()->getStyle('A9:M'.($mulai))->getFont()->setSize(8);
-		 			$object->getActiveSheet()->mergeCells('G'.$mulai.':H'.$mulai);
-		 			$object->getActiveSheet()->getStyle('A9:M'.($mulai))->getAlignment()->setWrapText(true);
-
-		 			$object->getActiveSheet()->getStyle('A9:A'.($mulai))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-					$object->getActiveSheet()->getStyle('A9:A'.($mulai))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-					$object->getActiveSheet()->getStyle('B9:D'.($mulai))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
-					$object->getActiveSheet()->getStyle('B9:D'.($mulai))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-					$object->getActiveSheet()->getStyle('E9:J'.($mulai))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-					$object->getActiveSheet()->getStyle('E9:J'.($mulai))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-					$object->getActiveSheet()->getStyle('K9:K'.($mulai))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
-					$object->getActiveSheet()->getStyle('K9:K'.($mulai))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-					$object->getActiveSheet()->getStyle('L9:M'.($mulai))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-					$object->getActiveSheet()->getStyle('L9:M'.($mulai))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-
-		 			$object->getActiveSheet()->getStyle('A9:M'.($mulai))->applyFromArray(array('borders'=>array('allborders'=>array('style'=> PHPExcel_Style_Border::BORDER_THIN))));
-		 			$object->getActiveSheet()->getStyle('I9:I'.($mulai))->getNumberFormat()->setFormatCode('#,##0');
-
 	 			}
 	 			else{
-	 				$object->getActiveSheet()->setCellValue('B10', 'NIHIL');
+	 				$table_data = array("NIHIL", "-", "-", "-", "-", "-", "-", "-", "-", "-");
+
+					foreach ($table_data as $data_table) {
+						$object->getActiveSheet()->setCellValueByColumnAndRow(1, $mulai, $data_table);
+						$object->getActiveSheet()->getStyle('A9:M'.$mulai)->applyFromArray(array('borders'=>array('allborders'=>array('style'=> PHPExcel_Style_Border::BORDER_THIN))));
+						$mulai++;
+					}
 	 			}
+
+	 			$object->getActiveSheet()->setCellValue('G'.$mulai, 'TOTAL');
+		 		$object->getActiveSheet()->setCellValue('I'.$mulai, '=SUM(I9:I'.(($mulai)-1).')');
+
+		 		// SETUP
+		 		$object->getActiveSheet()->getStyle('G'.$mulai.':I'.$mulai)->getFont()->setBold(TRUE);
+		 		$object->getActiveSheet()->getStyle('A9:M'.($mulai))->getFont()->setSize(8);
+		 		$object->getActiveSheet()->mergeCells('G'.$mulai.':H'.$mulai);
+		 		$object->getActiveSheet()->getStyle('A9:M'.($mulai))->getAlignment()->setWrapText(true);
+
+		 		$object->getActiveSheet()->getStyle('A9:A'.($mulai))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+				$object->getActiveSheet()->getStyle('A9:A'.($mulai))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+				$object->getActiveSheet()->getStyle('B9:D'.($mulai))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+				$object->getActiveSheet()->getStyle('B9:D'.($mulai))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+				$object->getActiveSheet()->getStyle('E9:J'.($mulai))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+				$object->getActiveSheet()->getStyle('E9:J'.($mulai))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+				$object->getActiveSheet()->getStyle('K9:K'.($mulai))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+				$object->getActiveSheet()->getStyle('K9:K'.($mulai))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+				$object->getActiveSheet()->getStyle('L9:M'.($mulai))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+				$object->getActiveSheet()->getStyle('L9:M'.($mulai))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+
+		 		$object->getActiveSheet()->getStyle('A9:M'.($mulai))->applyFromArray(array('borders'=>array('allborders'=>array('style'=> PHPExcel_Style_Border::BORDER_THIN))));
+		 		$object->getActiveSheet()->getStyle('I9:I'.($mulai))->getNumberFormat()->setFormatCode('#,##0');
 			}
 
 			if ($_SERVER["SERVER_NAME"] == "localhost") {

@@ -118,10 +118,18 @@ class Adminlapan_controller extends CI_Controller {
 					$object->getActiveSheet()->setCellValue('D'.$mulai, $this->nullValue($rows_realisasi_rup->nilai_hps));
 					$object->getActiveSheet()->setCellValue('E'.$mulai, $this->nullValue($rows_realisasi_rup->nilai_kontrak));
 					if (!is_null($rows_realisasi_rup->pagu_paket) || $rows_realisasi_rup->pagu_paket != '') {
+						$object->getActiveSheet()->setCellValue('F'.$mulai, "=C".($mulai)."-E".($mulai)."");
+						
 						if (!is_null($rows_realisasi_rup->nilai_kontrak) || $rows_realisasi_rup->nilai_kontrak != '') {
-							$object->getActiveSheet()->setCellValue('F'.$mulai, "=C".($mulai)."-E".($mulai)."");
 							$object->getActiveSheet()->setCellValue('G'.$mulai, "=E".($mulai)."/C".($mulai)."");
 						}
+						else{
+							$object->getActiveSheet()->setCellValue('G'.$mulai, 0);
+						}
+						
+					}
+					else{
+						$object->getActiveSheet()->setCellValue('F'.$mulai, 0);
 					}
 					$object->getActiveSheet()->setCellValue('H'.$mulai, "");
 					
