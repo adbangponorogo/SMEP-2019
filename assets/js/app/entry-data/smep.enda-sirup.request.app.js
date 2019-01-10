@@ -80,24 +80,36 @@ jQuery(document).ready(function(){
 		if (jQuery(".sirupenda-tanggal-pencairan-reg").val() != "") {
 			if (jQuery(".sirupenda-realisasi-keuangan-reg").val() != "") {
 				if (jQuery(".sirupenda-realisasi-keuangan-reg").val() >= 0) {
-					if (parseInt(jQuery(".sirupenda-realisasi-keuangan-reg").val()) <= parseInt(jQuery(".sirupenda-sisa-pagu-paket-reg").val())) {
-						if (jQuery(".sirupenda-nilai-kontrak-reg").val() != '') {
-							if (jQuery(".sirupenda-nilai-kontrak-reg").val() >= 0) {
-								endaSiRUPRegisterModal(5);
+					if (jQuery(".sirupenda-realisasi-fisik-reg").val() != "") {
+						if (jQuery(".sirupenda-realisasi-fisik-reg").val() >= 0) {
+							if (parseInt(jQuery(".sirupenda-realisasi-keuangan-reg").val()) <= parseInt(jQuery(".sirupenda-sisa-pagu-paket-reg").val())) {
+								if (jQuery(".sirupenda-nilai-kontrak-reg").val() != '') {
+									if (jQuery(".sirupenda-nilai-kontrak-reg").val() >= 0) {
+										endaSiRUPRegisterModal(5);
+									}
+									else{
+										endaSiRUPEditModal(2, "Nilai Kontrak");
+										jQuery(".sirupenda-nilai-kontrak-reg").focus();
+									}
+								}
+								else{
+									endaSiRUPEditModal(1, "Nilai Kontrak");
+									jQuery(".sirupenda-nilai-kontrak-reg").focus();
+								}
 							}
 							else{
-								endaSiRUPEditModal(2, "Nilai Kontrak");
-								jQuery(".sirupenda-nilai-kontrak-reg").focus();
+								endaSiRUPRegisterModal(4, "Realisasi Keuangan");
+								jQuery(".sirupenda-realisasi-keuangan-reg").focus();
 							}
 						}
 						else{
-							endaSiRUPEditModal(1, "Nilai Kontrak");
-							jQuery(".sirupenda-nilai-kontrak-reg").focus();
+							endaSiRUPRegisterModal(2, "Realisasi Fisik");
+							jQuery(".sirupenda-realisasi-fisik-reg").focus();
 						}
 					}
 					else{
-						endaSiRUPRegisterModal(4, "Realisasi Keuangan");
-						jQuery(".sirupenda-realisasi-keuangan-reg").focus();
+						endaSiRUPRegisterModal(1, "Realisasi Fisik");
+						jQuery(".sirupenda-realisasi-fisik-reg").focus();
 					}
 				}
 				else{

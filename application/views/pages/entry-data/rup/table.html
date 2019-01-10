@@ -145,14 +145,14 @@
       async     : true,
       dataType  : 'JSON',
       success   : function(JSON){
-        var option = "<option value='*'>:: Semua Program ::</option>";
+        var option = "<option value='all'>:: Semua Program ::</option>";
         for (var program = 0; program < JSON.length; program++) {
           option += "<option value='"+JSON[program][0]+"'>"+"["+JSON[program][2]+"] - "+JSON[program][3]+"</option>";
         }
 
         jQuery(".smep-rup-enda-program-option").html(option);
         if (id_program == "") {
-          jQuery(".smep-rup-enda-program-option").val("*").change();
+          jQuery(".smep-rup-enda-program-option").val("all").change();
         }
         else{
           jQuery(".smep-rup-enda-program-option").val(id_program).change();
@@ -168,7 +168,7 @@
 
   // ---------------- Kegiatan Option and Value ---------------- //
   function endaRUPKegiatan(id_program, id_kegiatan) {
-    if (id_program == "*") {
+    if (id_program == "all") {
 
       jQuery.ajax({
         type      : 'AJAX',
@@ -203,7 +203,7 @@
         async     : true,
         dataType  : 'JSON',
         success   : function(JSON){
-          var option = "<option value='*'>:: Semua Kegiatan ::</option>";
+          var option = "<option value='all'>:: Semua Kegiatan ::</option>";
           for (var kegiatan = 0; kegiatan < JSON.length; kegiatan++) {
             option += "<option value='"+JSON[kegiatan][0]+"'>"+"["+JSON[kegiatan][3]+"] - "+JSON[kegiatan][4]+"</option>";
           }
@@ -212,7 +212,7 @@
           jQuery(".smep-rup-enda-kegiatan-option").select2().prop("disabled", false);
           
           if (id_kegiatan == "") {
-            jQuery(".smep-rup-enda-kegiatan-option").val("*").change();
+            jQuery(".smep-rup-enda-kegiatan-option").val("all").change();
           }
           else{
             jQuery(".smep-rup-enda-kegiatan-option").val(id_kegiatan).change();
@@ -229,7 +229,7 @@
 
   // ---------------- Rincian Obyek Option and Value ---------------- //
   function endaRUPRO(id_program, id_kegiatan, id_ro){
-    if (id_kegiatan == "*") {
+    if (id_kegiatan == "all") {
       
       jQuery.ajax({
         type      : 'AJAX',
@@ -262,7 +262,7 @@
         async     : true,
         dataType  : 'JSON',
         success   : function(JSON){
-          var option = "<option value='*'>:: Semua Rincian Obyek ::</option>";
+          var option = "<option value='all'>:: Semua Rincian Obyek ::</option>";
           for (var ro = 0; ro < JSON.length; ro++) {
             option += "<option value='"+JSON[ro][0]+"'>"+"["+JSON[ro][3]+"] - "+JSON[ro][4]+"</option>";
           }
@@ -271,7 +271,7 @@
           jQuery(".smep-rup-enda-ro-option").select2().prop("disabled", false);
             
           if (id_ro == "") {
-            jQuery(".smep-rup-enda-ro-option").val("*").change();
+            jQuery(".smep-rup-enda-ro-option").val("all").change();
           }
           else{
             jQuery(".smep-rup-enda-ro-option").val(id_ro).change();
@@ -288,7 +288,7 @@
 
   // ---------------- Rincian Obyek Table Data ---------------- //
   function endaRUPROTable(id_program, id_kegiatan, id_ro){
-    if (id_ro == "*") {
+    if (id_ro == "all") {
       
       jQuery.ajax({
         type      : 'AJAX',

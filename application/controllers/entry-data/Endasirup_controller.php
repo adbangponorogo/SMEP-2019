@@ -287,16 +287,13 @@ class Endasirup_controller extends CI_Controller {
 
      public function uploadData(){
           if ($this->session->userdata('auth_id') != '') {
-               $pagu_paket = $this->input->post("pagu_paket");
-               $realisasi_keuangan = $this->input->post("realisasi_keuangan");
-               $realisasi_fisik = ($realisasi_keuangan/$pagu_paket)*100;
                $data = array(
                          "tahun" => $this->input->post("tahun"),
                          "id_skpd" => $this->input->post("id_skpd"),
                          "id_rup" => $this->input->post("id_rup"),
                          "tanggal_pencairan" => $this->input->post("tanggal_pencairan"),
                          "realisasi_keuangan" => $this->input->post("realisasi_keuangan"),
-                         "realisasi_fisik" => $realisasi_fisik,
+                         "realisasi_fisik" => $this->input->post("realisasi_fisik"),
                          "nomor_kontrak" => $this->input->post("nomor_kontrak"),
                          "nomor_surat" => $this->input->post("nomor_surat"),
                          "nama_pemenang" => $this->input->post("nama_pemenang"),
@@ -355,13 +352,10 @@ class Endasirup_controller extends CI_Controller {
 
      public function updateData(){
           if ($this->session->userdata('auth_id') != '') {
-               $pagu_paket = $this->input->post("pagu_paket");
-               $realisasi_keuangan = $this->input->post("realisasi_keuangan");
-               $realisasi_fisik = ($realisasi_keuangan/$pagu_paket)*100;
                $data = array(
                          "tanggal_pencairan" => $this->input->post("tanggal_pencairan"),
                          "realisasi_keuangan" => $this->input->post("realisasi_keuangan"),
-                         "realisasi_fisik" => $realisasi_fisik,
+                         "realisasi_fisik" => $this->input->post("realisasi_fisik"),
                          "nomor_kontrak" => $this->input->post("nomor_kontrak"),
                          "nomor_surat" => $this->input->post("nomor_surat"),
                          "nama_pemenang" => $this->input->post("nama_pemenang"),
