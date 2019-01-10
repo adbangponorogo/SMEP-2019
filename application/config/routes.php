@@ -141,6 +141,7 @@ $route['entry-data/data-rup/main-data/rincian-obyek/all/(:any)/(:any)/(:any)'] =
 $route['entry-data/data-rup/main-data/rincian-obyek/unique/(:any)/(:any)/(:any)/(:any)'] = 'entry-data/Endarup_controller/getMainDataUniqueRincianObyek/$1/$2/$3/$4';
 $route['entry-data/data-rup/register-page'] = 'entry-data/Endarup_controller/registerDataPage';
 $route['entry-data/data-rup/skpd-data/(:any)'] = 'entry-data/Endarup_controller/getDataSKPD/$1';
+$route['entry-data/data-rup/skpd-data-unique/(:any)'] = 'entry-data/Endarup_controller/getDataSKPDOther/$1';
 $route['entry-data/data-rup/mak-data/(:any)'] = 'entry-data/Endarup_controller/getDataMAK/$1';
 $route['entry-data/data-rup/program-data/(:any)'] = 'entry-data/Endarup_controller/getDataProgram/$1';
 $route['entry-data/data-rup/kegiatan-data/(:any)'] = 'entry-data/Endarup_controller/getDataKegiatan/$1';

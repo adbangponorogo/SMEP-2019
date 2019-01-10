@@ -505,7 +505,7 @@ jQuery(document).ready(function(){
 
 
 						var get_date_now = parseInt(split_date_now[1]+""+split_date_now[0]);
-						var get_real_pekerjaan_awal = parseInt(split_real_pekerjaan_awal[1]+""+split_real_pekerjaan_akhir[0]);
+						var get_real_pekerjaan_awal = parseInt(split_real_pekerjaan_awal[1]+""+split_real_pekerjaan_awal[0]);
 						var get_pekerjaan_awal = parseInt(split_pekerjaan_awal[1]+""+split_pekerjaan_akhir[0]);
 						var get_pekerjaan_akhir = parseInt(split_pekerjaan_akhir[1]+""+split_pekerjaan_akhir[0]);
 

@@ -26,13 +26,14 @@ class Datumdapan_model extends CI_Model {
         return $data;
     }
 
-    public function getDataSKPDUnique($token){
-        $this->db->select("*");
-        $this->db->from("simda_skpd");
-        if ($token != 'all') {
-            $this->db->where("id", $token);
+    public function getDataSKPDUnique($skpd){
+        $this->db->select("a.*");
+        $this->db->from("simda_skpd a");
+        $this->db->join("tb_skpd_urutan b", "a.kd_skpd = b.kd_skpd");
+        if ($skpd != "all") {
+            $this->db->where("a.id", $skpd);
         }
-        $this->db->order_by('id', 'ASC');
+        $this->db->order_by('b.urutan', 'ASC');
         $data = $this->db->get();
         return $data;
     }

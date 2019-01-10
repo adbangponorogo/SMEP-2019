@@ -62,7 +62,7 @@
 						<div class="col-md-6" style="padding: 0px 5px; padding-right: 20px;">
 							<div class="form-group">
 								<label>Nama PPK</label>
-								<input type="text" class="form-control rupenda-user-ppk-edit" placeholder="Nama Pejabat Pembuat Komitmen" readonly="readonly">
+								<select name="iduserppk" class="form-control rupenda-user-ppk-edit"></select>
 							</div>
 							<div class="form-group">
 								<label>Nama Paket *</label>
@@ -90,6 +90,10 @@
 									<option value="3">Swakelola Tipe 3</option>
 									<option value="4">Swakelola Tipe 4</option>
 								</select>
+							</div>
+							<div class="form-group">
+								<label>SKPD Swakelola</label>
+								<select name="skpd_swakelola" class="form-control rupenda-skpd-swakelola-edit" disabled="disabled"></select>
 							</div>
 							<div class="form-group">
 								<label>Jenis Belanja</label>
@@ -281,6 +285,54 @@
 	// --------------- Default Select2 --------------- //
 	jQuery(".select2-option").select2();
 
+	// ---------------- Users PPK ---------------- //
+	endaRUPUserPPkData();
+	function endaRUPUserPPkData() {
+	    jQuery.ajax({
+		    type      : 'AJAX',
+		    method    : 'GET',
+		    url       : 'entry-data/data-rup/users-data/ppk/'+jQuery(".smep-skpd-main").val(),
+		    async     : true,
+		    dataType  : 'JSON',
+		    success   : function(JSON){
+		    	option = '';
+		    	if (JSON.length > 0) {
+		    		for (var ppk = 0; ppk < JSON.length; ppk++) {
+			    		option += "<option value="+JSON[ppk][0]+">"+JSON[ppk][1]+"</option>";
+			    	}
+		    	}
+		    	jQuery(".rupenda-user-ppk-edit").html(option);
+		        jQuery(".rupenda-user-ppk-edit").select2();
+		    },
+		    error     : function(jqXHR, textStatus, errorThrown){
+		        console.log('failed');
+		    }
+	    });
+	}
+
+	// ---------------- Data SKPD Unique ---------------- //
+	endaRUPSKPDUniqueData();
+	function endaRUPSKPDUniqueData() {
+	    jQuery.ajax({
+		    type      : 'AJAX',
+		    method    : 'GET',
+		    url       : 'entry-data/data-rup/skpd-data-unique/'+jQuery(".smep-skpd-main").val(),
+		    async     : true,
+		    dataType  : 'JSON',
+		    success   : function(JSON){
+		    	option = '';
+		    	for (var skpd = 0; skpd < JSON.length; skpd++) {
+		    		option += "<option value="+JSON[skpd][0]+">["+JSON[skpd][1]+"] - "+JSON[skpd][2]+"</option>";
+		    	}
+		    	jQuery(".rupenda-skpd-swakelola-edit").html(option);
+		        jQuery(".rupenda-skpd-swakelola-edit").select2();
+		    },
+		    error     : function(jqXHR, textStatus, errorThrown){
+		        console.log('failed');
+		    }
+	    });
+	}
+
 	// ---------------- DataEdit ---------------- //
 	endaRUPEditData();
 	function endaRUPEditData() {
@@ -295,7 +347,7 @@
 		    	jQuery(".rupenda-program-edit").val(JSON[0][1]);
 		    	jQuery(".rupenda-kegiatan-edit").val(JSON[0][2]);
 		    	jQuery(".rupenda-rincianobyek-edit").val(JSON[0][3]);
-		    	jQuery(".rupenda-user-ppk-edit").val(JSON[0][4]);
+		    	jQuery(".rupenda-user-ppk-edit").val(JSON[0][4]).change();
 		    	jQuery(".rupenda-nama-paket-edit").val(JSON[0][5]);
 		    	jQuery(".rupenda-volume-pekerjaan-edit").val(JSON[0][6]);
 		    	jQuery(".rupenda-jumlah-paket-edit").val(JSON[0][7]);
@@ -323,21 +375,21 @@
 		    	jQuery(".rupenda-max-pagu-edit").val(JSON[0][22]);
 		    	jQuery(".rupenda-real-cara-pengadaan-edit").val(JSON[0][23]);
 		    	jQuery(".rupenda-cara-pengadaan-edit").val(JSON[0][24]);
-			    jQuery(".rupenda-jenis-belanja-edit").val(JSON[0][26]).change();
-			    jQuery(".rupenda-jenis-pengadaan-edit").val(JSON[0][27]).change();
+			    jQuery(".rupenda-jenis-belanja-edit").val(JSON[0][27]).change();
+			    jQuery(".rupenda-jenis-pengadaan-edit").val(JSON[0][28]).change();
 
 		    	if (JSON[0][23] == 1) {
 		    		jQuery(".rupenda-tipe-swakelola-edit").prop("disabled", "disabled");
-			    	jQuery(".rupenda-metode-pemilihan-edit").val(JSON[0][28]).change();
+			    	jQuery(".rupenda-metode-pemilihan-edit").val(JSON[0][29]).change();
 			    	jQuery(".rupenda-pdn-edit").val(JSON[0][10]).change();
 		    		jQuery(".rupenda-usaha-kecil-edit").val(JSON[0][11]).change();
 		    		jQuery(".rupenda-jadwal-pekerjaan-swakelola-edit").addClass("hidden-show");
-		    		jQuery(".rupenda-real-pelaksanaan-pengadaan-awal-edit").val(JSON[0][30]);
-		    		jQuery(".rupenda-pelaksanaan-pengadaan-awal-edit").datepicker('update', JSON[0][30]);
-			    	jQuery(".rupenda-pelaksanaan-pengadaan-akhir-edit").datepicker('update', JSON[0][31]);
-			    	jQuery(".rupenda-pelaksanaan-kontrak-awal-edit").datepicker('update', JSON[0][32]);
-			    	jQuery(".rupenda-pelaksanaan-kontrak-akhir-edit").datepicker('update', JSON[0][33]);
-			    	jQuery(".rupenda-mulai-penggunaan-edit").datepicker('update', JSON[0][34]);
+		    		jQuery(".rupenda-real-pelaksanaan-pengadaan-awal-edit").val(JSON[0][31]);
+		    		jQuery(".rupenda-pelaksanaan-pengadaan-awal-edit").datepicker('update', JSON[0][31]);
+			    	jQuery(".rupenda-pelaksanaan-pengadaan-akhir-edit").datepicker('update', JSON[0][32]);
+			    	jQuery(".rupenda-pelaksanaan-kontrak-awal-edit").datepicker('update', JSON[0][33]);
+			    	jQuery(".rupenda-pelaksanaan-kontrak-akhir-edit").datepicker('update', JSON[0][34]);
+			    	jQuery(".rupenda-mulai-penggunaan-edit").datepicker('update', JSON[0][35]);
 		    	}
 		    	if (JSON[0][23] == 2) {
 		    		jQuery(".rupenda-tipe-swakelola-edit").val(JSON[0][25]).change();
@@ -345,12 +397,17 @@
 			    	jQuery(".rupenda-pdn-edit").prop("disabled", "disabled");
 		    		jQuery(".rupenda-usaha-kecil-edit").prop("disabled", "disabled");
 		    		jQuery(".rupenda-jadwal-pekerjaan-penyedia-edit").addClass("hidden-show");
-			    	jQuery(".rupenda-real-pelaksanaan-pekerjaan-awal-edit").val(JSON[0][35]);
-			    	jQuery(".rupenda-pelaksanaan-pekerjaan-awal-edit").datepicker('update', JSON[0][35]);
-			    	jQuery(".rupenda-pelaksanaan-pekerjaan-akhir-edit").datepicker('update', JSON[0][36]);
+			    	jQuery(".rupenda-real-pelaksanaan-pekerjaan-awal-edit").val(JSON[0][36]);
+			    	jQuery(".rupenda-pelaksanaan-pekerjaan-awal-edit").datepicker('update', JSON[0][36]);
+			    	jQuery(".rupenda-pelaksanaan-pekerjaan-akhir-edit").datepicker('update', JSON[0][37]);
+
+			    	if (JSON[0][25] == 2) {
+		    			jQuery(".rupenda-skpd-swakelola-edit").prop("disabled", false);
+		    			jQuery(".rupenda-skpd-swakelola-edit").val(JSON[0][26]).change();
+			    	}
 		    	}
 
-			    jQuery(".rupenda-umumkan-paket-edit").val(JSON[0][29]).change();
+			    jQuery(".rupenda-umumkan-paket-edit").val(JSON[0][30]).change();
 		    	
 		    },
 		    error     : function(jqXHR, textStatus, errorThrown){
@@ -366,6 +423,16 @@
 		}
 		if (jQuery(this).val() == 1) {
 			jQuery(".rupenda-nomor-renja-edit").attr("readonly", "readonly");
+		}
+	});
+
+	// ---------------- SKPD Swakelola ---------------- //
+	jQuery(document).on("change", ".rupenda-tipe-swakelola-edit", function(){
+		if (jQuery(this).val() == 1 || jQuery(this).val() == 3 || jQuery(this).val() == 4) {
+			jQuery(".rupenda-skpd-swakelola-edit").prop("disabled", true);
+		}
+		if (jQuery(this).val() == 2) {
+			jQuery(".rupenda-skpd-swakelola-edit").prop("disabled", false);
 		}
 	});
 

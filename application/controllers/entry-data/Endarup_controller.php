@@ -391,6 +391,21 @@ class Endarup_controller extends CI_Controller {
           }
      }
 
+     public function getDataSKPDOther($id_skpd){
+          if ($this->session->userdata("auth_id") != "") {
+               $result = $this->model->getDataSKPDUnique($id_skpd);
+               $data = array();
+               foreach ($result->result() as $rows) {
+                    $data[] = array(
+                                   $rows->id,
+                                   $rows->kd_skpd,
+                                   $rows->nama_skpd
+                              );
+               }
+               echo json_encode($data); 
+          }
+     }
+
 	public function uploadData(){
 		if ($this->session->userdata("auth_id") != "") {
 			$kd_mak = $this->input->post("kd_urusan").".".$this->input->post("kd_bidang").".".$this->input->post("kd_opd").".".$this->input->post("kd_program").".".$this->input->post("kd_kegiatan").".".$this->input->post("kd_rekening");
@@ -411,6 +426,12 @@ class Endarup_controller extends CI_Controller {
                }
                if (!is_null($this->input->post("tipe_swakelola"))) {
                     $tipe_swakelola = $this->input->post("tipe_swakelola");
+               }
+               if (is_null($this->input->post("skpd_swakelola"))) {
+                    $skpd_swakelola = '-';
+               }
+               if (!is_null($this->input->post("skpd_swakelola"))) {
+                    $skpd_swakelola = $this->input->post("skpd_swakelola");
                }
                if (is_null($this->input->post("metode_pemilihan"))) {
                     $metode_pemilihan = '-';
@@ -481,6 +502,7 @@ class Endarup_controller extends CI_Controller {
 				"pagu_paket" => $this->input->post("pagu_paket"),
                     "cara_pengadaan" => $this->input->post("cara_pengadaan"),
                     "tipe_swakelola" => $tipe_swakelola,
+                    "id_skpd_swakelola" => $skpd_swakelola,
 				"jenis_belanja" => $this->input->post("jenis_belanja"),
 				"jenis_pengadaan" => $this->input->post("jenis_pengadaan"),
 				"metode_pemilihan" => $metode_pemilihan,
@@ -503,19 +525,23 @@ class Endarup_controller extends CI_Controller {
 			$result_rup = $this->model->getData($token);
 			$data = array();
 			foreach ($result_rup->result() as $rows_rup) {
-				$result_ppk = $this->model->getDataUsers($rows_rup->id_user_ppk);
-				foreach ($result_ppk->result() as $rows_ppk) {
-					$result_program = $this->model->getDataProgramUnique($rows_rup->id_program);
-					foreach ($result_program->result() as $rows_program) {
-						$result_kegiatan = $this->model->getDataKegiatanUnique($rows_rup->id_kegiatan);
-						foreach ($result_kegiatan->result() as $rows_kegiatan) {
-							$result_ro = $this->model->getDataRincianObyekUniqueID($rows_rup->id_rincian_obyek);
-							foreach ($result_ro->result() as $rows_ro) {
+				$result_program = $this->model->getDataProgramUnique($rows_rup->id_program);
+                         foreach ($result_program->result() as $rows_program) {
+                              $result_kegiatan = $this->model->getDataKegiatanUnique($rows_rup->id_kegiatan);
+                              foreach ($result_kegiatan->result() as $rows_kegiatan) {
+                                   $result_ro = $this->model->getDataRincianObyekUniqueID($rows_rup->id_rincian_obyek);
+                                   foreach ($result_ro->result() as $rows_ro) {
                                         $result_pagu = $this->model->getDataRincianObyekUnique($rows_ro->id);
                                         $pagu = intval($result_pagu[0][0]);
-								
+
+                                        if (!is_null($rows_rup->id_user_ppk)) {
+                                             $id_user_ppk = $rows_rup->id_user_ppk;
+                                        }else{
+                                             $id_user_ppk = '';
+                                        }
+                                        
                                         $kd_mak = explode(".", $rows_rup->kd_mak);
-                                        switch ($rows_rup->cara_pengadaan) {
+                                        switch ($rows_rup->cara_pengadaan) { 
                                              case '1':
                                                   $cara_pengadaan = "Penyedia";
                                              break;
@@ -526,49 +552,49 @@ class Endarup_controller extends CI_Controller {
                                                   $cara_pengadaan = "Penyedia";
                                              break;
                                         }
-								$data[] = array(
-											$rows_rup->id,
-											"[".$rows_program->kd_gabungan."] - ".$rows_program->keterangan_program,
-											"[".$rows_kegiatan->kd_gabungan."] - ".$rows_kegiatan->keterangan_kegiatan,
-											"[".$rows_ro->kd_rekening."] - ".$rows_ro->nama_rekening,
-											$rows_ppk->nama,
-											$rows_rup->nama_paket,
-											$rows_rup->volume_pekerjaan,
-											$rows_rup->jumlah_paket,
-											$rows_rup->uraian_pekerjaan,
-											$rows_rup->lokasi_pekerjaan,
-											$rows_rup->produk_dalam_negeri,
-											$rows_rup->usaha_kecil,
-											$rows_rup->sumber_dana,
+                                        $data[] = array(
+                                                       $rows_rup->id,
+                                                       "[".$rows_program->kd_gabungan."] - ".$rows_program->keterangan_program,
+                                                       "[".$rows_kegiatan->kd_gabungan."] - ".$rows_kegiatan->keterangan_kegiatan,
+                                                       "[".$rows_ro->kd_rekening."] - ".$rows_ro->nama_rekening,
+                                                       $id_user_ppk,
+                                                       $rows_rup->nama_paket,
+                                                       $rows_rup->volume_pekerjaan,
+                                                       $rows_rup->jumlah_paket,
+                                                       $rows_rup->uraian_pekerjaan,
+                                                       $rows_rup->lokasi_pekerjaan,
+                                                       $rows_rup->produk_dalam_negeri,
+                                                       $rows_rup->usaha_kecil,
+                                                       $rows_rup->sumber_dana,
                                                        $rows_rup->pra_dipa,
-											$rows_rup->nomor_renja,
-											$kd_mak[0],
-											$kd_mak[1],
-											$kd_mak[2].".".$kd_mak[3].".".$kd_mak[4],
-											$kd_mak[5],
-											$kd_mak[6],
-											$kd_mak[7].".".$kd_mak[8].".".$kd_mak[9].".".$kd_mak[10].".".$kd_mak[11],
-											$rows_rup->pagu_paket,
+                                                       $rows_rup->nomor_renja,
+                                                       $kd_mak[0],
+                                                       $kd_mak[1],
+                                                       $kd_mak[2].".".$kd_mak[3].".".$kd_mak[4],
+                                                       $kd_mak[5],
+                                                       $kd_mak[6],
+                                                       $kd_mak[7].".".$kd_mak[8].".".$kd_mak[9].".".$kd_mak[10].".".$kd_mak[11],
+                                                       $rows_rup->pagu_paket,
                                                        $pagu,
                                                        $rows_rup->cara_pengadaan,
                                                        $cara_pengadaan,
                                                        $rows_rup->tipe_swakelola,
+                                                       $rows_rup->id_skpd_swakelola,
                                                        $rows_rup->jenis_belanja,
                                                        $rows_rup->jenis_pengadaan,
-											$rows_rup->metode_pemilihan,
-											$rows_rup->umumkan_paket,
-											$rows_rup->pelaksanaan_pengadaan_awal,
-											$rows_rup->pelaksanaan_pengadaan_akhir,
-											$rows_rup->pelaksanaan_kontrak_awal,
-											$rows_rup->pelaksanaan_kontrak_akhir,
+                                                       $rows_rup->metode_pemilihan,
+                                                       $rows_rup->umumkan_paket,
+                                                       $rows_rup->pelaksanaan_pengadaan_awal,
+                                                       $rows_rup->pelaksanaan_pengadaan_akhir,
+                                                       $rows_rup->pelaksanaan_kontrak_awal,
+                                                       $rows_rup->pelaksanaan_kontrak_akhir,
                                                        $rows_rup->pelaksanaan_pemanfaatan,
                                                        $rows_rup->pelaksanaan_pekerjaan_awal,
-											$rows_rup->pelaksanaan_pekerjaan_akhir
-										);
-							}
-						}
-					}
-				}
+                                                       $rows_rup->pelaksanaan_pekerjaan_akhir
+                                                  );
+                                   }
+                              }
+                         }
 			}
 			echo json_encode($data);
 		}
@@ -578,6 +604,7 @@ class Endarup_controller extends CI_Controller {
           if ($this->session->userdata("auth_id") != "") {
                if ($this->input->post("cara_pengadaan") == 1) {
                     $data = array(
+                         "id_user_ppk" => $this->input->post("iduserppk"),
                          "nama_paket" => $this->input->post("nama_paket"),
                          "volume_pekerjaan" => $this->input->post("volume_pekerjaan"),
                          "jumlah_paket" => $this->input->post("jumlah_paket"),
@@ -602,6 +629,7 @@ class Endarup_controller extends CI_Controller {
                }
                if ($this->input->post("cara_pengadaan") == 2) {
                     $data = array(
+                         "id_user_ppk" => $this->input->post("iduserppk"),
                          "nama_paket" => $this->input->post("nama_paket"),
                          "volume_pekerjaan" => $this->input->post("volume_pekerjaan"),
                          "jumlah_paket" => $this->input->post("jumlah_paket"),
@@ -612,6 +640,7 @@ class Endarup_controller extends CI_Controller {
                          "nomor_renja" => $this->input->post("nomor_renja"),
                          "pagu_paket" => $this->input->post("pagu_paket"),
                          "tipe_swakelola" => $this->input->post("tipe_swakelola"),
+                         "id_skpd_swakelola" => $this->input->post("skpd_swakelola"),
                          "jenis_belanja" => $this->input->post("jenis_belanja"),
                          "jenis_pengadaan" => $this->input->post("jenis_pengadaan"),
                          "umumkan_paket" => $this->input->post("umumkan_paket"),

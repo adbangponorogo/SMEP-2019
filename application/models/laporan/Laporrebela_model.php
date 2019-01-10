@@ -30,7 +30,6 @@ class Laporrebela_model extends CI_Model {
         $this->db->select("a.*");
         $this->db->from("simda_skpd a");
         $this->db->join("tb_skpd_urutan b", "a.kd_skpd = b.kd_skpd");
-        $this->db->join("tb_rup c", "a.id = c.id_skpd");
         if ($skpd != "all") {
             $this->db->where("a.id", $skpd);
         }
@@ -43,7 +42,9 @@ class Laporrebela_model extends CI_Model {
         $this->db->select("distinct(a.sumber_dana) as sumber_dana");
         $this->db->from("tb_sumber_realisasi_obyek a");
         $this->db->join("tb_rup b", "a.id_rincian_obyek = b.id_rincian_obyek");
-        $this->db->where("b.id_skpd", $id_skpd);
+        if ($id_skpd != 'all') {
+            $this->db->where("b.id_skpd", $id_skpd);
+        }
         $this->db->where_in("a.sumber_dana", array(1,2,3,4,5,6));
         $data = $this->db->get();
         return $data;
@@ -53,7 +54,9 @@ class Laporrebela_model extends CI_Model {
         $this->db->select("distinct(a.sumber_dana) as sumber_dana");
         $this->db->from("tb_sumber_realisasi_obyek a");
         $this->db->join("tb_rup b", "a.id_rincian_obyek = b.id_rincian_obyek");
-        $this->db->where("b.id_skpd", $id_skpd);
+        if ($id_skpd != 'all') {
+            $this->db->where("b.id_skpd", $id_skpd);
+        }
         $this->db->where_in("a.sumber_dana", array(7,8,9));
         $data = $this->db->get();
         return $data;

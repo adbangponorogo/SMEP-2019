@@ -30,7 +30,6 @@ class Laporrapan_model extends CI_Model {
         $this->db->select("a.*");
         $this->db->from("simda_skpd a");
         $this->db->join("tb_skpd_urutan b", "a.kd_skpd = b.kd_skpd");
-        $this->db->join("tb_rup c", "a.id = c.id_skpd");
         if ($skpd != "all") {
             $this->db->where("a.id", $skpd);
         }

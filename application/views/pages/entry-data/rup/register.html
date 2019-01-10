@@ -40,12 +40,8 @@
 						</div>
 						<div class="col-md-9">
 							<div class="form-group">
-								<select class="form-control rupenda-rincianobyek-option-reg pull-left" style="width: 79%;"></select>
-								<button class="btn btn-primary smep-rupenda-generate-btn pull-right" style="width: 21%">
-									<i class="fa fa-clone"></i>&nbsp;Generate ke Form
-								</button>
+								<select class="form-control rupenda-rincianobyek-option-reg"></select>
 								<input type="hidden" name="idrincianobyek" class="rupenda-idrincianobyek-reg">
-								<input type="hidden" class="rupenda-nama-rincianobyek-reg">
 							</div>
 						</div>
 					</div>
@@ -94,24 +90,28 @@
 									</span>
 								</label>
 								<select name="tipe_swakelola" class="form-control rupenda-tipe-swakelola-reg select2-option" disabled="disabled">
-									<option value="1">Swakelola Tipe 1</option>
+									<option value="1" selected="selected">Swakelola Tipe 1</option>
 									<option value="2">Swakelola Tipe 2</option>
 									<option value="3">Swakelola Tipe 3</option>
 									<option value="4">Swakelola Tipe 4</option>
 								</select>
 							</div>
 							<div class="form-group">
+								<label>SKPD Swakelola</label>
+								<select name="skpd_swakelola" class="form-control rupenda-skpd-swakelola-reg" disabled="disabled"></select>
+							</div>
+							<div class="form-group">
 								<label>Jenis Belanja</label>
 								<select name="jenis_belanja" class="form-control rupenda-jenis-belanja-reg select2-option">
 									<option value="1">Belanja Pegawai</option>
-									<option value="2">Belanja Barang/Jasa</option>
+									<option value="2" selected="selected">Belanja Barang/Jasa</option>
 									<option value="3">Belanja Modal</option>
 									<option value="4">Belum Teridentifikasi</option>
 									<option value="5">Belanja Bunga Utang</option>
 									<option value="6">Belanja Subsidi</option>
 									<option value="7">Belanja Hibah</option>
 									<option value="8">Belanja Bantuan Sosial</option>
-									<option value="9" selected="selected">Belanja Lain-Lain</option>
+									<option value="9">Belanja Lain-Lain</option>
 								</select>
 							</div>
 							<div class="form-group">
@@ -127,7 +127,10 @@
 							<div class="form-group">
 								<label>Pagu Pekerjaan *</label>
 								<input type="number" name="pagu_paket" class="form-control rupenda-pagu-pekerjaan-reg" placeholder="0" min="0">
-								<input type="hidden" name="max_pagu_paket" class="rupenda-max-pagu-reg">
+							</div>
+							<div class="form-group">
+								<label>Pagu Tersedia</label>
+								<input type="number" name="max_pagu_paket" class="form-control rupenda-max-pagu-reg" readonly="readonly">
 							</div>
 							<div class="form-group">
 								<label>Pra DIPA/DPA</label>
@@ -143,7 +146,7 @@
 							<div class="form-group">
 								<label>Sumber Dana</label>
 								<select name="sumber_dana" class="form-control rupenda-sumber-dana-reg select2-option">
-									<option value="1">APBD</option>
+									<option value="1" selected="selected">APBD</option>
 									<option value="2">APBDP</option>
 									<option value="3">APBN</option>
 									<option value="4">APBNP</option>
@@ -203,7 +206,7 @@
 									<option value="1">E-Purchasing</option>
 									<option value="2">Tender</option>
 									<option value="3">Tender Cepat</option>
-									<option value="4">Pengadaan Langsung</option>
+									<option value="4" selected="selected">Pengadaan Langsung</option>
 									<option value="5">Penunjukkan Langsung</option>
 									<option value="6">Seleksi</option>
 								</select>
@@ -305,6 +308,30 @@
 		    dataType  : 'JSON',
 		    success   : function(JSON){
 		    	jQuery(".rupenda-lokasi-pekerjaan-reg").val(JSON[0][0]);
+		    },
+		    error     : function(jqXHR, textStatus, errorThrown){
+		        console.log('failed');
+		    }
+	    });
+	}
+
+	// ---------------- Data SKPD Unique ---------------- //
+	endaRUPSKPDUniqueData();
+	function endaRUPSKPDUniqueData() {
+	    jQuery.ajax({
+		    type      : 'AJAX',
+		    method    : 'GET',
+		    url       : 'entry-data/data-rup/skpd-data-unique/'+jQuery(".smep-skpd-main").val(),
+		    async     : true,
+		    dataType  : 'JSON',
+		    success   : function(JSON){
+		    	option = '';
+		    	for (var skpd = 0; skpd < JSON.length; skpd++) {
+		    		option += "<option value="+JSON[skpd][0]+">["+JSON[skpd][1]+"] - "+JSON[skpd][2]+"</option>";
+		    	}
+		    	jQuery(".rupenda-skpd-swakelola-reg").val(JSON[0][0]).change();
+		    	jQuery(".rupenda-skpd-swakelola-reg").html(option);
+		        jQuery(".rupenda-skpd-swakelola-reg").select2();
 		    },
 		    error     : function(jqXHR, textStatus, errorThrown){
 		        console.log('failed');
@@ -453,7 +480,10 @@
 		    success   : function(JSON){
 		        jQuery(".rupenda-max-pagu-reg").val(JSON[0][0]);
 		        jQuery(".rupenda-kdrekening-reg").val(JSON[0][1]);
-		        jQuery(".rupenda-nama-rincianobyek-reg").val(JSON[0][2]);
+
+		        jQuery(".rupenda-pagu-pekerjaan-reg").val(JSON[0][0]);
+				jQuery(".rupenda-nama-paket-reg").val(JSON[0][2]);
+				jQuery(".rupenda-uraian-pekerjaan-reg").val(JSON[0][2]);
 
 		    },
 		    error     : function(jqXHR, textStatus, errorThrown){
@@ -490,6 +520,17 @@
 		}
 	});
 
+	// ---------------- SKPD Swakelola ---------------- //
+	jQuery(document).on("change", ".rupenda-tipe-swakelola-reg", function(){
+		if (jQuery(this).val() == 1 || jQuery(this).val() == 3 || jQuery(this).val() == 4) {
+			jQuery(".rupenda-skpd-swakelola-reg").prop("disabled", true);
+		}
+		if (jQuery(this).val() == 2) {
+			jQuery(".rupenda-skpd-swakelola-reg").prop("disabled", false);
+		}
+	});
+
+
 	// ---------------- Pra DIPA/DPA ---------------- //
 	jQuery(document).on("change", ".rupenda-pra-dipa-reg", function(){
 		if (jQuery(this).val() == 0) {
@@ -500,13 +541,6 @@
 		}
 	});
 
-	// ---------------- Generate Form ---------------- //
-	jQuery(document).on("click", ".smep-rupenda-generate-btn", function(){
-		jQuery(".rupenda-pagu-pekerjaan-reg").val(jQuery(".rupenda-max-pagu-reg").val());
-		jQuery(".rupenda-nama-paket-reg").val(jQuery(".rupenda-nama-rincianobyek-reg").val());
-		jQuery(".rupenda-uraian-pekerjaan-reg").val(jQuery(".rupenda-nama-rincianobyek-reg").val());
-		return false;
-	});
 
 	// ---------------- Modal Swakelola ---------------- //
 	jQuery(document).on("click", ".smep-rupenda-swakelola-btn", function(){

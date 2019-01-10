@@ -119,18 +119,14 @@ class Adminlapan_controller extends CI_Controller {
 					$object->getActiveSheet()->setCellValue('E'.$mulai, $this->nullValue($rows_realisasi_rup->nilai_kontrak));
 					if (!is_null($rows_realisasi_rup->pagu_paket) || $rows_realisasi_rup->pagu_paket != '') {
 						$object->getActiveSheet()->setCellValue('F'.$mulai, "=C".($mulai)."-E".($mulai)."");
-						
-						if (!is_null($rows_realisasi_rup->nilai_kontrak) || $rows_realisasi_rup->nilai_kontrak != '') {
-							$object->getActiveSheet()->setCellValue('G'.$mulai, "=E".($mulai)."/C".($mulai)."");
-						}
-						else{
-							$object->getActiveSheet()->setCellValue('G'.$mulai, 0);
-						}
-						
 					}
 					else{
 						$object->getActiveSheet()->setCellValue('F'.$mulai, 0);
 					}
+					$object->getActiveSheet()->setCellValue('G'.($mulai), '=IF('
+																		.'(AND(C'.$mulai.' > 0, E'.$mulai.' > 0)),'
+																		.' E'.$mulai.'/C'.$mulai.','
+																		.' 0)');
 					$object->getActiveSheet()->setCellValue('H'.$mulai, "");
 					
 
@@ -162,7 +158,10 @@ class Adminlapan_controller extends CI_Controller {
 			$object->getActiveSheet()->setCellValue('D'.($mulai), '=SUM(D9:D'.(($mulai)-1).')');
 			$object->getActiveSheet()->setCellValue('E'.($mulai), '=SUM(E9:E'.(($mulai)-1).')');
 			$object->getActiveSheet()->setCellValue('F'.($mulai), '=SUM(F9:F'.(($mulai)-1).')');
-			$object->getActiveSheet()->setCellValue('G'.($mulai), '=SUM(E'.$mulai.'/C'.$mulai.')');
+			$object->getActiveSheet()->setCellValue('G'.($mulai), '=IF('
+																		.'(AND(C'.$mulai.' > 0, E'.$mulai.' > 0)),'
+																		.' E'.$mulai.'/C'.$mulai.','
+																		.' 0)');
 
 
 			// SETUP

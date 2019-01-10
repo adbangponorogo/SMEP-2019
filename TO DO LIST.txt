@@ -1,0 +1,25 @@
+TO DO LIST :
+--- Data Umum ---
+*Target Fisik*
+--- validasi inputan (float value), masih belum bisa divalidasi
+
+--- Entry Data ----
+*RUP*
+1) Tombol Generate dihapus, diisi otomatis saat pilih option RO
+2) Inputan pagu yang masih tersedia
+3) Dipressing xhr (bukan prioritas)
+
+
+*Realisasi RUP*
+1) Realisasi Fisik bukan perhitungan otomatis, tapi hitungan manual
+2) Di beri pop-up pada realisasi fisik
+	-> Isikan progress sesuai dengan prosentase serah terima
+	-> Apabila sudah sampai BAST diisi 100%
+
+*Laporan*
+Errrorrrrrrrrrr banyakkkkk, pokok'e uakeehhh
+
+
+
+----- *Uji Coba* -----
+Tanya mbakk canii

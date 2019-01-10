@@ -9,9 +9,23 @@ class Endarup_model extends CI_Model {
     }
 
     public function getDataSKPD($token){
-        $this->db->select("id, kd_skpd, nama_skpd");
-        $this->db->from("simda_skpd");
-        $this->db->where("id", $token);
+        $this->db->select("a.id, a.kd_skpd, a.nama_skpd");
+        $this->db->from("simda_skpd a");
+        $this->db->join("tb_skpd_urutan b", "a.kd_skpd = b.kd_skpd");
+        $this->db->where("a.id", $token);
+        $this->db->where("b.urutan >", 0);
+        $this->db->order_by("b.urutan", 'ASC');
+        $data = $this->db->get();
+        return $data;
+    }
+
+    public function getDataSKPDUnique($token){
+        $this->db->select("a.id, a.kd_skpd, a.nama_skpd");
+        $this->db->from("simda_skpd a");
+        $this->db->join("tb_skpd_urutan b", "a.kd_skpd = b.kd_skpd");
+        $this->db->where("b.urutan >", 0);
+        $this->db->where_not_in("a.id", $token);
+        $this->db->order_by("b.urutan", 'ASC');
         $data = $this->db->get();
         return $data;
     }
