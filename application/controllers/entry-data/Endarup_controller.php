@@ -108,17 +108,12 @@ class Endarup_controller extends CI_Controller {
      			break;
      		}
 
-               switch ($rows->cara_pengadaan) {
-                    case '1':
-                         $cara_pengadaan = "Penyedia";
-                    break;
-                    case '2':
-                         $cara_pengadaan = "Swakelola";
-                    break;
-                    
-                    default:
-                         $cara_pengadaan = "Penyedia";
-                    break;
+               $keterangan_metode_pemilihan = [":: Swakelola ::", "E-Purchasing", "Tender", "Tender Cepat", "Pengadaan Langsung", "Penunjukkan Langsung", "Seleksi"];
+               if ($rows->cara_pengadaan == 1) {
+                    $metode_pemilihan = $rows->metode_pemilihan;
+               }
+               else{
+                    $metode_pemilihan = 0;
                }
 
                $row_first = $no++."<input type='checkbox' name='token_data[]' style='margin-left:5px;' class='rupenda-delete-data' value='".$rows->id."'>";
@@ -127,7 +122,7 @@ class Endarup_controller extends CI_Controller {
      					$row_first,
      					$rows->nama_paket,
      					$jenis_belanja,
-                              $cara_pengadaan,
+                              $keterangan_metode_pemilihan[$metode_pemilihan],
      					number_format($rows->pagu_paket),
      					"<button class='btn btn-primary btn-sm smep-rupenda-edit-btn' data-id='".$rows->id."'><i class='fa fa-edit'></i>&nbsp;Edit</button>".
 						"&nbsp;<button class='btn btn-danger btn-sm smep-rupenda-delete-btn' data-id='".$rows->id."'><i class='fa fa-trash'></i>&nbsp;Hapus</button>"
