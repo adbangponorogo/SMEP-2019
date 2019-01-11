@@ -9,7 +9,7 @@
           <div class="modal-body">
             <div class="form-group">
                 <label>Level Pengguna</label>
-                <select name="status" class="form-control pengsiadmin-status-user-reg">
+                <select name="status" class="form-control pengsiadmin-status-user-reg" style="float: left;width: 100%;">
                     <option value="2">Operator - PA/KPA SKPD</option>
                     <option value="3">Pejabat Pembuat Komitmen</option>
                     <option value="1">Root - Administrator</option>
@@ -21,11 +21,15 @@
                 <input type="hidden" name="skpd" class="form-control pengsiadmin-skpd-user-reg">
             </div>
             <div class="form-group">
-                <label>Nama</label>
+                <label>Nama&nbsp;
+                    <i class="fa fa-exclamation-circle" style="color: #d33724;"></i>
+                </label>
                 <input type="text" name="nama" class="form-control pengsiadmin-nama-user-reg" placeholder="Nama">
             </div>
             <div class="form-group">
-                <label>Username</label>
+                <label>Username&nbsp;
+                    <i class="fa fa-exclamation-circle" style="color: #d33724;"></i>
+                </label>
                 <input type="text" name="username" class="form-control pengsiadmin-username-user-reg" placeholder="Username" value="">
             </div>
             <div class="form-group">
@@ -59,3 +63,12 @@
     </div>
   </div>
 </div>
+
+<!-- Javascript -->
+<script type="text/javascript">
+jQuery(document).ready(function(){
+    jQuery(".pengsiadmin-status-user-reg").select2({
+        dropdownParent  : jQuery(".smep-pengsiadmin-user-register-modal")
+    });
+});
+</script>
