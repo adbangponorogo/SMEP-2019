@@ -81,7 +81,7 @@ class Adminpengsi_controller extends CI_Controller {
 		if ($this->session->userdata("auth_id") != "") {
 			$resultUsername = $this->model->getDatauserUnique($this->input->post("username"));
 			if ($resultUsername->num_rows() <= 0) {
-				$id = "USER-".date("Ymdhis").rand(0,9);
+				$id = "USER-".date("Ymdhis").rand(0000,9999);
 				$data_users = array(
 							"id" => $id,
 							"id_skpd" => $this->input->post("skpd"),
@@ -182,6 +182,40 @@ class Adminpengsi_controller extends CI_Controller {
 		if ($this->session->userdata("auth_id") != "") {
 			$this->model->deleteDataUsers($token);
 			echo json_encode(array("status"=>TRUE));
+		}
+	}
+
+	public function generateData(){
+		if ($this->session->userdata('auth_id') != '') {
+			$result_skpd = $this->model->selectSKPD();
+			foreach ($result_skpd->result() as $rows_skpd) {
+				$result_old_users = $this->model->selectUsersOld($rows_skpd->kd_skpd);
+				if ($result_old_users->num_rows() > 0) {
+					foreach ($result_old_users->result() as $rows_users_old) {
+						$result_skpd_unique = $this->model->selectSKPDWithKD($rows_users_old->kd_skpd);
+						if ($result_skpd_unique->num_rows() > 0) {
+							foreach ($result_skpd_unique->result() as $rows_skpd_unique) {
+								$result_users = $this->model->selectUsers($rows_skpd_unique->id, $rows_users_old->userid);
+								if ($result_users->num_rows() <= 0) {
+									$id = "USER-".date("Ymdhis").rand(0000,9999);
+									$data_users = array(
+												"id" => $id,
+												"id_skpd" => $rows_skpd_unique->id,
+												"nama" => $rows_users_old->userid,
+												"username" => $rows_users_old->userid,
+												"password" => $rows_users_old->password,
+												"status" => 2,
+												"email" => "-",
+												"telepon" => "-",
+												"alamat" => "-",
+											);
+									$this->model->insertData($data_users);
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 }

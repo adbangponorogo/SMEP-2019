@@ -81,7 +81,9 @@ jQuery(document).ready(function(){
 			if (jQuery(".sirupenda-realisasi-keuangan-reg").val() != "") {
 				if (jQuery(".sirupenda-realisasi-keuangan-reg").val() >= 0) {
 					if (jQuery(".sirupenda-realisasi-fisik-reg").val() != "") {
-						if (jQuery(".sirupenda-realisasi-fisik-reg").val() >= 0) {
+						split_rf = jQuery(".sirupenda-realisasi-fisik-reg").val().split(".");
+						parse_rf = parseInt(split_rf[0]+""+split_rf[1]);
+						if (parse_rf >= 0 && parse_rf >= 100000) {
 							if (parseInt(jQuery(".sirupenda-realisasi-keuangan-reg").val()) <= parseInt(jQuery(".sirupenda-sisa-pagu-paket-reg").val())) {
 								if (jQuery(".sirupenda-nilai-kontrak-reg").val() != '') {
 									if (jQuery(".sirupenda-nilai-kontrak-reg").val() >= 0) {

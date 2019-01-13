@@ -242,7 +242,7 @@
 		var realisasi_keuangan = parseInt(jQuery(".sirupenda-realisasi-keuangan-reg").val());
 		var pagu_paket = parseInt(jQuery(".sirupenda-real-pagu-paket-reg").val());
 		var hasil_fisik = (realisasi_keuangan/pagu_paket)*100;
-		jQuery(".sirupenda-realisasi-fisik-reg").val(hasil_fisik);
+		jQuery(".sirupenda-realisasi-fisik-reg").val(parseFloat(hasil_fisik).toFixed(2));
 		return false;
 	});
 

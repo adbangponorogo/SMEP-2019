@@ -240,6 +240,7 @@ $route['administrator/pengguna-aplikasi/upload-data'] = 'administrator/Adminpeng
 $route['administrator/pengguna-aplikasi/edit-data/(:any)'] = 'administrator/Adminpengsi_controller/changeData/$1';
 $route['administrator/pengguna-aplikasi/update-data'] = 'administrator/Adminpengsi_controller/updateData';
 $route['administrator/pengguna-aplikasi/delete-data/(:any)'] = 'administrator/Adminpengsi_controller/trashData/$1';
+$route['administrator/pengguna-aplikasi/generate-data'] = 'administrator/Adminpengsi_controller/GenerateData';
 
 
 // ------ Rekapitulasi Rencana Pengadaan ------ //

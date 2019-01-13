@@ -5,7 +5,9 @@ class Adminpengsi_model extends CI_Model {
 
 	public function __construct()
     {
-        $this->load->database();
+        parent::__construct();
+        $this->db = $this->load->database('default', TRUE);
+        $this->old_db = $this->load->database('smep_old', TRUE);
     }
 
     public function getDataSKPD($token){
@@ -99,5 +101,50 @@ class Adminpengsi_model extends CI_Model {
     public function deleteDataUsers($token){
         $this->db->where("id", $token);
         $this->db->delete("tb_users");
+    }
+
+
+
+
+    // Generate
+
+    public function selectSKPD(){
+        $this->db->select("a.*");
+        $this->db->from("simda_skpd a");
+        $this->db->join("tb_skpd_urutan b", "a.kd_skpd = b.kd_skpd");
+        $this->db->where("b.urutan >", 0);
+        $this->db->order_by("b.urutan", "ASC");
+        $data = $this->db->get();
+        return $data;
+    }
+
+    public function selectUsersOld($kd_skpd){
+        $this->old_db->select("*");
+        $this->old_db->from("ta_user");
+        $this->old_db->where("kd_skpd", $kd_skpd);
+        $this->old_db->where("jabatan", 2);
+        $data = $this->old_db->get();
+        return $data;
+    }
+
+    public function selectSKPDWithKD($kd_skpd){
+        $this->db->select("*");
+        $this->db->from("simda_skpd");
+        $this->db->where("kd_skpd", $kd_skpd);
+        $data = $this->db->get();
+        return $data;
+    }
+
+    public function selectUsers($id_skpd, $username){
+        $this->db->select("*");
+        $this->db->from("tb_users");
+        $this->db->where("id_skpd", $id_skpd);
+        $this->db->where("username", $username);
+        $data = $this->db->get();
+        return $data;
+    }
+
+    public function insertUsers($data){
+        $this->db->insert("tb_users", $data);
     }
 }

@@ -268,4 +268,23 @@ jQuery(document).ready(function(){
 			return false;
 		}
 	});
+
+
+	// --------------- Generate Data --------------- //
+	jQuery(document).on("click", ".smep-pengsiadmin-generate-user-btn", function(){
+		jQuery.ajax({
+			type 		: 'AJAX',
+			method 		: 'GET',
+			url 		: 'administrator/pengguna-aplikasi/generate-data',
+			async		: true,
+			dataType 	: 'JSON',
+			success 	: function(JSON){
+				adminPengsiUserData();
+			},
+			error 		: function(jqXHR, textStatus, errorThrown){
+				console.log('failed');
+			}
+		});
+		return false;
+	});
 });
