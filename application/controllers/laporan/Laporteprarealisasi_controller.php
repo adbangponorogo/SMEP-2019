@@ -66,7 +66,6 @@ class Laporteprarealisasi_controller extends CI_Controller {
 
 	public function getPrintData(){
 		if ($this->session->userdata('auth_id') != '') {
-			date_default_timezone_set("Asia/Jakarta");
 			$skpd = $this->input->post("skpd");
 			$bulan = $this->input->post("bulan");
 			$tahun = $this->input->post("tahun");

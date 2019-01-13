@@ -84,11 +84,11 @@ class Adminpengsi_controller extends CI_Controller {
 				$id = "USER-".date("Ymdhis").rand(0,9);
 				$data_users = array(
 							"id" => $id,
-							"status" => $this->input->post("status"),
 							"id_skpd" => $this->input->post("skpd"),
 							"nama" => $this->input->post("nama"),
 							"username" => $this->input->post("username"),
 							"password" => md5($this->input->post("password")),
+							"status" => $this->input->post("status"),
 							"email" => $this->input->post("email"),
 							"telepon" => $this->input->post("telepon"),
 							"alamat" => $this->input->post("alamat"),
@@ -101,7 +101,7 @@ class Adminpengsi_controller extends CI_Controller {
 			}
 		}
 	}
-
+ 
 	public function changeData($token){
 		if ($this->session->userdata("auth_id") != "") {
 			$resultUser = $this->model->getData($token);

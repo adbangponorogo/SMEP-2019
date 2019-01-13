@@ -17,7 +17,6 @@ class Adminrapan_controller extends CI_Controller {
 
 	public function getPrintData(){
 		if ($this->session->userdata("auth_id") != "") {
-			date_default_timezone_set("Asia/Jakarta");
 			$jenis_pengadaan = $this->input->post("jenis_pengadaan");
 			$tahun = $this->input->post("tahun");
 			$tanggal_cetak = $this->input->post("tanggal_cetak");
