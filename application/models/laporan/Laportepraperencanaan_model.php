@@ -10,7 +10,7 @@ class Laportepraperencanaan_model extends CI_Model {
 
     public function getDataUser($token){
         $this->db->select("*");
-        $this->db->from("tb_users");
+        $this->db->from("v_auth");
         $this->db->where("id", $token);
         $data = $this->db->get();
         return $data;

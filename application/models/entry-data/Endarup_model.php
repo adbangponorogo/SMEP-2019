@@ -32,7 +32,7 @@ class Endarup_model extends CI_Model {
 
     public function getDataUsers($token){
         $this->db->select("*");
-        $this->db->from("tb_users");
+        $this->db->from("v_auth");
         $this->db->where("id", $token);
         $data = $this->db->get();
         return $data;
@@ -40,7 +40,7 @@ class Endarup_model extends CI_Model {
 
     public function getDataUsersAllPPK($id_skpd){
         $this->db->select("*");
-        $this->db->from("tb_users");
+        $this->db->from("v_auth");
         $this->db->where("status", 3);
         $this->db->where("id_skpd", $id_skpd);
         $data = $this->db->get();
