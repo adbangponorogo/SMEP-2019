@@ -1,5 +1,4 @@
 SELECT
-	CONCAT(9, RIGHT(id, 6)) id_sirup,
 	id,
 	id_skpd,
 	nama,	
@@ -14,7 +13,6 @@ FROM tb_users
 WHERE status IS NOT NULL
 UNION ALL
 SELECT
-	CONCAT(1, a.id) id_sirup,
 	a.id,
 	IFNULL(b.id_skpd, '-'),
 	a.nama,
