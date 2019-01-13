@@ -50,7 +50,7 @@ class Adminpengsi_model extends CI_Model {
 
     public function getCountUserSKPD($id_skpd){
         $this->db->select("username");
-        $this->db->from("tb_users");
+        $this->db->from("v_auth");
         $this->db->where("id_skpd", $id_skpd);
         $data = $this->db->get();
         return $data;
@@ -58,7 +58,7 @@ class Adminpengsi_model extends CI_Model {
 
     public function getDataUser($id_skpd){
         $this->db->select("*");
-        $this->db->from("tb_users");
+        $this->db->from("v_auth");
         $this->db->where("id_skpd", $id_skpd);
         $this->db->order_by("tanggal_buat", 'ASC');
         $data = $this->db->get();
@@ -67,7 +67,7 @@ class Adminpengsi_model extends CI_Model {
 
     public function getDataUserUnique($username){
         $this->db->select("*");
-        $this->db->from("tb_users");
+        $this->db->from("v_auth");
         $this->db->where("username", $username);
         $data = $this->db->get();
         return $data;
@@ -75,7 +75,7 @@ class Adminpengsi_model extends CI_Model {
 
     public function getDataUserId($id){
         $this->db->select("status");
-        $this->db->from("tb_users");
+        $this->db->from("v_auth");
         $this->db->where("id", $id);
         $data = $this->db->get();
         return $data;
@@ -83,7 +83,7 @@ class Adminpengsi_model extends CI_Model {
 
     public function getData($token){
         $this->db->select("*");
-        $this->db->from("tb_users");
+        $this->db->from("v_auth");
         $this->db->where("id", $token);
         $data = $this->db->get();
         return $data;

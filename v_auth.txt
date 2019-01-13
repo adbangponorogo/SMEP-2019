@@ -1,0 +1,27 @@
+SELECT
+	id,
+	id_skpd,
+	nama,	
+	lower(username) username,
+	password,	
+	status,	
+	email,	
+	telepon,	
+	alamat,
+	tanggal_buat
+FROM tb_users
+WHERE status IS NOT NULL
+UNION ALL
+SELECT
+	a.id,
+	IFNULL(b.id_skpd, '-'),
+	a.nama,
+	lower(a.user) username,
+	a.pass password,
+	3 status,
+	a.email,
+	a.telepon,
+	a.alamat,
+	a.tanggal_buat
+FROM spse_pegawai a
+LEFT JOIN tb_users b ON a.user=b.username
