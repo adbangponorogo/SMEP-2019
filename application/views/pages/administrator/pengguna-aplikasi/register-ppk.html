@@ -92,7 +92,7 @@ jQuery(document).ready(function(){
                             // jQuery(".pengsiadmin-nama-user-ppk-reg").val(JSON[ppk][1]);
                             jQuery(".pengsiadmin-username-user-ppk-reg").val(JSON[ppk][2]);
                             // jQuery(".pengsiadmin-password-user-ppk-reg").val(JSON[ppk][5]);
-                            jQuery(".pengsiadmin-status-user-ppk-reg").val(3);
+                            // jQuery(".pengsiadmin-status-user-ppk-reg").val(3);
                             // jQuery(".pengsiadmin-email-user-ppk-reg").val(JSON[ppk][6]);
                             // jQuery(".pengsiadmin-telepon-user-ppk-reg").val(JSON[ppk][7]);
                             // jQuery(".pengsiadmin-alamat-user-ppk-reg").val(JSON[ppk][8]);
@@ -133,7 +133,6 @@ jQuery(document).ready(function(){
 
     // --------------- Register PPK --------------- //
     jQuery(document).on("click", ".smep-pengsiadmin-register-user-ppk-upload-btn", function(){
-        // console.log(jQuery(".pengsiadmin-register-user-ppk-form").serialize());
         // if (jQuery(".pengsiadmin-nama-user-ppk-reg").val() != "") {
             
         // }
@@ -168,10 +167,10 @@ jQuery(document).ready(function(){
                             console.log('failed');
                         }
                 });
-        }
-        else{
-            jQuery(".pengsiadmin-username-user-ppk-reg").focus();
-        }
+            }
+            else{
+                jQuery(".pengsiadmin-username-user-ppk-reg").focus();
+            }
         return false;
     });
 

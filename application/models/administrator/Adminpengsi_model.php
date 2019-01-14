@@ -72,7 +72,7 @@ class Adminpengsi_model extends CI_Model {
 
     public function getDataUserUnique($username){
         $this->db->select("*");
-        $this->db->from("v_auth");
+        $this->db->from("tb_users");
         $this->db->where("username", $username);
         $data = $this->db->get();
         return $data;

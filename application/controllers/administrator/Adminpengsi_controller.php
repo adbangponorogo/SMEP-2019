@@ -105,7 +105,7 @@ class Adminpengsi_controller extends CI_Controller {
 		if ($this->session->userdata("auth_id") != "") {
 			$resultUsername = $this->model->getDatauserUnique($this->input->post("username"));
 			if ($resultUsername->num_rows() <= 0) {
-				if ($this->input->post("status") != 3) {
+				if ($this->input->post("status") != 3 || $this->input->post("status") != '') {
 					$id = "USER-".date("Ymdhis").rand(0000,9999);
 					$password = md5($this->input->post("password"));
 				}
@@ -126,10 +126,10 @@ class Adminpengsi_controller extends CI_Controller {
 							"alamat" => $this->input->post("alamat"),
 						);
 				$this->model->insertData($data_users);
-				echo json_encode("0"); 
+				echo json_encode(0); 
 			}
 			else{
-				echo json_encode("1"); 
+				echo json_encode(1); 
 			}
 		}
 	}
