@@ -216,7 +216,7 @@ class Endarup_model extends CI_Model {
 
     public function getDataMasterRefRUP($kd_skpd){
         $this->db->select("*");
-        $this->db->from("simda_ref_master_rup");
+        $this->db->from("v_ref_master_rup");
         $this->db->where("kd_skpd", $kd_skpd);
         $data = $this->db->get();
         return $data;
