@@ -11,9 +11,14 @@ class Adminpengsi_model extends CI_Model {
     }
 
     public function getDataSKPD($token){
-        $this->db->select("id, kd_skpd, nama_skpd");
-        $this->db->from("simda_skpd");
-        $this->db->where("id", $token);
+        $this->db->select("a.id, a.kd_skpd, a.nama_skpd");
+        $this->db->from("simda_skpd a");
+        $this->db->join("tb_skpd_urutan b", "a.kd_skpd = b.kd_skpd");
+        if ($token != 'all') {
+            $this->db->where("a.id", $token);
+        }
+        $this->db->where("b.urutan >", 0);
+        $this->db->order_by("b.urutan", "ASC");
         $data = $this->db->get();
         return $data;
     }
@@ -50,7 +55,7 @@ class Adminpengsi_model extends CI_Model {
 
     public function getCountUserSKPD($id_skpd){
         $this->db->select("username");
-        $this->db->from("v_auth");
+        $this->db->from("tb_users");
         $this->db->where("id_skpd", $id_skpd);
         $data = $this->db->get();
         return $data;
@@ -58,7 +63,7 @@ class Adminpengsi_model extends CI_Model {
 
     public function getDataUser($id_skpd){
         $this->db->select("*");
-        $this->db->from("v_auth");
+        $this->db->from("tb_users");
         $this->db->where("id_skpd", $id_skpd);
         $this->db->order_by("tanggal_buat", 'ASC');
         $data = $this->db->get();
@@ -67,8 +72,22 @@ class Adminpengsi_model extends CI_Model {
 
     public function getDataUserUnique($username){
         $this->db->select("*");
-        $this->db->from("v_auth");
+        $this->db->from("tb_users");
         $this->db->where("username", $username);
+        $data = $this->db->get();
+        return $data;
+    }
+
+    public function getDataUserPPK($id){
+        $this->db->select("*");
+        $this->db->from("v_auth");
+        if ($id != "all") {
+            $this->db->where("id", $id);
+        }
+        else{
+            $this->db->where("id_skpd", "-");
+        }
+        $this->db->order_by("id", "ASC");
         $data = $this->db->get();
         return $data;
     }

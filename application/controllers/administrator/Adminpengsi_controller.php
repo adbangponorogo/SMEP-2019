@@ -28,6 +28,30 @@ class Adminpengsi_controller extends CI_Controller {
 		}
 	}
 
+	public function getUserDataPPK($id){
+		if ($this->session->userdata("auth_id") != "") {
+			$result = $this->model->getDataUserPPK($id);
+			$data = array();
+			$no = 1;
+			foreach ($result->result() as $rows) {
+				$data[] = array(
+							$no++,
+							$rows->nama,
+							$rows->username,
+							"<button class='btn btn-primary smep-pengsiadmin-choose-ppk-btn' data-id='".$rows->id."'>".
+								"<i class='fa fa-eye'></i>&nbsp;Pilih".
+							"</button>",
+							$rows->id,
+							$rows->password,
+							$rows->email,
+							$rows->telepon,
+							$rows->alamat,
+						);
+			}
+			echo json_encode($data);
+		}
+	}
+
 	public function getUserData($token){
 		if ($this->session->userdata("auth_id") != "") {
 			$result = $this->model->getDataUser($token);
@@ -81,13 +105,21 @@ class Adminpengsi_controller extends CI_Controller {
 		if ($this->session->userdata("auth_id") != "") {
 			$resultUsername = $this->model->getDatauserUnique($this->input->post("username"));
 			if ($resultUsername->num_rows() <= 0) {
-				$id = "USER-".date("Ymdhis").rand(0000,9999);
+				if ($this->input->post("status") == 3) {
+					$id = $this->input->post("token");
+					$password = $this->input->post("password");
+				}
+				else{
+					$id = "USER-".date("Ymdhis").rand(0000,9999);
+					$password = md5($this->input->post("password"));
+				}
+
 				$data_users = array(
 							"id" => $id,
 							"id_skpd" => $this->input->post("skpd"),
 							"nama" => $this->input->post("nama"),
 							"username" => $this->input->post("username"),
-							"password" => md5($this->input->post("password")),
+							"password" => $password,
 							"status" => $this->input->post("status"),
 							"email" => $this->input->post("email"),
 							"telepon" => $this->input->post("telepon"),

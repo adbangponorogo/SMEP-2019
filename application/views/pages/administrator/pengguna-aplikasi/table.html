@@ -2,7 +2,12 @@
   <div class="box box-primary">
     <div class="box-header with-border" style="padding: 10px 0px;">
       <div class="col-md-6" style="padding-top: 5px;">
-        <h3 class="box-title">Tabel Data</h3>
+        <h3 class="box-title">
+          Tabel Data&nbsp;
+          <button class="btn btn-primary btn-sm smep-pengsiadmin-register-user-ppk-btn">
+            <i class="fa fa-plus"></i>&nbsp;Tambahkan User PPK
+          </button>
+        </h3>
       </div>
       <div class="col-md-6">
         <div class="box-tools pull-right">
@@ -78,5 +83,38 @@
     error     : function(jqXHR, textStatus, errorThrown){
       console.log('failed');
     }
+  });
+  
+
+  // --------------- Register User PPK --------------- //
+  jQuery(document).on("click", ".smep-pengsiadmin-register-user-ppk-btn", function(){
+    jQuery.ajax({
+      type    : 'AJAX',
+      method    : 'GET',
+      url     : 'administrator/pengguna-aplikasi/data-skpd/all',
+      async   : true,
+      dataType  : 'JSON',
+      success   : function(JSON){
+        var option = '';
+        for (var skpd = 0; skpd < JSON.length; skpd++) {
+          option += "<option value='"+JSON[skpd][0]+"'>["+JSON[skpd][1]+"] - "+JSON[skpd][2]+"</option>";
+        }
+        jQuery(".pengsiadmin-skpd-user-reg").html(option);
+        jQuery(".pengsiadmin-skpd-user-reg").select2();
+        // var status_data =   [
+        //                       [3, "Pejabat Pembuat Komitmen"]
+        //                     ]
+        // var option_user = '';
+        // for (var status = 0; status < status_data.length; status++) {
+        //     option_user += "<option value='"+status_data[status][0]+"'>"+status_data[status][1]+"</option>";
+        // }
+        // jQuery(".pengsiadmin-status-user-reg").html(option_user);
+        jQuery(".smep-pengsiadmin-user-ppk-register-modal").modal("show");
+      },
+      error     : function(jqXHR, textStatus, errorThrown){
+        console.log('failed');
+      }
+    });
+    return false;
   });
 </script>

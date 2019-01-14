@@ -15,9 +15,22 @@ jQuery(document).ready(function(){
 			async		: true,
 			dataType 	: 'JSON',
 			success 	: function(JSON){
-				jQuery(".pengsiadmin-skpd-read-user-reg").val("["+JSON[0][1]+"] - "+JSON[0][2]);
-				jQuery(".pengsiadmin-skpd-user-reg").val(+JSON[0][0]);
+				var option = '';
+		        for (var skpd = 0; skpd < JSON.length; skpd++) {
+		          option += "<option value='"+JSON[skpd][0]+"'>["+JSON[skpd][1]+"] - "+JSON[skpd][2]+"</option>";
+		        }
+		        jQuery(".pengsiadmin-skpd-user-reg").html(option);
+		        jQuery(".pengsiadmin-skpd-user-reg").select2();
 				jQuery(".pengsiadmin-register-user-form .modal-body .alert").remove();
+				// var status_data =   [
+	   //                                  [1, "Root - Administrator"],
+	   //                                  [2, "Operator - PA/KPA SKPD"]
+	   //                              ]
+		  //       var option_user = '';
+		  //       for (var status = 0; status < status_data.length; status++) {
+		  //           option_user += "<option value='"+status_data[status][0]+"'>"+status_data[status][1]+"</option>";
+		  //       }
+		  //       jQuery(".pengsiadmin-status-user-reg").html(option_user);
 				jQuery(".smep-pengsiadmin-user-register-modal").modal("show");
 			},
 			error 		: function(jqXHR, textStatus, errorThrown){
@@ -125,7 +138,7 @@ jQuery(document).ready(function(){
 			jQuery(".pengsiadmin-nama-user-reg").focus();
 		}
 		return false;
-	})
+	});
 	
 
 	
@@ -268,7 +281,6 @@ jQuery(document).ready(function(){
 			return false;
 		}
 	});
-
 
 	// --------------- Generate Data --------------- //
 	jQuery(document).on("click", ".smep-pengsiadmin-generate-user-btn", function(){

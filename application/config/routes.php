@@ -234,6 +234,7 @@ $route['laporan/rup/print-data'] = 'laporan/Laporrup_controller/getPrintData';
 $route['administrator/pengguna-aplikasi/main-page'] = 'administrator/Adminpengsi_controller/mainPage';
 $route['administrator/pengguna-aplikasi/user-page'] = 'administrator/Adminpengsi_controller/userPage';
 $route['administrator/pengguna-aplikasi/main-data'] = 'administrator/Adminpengsi_controller/getMainData';
+$route['administrator/pengguna-aplikasi/user-ppk/(:any)'] = 'administrator/Adminpengsi_controller/getUserDataPPK/$1';
 $route['administrator/pengguna-aplikasi/user-data/(:any)'] = 'administrator/Adminpengsi_controller/getUserData/$1';
 $route['administrator/pengguna-aplikasi/data-skpd/(:any)'] = 'administrator/Adminpengsi_controller/getDataSKPD/$1';
 $route['administrator/pengguna-aplikasi/upload-data'] = 'administrator/Adminpengsi_controller/sendData';
