@@ -65,25 +65,28 @@
 <!-- Javascript -->
 <script type="text/javascript">
   // --------------- Data Table --------------- //
-  jQuery.ajax({
-    type      : 'AJAX',
-    method    : 'GET',
-    url       : 'administrator/pengguna-aplikasi/main-data',
-    async     : true,
-    dataType  : 'JSON',
-    success   : function(JSON){
-      console.log('success');
-      jQuery(".smep-pengsi-admin-table").dataTable({
-        "destroy"       : true,
-        "processing"    : true,
-        "lengthMenu"    : [["10"], ["10"]],
-        "data"          : JSON
-      });
-    },
-    error     : function(jqXHR, textStatus, errorThrown){
-      console.log('failed');
-    }
-  });
+  adminPengsiMainData();
+  function adminPengsiMainData(){
+    jQuery.ajax({
+      type      : 'AJAX',
+      method    : 'GET',
+      url       : 'administrator/pengguna-aplikasi/main-data',
+      async     : true,
+      dataType  : 'JSON',
+      success   : function(JSON){
+        console.log('success');
+        jQuery(".smep-pengsi-admin-table").dataTable({
+          "destroy"       : true,
+          "processing"    : true,
+          "lengthMenu"    : [["10"], ["10"]],
+          "data"          : JSON
+        });
+      },
+      error     : function(jqXHR, textStatus, errorThrown){
+        console.log('failed');
+      }
+    });
+  }
   
 
   // --------------- Register User PPK --------------- //

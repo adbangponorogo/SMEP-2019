@@ -88,14 +88,14 @@ jQuery(document).ready(function(){
                     var data = jQuery(this).data("id");
                     for (var ppk = 0; ppk < JSON.length; ppk++) {
                         if (JSON[ppk][4] == data) {
-                            jQuery(".pengsiadmin-id-user-ppk-reg").val(JSON[ppk][4]);
-                            jQuery(".pengsiadmin-nama-user-ppk-reg").val(JSON[ppk][1]);
+                            // jQuery(".pengsiadmin-id-user-ppk-reg").val(JSON[ppk][4]);
+                            // jQuery(".pengsiadmin-nama-user-ppk-reg").val(JSON[ppk][1]);
                             jQuery(".pengsiadmin-username-user-ppk-reg").val(JSON[ppk][2]);
-                            jQuery(".pengsiadmin-password-user-ppk-reg").val(JSON[ppk][5]);
+                            // jQuery(".pengsiadmin-password-user-ppk-reg").val(JSON[ppk][5]);
                             jQuery(".pengsiadmin-status-user-ppk-reg").val(3);
-                            jQuery(".pengsiadmin-email-user-ppk-reg").val(JSON[ppk][6]);
-                            jQuery(".pengsiadmin-telepon-user-ppk-reg").val(JSON[ppk][7]);
-                            jQuery(".pengsiadmin-alamat-user-ppk-reg").val(JSON[ppk][8]);
+                            // jQuery(".pengsiadmin-email-user-ppk-reg").val(JSON[ppk][6]);
+                            // jQuery(".pengsiadmin-telepon-user-ppk-reg").val(JSON[ppk][7]);
+                            // jQuery(".pengsiadmin-alamat-user-ppk-reg").val(JSON[ppk][8]);
                         }
                     }
                     return false;
@@ -133,8 +133,15 @@ jQuery(document).ready(function(){
 
     // --------------- Register PPK --------------- //
     jQuery(document).on("click", ".smep-pengsiadmin-register-user-ppk-upload-btn", function(){
-        if (jQuery(".pengsiadmin-nama-user-ppk-reg").val() != "") {
-            if (jQuery(".pengsiadmin-username-user-ppk-reg").val() != "") {
+        // console.log(jQuery(".pengsiadmin-register-user-ppk-form").serialize());
+        // if (jQuery(".pengsiadmin-nama-user-ppk-reg").val() != "") {
+            
+        // }
+        // else{
+        //     jQuery(".pengsiadmin-nama-user-ppk-reg").focus();
+        // }
+
+        if (jQuery(".pengsiadmin-username-user-ppk-reg").val() != "") {
                 jQuery.ajax({
                         type        : 'AJAX',
                         method      : 'POST',
@@ -161,15 +168,33 @@ jQuery(document).ready(function(){
                             console.log('failed');
                         }
                 });
-            }
-            else{
-                jQuery(".pengsiadmin-username-user-ppk-reg").focus();
-            }
         }
         else{
-            jQuery(".pengsiadmin-nama-user-ppk-reg").focus();
+            jQuery(".pengsiadmin-username-user-ppk-reg").focus();
         }
         return false;
     });
+
+    function adminPengsiMainData(){
+        jQuery.ajax({
+          type      : 'AJAX',
+          method    : 'GET',
+          url       : 'administrator/pengguna-aplikasi/main-data',
+          async     : true,
+          dataType  : 'JSON',
+          success   : function(JSON){
+            console.log('success');
+            jQuery(".smep-pengsi-admin-table").dataTable({
+              "destroy"       : true,
+              "processing"    : true,
+              "lengthMenu"    : [["10"], ["10"]],
+              "data"          : JSON
+            });
+          },
+          error     : function(jqXHR, textStatus, errorThrown){
+            console.log('failed');
+          }
+        });
+      }
 });
 </script>

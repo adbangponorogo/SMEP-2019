@@ -105,13 +105,13 @@ class Adminpengsi_controller extends CI_Controller {
 		if ($this->session->userdata("auth_id") != "") {
 			$resultUsername = $this->model->getDatauserUnique($this->input->post("username"));
 			if ($resultUsername->num_rows() <= 0) {
-				if ($this->input->post("status") == 3) {
-					$id = $this->input->post("token");
-					$password = $this->input->post("password");
-				}
-				else{
+				if ($this->input->post("status") != 3) {
 					$id = "USER-".date("Ymdhis").rand(0000,9999);
 					$password = md5($this->input->post("password"));
+				}
+				else{
+					$id = '';
+					$password = '';
 				}
 
 				$data_users = array(
