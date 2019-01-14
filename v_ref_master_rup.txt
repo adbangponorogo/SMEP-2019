@@ -1,0 +1,14 @@
+SELECT
+	MIN(updated) updated,
+	MIN(id) id,
+	tahun,
+	kd_skpd,
+	alamat,
+	SUM(btl1) btl1,
+	SUM(btl2) btl2,
+	SUM(bl1) bl1,
+	SUM(bl2) bl2,
+	SUM(bl3) bl3
+FROM simda_ref_master_rup
+GROUP BY
+	kd_skpd
