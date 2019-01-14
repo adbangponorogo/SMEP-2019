@@ -160,7 +160,12 @@ jQuery(document).ready(function(){
 					jQuery(".pengsiadmin-password-user-edit").removeAttr("readonly");
 					jQuery(".pengsiadmin-password-user-edit").removeAttr("placeholder");
 					jQuery(".pengsiadmin-password-user-edit").attr("readonly", "readonly");
-					jQuery(".pengsiadmin-password-user-edit").attr("placeholder", "Password sama seperti Username");
+					if (JSON[0][1] == 2) {
+						jQuery(".pengsiadmin-password-user-edit").attr("placeholder", "Password sama seperti Username");	
+					}
+					if (JSON[0][1] == 3) {
+						jQuery(".pengsiadmin-password-user-edit").attr("placeholder", "Password dirubah di SPSE");	
+					}
 				}
 				if (JSON[0][1] == 1) {
 					jQuery(".pengsiadmin-password-user-edit").val("Jika tidak ingin rubah password - harap tidak merubah inputan ini");
