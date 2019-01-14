@@ -37,15 +37,15 @@ class Adminpengsi_controller extends CI_Controller {
 				$data[] = array(
 							$no++,
 							$rows->nama,
-							$rows->username,
+							$rows->alamat,
 							"<button class='btn btn-primary smep-pengsiadmin-choose-ppk-btn' data-id='".$rows->id."'>".
 								"<i class='fa fa-eye'></i>&nbsp;Pilih".
 							"</button>",
 							$rows->id,
+							$rows->username,
 							$rows->password,
 							$rows->email,
 							$rows->telepon,
-							$rows->alamat,
 						);
 			}
 			echo json_encode($data);

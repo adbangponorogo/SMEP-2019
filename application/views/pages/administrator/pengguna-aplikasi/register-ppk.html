@@ -9,10 +9,8 @@
             <div class="col-md-12">
                 <form action="#" method="POST" enctype="multipart/form-data" class="pengsiadmin-register-user-ppk-form">
                     <div class="form-group">
-                        <label>Nama&nbsp;
-                            <i class="fa fa-exclamation-circle" style="color: #d33724;"></i>
-                        </label>
-                        <input type="text" name="nama" class="form-control pengsiadmin-nama-user-ppk-reg" placeholder="Nama">
+                        <label>Nama</label>
+                        <input type="text" class="form-control pengsiadmin-nama-user-ppk-reg" placeholder="Nama" readonly="readonly">
                     </div>
                     <div class="form-group">
                         <label>Username&nbsp;
@@ -27,6 +25,7 @@
                     </div>
                     <div class="form-group">
                         <input type="hidden" name="token" class="pengsiadmin-id-user-ppk-reg">
+                        <input type="hidden" name="nama" class="pengsiadmin-nama-user-ppk-reg">
                         <input type="hidden" name="password" class="pengsiadmin-password-user-ppk-reg">
                         <input type="hidden" name="status" class="pengsiadmin-status-user-ppk-reg">
                         <input type="hidden" name="email" class="pengsiadmin-email-user-ppk-reg">
@@ -45,7 +44,7 @@
                             <tr>
                                 <th width="5%">No</th>
                                 <th width="50%">Nama</th>
-                                <th width="30%">Username</th>
+                                <th width="30%">Alamat</th>
                                 <th width="15%">Option</th>
                             </tr>
                         </thead>
@@ -89,8 +88,8 @@ jQuery(document).ready(function(){
                     for (var ppk = 0; ppk < JSON.length; ppk++) {
                         if (JSON[ppk][4] == data) {
                             // jQuery(".pengsiadmin-id-user-ppk-reg").val(JSON[ppk][4]);
-                            // jQuery(".pengsiadmin-nama-user-ppk-reg").val(JSON[ppk][1]);
-                            jQuery(".pengsiadmin-username-user-ppk-reg").val(JSON[ppk][2]);
+                            jQuery(".pengsiadmin-nama-user-ppk-reg").val(JSON[ppk][1]);
+                            jQuery(".pengsiadmin-username-user-ppk-reg").val(JSON[ppk][5]);
                             // jQuery(".pengsiadmin-password-user-ppk-reg").val(JSON[ppk][5]);
                             // jQuery(".pengsiadmin-status-user-ppk-reg").val(3);
                             // jQuery(".pengsiadmin-email-user-ppk-reg").val(JSON[ppk][6]);
