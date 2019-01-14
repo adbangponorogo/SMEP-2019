@@ -20,7 +20,7 @@ class Adminrebela_model extends CI_Model {
 
     public function getDataPaguSKPD($kd_skpd){
         $this->db->select("sum(btl1+btl2) as btl, sum(bl1+bl2+bl3) as bl");
-        $this->db->from("simda_ref_master_rup");
+        $this->db->from("v_ref_master_rup");
         $this->db->where("kd_skpd", $kd_skpd);
         $data = $this->db->get();
         return $data;
