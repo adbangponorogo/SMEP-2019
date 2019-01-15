@@ -10,15 +10,17 @@
             <div class="form-group">
                 <label>Level Pengguna</label>
                 <select name="status" class="form-control pengsiadmin-status-user-reg" style="float: left;width: 100%;">
-                    <option value="2">Operator - PA/KPA SKPD</option>
-                    <!-- <option value="3">Pejabat Pembuat Komitmen</option> -->
                     <option value="1">Root - Administrator</option>
+                    <option value="2">Operator - PA/KPA SKPD</option>
                 </select>
+                <input type="hidden" class="pengsiadmin-status-usertype-user-reg">
             </div>
             <div class="form-group">
                 <label>SKPD</label>
-                <input type="text" class="form-control pengsiadmin-skpd-read-user-reg" placeholder="SKPD" readonly="">
-                <input type="hidden" name="skpd" class="form-control pengsiadmin-skpd-user-reg">
+                <select name="skpd" class="form-control pengsiadmin-skpd-user-reg" style="float: left;width: 100%;">
+                </select>
+                <!-- <input type="text" class="form-control pengsiadmin-skpd-read-user-reg" placeholder="SKPD" readonly="">
+                <input type="hidden" name="skpd" class="form-control pengsiadmin-skpd-user-reg"> -->
             </div>
             <div class="form-group">
                 <label>Nama&nbsp;
@@ -53,6 +55,7 @@
             <div class="col-md-12">
                 <div class="pull-left">
                     <div class="form-group">
+                        <input type="hidden" name="token" class="pengsiadmin-id-user-ppk-reg">
                         <button class="btn btn-primary smep-pengsiadmin-register-user-upload-btn">Simpan</button>
                         <button class="btn btn-danger smep-pengsiadmin-register-user-cancel-btn">Batal</button>
                     </div>
@@ -67,6 +70,23 @@
 <!-- Javascript -->
 <script type="text/javascript">
 jQuery(document).ready(function(){
+    // var status_reg =  jQuery(".pengsiadmin-status-usertype-user-reg").val();
+    // if (status_reg == 1 || status_reg == 2) {
+    //     var status_data =   [
+    //                                 [1, "Root - Administrator"],
+    //                                 [2, "Operator - PA/KPA SKPD"]
+    //                             ]
+    //     }
+    //     if (status_reg == 3) {
+    //         var status_data =   [
+    //                                 [3, "Pejabat Pembuat Komitmen"]
+    //                             ]
+    //     }
+    //     var option_user = '';
+    //     for (var status = 0; status < status_data.length; status++) {
+    //         option_user += "<option value='"+status_data[status][0]+"'>"+status_data[status][1]+"</option>";
+    //     }
+    //     jQuery(".pengsiadmin-status-user-reg").html(option_user);
     jQuery(".pengsiadmin-status-user-reg").select2({
         dropdownParent  : jQuery(".smep-pengsiadmin-user-register-modal")
     });

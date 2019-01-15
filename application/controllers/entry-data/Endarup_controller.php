@@ -109,7 +109,7 @@ class Endarup_controller extends CI_Controller {
      		}
 
                $keterangan_metode_pemilihan = [":: Swakelola ::", "E-Purchasing", "Tender", "Tender Cepat", "Pengadaan Langsung", "Penunjukkan Langsung", "Seleksi"];
-               if ($rows->cara_pengadaan == 1) {
+               if ($rows->cara_pengadaan == 1 || $rows->cara_pengadaan == 2 || $rows->cara_pengadaan == 3 || $rows->cara_pengadaan == 4 || $rows->cara_pengadaan == 5 || $rows->cara_pengadaan == 6) {
                     $metode_pemilihan = $rows->metode_pemilihan;
                }
                else{
@@ -476,9 +476,16 @@ class Endarup_controller extends CI_Controller {
                if ($this->input->post("pelaksanaan_pekerjaan_akhir") == "") {
                     $pelaksanaan_pekerjaan_akhir = '-';
                }
+
+               $result_skpd = $this->model->getDataSKPD($this->input->post("idskpd"));
+               foreach ($result_skpd->result() as $rows_skpd) {
+                    $id_skpd = $rows_skpd->id;
+                    $kd_skpd = $rows_skpd->kd_skpd;
+               }
 			$data = array(
 				"tahun" => $this->input->post("tahun"),
-				"id_skpd" => $this->input->post("idskpd"),
+                    "id_skpd" => $id_skpd,
+				"kd_skpd" => $kd_skpd,
 				"id_program" => $this->input->post("idprogram"),
 				"id_kegiatan" => $this->input->post("idkegiatan"),
 				"id_rincian_obyek" => $this->input->post("idrincianobyek"),

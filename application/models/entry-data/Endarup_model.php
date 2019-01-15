@@ -9,7 +9,7 @@ class Endarup_model extends CI_Model {
     }
 
     public function getDataSKPD($token){
-        $this->db->select("a.id, a.kd_skpd, a.nama_skpd");
+        $this->db->select("a.*");
         $this->db->from("simda_skpd a");
         $this->db->join("tb_skpd_urutan b", "a.kd_skpd = b.kd_skpd");
         $this->db->where("a.id", $token);
@@ -20,7 +20,7 @@ class Endarup_model extends CI_Model {
     }
 
     public function getDataSKPDUnique($token){
-        $this->db->select("a.id, a.kd_skpd, a.nama_skpd");
+        $this->db->select("a.*");
         $this->db->from("simda_skpd a");
         $this->db->join("tb_skpd_urutan b", "a.kd_skpd = b.kd_skpd");
         $this->db->where("b.urutan >", 0);
@@ -84,6 +84,7 @@ class Endarup_model extends CI_Model {
             $this->db->where("kd_skpd", $rows_program->kd_skpd);
             $this->db->where("id_program", $rows_program->id_program);
             $this->db->where("kd_program", $rows_program->kd_program);
+            $this->db->where("id_skpd", $rows_program->id_skpd);
             $result_kegiatan = $this->db->get();
             foreach ($result_kegiatan->result() as $rows_kegiatan) {
                 $data[] = array(
@@ -113,6 +114,7 @@ class Endarup_model extends CI_Model {
             $this->db->select("*");
             $this->db->from("simda_rincian_obyek");
             $this->db->where("kd_skpd", $rows_kegiatan->kd_skpd);
+            $this->db->where("id_skpd", $rows_kegiatan->id_skpd);
             $this->db->where("kd_gabungan", $rows_kegiatan->kd_gabungan);
             $result_rincian_obyek = $this->db->get();
             foreach ($result_rincian_obyek->result() as $rows_rincian_obyek) {

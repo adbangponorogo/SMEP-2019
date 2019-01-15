@@ -154,7 +154,9 @@ class Datumdaftan_controller extends CI_Controller {
 						$row->jabatan,
 						$status,
 						"<button class='btn btn-primary btn-sm smep-daftandatum-pptk-get-btn' data-id='".$row->id."'>".
-						"Pilih</button>",
+							"<i class='fa fa-eye'></i>&nbsp;".
+							"Pilih".
+						"</button>",
 					);
 		}
 
