@@ -86,9 +86,7 @@
 							<div class="form-group">
 								<label>
 									Tipe Swakelola&nbsp;
-									<span class="label bg-blue color-pallete smep-rupenda-swakelola-btn" style="cursor: pointer;">
-										<i class="fa fa-question"></i>
-									</span>
+									<label class="label bg-blue color-pallete smep-rupenda-swakelola-btn" style="cursor: pointer;">?</label>
 								</label>
 								<select name="tipe_swakelola" class="form-control rupenda-tipe-swakelola-edit select2-option">
 									<option value="1">Swakelola Tipe 1</option>
@@ -99,6 +97,7 @@
 							</div>
 							<div class="form-group">
 								<label>SKPD Swakelola</label>
+								<input type="text" class="form-control rupenda-skpd-swakelola-text-edit visible-show" readonly="readonly" value="Direncanakan, Dilaksanakan, dan Diawasi oleh K/L/P/D sendiri">
 								<select name="skpd_swakelola" class="form-control rupenda-skpd-swakelola-edit" disabled="disabled"></select>
 							</div>
 							<div class="form-group">
@@ -349,7 +348,7 @@
 		    		option += "<option value="+JSON[skpd][0]+">["+JSON[skpd][1]+"] - "+JSON[skpd][2]+"</option>";
 		    	}
 		    	jQuery(".rupenda-skpd-swakelola-edit").html(option);
-		        jQuery(".rupenda-skpd-swakelola-edit").select2();
+		        // jQuery(".rupenda-skpd-swakelola-edit").select2().next().hide();
 		    },
 		    error     : function(jqXHR, textStatus, errorThrown){
 		        console.log('failed');
@@ -425,10 +424,37 @@
 			    	jQuery(".rupenda-pelaksanaan-pekerjaan-awal-edit").datepicker('update', JSON[0][36]);
 			    	jQuery(".rupenda-pelaksanaan-pekerjaan-akhir-edit").datepicker('update', JSON[0][37]);
 
+
 			    	if (JSON[0][25] == 2) {
-		    			jQuery(".rupenda-skpd-swakelola-edit").prop("disabled", false);
+			    		// Config
+			    		jQuery(".rupenda-skpd-swakelola-edit").select2().next().show();
+			    		jQuery(".rupenda-skpd-swakelola-edit").prop("disabled", false);
 		    			jQuery(".rupenda-skpd-swakelola-edit").val(JSON[0][26]).change();
-			    	}
+
+		    			jQuery(".rupenda-skpd-swakelola-text-edit").removeClass("visible-show");
+						jQuery(".rupenda-skpd-swakelola-text-edit").removeClass("hidden-show");
+						jQuery(".rupenda-skpd-swakelola-text-edit").addClass("hidden-show");
+					}
+					else{
+						// Config
+						jQuery(".rupenda-skpd-swakelola-edit").select2().next().hide();
+			    		jQuery(".rupenda-skpd-swakelola-edit").prop("disabled", true);
+
+			    		jQuery(".rupenda-skpd-swakelola-text-edit").removeClass("visible-show");
+						jQuery(".rupenda-skpd-swakelola-text-edit").removeClass("hidden-show");
+						jQuery(".rupenda-skpd-swakelola-text-edit").addClass("visible-show");
+
+						// Text Value
+						if (JSON[0][25] == 1) {
+							jQuery(".rupenda-skpd-swakelola-text-edit").val("Direncanakan, Dilaksanakan, dan Diawasi oleh K/L/P/D sendiri");
+						}
+						if (JSON[0][25] == 3) {
+							jQuery(".rupenda-skpd-swakelola-text-edit").val("Direncanakan, Dilaksanakan, dan Diawasi oleh Organisasi Masyarakat");
+						}
+						if (JSON[0][25] == 4) {
+							jQuery(".rupenda-skpd-swakelola-text-edit").val("Direncanakan, Dilaksanakan, dan Diawasi oleh Kelompok Masyarakat");
+						}
+					}
 		    	}
 
 			    jQuery(".rupenda-umumkan-paket-edit").val(JSON[0][30]).change();
@@ -453,10 +479,35 @@
 	// ---------------- SKPD Swakelola ---------------- //
 	jQuery(document).on("change", ".rupenda-tipe-swakelola-edit", function(){
 		if (jQuery(this).val() == 1 || jQuery(this).val() == 3 || jQuery(this).val() == 4) {
+			// Config
 			jQuery(".rupenda-skpd-swakelola-edit").prop("disabled", true);
+			
+			jQuery(".rupenda-skpd-swakelola-edit").select2().next().hide();
+
+			jQuery(".rupenda-skpd-swakelola-text-edit").removeClass("visible-show");
+			jQuery(".rupenda-skpd-swakelola-text-edit").removeClass("hidden-show");
+			jQuery(".rupenda-skpd-swakelola-text-edit").addClass("visible-show");
+
+			// Text Value
+			if (jQuery(this).val() == 1) {
+				jQuery(".rupenda-skpd-swakelola-text-edit").val("Direncanakan, Dilaksanakan, dan Diawasi oleh K/L/P/D sendiri");
+			}
+			if (jQuery(this).val() == 3) {
+				jQuery(".rupenda-skpd-swakelola-text-edit").val("Direncanakan, Dilaksanakan, dan Diawasi oleh Organisasi Masyarakat");
+			}
+			if (jQuery(this).val() == 4) {
+				jQuery(".rupenda-skpd-swakelola-text-edit").val("Direncanakan, Dilaksanakan, dan Diawasi oleh Kelompok Masyarakat");
+			}
 		}
 		if (jQuery(this).val() == 2) {
+			// Config
 			jQuery(".rupenda-skpd-swakelola-edit").prop("disabled", false);
+
+			jQuery(".rupenda-skpd-swakelola-edit").select2().next().show();
+
+			jQuery(".rupenda-skpd-swakelola-text-edit").removeClass("visible-show");
+			jQuery(".rupenda-skpd-swakelola-text-edit").removeClass("hidden-show");
+			jQuery(".rupenda-skpd-swakelola-text-edit").addClass("hidden-show");
 		}
 	});
 

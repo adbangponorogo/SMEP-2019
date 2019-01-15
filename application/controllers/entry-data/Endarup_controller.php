@@ -109,7 +109,7 @@ class Endarup_controller extends CI_Controller {
      		}
 
                $keterangan_metode_pemilihan = [":: Swakelola ::", "E-Purchasing", "Tender", "Tender Cepat", "Pengadaan Langsung", "Penunjukkan Langsung", "Seleksi"];
-               if ($rows->cara_pengadaan == 1) {
+               if ($rows->cara_pengadaan == 1 || $rows->cara_pengadaan == 2 || $rows->cara_pengadaan == 3 || $rows->cara_pengadaan == 4 || $rows->cara_pengadaan == 5 || $rows->cara_pengadaan == 6) {
                     $metode_pemilihan = $rows->metode_pemilihan;
                }
                else{
