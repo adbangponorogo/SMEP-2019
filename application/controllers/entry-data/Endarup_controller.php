@@ -476,9 +476,16 @@ class Endarup_controller extends CI_Controller {
                if ($this->input->post("pelaksanaan_pekerjaan_akhir") == "") {
                     $pelaksanaan_pekerjaan_akhir = '-';
                }
+
+               $result_skpd = $this->model->getDataSKPD($this->input->post("idskpd"));
+               foreach ($result_skpd->result() as $rows_skpd) {
+                    $id_skpd = $rows_skpd->id;
+                    $kd_skpd = $rows_skpd->kd_skpd;
+               }
 			$data = array(
 				"tahun" => $this->input->post("tahun"),
-				"id_skpd" => $this->input->post("idskpd"),
+                    "id_skpd" => $id_skpd,
+				"kd_skpd" => $kd_skpd,
 				"id_program" => $this->input->post("idprogram"),
 				"id_kegiatan" => $this->input->post("idkegiatan"),
 				"id_rincian_obyek" => $this->input->post("idrincianobyek"),
