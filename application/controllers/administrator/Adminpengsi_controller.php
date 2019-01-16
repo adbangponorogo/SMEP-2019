@@ -78,8 +78,8 @@ class Adminpengsi_controller extends CI_Controller {
 							$rows->username,
 							$status,
 							$rows->alamat,
-							"<button class='btn btn-info btn-sm smep-pengsiadmin-user-edit-btn' data-id='".$rows->id."'><i class='fa fa-edit'></i>&nbsp;Edit</button>&nbsp;".
-							"<button class='btn btn-danger btn-sm smep-pengsiadmin-user-delete-btn' data-id='".$rows->id."'><i class='fa fa-trash'></i>&nbsp;Hapus</button>"
+							"<button class='btn btn-info btn-sm smep-pengsiadmin-user-edit-btn' data-id='".$rows->username."'><i class='fa fa-edit'></i>&nbsp;Edit</button>&nbsp;".
+							"<button class='btn btn-danger btn-sm smep-pengsiadmin-user-delete-btn' data-id='".$rows->username."'><i class='fa fa-trash'></i>&nbsp;Hapus</button>"
 						);
 			}
 			echo json_encode($data);
@@ -105,11 +105,11 @@ class Adminpengsi_controller extends CI_Controller {
 		if ($this->session->userdata("auth_id") != "") {
 			$resultUsername = $this->model->getDatauserUnique($this->input->post("username"));
 			if ($resultUsername->num_rows() <= 0) {
-				if ($this->input->post("status") != 3 || $this->input->post("status") != '') {
+				if ($this->input->post("status") != 3 && $this->input->post("status") != '') {
 					$id = "USER-".date("Ymdhis").rand(0000,9999);
 					$password = md5($this->input->post("password"));
 				}
-				else{
+				if ($this->input->post("status") == 3 && $this->input->post("status") != '') {
 					$id = '';
 					$password = '';
 				}
@@ -134,9 +134,9 @@ class Adminpengsi_controller extends CI_Controller {
 		}
 	}
  
-	public function changeData($token){
+	public function changeData($username){
 		if ($this->session->userdata("auth_id") != "") {
-			$resultUser = $this->model->getData($token);
+			$resultUser = $this->model->getData($username);
 			$data = array();
 			foreach ($resultUser->result() as $rows_user) {
 				$resultSKPD = $this->model->getDataSKPD($rows_user->id_skpd);
@@ -210,9 +210,9 @@ class Adminpengsi_controller extends CI_Controller {
 		}
 	}
 
-	public function trashData($token){
+	public function trashData($username){
 		if ($this->session->userdata("auth_id") != "") {
-			$this->model->deleteDataUsers($token);
+			$this->model->deleteDataUsers($username);
 			echo json_encode(array("status"=>TRUE));
 		}
 	}

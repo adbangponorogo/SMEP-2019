@@ -100,10 +100,10 @@ class Adminpengsi_model extends CI_Model {
         return $data;
     }
 
-    public function getData($token){
+    public function getData($username){
         $this->db->select("*");
         $this->db->from("v_auth");
-        $this->db->where("id", $token);
+        $this->db->where("username", $username);
         $data = $this->db->get();
         return $data;
     }
@@ -112,13 +112,13 @@ class Adminpengsi_model extends CI_Model {
         $this->db->insert("tb_users", $data);
     }
 
-    public function updateDataUsers($token, $data){
-        $this->db->where("id", $token);
+    public function updateDataUsers($username, $data){
+        $this->db->where("username", $username);
         $this->db->update("tb_users", $data);
     }
 
-    public function deleteDataUsers($token){
-        $this->db->where("id", $token);
+    public function deleteDataUsers($username){
+        $this->db->where("username", $username);
         $this->db->delete("tb_users");
     }
 

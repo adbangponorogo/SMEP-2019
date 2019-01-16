@@ -176,7 +176,7 @@ jQuery(document).ready(function(){
 
 
 				// Values
-				jQuery(".pengsiadmin-token-user-edit").val(JSON[0][0]);
+				jQuery(".pengsiadmin-token-user-edit").val(JSON[0][5]);
 				jQuery(".pengsiadmin-idstatus-user-edit").val(JSON[0][1]);
 				jQuery(".pengsiadmin-status-user-edit").val(JSON[0][2]);
 				jQuery(".pengsiadmin-skpd-user-edit").val(JSON[0][3]);
