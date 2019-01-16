@@ -91,7 +91,30 @@ class Laporrebela_controller extends CI_Controller {
 			$object->getActiveSheet()->getSheetView()->setZoomScale(80);
 			$object->getActiveSheet()->getHeaderFooter()->setOddFooter('&L https:://smep.ponorogo.go.id/smep_2019 | AP'.$jenis_realisasi.' - '.$nama_skpd.'&R&P');
 
+
 			if ($jenis_realisasi == 1){
+				$object->getActiveSheet()->getColumnDimension('A')->setWidth('3.14');
+				$object->getActiveSheet()->getColumnDimension('B')->setWidth('12.43');
+				$object->getActiveSheet()->getColumnDimension('C')->setWidth('48.29');
+				$object->getActiveSheet()->getColumnDimension('D')->setWidth('14.29');
+				$object->getActiveSheet()->getColumnDimension('E')->setWidth('14.29');
+				$object->getActiveSheet()->getColumnDimension('F')->setWidth('14.29');
+				$object->getActiveSheet()->getColumnDimension('G')->setWidth('14.29');
+				$object->getActiveSheet()->getColumnDimension('H')->setWidth('14.29');
+				$object->getActiveSheet()->getColumnDimension('I')->setWidth('14.29');
+				$object->getActiveSheet()->getColumnDimension('J')->setWidth('12.86');
+				$object->getActiveSheet()->getColumnDimension('K')->setWidth('6.57');
+				$object->getActiveSheet()->getColumnDimension('L')->setWidth('12.86');
+				$object->getActiveSheet()->getColumnDimension('M')->setWidth('6.57');
+				$object->getActiveSheet()->getColumnDimension('N')->setWidth('12.86');
+				$object->getActiveSheet()->getColumnDimension('O')->setWidth('6.57');
+				$object->getActiveSheet()->getColumnDimension('P')->setWidth('12.86');
+				$object->getActiveSheet()->getColumnDimension('Q')->setWidth('6.57');
+				$object->getActiveSheet()->getColumnDimension('R')->setWidth('12.86');
+				$object->getActiveSheet()->getColumnDimension('S')->setWidth('6.57');
+				$object->getActiveSheet()->getColumnDimension('T')->setWidth('12.86');
+				$object->getActiveSheet()->getColumnDimension('U')->setWidth('6.57');
+				
 				// -------- Title Form -------- //
 				$title_form = 'LAPORAN '.$nama_jenis_realisasi;
 				$object->getActiveSheet()->setCellValue('A1', $title_form);
@@ -172,190 +195,96 @@ class Laporrebela_controller extends CI_Controller {
 				$object->getActiveSheet()->getStyle('A8:U10')->applyFromArray(array('borders'=>array('allborders'=>array('style'=> PHPExcel_Style_Border::BORDER_THIN))));
 				$object->getActiveSheet()->getStyle('A8:U10')->getFIll()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('D9D9D9');
 
-
+ 
 	 			$no = 1;
 	 			$mulai = 11;
 				$result_skpd = $this->model->getDataSKPDUnique($skpd);
 				if ($result_skpd->num_rows() > 0) {
 					foreach ($result_skpd->result() as $rows_skpd) {
 						$result_sumber_ro = $this->model->getDataSumberROAP1($rows_skpd->id);
-						foreach ($result_sumber_ro->result() as $rows_sumber_ro) {
-							if ($rows_sumber_ro->sumber_dana == 1 || $rows_sumber_ro->sumber_dana == 2 || $rows_sumber_ro->sumber_dana == 3 || $rows_sumber_ro->sumber_dana == 4 || $rows_sumber_ro->sumber_dana == 5 || $rows_sumber_ro->sumber_dana == 6) {
-								$status_sumber_dana = TRUE;
+						if ($result_sumber_ro->num_rows() > 0) {
+							foreach ($result_sumber_ro->result() as $rows_sumber_ro) {
+								if ($rows_sumber_ro->sumber_dana == 1 || $rows_sumber_ro->sumber_dana == 2 || $rows_sumber_ro->sumber_dana == 3 || $rows_sumber_ro->sumber_dana == 4 || $rows_sumber_ro->sumber_dana == 5 || $rows_sumber_ro->sumber_dana == 6) {
+									$status_sumber_dana = TRUE;
+								}
+								else{
+									$status_sumber_dana = FALSE;
+								}
 							}
-							else{
-								$status_sumber_dana = FALSE;
-							}
-						}
 
-						if ($status_sumber_dana == TRUE) {
+							if ($status_sumber_dana == TRUE) {
 
-							// -------------- Program ---------------
-								
-								$result_program = $this->model->getDataProgramUniqueAP1($rows_skpd->kd_skpd);
-								if ($result_program->num_rows() > 0) {
-									foreach ($result_program->result() as $rows_program) {
-										
-										// -------------- Value ---------------
+								// -------------- Program ---------------
+									
+									$result_program = $this->model->getDataProgramUniqueAP1($rows_skpd->kd_skpd);
+									if ($result_program->num_rows() > 0) {
+										foreach ($result_program->result() as $rows_program) {
+											
+											// -------------- Value ---------------
 
-										$object->getActiveSheet()->setCellValue('A'.($mulai++), $rows_program->kd_gabungan);
-										$object->getActiveSheet()->setCellValue('C'.(($mulai)-1), $rows_program->keterangan_program);
+											$object->getActiveSheet()->setCellValue('A'.($mulai++), $rows_program->kd_gabungan);
+											$object->getActiveSheet()->setCellValue('C'.(($mulai)-1), $rows_program->keterangan_program);
 
-										$result_program_sumber_dana = $this->model->getDataSumberDanaProgram($rows_skpd->id, $rows_program->id);
-										foreach ($result_program_sumber_dana->result() as $rows_program_sumber_dana) {
-											$result_program_pagu = $this->model->getDataPaguProgram($rows_skpd->id, $rows_program->id, $rows_program_sumber_dana->sumber_dana);
-											foreach ($result_program_pagu->result() as $rows_program_pagu) {
-												$result_program_realisasi = $this->model->getDataRealisasiProgram($rows_skpd->id, $rows_program->id, $rows_program_sumber_dana->sumber_dana);
-												foreach ($result_program_realisasi->result() as $rows_program_realisasi) {
-													if ($rows_program_sumber_dana->sumber_dana == 1) {
-														$object->getActiveSheet()->setCellValue('F'.(($mulai)-1), $rows_program_pagu->pagu);
-														$object->getActiveSheet()->setCellValue('N'.(($mulai)-1), $rows_program_realisasi->realisasi_keuangan);
-														if (!is_null($rows_program_pagu->pagu) && !is_null($rows_program_realisasi->realisasi_keuangan)) {
-															$object->getActiveSheet()->setCellValue('O'.(($mulai)-1), '=SUM(N'.(($mulai)-1).'/F'.(($mulai)-1).')');
-														}
-														else{
-															$object->getActiveSheet()->setCellValue('O'.(($mulai)-1), '');
-														}
-													}
-													if ($rows_program_sumber_dana->sumber_dana == 2) {
-														$object->getActiveSheet()->setCellValue('G'.(($mulai)-1), $rows_program_pagu->pagu);
-														$object->getActiveSheet()->setCellValue('P'.(($mulai)-1), $rows_program_realisasi->realisasi_keuangan);
-														if (!is_null($rows_program_pagu->pagu) && !is_null($rows_program_realisasi->realisasi_keuangan)) {
-															$object->getActiveSheet()->setCellValue('Q'.(($mulai)-1), '=SUM(P'.(($mulai)-1).'/G'.(($mulai)-1).')');
-														}
-														else{
-															$object->getActiveSheet()->setCellValue('Q'.(($mulai)-1), '');
-														}
-													}
-													if ($rows_program_sumber_dana->sumber_dana == 3) {
-														$object->getActiveSheet()->setCellValue('D'.(($mulai)-1), $rows_program_pagu->pagu);
-														$object->getActiveSheet()->setCellValue('J'.(($mulai)-1), $rows_program_realisasi->realisasi_keuangan);
-														if (!is_null($rows_program_pagu->pagu) && !is_null($rows_program_realisasi->realisasi_keuangan)) {
-															$object->getActiveSheet()->setCellValue('K'.(($mulai)-1), '=SUM(J'.(($mulai)-1).'/D'.(($mulai)-1).')');
-														}
-														else{
-															$object->getActiveSheet()->setCellValue('K'.(($mulai)-1), '');
-														}
-													}
-													if ($rows_program_sumber_dana->sumber_dana == 4) {
-														$object->getActiveSheet()->setCellValue('E'.(($mulai)-1), $rows_program_pagu->pagu);
-														$object->getActiveSheet()->setCellValue('L'.(($mulai)-1), $rows_program_realisasi->realisasi_keuangan);
-														if (!is_null($rows_program_pagu->pagu) && !is_null($rows_program_realisasi->realisasi_keuangan)) {
-															$object->getActiveSheet()->setCellValue('M'.(($mulai)-1), '=SUM(L'.(($mulai)-1).'/E'.(($mulai)-1).')');
-														}
-														else{
-															$object->getActiveSheet()->setCellValue('M'.(($mulai)-1), '');
-														}
-													}
-													if ($rows_program_sumber_dana->sumber_dana == 5) {
-														$object->getActiveSheet()->setCellValue('H'.(($mulai)-1), $rows_program_pagu->pagu);
-														$object->getActiveSheet()->setCellValue('R'.(($mulai)-1), $rows_program_realisasi->realisasi_keuangan);
-														if (!is_null($rows_program_pagu->pagu) && !is_null($rows_program_realisasi->realisasi_keuangan)) {
-															$object->getActiveSheet()->setCellValue('S'.(($mulai)-1), '=SUM(R'.(($mulai)-1).'/H'.(($mulai)-1).')');
-														}
-														else{
-															$object->getActiveSheet()->setCellValue('S'.(($mulai)-1), '');
-														}
-													}
-													if ($rows_program_sumber_dana->sumber_dana == 6) {
-														$object->getActiveSheet()->setCellValue('I'.(($mulai)-1), $rows_program_pagu->pagu);
-														$object->getActiveSheet()->setCellValue('T'.(($mulai)-1), $rows_program_realisasi->realisasi_keuangan);
-														if (!is_null($rows_program_pagu->pagu) && !is_null($rows_program_realisasi->realisasi_keuangan)) {
-															$object->getActiveSheet()->setCellValue('U'.(($mulai)-1), '=SUM(T'.(($mulai)-1).'/I'.(($mulai)-1).')');
-														}
-														else{
-															$object->getActiveSheet()->setCellValue('U'.(($mulai)-1), '');
-														}
-													}
-												}
-											}
-
-										}
-
-										// -------------- Setup ---------------
-
-										$object->getActiveSheet()->getStyle('A'.(($mulai)-1).':U'.(($mulai)-1))->getFont()->setBold(TRUE);
-
-										$object->getActiveSheet()->getStyle('A'.(($mulai)-1).':U'.(($mulai)-1))->getAlignment()->setWrapText(true);
-
-										$object->getActiveSheet()->getStyle('A'.(($mulai)-1))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-										$object->getActiveSheet()->getStyle('A'.(($mulai)-1))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-										$object->getActiveSheet()->getStyle('C'.(($mulai)-1))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
-										$object->getActiveSheet()->getStyle('C'.(($mulai)-1))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-										$object->getActiveSheet()->getStyle('D'.(($mulai)-1).':U'.(($mulai)-1))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-										$object->getActiveSheet()->getStyle('D'.(($mulai)-1).':U'.(($mulai)-1))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-
-										$object->getActiveSheet()->getStyle('A'.(($mulai)-1).':U'.(($mulai)-1))->applyFromArray(array('borders'=>array('allborders'=>array('style'=> PHPExcel_Style_Border::BORDER_THIN))));
-													
-
-										// -------------- Kegiatan ---------------
-													
-										$result_kegiatan = $this->model->getDataKegiatanUnique($rows_skpd->kd_skpd, $rows_program->id);
-										foreach ($result_kegiatan->result() as $rows_kegiatan) {
-											$object->getActiveSheet()->setCellValue('A'.($mulai++), $rows_kegiatan->kd_gabungan);
-											$object->getActiveSheet()->setCellValue('C'.(($mulai)-1), $rows_kegiatan->keterangan_kegiatan);
-
-											$result_kegiatan_sumber_dana = $this->model->getDataSumberDanaKegiatan($rows_skpd->id, $rows_program->id, $rows_kegiatan->id);
-											foreach ($result_kegiatan_sumber_dana->result() as $rows_kegiatan_sumber_dana) {
-												$result_kegiatan_pagu = $this->model->getDataPaguKegiatan($rows_skpd->id, $rows_program->id, $rows_kegiatan->id, $rows_kegiatan_sumber_dana->sumber_dana);
-												foreach ($result_kegiatan_pagu->result() as $rows_kegiatan_pagu) {
-													$result_kegiatan_realisasi = $this->model->getDataRealisasiKegiatan($rows_skpd->id, $rows_program->id, $rows_kegiatan->id, $rows_kegiatan_sumber_dana->sumber_dana);
-													foreach ($result_kegiatan_realisasi->result() as $rows_kegiatan_realisasi) {
-
-														if ($rows_kegiatan_sumber_dana->sumber_dana == 1) {
-															$object->getActiveSheet()->setCellValue('F'.(($mulai)-1), $rows_kegiatan_pagu->pagu);
-															$object->getActiveSheet()->setCellValue('N'.(($mulai)-1), $rows_kegiatan_realisasi->realisasi_keuangan);
-															if (!is_null($rows_kegiatan_pagu->pagu) && !is_null($rows_kegiatan_realisasi->realisasi_keuangan)) {
+											$result_program_sumber_dana = $this->model->getDataSumberDanaProgram($rows_skpd->id, $rows_program->id);
+											foreach ($result_program_sumber_dana->result() as $rows_program_sumber_dana) {
+												$result_program_pagu = $this->model->getDataPaguProgram($rows_skpd->id, $rows_program->id, $rows_program_sumber_dana->sumber_dana);
+												foreach ($result_program_pagu->result() as $rows_program_pagu) {
+													$result_program_realisasi = $this->model->getDataRealisasiProgram($rows_skpd->id, $rows_program->id, $rows_program_sumber_dana->sumber_dana);
+													foreach ($result_program_realisasi->result() as $rows_program_realisasi) {
+														if ($rows_program_sumber_dana->sumber_dana == 1) {
+															$object->getActiveSheet()->setCellValue('F'.(($mulai)-1), $rows_program_pagu->pagu);
+															$object->getActiveSheet()->setCellValue('N'.(($mulai)-1), $rows_program_realisasi->realisasi_keuangan);
+															if (!is_null($rows_program_pagu->pagu) && !is_null($rows_program_realisasi->realisasi_keuangan)) {
 																$object->getActiveSheet()->setCellValue('O'.(($mulai)-1), '=SUM(N'.(($mulai)-1).'/F'.(($mulai)-1).')');
 															}
 															else{
-																$object->getActiveSheet()->setCellValue('o'.(($mulai)-1), '');
+																$object->getActiveSheet()->setCellValue('O'.(($mulai)-1), '');
 															}
 														}
-														if ($rows_kegiatan_sumber_dana->sumber_dana == 2) {
-															$object->getActiveSheet()->setCellValue('G'.(($mulai)-1), $rows_kegiatan_pagu->pagu);
-															$object->getActiveSheet()->setCellValue('P'.(($mulai)-1), $rows_kegiatan_realisasi->realisasi_keuangan);
-															if (!is_null($rows_kegiatan_pagu->pagu) && !is_null($rows_kegiatan_realisasi->realisasi_keuangan)) {
+														if ($rows_program_sumber_dana->sumber_dana == 2) {
+															$object->getActiveSheet()->setCellValue('G'.(($mulai)-1), $rows_program_pagu->pagu);
+															$object->getActiveSheet()->setCellValue('P'.(($mulai)-1), $rows_program_realisasi->realisasi_keuangan);
+															if (!is_null($rows_program_pagu->pagu) && !is_null($rows_program_realisasi->realisasi_keuangan)) {
 																$object->getActiveSheet()->setCellValue('Q'.(($mulai)-1), '=SUM(P'.(($mulai)-1).'/G'.(($mulai)-1).')');
 															}
 															else{
 																$object->getActiveSheet()->setCellValue('Q'.(($mulai)-1), '');
 															}
 														}
-														if ($rows_kegiatan_sumber_dana->sumber_dana == 3) {
-															$object->getActiveSheet()->setCellValue('D'.(($mulai)-1), $rows_kegiatan_pagu->pagu);
-															$object->getActiveSheet()->setCellValue('J'.(($mulai)-1), $rows_kegiatan_realisasi->realisasi_keuangan);
-															if (!is_null($rows_kegiatan_pagu->pagu) && !is_null($rows_kegiatan_realisasi->realisasi_keuangan)) {
+														if ($rows_program_sumber_dana->sumber_dana == 3) {
+															$object->getActiveSheet()->setCellValue('D'.(($mulai)-1), $rows_program_pagu->pagu);
+															$object->getActiveSheet()->setCellValue('J'.(($mulai)-1), $rows_program_realisasi->realisasi_keuangan);
+															if (!is_null($rows_program_pagu->pagu) && !is_null($rows_program_realisasi->realisasi_keuangan)) {
 																$object->getActiveSheet()->setCellValue('K'.(($mulai)-1), '=SUM(J'.(($mulai)-1).'/D'.(($mulai)-1).')');
 															}
 															else{
 																$object->getActiveSheet()->setCellValue('K'.(($mulai)-1), '');
 															}
 														}
-														if ($rows_kegiatan_sumber_dana->sumber_dana == 4) {
-															$object->getActiveSheet()->setCellValue('E'.(($mulai)-1), $rows_kegiatan_pagu->pagu);
-															$object->getActiveSheet()->setCellValue('L'.(($mulai)-1), $rows_kegiatan_realisasi->realisasi_keuangan);
-															if (!is_null($rows_kegiatan_pagu->pagu) && !is_null($rows_kegiatan_realisasi->realisasi_keuangan)) {
+														if ($rows_program_sumber_dana->sumber_dana == 4) {
+															$object->getActiveSheet()->setCellValue('E'.(($mulai)-1), $rows_program_pagu->pagu);
+															$object->getActiveSheet()->setCellValue('L'.(($mulai)-1), $rows_program_realisasi->realisasi_keuangan);
+															if (!is_null($rows_program_pagu->pagu) && !is_null($rows_program_realisasi->realisasi_keuangan)) {
 																$object->getActiveSheet()->setCellValue('M'.(($mulai)-1), '=SUM(L'.(($mulai)-1).'/E'.(($mulai)-1).')');
 															}
 															else{
 																$object->getActiveSheet()->setCellValue('M'.(($mulai)-1), '');
 															}
 														}
-														if ($rows_kegiatan_sumber_dana->sumber_dana == 5) {
-															$object->getActiveSheet()->setCellValue('H'.(($mulai)-1), $rows_kegiatan_pagu->pagu);
-															$object->getActiveSheet()->setCellValue('R'.(($mulai)-1), $rows_kegiatan_realisasi->realisasi_keuangan);
-															if (!is_null($rows_kegiatan_pagu->pagu) && !is_null($rows_kegiatan_realisasi->realisasi_keuangan)) {
+														if ($rows_program_sumber_dana->sumber_dana == 5) {
+															$object->getActiveSheet()->setCellValue('H'.(($mulai)-1), $rows_program_pagu->pagu);
+															$object->getActiveSheet()->setCellValue('R'.(($mulai)-1), $rows_program_realisasi->realisasi_keuangan);
+															if (!is_null($rows_program_pagu->pagu) && !is_null($rows_program_realisasi->realisasi_keuangan)) {
 																$object->getActiveSheet()->setCellValue('S'.(($mulai)-1), '=SUM(R'.(($mulai)-1).'/H'.(($mulai)-1).')');
 															}
 															else{
 																$object->getActiveSheet()->setCellValue('S'.(($mulai)-1), '');
 															}
 														}
-														if ($rows_kegiatan_sumber_dana->sumber_dana == 6) {
-															$object->getActiveSheet()->setCellValue('I'.(($mulai)-1), $rows_kegiatan_pagu->pagu);
-															$object->getActiveSheet()->setCellValue('T'.(($mulai)-1), $rows_kegiatan_realisasi->realisasi_keuangan);
-															if (!is_null($rows_kegiatan_pagu->pagu) && !is_null($rows_kegiatan_realisasi->realisasi_keuangan)) {
+														if ($rows_program_sumber_dana->sumber_dana == 6) {
+															$object->getActiveSheet()->setCellValue('I'.(($mulai)-1), $rows_program_pagu->pagu);
+															$object->getActiveSheet()->setCellValue('T'.(($mulai)-1), $rows_program_realisasi->realisasi_keuangan);
+															if (!is_null($rows_program_pagu->pagu) && !is_null($rows_program_realisasi->realisasi_keuangan)) {
 																$object->getActiveSheet()->setCellValue('U'.(($mulai)-1), '=SUM(T'.(($mulai)-1).'/I'.(($mulai)-1).')');
 															}
 															else{
@@ -365,142 +294,247 @@ class Laporrebela_controller extends CI_Controller {
 													}
 												}
 
-												// -------------- Setup ---------------
-
-												$object->getActiveSheet()->getStyle('A'.(($mulai)-1).':U'.(($mulai)-1))->getFont()->setBold(TRUE);
-
-												$object->getActiveSheet()->getStyle('A'.(($mulai)-1).':U'.(($mulai)-1))->getAlignment()->setWrapText(true);
-
-												$object->getActiveSheet()->getStyle('A'.(($mulai)-1))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-												$object->getActiveSheet()->getStyle('A'.(($mulai)-1))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-												$object->getActiveSheet()->getStyle('C'.(($mulai)-1))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
-												$object->getActiveSheet()->getStyle('C'.(($mulai)-1))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-												$object->getActiveSheet()->getStyle('D'.(($mulai)-1).':U'.(($mulai)-1))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-												$object->getActiveSheet()->getStyle('D'.(($mulai)-1).':U'.(($mulai)-1))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-
-												$object->getActiveSheet()->getStyle('A'.(($mulai)-1).':U'.(($mulai)-1))->applyFromArray(array('borders'=>array('allborders'=>array('style'=> PHPExcel_Style_Border::BORDER_THIN))));
 											}
 
+											// -------------- Setup ---------------
 
-											// -------------- Rincian Obyek ---------------
-											
-											$result_ro = $this->model->getDataRincianObyekUnique($rows_skpd->kd_skpd, $rows_kegiatan->kd_gabungan);
-											foreach ($result_ro->result() as $rows_ro) {
-												$object->getActiveSheet()->setCellValue('A'.($mulai++), $no++);
-												$object->getActiveSheet()->setCellValue('B'.(($mulai)-1), $rows_ro->kd_rekening);
-												$object->getActiveSheet()->setCellValue('C'.(($mulai)-1), $rows_ro->nama_rekening);
+											$object->getActiveSheet()->getStyle('A'.(($mulai)-1).':U'.(($mulai)-1))->getFont()->setBold(TRUE);
 
-												$result_ro_sumber_dana = $this->model->getDataSumberDanaRO($rows_ro->id);
-												foreach ($result_ro_sumber_dana->result() as $rows_ro_sumber_dana) {
-													$result_ro_pagu = $this->model->getDataPaguRO($rows_skpd->id, $rows_program->id, $rows_kegiatan->id, $rows_ro->id);
-													foreach ($result_ro_pagu->result() as $rows_ro_pagu) {
-														$result_ro_realisasi = $this->model->getDataRealisasiRO($rows_skpd->id, $rows_program->id, $rows_kegiatan->id, $rows_ro->id);
-														foreach ($result_ro_realisasi->result() as $rows_ro_realisasi) {
+											$object->getActiveSheet()->getStyle('A'.(($mulai)-1).':U'.(($mulai)-1))->getAlignment()->setWrapText(true);
 
-															if ($rows_ro_sumber_dana->sumber_dana == 1) {
-																$object->getActiveSheet()->setCellValue('F'.(($mulai)-1), $rows_ro_pagu->pagu);
-																$object->getActiveSheet()->setCellValue('N'.(($mulai)-1), $rows_ro_realisasi->realisasi_keuangan);
-																if (!is_null($rows_ro_pagu->pagu) && !is_null($rows_ro_realisasi->realisasi_keuangan)) {
+											$object->getActiveSheet()->getStyle('A'.(($mulai)-1))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+											$object->getActiveSheet()->getStyle('A'.(($mulai)-1))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+											$object->getActiveSheet()->getStyle('C'.(($mulai)-1))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+											$object->getActiveSheet()->getStyle('C'.(($mulai)-1))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+											$object->getActiveSheet()->getStyle('D'.(($mulai)-1).':U'.(($mulai)-1))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+											$object->getActiveSheet()->getStyle('D'.(($mulai)-1).':U'.(($mulai)-1))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+
+											$object->getActiveSheet()->getStyle('A'.(($mulai)-1).':U'.(($mulai)-1))->applyFromArray(array('borders'=>array('allborders'=>array('style'=> PHPExcel_Style_Border::BORDER_THIN))));
+														
+
+											// -------------- Kegiatan ---------------
+														
+											$result_kegiatan = $this->model->getDataKegiatanUnique($rows_skpd->kd_skpd, $rows_program->id);
+											foreach ($result_kegiatan->result() as $rows_kegiatan) {
+												$object->getActiveSheet()->setCellValue('A'.($mulai++), $rows_kegiatan->kd_gabungan);
+												$object->getActiveSheet()->setCellValue('C'.(($mulai)-1), $rows_kegiatan->keterangan_kegiatan);
+
+												$result_kegiatan_sumber_dana = $this->model->getDataSumberDanaKegiatan($rows_skpd->id, $rows_program->id, $rows_kegiatan->id);
+												foreach ($result_kegiatan_sumber_dana->result() as $rows_kegiatan_sumber_dana) {
+													$result_kegiatan_pagu = $this->model->getDataPaguKegiatan($rows_skpd->id, $rows_program->id, $rows_kegiatan->id, $rows_kegiatan_sumber_dana->sumber_dana);
+													foreach ($result_kegiatan_pagu->result() as $rows_kegiatan_pagu) {
+														$result_kegiatan_realisasi = $this->model->getDataRealisasiKegiatan($rows_skpd->id, $rows_program->id, $rows_kegiatan->id, $rows_kegiatan_sumber_dana->sumber_dana);
+														foreach ($result_kegiatan_realisasi->result() as $rows_kegiatan_realisasi) {
+
+															if ($rows_kegiatan_sumber_dana->sumber_dana == 1) {
+																$object->getActiveSheet()->setCellValue('F'.(($mulai)-1), $rows_kegiatan_pagu->pagu);
+																$object->getActiveSheet()->setCellValue('N'.(($mulai)-1), $rows_kegiatan_realisasi->realisasi_keuangan);
+																if (!is_null($rows_kegiatan_pagu->pagu) && !is_null($rows_kegiatan_realisasi->realisasi_keuangan)) {
 																	$object->getActiveSheet()->setCellValue('O'.(($mulai)-1), '=SUM(N'.(($mulai)-1).'/F'.(($mulai)-1).')');
 																}
 																else{
-																	$object->getActiveSheet()->setCellValue('O'.(($mulai)-1), '');
+																	$object->getActiveSheet()->setCellValue('o'.(($mulai)-1), '');
 																}
 															}
-															if ($rows_ro_sumber_dana->sumber_dana == 2) {
-																$object->getActiveSheet()->setCellValue('G'.(($mulai)-1), $rows_ro_pagu->pagu);
-																$object->getActiveSheet()->setCellValue('P'.(($mulai)-1), $rows_ro_realisasi->realisasi_keuangan);
-																if (!is_null($rows_ro_pagu->pagu) && !is_null($rows_ro_realisasi->realisasi_keuangan)) {
+															if ($rows_kegiatan_sumber_dana->sumber_dana == 2) {
+																$object->getActiveSheet()->setCellValue('G'.(($mulai)-1), $rows_kegiatan_pagu->pagu);
+																$object->getActiveSheet()->setCellValue('P'.(($mulai)-1), $rows_kegiatan_realisasi->realisasi_keuangan);
+																if (!is_null($rows_kegiatan_pagu->pagu) && !is_null($rows_kegiatan_realisasi->realisasi_keuangan)) {
 																	$object->getActiveSheet()->setCellValue('Q'.(($mulai)-1), '=SUM(P'.(($mulai)-1).'/G'.(($mulai)-1).')');
 																}
 																else{
 																	$object->getActiveSheet()->setCellValue('Q'.(($mulai)-1), '');
 																}
-
 															}
-															if ($rows_ro_sumber_dana->sumber_dana == 3) {
-																$object->getActiveSheet()->setCellValue('D'.(($mulai)-1), $rows_ro_pagu->pagu);
-																$object->getActiveSheet()->setCellValue('J'.(($mulai)-1), $rows_ro_realisasi->realisasi_keuangan);
-																if (!is_null($rows_ro_pagu->pagu) && !is_null($rows_ro_realisasi->realisasi_keuangan)) {
+															if ($rows_kegiatan_sumber_dana->sumber_dana == 3) {
+																$object->getActiveSheet()->setCellValue('D'.(($mulai)-1), $rows_kegiatan_pagu->pagu);
+																$object->getActiveSheet()->setCellValue('J'.(($mulai)-1), $rows_kegiatan_realisasi->realisasi_keuangan);
+																if (!is_null($rows_kegiatan_pagu->pagu) && !is_null($rows_kegiatan_realisasi->realisasi_keuangan)) {
 																	$object->getActiveSheet()->setCellValue('K'.(($mulai)-1), '=SUM(J'.(($mulai)-1).'/D'.(($mulai)-1).')');
 																}
 																else{
 																	$object->getActiveSheet()->setCellValue('K'.(($mulai)-1), '');
 																}
 															}
-															if ($rows_ro_sumber_dana->sumber_dana == 4) {
-																$object->getActiveSheet()->setCellValue('E'.(($mulai)-1), $rows_ro_pagu->pagu);
-																$object->getActiveSheet()->setCellValue('L'.(($mulai)-1), $rows_ro_realisasi->realisasi_keuangan);
-																if (!is_null($rows_ro_pagu->pagu) && !is_null($rows_ro_realisasi->realisasi_keuangan)) {
+															if ($rows_kegiatan_sumber_dana->sumber_dana == 4) {
+																$object->getActiveSheet()->setCellValue('E'.(($mulai)-1), $rows_kegiatan_pagu->pagu);
+																$object->getActiveSheet()->setCellValue('L'.(($mulai)-1), $rows_kegiatan_realisasi->realisasi_keuangan);
+																if (!is_null($rows_kegiatan_pagu->pagu) && !is_null($rows_kegiatan_realisasi->realisasi_keuangan)) {
 																	$object->getActiveSheet()->setCellValue('M'.(($mulai)-1), '=SUM(L'.(($mulai)-1).'/E'.(($mulai)-1).')');
 																}
 																else{
 																	$object->getActiveSheet()->setCellValue('M'.(($mulai)-1), '');
 																}
 															}
-															if ($rows_ro_sumber_dana->sumber_dana == 5) {
-																$object->getActiveSheet()->setCellValue('H'.(($mulai)-1), $rows_ro_pagu->pagu);
-																$object->getActiveSheet()->setCellValue('R'.(($mulai)-1), $rows_ro_realisasi->realisasi_keuangan);
-																if (!is_null($rows_ro_pagu->pagu) && !is_null($rows_ro_realisasi->realisasi_keuangan)) {
+															if ($rows_kegiatan_sumber_dana->sumber_dana == 5) {
+																$object->getActiveSheet()->setCellValue('H'.(($mulai)-1), $rows_kegiatan_pagu->pagu);
+																$object->getActiveSheet()->setCellValue('R'.(($mulai)-1), $rows_kegiatan_realisasi->realisasi_keuangan);
+																if (!is_null($rows_kegiatan_pagu->pagu) && !is_null($rows_kegiatan_realisasi->realisasi_keuangan)) {
 																	$object->getActiveSheet()->setCellValue('S'.(($mulai)-1), '=SUM(R'.(($mulai)-1).'/H'.(($mulai)-1).')');
 																}
 																else{
 																	$object->getActiveSheet()->setCellValue('S'.(($mulai)-1), '');
 																}
 															}
-															if ($rows_ro_sumber_dana->sumber_dana == 6) {
-																$object->getActiveSheet()->setCellValue('I'.(($mulai)-1), $rows_ro_pagu->pagu);
-																$object->getActiveSheet()->setCellValue('T'.(($mulai)-1), $rows_ro_realisasi->realisasi_keuangan);
-																if (!is_null($rows_ro_pagu->pagu) && !is_null($rows_ro_realisasi->realisasi_keuangan)) {
+															if ($rows_kegiatan_sumber_dana->sumber_dana == 6) {
+																$object->getActiveSheet()->setCellValue('I'.(($mulai)-1), $rows_kegiatan_pagu->pagu);
+																$object->getActiveSheet()->setCellValue('T'.(($mulai)-1), $rows_kegiatan_realisasi->realisasi_keuangan);
+																if (!is_null($rows_kegiatan_pagu->pagu) && !is_null($rows_kegiatan_realisasi->realisasi_keuangan)) {
 																	$object->getActiveSheet()->setCellValue('U'.(($mulai)-1), '=SUM(T'.(($mulai)-1).'/I'.(($mulai)-1).')');
 																}
 																else{
 																	$object->getActiveSheet()->setCellValue('U'.(($mulai)-1), '');
 																}
 															}
+														}
+													}
 
-															// -------------- Setup ---------------
+													// -------------- Setup ---------------
 
-															$object->getActiveSheet()->getStyle('A'.(($mulai)-1))->getFont()->setBold(TRUE);
+													$object->getActiveSheet()->getStyle('A'.(($mulai)-1).':U'.(($mulai)-1))->getFont()->setBold(TRUE);
 
-															$object->getActiveSheet()->getStyle('A'.(($mulai)-1).':U'.(($mulai)-1))->getAlignment()->setWrapText(true);
+													$object->getActiveSheet()->getStyle('A'.(($mulai)-1).':U'.(($mulai)-1))->getAlignment()->setWrapText(true);
 
-															$object->getActiveSheet()->getStyle('A'.(($mulai)-1))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-															$object->getActiveSheet()->getStyle('A'.(($mulai)-1))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-															$object->getActiveSheet()->getStyle('B'.(($mulai)-1))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-															$object->getActiveSheet()->getStyle('B'.(($mulai)-1))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-															$object->getActiveSheet()->getStyle('C'.(($mulai)-1))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
-															$object->getActiveSheet()->getStyle('C'.(($mulai)-1))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-															$object->getActiveSheet()->getStyle('D'.(($mulai)-1).':U'.(($mulai)-1))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-															$object->getActiveSheet()->getStyle('D'.(($mulai)-1).':U'.(($mulai)-1))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+													$object->getActiveSheet()->getStyle('A'.(($mulai)-1))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+													$object->getActiveSheet()->getStyle('A'.(($mulai)-1))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+													$object->getActiveSheet()->getStyle('C'.(($mulai)-1))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+													$object->getActiveSheet()->getStyle('C'.(($mulai)-1))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+													$object->getActiveSheet()->getStyle('D'.(($mulai)-1).':U'.(($mulai)-1))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+													$object->getActiveSheet()->getStyle('D'.(($mulai)-1).':U'.(($mulai)-1))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
 
-															$object->getActiveSheet()->getStyle('A'.(($mulai)-1).':U'.(($mulai)-1))->applyFromArray(array('borders'=>array('allborders'=>array('style'=> PHPExcel_Style_Border::BORDER_THIN))));
+													$object->getActiveSheet()->getStyle('A'.(($mulai)-1).':U'.(($mulai)-1))->applyFromArray(array('borders'=>array('allborders'=>array('style'=> PHPExcel_Style_Border::BORDER_THIN))));
+												}
+
+
+												// -------------- Rincian Obyek ---------------
+												
+												$result_ro = $this->model->getDataRincianObyekUnique($rows_skpd->kd_skpd, $rows_kegiatan->kd_gabungan);
+												foreach ($result_ro->result() as $rows_ro) {
+													$object->getActiveSheet()->setCellValue('A'.($mulai++), $no++);
+													$object->getActiveSheet()->setCellValue('B'.(($mulai)-1), $rows_ro->kd_rekening);
+													$object->getActiveSheet()->setCellValue('C'.(($mulai)-1), $rows_ro->nama_rekening);
+
+													$result_ro_sumber_dana = $this->model->getDataSumberDanaRO($rows_ro->id);
+													foreach ($result_ro_sumber_dana->result() as $rows_ro_sumber_dana) {
+														$result_ro_pagu = $this->model->getDataPaguRO($rows_skpd->id, $rows_program->id, $rows_kegiatan->id, $rows_ro->id);
+														foreach ($result_ro_pagu->result() as $rows_ro_pagu) {
+															$result_ro_realisasi = $this->model->getDataRealisasiRO($rows_skpd->id, $rows_program->id, $rows_kegiatan->id, $rows_ro->id);
+															foreach ($result_ro_realisasi->result() as $rows_ro_realisasi) {
+
+																if ($rows_ro_sumber_dana->sumber_dana == 1) {
+																	$object->getActiveSheet()->setCellValue('F'.(($mulai)-1), $rows_ro_pagu->pagu);
+																	$object->getActiveSheet()->setCellValue('N'.(($mulai)-1), $rows_ro_realisasi->realisasi_keuangan);
+																	if (!is_null($rows_ro_pagu->pagu) && !is_null($rows_ro_realisasi->realisasi_keuangan)) {
+																		$object->getActiveSheet()->setCellValue('O'.(($mulai)-1), '=SUM(N'.(($mulai)-1).'/F'.(($mulai)-1).')');
+																	}
+																	else{
+																		$object->getActiveSheet()->setCellValue('O'.(($mulai)-1), '');
+																	}
+																}
+																if ($rows_ro_sumber_dana->sumber_dana == 2) {
+																	$object->getActiveSheet()->setCellValue('G'.(($mulai)-1), $rows_ro_pagu->pagu);
+																	$object->getActiveSheet()->setCellValue('P'.(($mulai)-1), $rows_ro_realisasi->realisasi_keuangan);
+																	if (!is_null($rows_ro_pagu->pagu) && !is_null($rows_ro_realisasi->realisasi_keuangan)) {
+																		$object->getActiveSheet()->setCellValue('Q'.(($mulai)-1), '=SUM(P'.(($mulai)-1).'/G'.(($mulai)-1).')');
+																	}
+																	else{
+																		$object->getActiveSheet()->setCellValue('Q'.(($mulai)-1), '');
+																	}
+
+																}
+																if ($rows_ro_sumber_dana->sumber_dana == 3) {
+																	$object->getActiveSheet()->setCellValue('D'.(($mulai)-1), $rows_ro_pagu->pagu);
+																	$object->getActiveSheet()->setCellValue('J'.(($mulai)-1), $rows_ro_realisasi->realisasi_keuangan);
+																	if (!is_null($rows_ro_pagu->pagu) && !is_null($rows_ro_realisasi->realisasi_keuangan)) {
+																		$object->getActiveSheet()->setCellValue('K'.(($mulai)-1), '=SUM(J'.(($mulai)-1).'/D'.(($mulai)-1).')');
+																	}
+																	else{
+																		$object->getActiveSheet()->setCellValue('K'.(($mulai)-1), '');
+																	}
+																}
+																if ($rows_ro_sumber_dana->sumber_dana == 4) {
+																	$object->getActiveSheet()->setCellValue('E'.(($mulai)-1), $rows_ro_pagu->pagu);
+																	$object->getActiveSheet()->setCellValue('L'.(($mulai)-1), $rows_ro_realisasi->realisasi_keuangan);
+																	if (!is_null($rows_ro_pagu->pagu) && !is_null($rows_ro_realisasi->realisasi_keuangan)) {
+																		$object->getActiveSheet()->setCellValue('M'.(($mulai)-1), '=SUM(L'.(($mulai)-1).'/E'.(($mulai)-1).')');
+																	}
+																	else{
+																		$object->getActiveSheet()->setCellValue('M'.(($mulai)-1), '');
+																	}
+																}
+																if ($rows_ro_sumber_dana->sumber_dana == 5) {
+																	$object->getActiveSheet()->setCellValue('H'.(($mulai)-1), $rows_ro_pagu->pagu);
+																	$object->getActiveSheet()->setCellValue('R'.(($mulai)-1), $rows_ro_realisasi->realisasi_keuangan);
+																	if (!is_null($rows_ro_pagu->pagu) && !is_null($rows_ro_realisasi->realisasi_keuangan)) {
+																		$object->getActiveSheet()->setCellValue('S'.(($mulai)-1), '=SUM(R'.(($mulai)-1).'/H'.(($mulai)-1).')');
+																	}
+																	else{
+																		$object->getActiveSheet()->setCellValue('S'.(($mulai)-1), '');
+																	}
+																}
+																if ($rows_ro_sumber_dana->sumber_dana == 6) {
+																	$object->getActiveSheet()->setCellValue('I'.(($mulai)-1), $rows_ro_pagu->pagu);
+																	$object->getActiveSheet()->setCellValue('T'.(($mulai)-1), $rows_ro_realisasi->realisasi_keuangan);
+																	if (!is_null($rows_ro_pagu->pagu) && !is_null($rows_ro_realisasi->realisasi_keuangan)) {
+																		$object->getActiveSheet()->setCellValue('U'.(($mulai)-1), '=SUM(T'.(($mulai)-1).'/I'.(($mulai)-1).')');
+																	}
+																	else{
+																		$object->getActiveSheet()->setCellValue('U'.(($mulai)-1), '');
+																	}
+																}
+
+																// -------------- Setup ---------------
+
+																$object->getActiveSheet()->getStyle('A'.(($mulai)-1))->getFont()->setBold(TRUE);
+
+																$object->getActiveSheet()->getStyle('A'.(($mulai)-1).':U'.(($mulai)-1))->getAlignment()->setWrapText(true);
+
+																$object->getActiveSheet()->getStyle('A'.(($mulai)-1))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+																$object->getActiveSheet()->getStyle('A'.(($mulai)-1))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+																$object->getActiveSheet()->getStyle('B'.(($mulai)-1))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+																$object->getActiveSheet()->getStyle('B'.(($mulai)-1))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+																$object->getActiveSheet()->getStyle('C'.(($mulai)-1))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+																$object->getActiveSheet()->getStyle('C'.(($mulai)-1))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+																$object->getActiveSheet()->getStyle('D'.(($mulai)-1).':U'.(($mulai)-1))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+																$object->getActiveSheet()->getStyle('D'.(($mulai)-1).':U'.(($mulai)-1))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+
+																$object->getActiveSheet()->getStyle('A'.(($mulai)-1).':U'.(($mulai)-1))->applyFromArray(array('borders'=>array('allborders'=>array('style'=> PHPExcel_Style_Border::BORDER_THIN))));
+															}
 														}
 													}
 												}
 											}
+											$mulai++;
 										}
-										$mulai++;
 									}
-								}
-								else{
-									$table_data = array("NIHIL", "-", "-", "-", "-", "-", "-", "-", "-", "-");
+									else{
+										$table_data = array("NIHIL", "-", "-", "-", "-", "-", "-", "-", "-", "-");
 
-									foreach ($table_data as $data_table) {
-										$object->getActiveSheet()->setCellValueByColumnAndRow(1, $mulai, $data_table);
-										$object->getActiveSheet()->getStyle('A11:U'.$mulai)->applyFromArray(array('borders'=>array('allborders'=>array('style'=> PHPExcel_Style_Border::BORDER_THIN))));
-										$mulai++;
+										foreach ($table_data as $data_table) {
+											$object->getActiveSheet()->setCellValueByColumnAndRow(1, $mulai, $data_table);
+											$object->getActiveSheet()->getStyle('A11:U'.$mulai)->applyFromArray(array('borders'=>array('allborders'=>array('style'=> PHPExcel_Style_Border::BORDER_THIN))));
+											$mulai++;
+										}
 									}
+							}
+							else{
+								$table_data = array("NIHIL", "-", "-", "-", "-", "-", "-", "-", "-", "-");
+
+								foreach ($table_data as $data_table) {
+									$object->getActiveSheet()->setCellValueByColumnAndRow(1, $mulai, $data_table);
+									$object->getActiveSheet()->getStyle('A11:U'.$mulai)->applyFromArray(array('borders'=>array('allborders'=>array('style'=> PHPExcel_Style_Border::BORDER_THIN))));
+									$mulai++;
 								}
+							}
 						}
 						else{
 							$table_data = array("NIHIL", "-", "-", "-", "-", "-", "-", "-", "-", "-");
 
-							foreach ($table_data as $data_table) {
-								$object->getActiveSheet()->setCellValueByColumnAndRow(1, $mulai, $data_table);
-								$object->getActiveSheet()->getStyle('A11:U'.$mulai)->applyFromArray(array('borders'=>array('allborders'=>array('style'=> PHPExcel_Style_Border::BORDER_THIN))));
-								$mulai++;
-							}
+								foreach ($table_data as $data_table) {
+									$object->getActiveSheet()->setCellValueByColumnAndRow(1, $mulai, $data_table);
+									$object->getActiveSheet()->getStyle('A11:U'.$mulai)->applyFromArray(array('borders'=>array('allborders'=>array('style'=> PHPExcel_Style_Border::BORDER_THIN))));
+									$mulai++;
+								}
 						}
 					}
 				}
@@ -1225,9 +1259,9 @@ class Laporrebela_controller extends CI_Controller {
 
 			
 			if ($_SERVER["SERVER_NAME"] == "localhost") {
-				$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
+				$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel2007');
 				header('Content-type: application/vnd.ms-excel');
-				header('Content-Disposition: attachment; filename="Laporan Realisasi - AP'.$jenis_realisasi.'.xls"');
+				header('Content-Disposition: attachment; filename="Laporan Realisasi - AP'.$jenis_realisasi.'.xlsx"');
 				$object_writer->save('php://output');
 			}
 			else{

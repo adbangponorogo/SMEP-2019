@@ -457,13 +457,15 @@
 		        jQuery(".rupenda-kdprogram-reg").val(JSON[0][1]);
 		        jQuery(".rupenda-program-option-reg").select2();
 
-		        if (id_program == '' || id_program == 'all') {
+		        if (id_program == '' || id_program == 'all' || isNaN(id_program)) {
 		        	jQuery(".rupenda-idprogram-reg").val(JSON[0][0]);
 		        	jQuery(".rupenda-program-option-reg").val(JSON[0][0]).change();
+		        	jQuery(".smep-idprogram-token").val(JSON[0][0]);
 		        }
 		        else{
 		        	jQuery(".rupenda-idprogram-reg").val(id_program);
 		        	jQuery(".rupenda-program-option-reg").val(id_program).change();	
+		        	jQuery(".smep-idprogram-token").val(id_program);
 		        }
 		    },
 		    error     : function(jqXHR, textStatus, errorThrown){
@@ -490,13 +492,15 @@
 		        jQuery(".rupenda-kdprogram-reg").val(JSON[0][1]);
 		        jQuery(".rupenda-kdkegiatan-reg").val(JSON[0][2]);
 		        jQuery(".rupenda-kegiatan-option-reg").select2();
-		        if (id_kegiatan == '') {
+		        if (id_kegiatan == '' || id_kegiatan == 'all' || isNaN(id_kegiatan)) {
 		        	jQuery(".rupenda-idkegiatan-reg").val(JSON[0][0]);
 		        	jQuery(".rupenda-kegiatan-option-reg").val(JSON[0][0]).change();
+		        	jQuery(".smep-idkegiatan-token").val(JSON[0][0]);
 		        }
 		        else{
 		        	jQuery(".rupenda-idkegiatan-reg").val(id_kegiatan);
 		        	jQuery(".rupenda-kegiatan-option-reg").val(id_kegiatan).change();	
+		        	jQuery(".smep-idkegiatan-token").val(id_kegiatan);
 		        }
 		    },
 		    error     : function(jqXHR, textStatus, errorThrown){
@@ -523,13 +527,15 @@
 		        jQuery(".rupenda-kdkegiatan-reg").val(JSON[0][1]);
 		        jQuery(".rupenda-kdrekening-reg").val(JSON[0][2]);
 		        jQuery(".rupenda-rincianobyek-option-reg").select2();
-		        if (id_ro == '') {
+		        if (id_ro == '' || id_ro == 'all' || isNaN(id_ro)) {
 		        	jQuery(".rupenda-idrincianobyek-reg").val(JSON[0][0]);
 			        jQuery(".rupenda-rincianobyek-option-reg").val(JSON[0][0]).change();
+			        jQuery(".smep-idro-token").val(JSON[0][0]);
 		        }
 		        else{
 		        	jQuery(".rupenda-idrincianobyek-reg").val(id_ro);
 			        jQuery(".rupenda-rincianobyek-option-reg").val(id_ro).change();
+			        jQuery(".smep-idro-token").val(id_ro);
 		        }
 		    },
 		    error     : function(jqXHR, textStatus, errorThrown){
@@ -561,19 +567,18 @@
 	    });
 	}
 
-
 	// ---------------- Change Session ---------------- //
 	jQuery(document).on("change", ".rupenda-program-option-reg", function(){
-		var id_program = jQuery(".rupenda-program-option-reg").val();
-		var id_kegiatan = '';
-		var id_ro = '';
+		var id_program = jQuery(this).val();
+		var id_kegiatan = jQuery(".smep-idkegiatan-token").val();
+		var id_ro = jQuery(".smep-idro-token").val();
 		endaRUPKegiatan(id_program, id_kegiatan);
 	});
 
 	jQuery(document).on("change", ".rupenda-kegiatan-option-reg", function(){
 		var id_program = jQuery(".rupenda-program-option-reg").val();
-		var id_kegiatan = jQuery(".rupenda-kegiatan-option-reg").val();
-		var id_ro = '';
+		var id_kegiatan = jQuery(this).val();
+		var id_ro = jQuery(".smep-idro-token").val();
 		endaRUPRO(id_program, id_kegiatan, id_ro);
 	});
 	

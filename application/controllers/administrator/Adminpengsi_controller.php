@@ -103,28 +103,30 @@ class Adminpengsi_controller extends CI_Controller {
 
 	public function sendData(){
 		if ($this->session->userdata("auth_id") != "") {
-			$resultUsername = $this->model->getDatauserUnique($this->input->post("username"));
+			$resultUsername = $this->model->getDataUserUnique($this->input->post("username"));
 			if ($resultUsername->num_rows() <= 0) {
 				if ($this->input->post("status") != 3 && $this->input->post("status") != '') {
 					$id = "USER-".date("Ymdhis").rand(0000,9999);
 					$password = md5($this->input->post("password"));
+					$nama = $this->input->post("nama");
 				}
 				if ($this->input->post("status") == 3 && $this->input->post("status") != '') {
-					$id = '';
-					$password = '';
-				}
+					$id = "";
+					$password = "";
+					$nama = "";
+				} 
 
-				$data_users = array(
-							"id" => $id,
-							"id_skpd" => $this->input->post("skpd"),
-							"nama" => $this->input->post("nama"),
-							"username" => $this->input->post("username"),
-							"password" => $password,
-							"status" => $this->input->post("status"),
-							"email" => $this->input->post("email"),
-							"telepon" => $this->input->post("telepon"),
-							"alamat" => $this->input->post("alamat"),
-						);
+				$data_users = 	array(
+									"id" => $id,
+									"id_skpd" => $this->input->post("skpd"),
+									"nama" => $nama,
+									"username" => $this->input->post("username"),
+									"password" => $password,
+									"status" => $this->input->post("status"),
+									"email" => $this->input->post("email"),
+									"telepon" => $this->input->post("telepon"),
+									"alamat" => $this->input->post("alamat"),
+								);
 				$this->model->insertData($data_users);
 				echo json_encode(0); 
 			}
