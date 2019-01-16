@@ -120,6 +120,7 @@ jQuery(document).ready(function(){
                     option += "<option value='"+JSON[skpd][0]+"'>["+JSON[skpd][1]+"] - "+JSON[skpd][2]+"</option>";
                 }
                 jQuery(".pengsiadmin-skpd-user-ppk-reg").html(option);
+                jQuery(".pengsiadmin-skpd-user-ppk-reg").val(JSON[0][0]).change();
                 jQuery(".pengsiadmin-skpd-user-ppk-reg").select2({
                     dropdownParent  : jQuery(".smep-pengsiadmin-user-ppk-register-modal")
                 });
@@ -152,6 +153,7 @@ jQuery(document).ready(function(){
                                 adminPengsiDataPPK();
                                 adminPengsiMainData();
                                 jQuery(".pengsiadmin-register-user-ppk-form")[0].reset();
+                                jQuery(".pengsiadmin-skpd-user-ppk-reg").val(JSON[0][0]).change();
                             }
                             if (JSON == 1) {
                                 var alert = "<div class='alert alert-danger alert-dismissible'>"+

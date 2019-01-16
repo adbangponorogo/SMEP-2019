@@ -402,6 +402,7 @@
 			    jQuery(".rupenda-jenis-pengadaan-edit").val(JSON[0][28]).change();
 
 		    	if (JSON[0][23] == 1) {
+		    		jQuery(".rupenda-skpd-swakelola-edit").select2().next().hide();
 		    		jQuery(".rupenda-tipe-swakelola-edit").prop("disabled", "disabled");
 			    	jQuery(".rupenda-metode-pemilihan-edit").val(JSON[0][29]).change();
 			    	jQuery(".rupenda-pdn-edit").val(JSON[0][10]).change();

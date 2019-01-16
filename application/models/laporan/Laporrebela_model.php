@@ -41,7 +41,7 @@ class Laporrebela_model extends CI_Model {
     public function getDataSumberROAP1($id_skpd){
         $this->db->select("distinct(a.sumber_dana) as sumber_dana");
         $this->db->from("tb_sumber_realisasi_obyek a");
-        $this->db->join("tb_rup b", "a.id_rincian_obyek = b.id_rincian_obyek");
+        $this->db->join("simda_rincian_obyek b", "a.id_rincian_obyek = b.id");
         if ($id_skpd != 'all') {
             $this->db->where("b.id_skpd", $id_skpd);
         }
