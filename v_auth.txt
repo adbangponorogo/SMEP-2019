@@ -10,7 +10,7 @@ SELECT
 	alamat,
 	tanggal_buat
 FROM tb_users
-WHERE status>0
+WHERE id!=''
 UNION ALL
 SELECT
 	a.id,
