@@ -23,14 +23,14 @@ jQuery(document).ready(function(){
 		        jQuery(".pengsiadmin-skpd-user-reg").select2();
 				jQuery(".pengsiadmin-register-user-form .modal-body .alert").remove();
 				// var status_data =   [
-	   //                                  [1, "Root - Administrator"],
-	   //                                  [2, "Operator - PA/KPA SKPD"]
-	   //                              ]
-		  //       var option_user = '';
-		  //       for (var status = 0; status < status_data.length; status++) {
-		  //           option_user += "<option value='"+status_data[status][0]+"'>"+status_data[status][1]+"</option>";
-		  //       }
-		  //       jQuery(".pengsiadmin-status-user-reg").html(option_user);
+	                                    // [1, "Root - Administrator"],
+	                                    // [2, "Operator - PA/KPA SKPD"]
+	                                 //]
+		        // var option_user = '';
+		        // for (var status = 0; status < status_data.length; status++) {
+		            // option_user += "<option value='"+status_data[status][0]+"'>"+status_data[status][1]+"</option>";
+		        // }
+		        // jQuery(".pengsiadmin-status-user-reg").html(option_user);
 				jQuery(".smep-pengsiadmin-user-register-modal").modal("show");
 			},
 			error 		: function(jqXHR, textStatus, errorThrown){
