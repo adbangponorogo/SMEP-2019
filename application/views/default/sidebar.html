@@ -86,6 +86,37 @@
             }
           ?>
           <?php
+            if ($user->username == 'reogap'):
+          ?>
+            <li class="treeview">
+              <a href="#"><i class="fa fa-camera-retro"></i> <span>Laporan Danang	</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="#" class="smep-lapor-rapan-page empty-value">Rencana Pengadaan</a></li>
+                <li>
+                  <a href="#">Tepra
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu">
+                    <li><a href="#" class="smep-lapor-tepra-perencanaan-page empty-value">Perencanaan</a></li>
+                    <li><a href="#" class="smep-lapor-tepra-realisasi-page empty-value">Realisasi</a></li>
+                  </ul>
+                </li>
+                <li><a href="#" class="smep-lapor-lapan-page empty-value">Laporan Pengadaan</a></li>
+                <li><a href="#" class="smep-lapor-rebela-page empty-value">Realisasi Belanja Langsung</a></li>
+                <li><a href="#" class="smep-lapor-bast-page empty-value">Berita Acara Serah Terima</a></li>
+                <li><a href="#" class="smep-lapor-rup-page empty-value">Rencana Umum Pengadaan</a></li>
+              </ul>
+            </li>
+          <?php
+            endif;
+          ?>
+          <?php
             if ($user->status == 1){
           ?>
             <li class="treeview">
