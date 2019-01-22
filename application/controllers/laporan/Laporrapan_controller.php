@@ -205,7 +205,7 @@ class Laporrapan_controller extends CI_Controller {
 			$result_skpd = $this->model->getDataSKPDUnique($skpd);
 			if ($result_skpd->num_rows() > 0) {
 				foreach ($result_skpd->result() as $rows_skpd) {
-					$result_program = $this->model->getDataProgramUnique($rows_skpd->kd_skpd, $jenis_pengadaan);
+					$result_program = $this->model->getDataProgramUnique($rows_skpd->id, $rows_skpd->kd_skpd, $jenis_pengadaan);
 					foreach ($result_program->result() as $rows_program) {
 							// -------- Value ---------
 							$object->getActiveSheet()->setCellValue('A'.($mulai), $rows_program->kd_gabungan);
@@ -224,7 +224,7 @@ class Laporrapan_controller extends CI_Controller {
 							$object->getActiveSheet()->getStyle('B'.($mulai))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
 							$object->getActiveSheet()->getStyle('B'.($mulai))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
 
-							$result_kegiatan = $this->model->getDataKegiatanUnique($rows_program->id_program, $rows_program->kd_program);
+							$result_kegiatan = $this->model->getDataKegiatanUnique($rows_program->id_skpd, $rows_program->kd_skpd, $rows_program->id_program, $rows_program->kd_program, $jenis_pengadaan);
 							foreach ($result_kegiatan->result() as $rows_kegiatan) {
 								$result_pptk_kegiatan = $this->model->getDataPPTKKegiatan($rows_kegiatan->id);
 								if ($result_pptk_kegiatan->num_rows() > 0) {
@@ -260,7 +260,7 @@ class Laporrapan_controller extends CI_Controller {
 									$object->getActiveSheet()->getStyle('K'.(($mulai)-2))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
 									$object->getActiveSheet()->getStyle('K'.(($mulai)-2))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
 
-									$result_rup = $this->model->getDataRUP($skpd, $rows_program->id, $rows_kegiatan->id, $jenis_pengadaan, $bulan);
+									$result_rup = $this->model->getDataRUP($rows_skpd->id, $rows_skpd->kd_skpd, $rows_program->id, $rows_kegiatan->id, $jenis_pengadaan, $bulan);
 									foreach ($result_rup->result() as $rows_rup) {
 										$sumber_dana = array("", "APBD", "APBDP", "APBN", "APBNP", "BLU", "BLUD", "BUMD", "BUMN", "PHLN", "PNBP", "LAINNYA");
 										// -------- Value ---------
