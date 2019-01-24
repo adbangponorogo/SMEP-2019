@@ -1,13 +1,13 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class rp_controller extends CI_Controller {
+class Rp_controller extends CI_Controller {
 
 	public function __construct()
 	{
 		parent::__construct();
 		$this->load->model('Main_model', 'model');
-		$this->load->model('laporan/rp_model', 'rp_model');
+		$this->load->model('laporan/Rp_model', 'rp_model');
 	}
 
 	public function index(){

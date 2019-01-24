@@ -72,11 +72,7 @@ class Laporrapan_model extends CI_Model {
         $this->db->where("id_kegiatan", $id_kegiatan);
         $this->db->where("jenis_pengadaan", $jenis_pengadaan);
         if ($bulan != 'all') {
-<<<<<<< HEAD
             $this->db->where("date_format(tanggal_buat, '%m')=", $bulan);
-=======
-            $this->db->where("date_format(str_to_date(tanggal_buat, '%d-%m-%Y'), '%m') =", $bulan);
->>>>>>> fb1e8ec3381b49dfb94e52bd9ce97e86d23b9cb0
         }
         $this->db->order_by("id");
         $data = $this->db->get();

@@ -184,8 +184,8 @@ $route['entry-data/realisasi-tepra/save-data'] = 'entry-data/Endasitepra_control
 // ------------------/ Laporan Danang /------------------ //
 
 // ------ Rencana Pengadaan ------ //
-$route['laporan/rp/main-page'] = 'laporan/rp_controller';
-$route['laporan/rp/print-data'] = 'laporan/rp_controller/getPrintData';
+$route['laporan/rp/main-page'] = 'laporan/Rp_controller';
+$route['laporan/rp/print-data'] = 'laporan/Rp_controller/getPrintData';
 
 // ------------------/ Laporan Danang /------------------ //
 
