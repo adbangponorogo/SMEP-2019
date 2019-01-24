@@ -140,13 +140,11 @@ class Endarup_model extends CI_Model {
         foreach ($result_ro->result() as $rows_ro) {
             $result_skpd = $this->db->select("*");
             $result_skpd = $this->db->from("simda_skpd");
-            $result_skpd = $this->db->where("id", $rows_ro->id_skpd);
             $result_skpd = $this->db->where("kd_skpd", $rows_ro->kd_skpd);
             $result_skpd = $this->db->get();
             foreach ($result_skpd->result() as $rows_skpd) {
                 $result_rup = $this->db->select("sum(pagu_paket) as pagu_paket");
                 $result_rup = $this->db->from("tb_rup");
-                $result_rup = $this->db->where("id_skpd", $rows_skpd->id);
                 $result_rup = $this->db->where("kd_skpd", $rows_skpd->kd_skpd);
                 $result_rup = $this->db->where("id_rincian_obyek", $rows_ro->id);
                 $result_rup = $this->db->get();

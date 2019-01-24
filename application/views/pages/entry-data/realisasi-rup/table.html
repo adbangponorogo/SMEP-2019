@@ -89,10 +89,10 @@
           dataType  : 'JSON',
           success   : function(JSON){
           	jQuery(".smep-sirup-enda-table").dataTable({
-				destroy		: true,
-				processing	: true,
-				"lengthMenu"    : [["10"], ["10"]],
-				data 		: JSON
+				destroy			: true,
+				processing		: true,
+				"lengthMenu"    : [10],
+				data 			: JSON
 			});
           },
           error     : function(jqXHR, textStatus, errorThrown){
