@@ -53,6 +53,7 @@ $route['default_controller'] = 'Main_controller';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = 'FALSE';
 
+
 // ------------------ Application ------------------ //
 // ------ Authentication ------ //
 $route['app/auth/loginPage'] = 'app/Applogin_controller/loginPage';
@@ -179,6 +180,14 @@ $route['entry-data/realisasi-tepra/main-data/(:any)'] = 'entry-data/Endasitepra_
 $route['entry-data/realisasi-tepra/realsiasi-tepra-data/(:any)'] = 'entry-data/Endasitepra_controller/getDataRealisasiTepra/$1';
 $route['entry-data/realisasi-tepra/save-data'] = 'entry-data/Endasitepra_controller/saveData';
 
+
+// ------------------/ Laporan Danang /------------------ //
+
+// ------ Rencana Pengadaan ------ //
+$route['laporan/rp/main-page'] = 'laporan/rp_controller';
+$route['laporan/rp/print-data'] = 'laporan/rp_controller/getPrintData';
+
+// ------------------/ Laporan Danang /------------------ //
 
 
 // ------------------ Laporan ------------------ //

@@ -8,6 +8,13 @@ class Main_model extends CI_Model {
     	parent::__construct();
     }
 
+    public function getConfig($key){
+		$this->db->select('value');
+		$this->db->from('tb_config');
+		$this->db->where('key', $key);
+		return $this->db->get();
+    }
+
     public function getDataUser($token){
         $this->db->select("*");
         $this->db->from("v_auth");

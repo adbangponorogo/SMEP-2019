@@ -1,11 +1,57 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Laporrapan_model extends CI_Model {
+class rp_model extends CI_Model {
 
 	public function __construct()
     {
         $this->load->database();
+    }
+
+    public function getSKPD($id_skpd){
+        $this->db->select('*');
+        $this->db->from('simda_skpd');
+        $this->db->where('id', $id_skpd);
+        return $this->db->get();
+    }
+
+    public function getProg($kd_skpd, $jenis_pengadaan){
+        $this->db->select('a.*');
+        $this->db->from('simda_program a');
+        $this->db->join("tb_rup b", "a.id = b.id_program");
+        $this->db->group_by('a.id');
+        $this->db->where('a.kd_skpd', $kd_skpd);
+        $this->db->where('b.jenis_pengadaan', $jenis_pengadaan);
+        return $this->db->get();
+    }
+
+    public function getKeg($kd_skpd, $id_program, $jenis_pengadaan){
+        $this->db->select('a.*, c.nama');
+        $this->db->from('simda_kegiatan a');
+        $this->db->join("tb_rup b", "a.kd_skpd = b.kd_skpd AND a.id = b.id_kegiatan");
+        $this->db->join("tb_pptk c", "a.id_skpd = c.id_skpd");
+        $this->db->join("tb_pptk_kegiatan d", "c.id = d.id_pptk");
+        $this->db->group_by('a.id');
+        $this->db->where('a.kd_skpd', $kd_skpd);
+        $this->db->where('b.id_program', $id_program);
+        $this->db->where('b.jenis_pengadaan', $jenis_pengadaan);
+        return $this->db->get();
+    }
+
+    public function getPaket($kd_skpd, $id_keg, $jenis_pengadaan){
+        $this->db->select('*');
+        $this->db->from('tb_rup');
+        $this->db->where('kd_skpd', $kd_skpd);
+        $this->db->where('id_kegiatan', $id_keg);
+        $this->db->where('jenis_pengadaan', $jenis_pengadaan);
+        return $this->db->get();
+    }
+
+    public function getKaSKPD($id_skpd){
+        $this->db->select('*');
+        $this->db->from('tb_pptk');
+        $this->db->where('id_skpd', $id_skpd);
+        return $this->db->get();
     }
 
     public function getDataUser($token){
@@ -67,7 +113,7 @@ class Laporrapan_model extends CI_Model {
         $this->db->where("id_kegiatan", $id_kegiatan);
         $this->db->where("jenis_pengadaan", $jenis_pengadaan);
         if ($bulan != 'all') {
-            $this->db->where("date_format(tanggal_buat, '%m')=", $bulan);
+            $this->db->where("date_format(tanggal_buat, '%m') = ", $bulan);
         }
         $this->db->order_by("id");
         $data = $this->db->get();
