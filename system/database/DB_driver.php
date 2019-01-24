@@ -1758,7 +1758,7 @@ abstract class CI_DB_driver {
 		// the backtrace until the source file is no longer in the
 		// database folder.
 		$trace = debug_backtrace();
-		foreach ($trace as $call)
+		foreach ($trace as $call) 
 		{
 			if (isset($call['file'], $call['class']))
 			{
@@ -1771,15 +1771,14 @@ abstract class CI_DB_driver {
 				if (strpos($call['file'], BASEPATH.'database') === FALSE && strpos($call['class'], 'Loader') === FALSE)
 				{
 					// Found it - use a relative path for safety
-					if (ENVIRONMENT == 'development')
-					{
-						$message[] = 'Filename: '.array(APPPATH, BASEPATH);
-					}
-					else
-					{
-						$message[] = 'Filename: '.str_replace(array(APPPATH, BASEPATH), '', $call['file']);
-						
-					}
+					// if (ENVIRONMENT == 'development')
+					// {
+					// 	$message[] = 'Filename: '.array(APPPATH, BASEPATH);
+					// }
+					// else
+					// {
+					// }
+						$message[] = 'Filename: '.str_replace(array(APPPATH, BASEPATH), '', $call['file']);	
 					$message[] = 'Line Number: '.$call['line'];
 					break;
 				}

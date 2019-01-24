@@ -97,10 +97,10 @@
       dataType  : 'JSON',
       success   : function(JSON){
         jQuery(".patandatum-sumber-dana-table").dataTable({
-          destroy     : true,
-          processing  : true,
-          "lengthMenu"    : [["10"], ["10"]],
-          data        : JSON
+          destroy         : true,
+          processing      : true,
+          "lengthMenu"    : [10],
+          data            : JSON
         });
         jQuery(".patandatum-sumber-rincian-obyek-update").select2();
       },

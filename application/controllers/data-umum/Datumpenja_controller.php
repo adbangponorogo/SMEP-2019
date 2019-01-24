@@ -23,10 +23,10 @@ class Datumpenja_controller extends CI_Controller {
 			foreach ($result->result() as $rows) {
 				switch ($rows->status) {
 					case '1':
-						$status = 'PPTK Perangkat Daerah';
+						$status = 'PPTK (Pejabat Pelaksana Teknis Kegiatan)';
 					break;
 					case '2':
-						$status = 'Kepala Perangkat Daerah';
+						$status = 'PA (Pengguna Anggaran)';
 					break;
 					case '3':
 						$status = 'PPK (Pejabat Pembuat Komitmen)';
