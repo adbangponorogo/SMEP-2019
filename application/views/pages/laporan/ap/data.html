@@ -1,0 +1,41 @@
+<section class="content-header">
+  <h1>
+    DANANG - FORMULIR REALISASI BELANJA LANGSUNG
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="#" class="smep-app-dashboard-page"><i class="fa fa-home"></i>&nbsp;Dashboard</a></li>
+    <li class="active">laporan</li>
+    <li class="active">formulir-AP</li>
+  </ol>
+</section>
+<section class="content">
+	<div class="row">
+    <?php
+      include_once 'form.html';
+      include_once 'modal.html';
+    ?>
+	</div>
+</section>
+
+<!-- Javascript -->
+<script type="text/javascript">
+  jQuery(document).on("click", ".smep-laporrebela-download", function(){
+    jQuery(".smep-laporrebela-download-modal").modal("show");
+    jQuery(".laporrebela-jenis-realisasi").val(jQuery(this).data("id"));
+      if (jQuery(this).data("id") == 1) {
+            jQuery(".laporrebela-nama").val("Laporan Realisasi - Realisasi Belanja Langsung");
+      }
+      if (jQuery(this).data("id") == 2) {
+            jQuery(".laporrebela-nama").val("Laporan Realisasi - Jasa Konstruksi");
+      }
+      if (jQuery(this).data("id") == 3) {
+            jQuery(".laporrebela-nama").val("Laporan Realisasi - AP3");
+      }
+    return false;
+  });
+
+  jQuery(document).on("click", ".smep-laporrebela-cancel-btn", function(){
+    jQuery(".smep-laporrebela-download-modal").modal("hide");
+    return false;
+  });
+</script>

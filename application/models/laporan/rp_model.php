@@ -8,13 +8,6 @@ class Rp_model extends CI_Model {
         $this->load->database();
     }
 
-    public function getSKPD($id_skpd){
-        $this->db->select('*');
-        $this->db->from('simda_skpd');
-        $this->db->where('id', $id_skpd);
-        return $this->db->get();
-    }
-
     public function getProg($kd_skpd, $jenis_pengadaan){
         $this->db->select('a.*');
         $this->db->from('simda_program a');
@@ -25,15 +18,14 @@ class Rp_model extends CI_Model {
         return $this->db->get();
     }
 
-    public function getKeg($kd_skpd, $id_program, $jenis_pengadaan){
+    public function getKeg($id_parent_prog, $jenis_pengadaan){
         $this->db->select('a.*, c.nama');
         $this->db->from('simda_kegiatan a');
-        $this->db->join("tb_rup b", "a.kd_skpd = b.kd_skpd AND a.id = b.id_kegiatan");
+        $this->db->join("tb_rup b", "a.id = b.id_kegiatan");
         $this->db->join("tb_pptk c", "a.id_skpd = c.id_skpd");
         $this->db->join("tb_pptk_kegiatan d", "c.id = d.id_pptk");
         $this->db->group_by('a.id');
-        $this->db->where('a.kd_skpd', $kd_skpd);
-        $this->db->where('b.id_program', $id_program);
+        $this->db->where('a.id_parent_prog', $id_parent_prog);
         $this->db->where('b.jenis_pengadaan', $jenis_pengadaan);
         return $this->db->get();
     }
@@ -44,13 +36,6 @@ class Rp_model extends CI_Model {
         $this->db->where('kd_skpd', $kd_skpd);
         $this->db->where('id_kegiatan', $id_keg);
         $this->db->where('jenis_pengadaan', $jenis_pengadaan);
-        return $this->db->get();
-    }
-
-    public function getKaSKPD($id_skpd){
-        $this->db->select('*');
-        $this->db->from('tb_pptk');
-        $this->db->where('id_skpd', $id_skpd);
         return $this->db->get();
     }
 

@@ -76,6 +76,11 @@ jQuery(document).ready(function(){
 		return false;
 	});
 
+	jQuery(document).on("click", ".danang-smep-lapor-rebela-page", function(){
+		jQuery(".smep-content-page").load("laporan/ap/main-page");
+		return false;
+	});
+
 	// --------------- Laporan --------------- //
 
 	jQuery(document).on("click", ".smep-lapor-rapan-page", function(){

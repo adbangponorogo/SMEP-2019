@@ -24,7 +24,10 @@ class Applogin_controller extends CI_Controller {
 		$resultUsers = $this->model->getDataUsers($username, $password);
 		if ($resultUsers->num_rows() > 0) {
 			foreach ($resultUsers->result() as $rows_users) {
-				$this->session->set_userdata(array("auth_id" => $rows_users->id));
+				$this->session->set_userdata(array(
+					"auth_id" => $rows_users->id,
+					"skpd_id" => $rows_users->id_skpd
+					));
 			echo json_encode(array("status"=>TRUE));
 			}
 		}
@@ -40,10 +43,8 @@ class Applogin_controller extends CI_Controller {
 	}
 
 	public function logoutProcess(){
-		if ($this->session->userdata('auth_id') != '') {
-			$this->session->unset_userdata(array('auth_id'));
-			echo json_encode(array("status"=>TRUE));
-		}
+		$this->session->unset_userdata(array('auth_id', 'skpd_id'));
+		echo json_encode(array("status"=>TRUE));
 	}
 
 }

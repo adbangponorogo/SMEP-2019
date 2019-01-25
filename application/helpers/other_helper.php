@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /*
 | -------------------------------------------------------------------------
-| PHP OFFICE HELPER
+| PHP OTHER HELPER
 | -------------------------------------------------------------------------
 	if ( !function_exists('periode') )
 	{
@@ -141,6 +141,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			);
 			list($tg, $bl, $th) = explode('-', $tgl);
 			return $tg.' '.$bln[$bl+0].' '.$th;
+		}
+	}
+
+	if ( !function_exists('bln_indo') )
+	{
+		function bln_indo($bl)
+		{
+			$bln = array(
+				1=>'Januari',
+				2=>'Februari',
+				3=>'Maret',
+				4=>'April',
+				5=>'Mei',
+				6=>'Juni',
+				7=>'Juli',
+				8=>'Agustus',
+				9=>'September',
+				10=>'Oktober',
+				11=>'November',
+				12=>'Desember'
+			);
+			return $bln[$bl+0];
 		}
 	}
 

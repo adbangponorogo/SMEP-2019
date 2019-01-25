@@ -6,12 +6,21 @@ class Rp_controller extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		if (empty($this->session->userdata('auth_id'))) { //Filter untuk semua
+			if (stristr(uri_string(), 'main-page'))
+				$this->load->view('pages/errors/data');
+			else
+				redirect(base_url());
+		}
 		$this->load->model('Main_model', 'model');
 		$this->load->model('laporan/Rp_model', 'rp_model');
 	}
 
 	public function index(){
-		if ($this->session->userdata('auth_id') != "") {
+		if (empty($this->model->getKaSKPD($this->session->userdata('skpd_id'))->row()->nama)) { //Filter khusus modul laporan
+			$this->load->view('pages/laporan/errors/data-ka-skpd-kosong');
+		}
+		else {			
 			$this->load->view('pages/laporan/rp/data');
 		}
 	}
@@ -51,9 +60,13 @@ class Rp_controller extends CI_Controller {
 		$jenis_pengadaan = $this->input->post('jenis_pengadaan');
 		$tgl_cetak = $this->input->post('tgl_cetak');
 		$tahun = $this->input->post('tahun');
+
+		echo '1'.$this->model->getKaSKPD($skpd)->row()->nama;
+		if (empty($this->model->getKaSKPD($skpd)->row()->nama)) die ('Kepala SKPD belum dientrikan! Klik <a href="'.base_url().'">disini</a> untuk kembali.');
+		echo '2'.$this->model->getKaSKPD($skpd)->row()->nama;
 		
-		$kd_skpd = $this->rp_model->getSKPD($skpd)->row()->kd_skpd;
-		$nama_skpd = $this->rp_model->getSKPD($skpd)->row()->nama_skpd;
+		$kd_skpd = $this->model->getSKPD($skpd)->row()->kd_skpd;
+		$nama_skpd = $this->model->getSKPD($skpd)->row()->nama_skpd;
 		$klpd = $this->model->getConfig('klpd')->row()->value;
 		$footerlap = $this->model->getConfig('footerlap')->row()->value;
 		
@@ -67,11 +80,11 @@ class Rp_controller extends CI_Controller {
 		$p = $r->load('assets/tpl/rp.xlsx');
 		$x = $p->getActiveSheet();
 
-		$x->setCellValue('C3', ': '.strtoupper($nama_skpd));
-		$x->setCellValue('C4', ': '.strtoupper($klpd));
-		$x->setCellValue('C5', ': '.$tahun);
-		$x->setCellValue('C7', ': '.strtoupper($nama_jenis_pengadaan));
-		$x->setCellValue('K7', 'Form RP-'.$jenis_pengadaan);
+		$x->setCellValue('D3', ': '.strtoupper($nama_skpd));
+		$x->setCellValue('D4', ': '.strtoupper($klpd));
+		$x->setCellValue('D5', ': '.$tahun);
+		$x->setCellValue('D7', ': '.strtoupper($nama_jenis_pengadaan));
+		$x->setCellValue('L7', 'Form RP-'.$jenis_pengadaan);
 
 		$mulai = 12;
 		$row = $mulai;
@@ -80,80 +93,81 @@ class Rp_controller extends CI_Controller {
 		if ($prog->num_rows()){
 			foreach ($prog->result() as $d){
 				// -------- Value ---------
-				$x->setCellValue('A'.$row, $d->kd_gabungan.' ');
-				$x->setCellValue('B'.$row, strtoupper($d->keterangan_program));
-				xl_autoheight($x, 'A'.$row);
-				xl_wrap($x, 'B'.$row);
-				xl_font($x, 'A'.$row.':K'.$row,11,'bold');
+				$x->setCellValue('B'.$row, $d->kd_gabungan.' ');
+				$x->setCellValue('C'.$row, strtoupper($d->keterangan_program));
+				xl_autoheight($x, 'B'.$row);
+				xl_wrap($x, 'C'.$row);
+				xl_font($x, 'A'.$row.':C'.$row,11,'bold');
 				$row++;
 
-				$keg = $this->rp_model->getKeg($kd_skpd, $d->id, $jenis_pengadaan);
+				$keg = $this->rp_model->getKeg($d->id, $jenis_pengadaan);
 				foreach ($keg->result() as $e){
 					// -------- Value ---------
-					$x->setCellValue('A'.$row, $e->kd_gabungan);
-					$x->setCellValue('B'.$row, $e->keterangan_kegiatan);
+					$x->setCellValue('B'.$row, $e->kd_gabungan);
+					$x->setCellValue('C'.$row, $e->keterangan_kegiatan);
 					
-					$K = '-';
-					if (!empty($e->nama)) $K = $e->nama;
-					$x->setCellValue('K'.$row, $K);//Penanggung Jawab Kegiatan
+					$L = '-';
+					if (!empty($e->nama)) $L = $e->nama;
+					$x->setCellValue('L'.$row, $L);//Penanggung Jawab Kegiatan
 					
-					xl_autoheight($x, 'A'.$row);
-					xl_wrap($x, 'B'.$row);
-					xl_wrap($x, 'K'.$row);
-					xl_font($x, 'A'.$row.':K'.$row,11,'bold');
+					xl_wrap($x, 'C'.$row);
+					xl_wrap($x, 'L'.$row);
+					xl_font($x, 'A'.$row.':L'.$row,11,'bold');
 					$row++;
 
+					$no = 0;
 					$paket = $this->rp_model->getPaket($kd_skpd, $e->id, $jenis_pengadaan);
 					foreach ($paket->result() as $f){
 						// -------- Value ---------
-						$x->setCellValue('A'.$row, substr($f->kd_mak, -11));
-						$x->setCellValue('B'.$row, $f->nama_paket);
-						$x->setCellValue('C'.$row, $f->pagu_paket);
-						$x->setCellValue('D'.$row, sumber_dana($f->sumber_dana));
+						$x->setCellValue('A'.$row, ++$no);
+						$x->setCellValue('B'.$row, substr($f->kd_mak, -11));
+						$x->setCellValue('C'.$row, $f->nama_paket);
+						$x->setCellValue('D'.$row, $f->pagu_paket);
+						$x->setCellValue('E'.$row, sumber_dana($f->sumber_dana));
 						
-						$E = $F = $G = $H = $I = $J = '-';
+						$F = $G = $H = $I = $J = $K = '-';
 						switch ($f->metode_pemilihan){
-							case 1: $J='X'; break;	//E-Purchasing
-							case 2: $E='X'; break;	//Tender
-							case 3: $F='X'; break;	//Tender Cepat
-							case 4: $G='X'; break;	//Pengadaan Langsung
-							case 5: $H='X'; break;	//Penunjukkan Langsung
-							case 6: $I='X';			//Seleksi
+							case 1: $K='X'; break;	//E-Purchasing
+							case 2: $F='X'; break;	//Tender
+							case 3: $G='X'; break;	//Tender Cepat
+							case 4: $H='X'; break;	//Pengadaan Langsung
+							case 5: $I='X'; break;	//Penunjukkan Langsung
+							case 6: $J='X';			//Seleksi
 						}
-						$x->setCellValue('E'.$row, $E);
 						$x->setCellValue('F'.$row, $F);
 						$x->setCellValue('G'.$row, $G);
 						$x->setCellValue('H'.$row, $H);
 						$x->setCellValue('I'.$row, $I);
 						$x->setCellValue('J'.$row, $J);
+						$x->setCellValue('K'.$row, $K);
 						
-						xl_autoheight($x, 'A'.$row);
-						xl_wrap($x, 'B'.$row);
+						xl_wrap($x, 'C'.$row);
 						$row++;
 					}
 					$row++;
 				}
 			}
 		}else{
-			$x->setCellValue('B'.$row, 'NIHIL');
+			$x->setCellValue('C'.$row, 'NIHIL');
 			$row+=10;
 		}
-		xl_number_format($x, 'C'.$mulai.':C'.$row);
-		xl_align($x, 'D'.$mulai.':K'.$row);
-		xl_align($x, 'A'.$mulai.':K'.$row, 'top');
+		xl_number_format($x, 'D'.$mulai.':D'.$row);
+		xl_align($x, 'E'.$mulai.':L'.$row);
+		xl_align($x, 'A'.$mulai.':L'.$row, 'top');
 
-		$x->setCellValue('B'.$row, 'Jumlah:');
-		xl_align($x, 'B'.$row, 'right');
-		$x->setCellValue('C'.$row, '=SUM(C'.($mulai+2).':C'.($row-2).')');
-		xl_borderall($x, 'A'.$mulai.':K'.$row);
+		$x->setCellValue('C'.$row, 'Jumlah:');
+		xl_align($x, 'C'.$row, 'right');
+		$x->setCellValue('D'.$row, '=SUM(D'.($mulai+2).':D'.($row-2).')');
+		xl_font($x, 'C'.$row.':D'.$row,11,'bold');
+		xl_borderall($x, 'A'.$mulai.':L'.$row);
 		
 		getPenanggungJawab(
 			$x,
 			$row,
 			$klpd,
 			$tgl_cetak,
-			$this->rp_model->getKaSKPD($skpd)->row(),//data kepala SKPD
-			'H' // Posisi kolom penanggungjawab
+			$this->model->getKaSKPD($skpd)->row(),//data kepala SKPD
+			'I' // Posisi kolom penanggungjawab
 		);
 		
 		xl_footer(

@@ -61,8 +61,6 @@ $route['app/auth/login'] = 'app/Applogin_controller/loginProcess';
 $route['app/auth/checkSession'] = 'app/Applogin_controller/checkSession';
 $route['app/auth/logout'] = 'app/Applogin_controller/logoutProcess';
 
-
-
 // ------ Main ------ //
 $route['app/main/data-user'] = 'Main_controller/getUserData';
 $route['app/main/data-skpd'] = 'Main_controller/getDataSKPD';
@@ -187,6 +185,10 @@ $route['entry-data/realisasi-tepra/save-data'] = 'entry-data/Endasitepra_control
 $route['laporan/rp/main-page'] = 'laporan/Rp_controller';
 $route['laporan/rp/print-data'] = 'laporan/Rp_controller/getPrintData';
 
+// ------ Realisasi Belanja Langsung ------ //
+$route['laporan/ap/main-page'] = 'laporan/Ap_controller';
+$route['laporan/ap/print-data'] = 'laporan/Ap_controller/getPrintData';
+
 // ------------------/ Laporan Danang /------------------ //
 
 
@@ -282,24 +284,3 @@ $route['administrator/misc/print-data'] = 'administrator/Adminmisc_controller/ge
 $route['administrator/rup-aktual/main-page'] = 'administrator/Adminrupaktual_controller/mainPage';
 $route['administrator/rup-aktual/skpd/all/(:any)'] = 'administrator/Adminrupaktual_controller/getMainDataAllSKPD/$1';
 $route['administrator/rup-aktual/print-data'] = 'administrator/Adminrupaktual_controller/getPrintData';
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
