@@ -13,11 +13,17 @@ class Endasirup_controller extends CI_Controller {
 		if ($this->session->userdata('auth_id') != "") {
 			$this->load->view('pages/entry-data/realisasi-rup/data');
 		}
+          else{
+               redirect(base_url());
+          }
 	}
      
      public function realisasiPage(){
           if ($this->session->userdata('auth_id') != "") {
                $this->load->view('pages/entry-data/realisasi-rup/data-realisasi');
+          }
+          else{
+               redirect(base_url());
           }
      }
 
@@ -25,11 +31,17 @@ class Endasirup_controller extends CI_Controller {
           if ($this->session->userdata('auth_id') != "") {
                $this->load->view('pages/entry-data/realisasi-rup/data-register');
           }
+          else{
+               redirect(base_url());
+          }
      }
 
      public function editDataPage(){
           if ($this->session->userdata('auth_id') != "") {
                $this->load->view('pages/entry-data/realisasi-rup/data-edit');
+          }
+          else{
+               redirect(base_url());
           }
      }
 
@@ -37,6 +49,9 @@ class Endasirup_controller extends CI_Controller {
           if ($this->session->userdata('auth_id') != "") {
                $result = $this->model->getDataAllKegiatan($id_skpd);
                echo json_encode($result);
+          }
+          else{
+               redirect(base_url());
           }
      }
 
@@ -84,20 +99,27 @@ class Endasirup_controller extends CI_Controller {
                }
                echo json_encode($data); 
           }
+          else{
+               redirect(base_url());
+          }
      }
 
      public function getDataRealisasiKeuangan($id_rup){
-          $result = $this->model->getDataSumRealisasiRUP($id_rup);
-          foreach ($result->result() as $rows) {
-               if (is_null($rows->realisasi_keuangan)) {
-                    $realisasi_keuangan = 0;
+          if ($this->session->userdata('auth_id') != "") {
+               $result = $this->model->getDataSumRealisasiRUP($id_rup);
+               foreach ($result->result() as $rows) {
+                    if (is_null($rows->realisasi_keuangan)) {
+                         $realisasi_keuangan = 0;
+                    }
+                    if (!is_null($rows->realisasi_keuangan)) {
+                         $realisasi_keuangan = intval($rows->realisasi_keuangan);
+                    }
                }
-               if (!is_null($rows->realisasi_keuangan)) {
-                    $realisasi_keuangan = intval($rows->realisasi_keuangan);
-               }
+               return $realisasi_keuangan;
           }
-
-          return $realisasi_keuangan;
+          else{
+               redirect(base_url());
+          }
      }
 
      public function getDataRUP($id_rup){
@@ -209,50 +231,58 @@ class Endasirup_controller extends CI_Controller {
                }
                echo json_encode($data);
           }
+          else{
+               redirect(base_url());
+          }
      }
 
      public function getDataRUPRealisasi($id_rup){
-          $result_rup = $this->model->getDataRUP($id_rup);
-          $data = array();
-          foreach ($result_rup->result() as $rows_rup) {
-               $result_rincian_obyek = $this->model->getDataRincianObyek($rows_rup->id_rincian_obyek);
-               foreach ($result_rincian_obyek->result() as $rows_ro) {
-                    $result_realisasi = $this->model->getDataSumRealisasiRUP($rows_rup->id);
-                    foreach ($result_realisasi->result() as $rows_realisasi) {
-                         if (is_null($rows_realisasi->realisasi_keuangan)) {
-                              $realisasi_keuangan = 0;
-                         }
-                         if (!is_null($rows_realisasi->realisasi_keuangan)) {
-                              $realisasi_keuangan = $rows_realisasi->realisasi_keuangan;
-                         }
-                         if (is_null($rows_realisasi->realisasi_fisik)) {
-                              $realisasi_fisik = 0;
-                         }
-                         if (!is_null($rows_realisasi->realisasi_fisik)) {
-                              $realisasi_fisik = $rows_realisasi->realisasi_fisik;
-                         }
+          if ($this->session->userdata('auth_id') != "") {
+               $result_rup = $this->model->getDataRUP($id_rup);
+               $data = array();
+               foreach ($result_rup->result() as $rows_rup) {
+                    $result_rincian_obyek = $this->model->getDataRincianObyek($rows_rup->id_rincian_obyek);
+                    foreach ($result_rincian_obyek->result() as $rows_ro) {
+                         $result_realisasi = $this->model->getDataSumRealisasiRUP($rows_rup->id);
+                         foreach ($result_realisasi->result() as $rows_realisasi) {
+                              if (is_null($rows_realisasi->realisasi_keuangan)) {
+                                   $realisasi_keuangan = 0;
+                              }
+                              if (!is_null($rows_realisasi->realisasi_keuangan)) {
+                                   $realisasi_keuangan = $rows_realisasi->realisasi_keuangan;
+                              }
+                              if (is_null($rows_realisasi->realisasi_fisik)) {
+                                   $realisasi_fisik = 0;
+                              }
+                              if (!is_null($rows_realisasi->realisasi_fisik)) {
+                                   $realisasi_fisik = $rows_realisasi->realisasi_fisik;
+                              }
 
-                         $sisa_pagu = $rows_rup->pagu_paket - $realisasi_keuangan;
-                         if ($sisa_pagu > 0) {
-                              $status = 0;
-                         }
-                         if ($sisa_pagu <= 0) {
-                              $status = 1;
-                         }
+                              $sisa_pagu = $rows_rup->pagu_paket - $realisasi_keuangan;
+                              if ($sisa_pagu > 0) {
+                                   $status = 0;
+                              }
+                              if ($sisa_pagu <= 0) {
+                                   $status = 1;
+                              }
 
-                         $data[] = array(
-                                   $rows_rup->nama_paket,
-                                   "[".$rows_ro->kd_gabungan."] - ".$rows_ro->nama_rekening,
-                                   "Rp. ".number_format($rows_rup->pagu_paket),
-                                   "Rp. ".number_format($sisa_pagu),
-                                   "Rp. ".number_format($realisasi_keuangan),
-                                   $realisasi_fisik."%",
-                                   $status
-                              );
+                              $data[] = array(
+                                        $rows_rup->nama_paket,
+                                        "[".$rows_ro->kd_gabungan."] - ".$rows_ro->nama_rekening,
+                                        "Rp. ".number_format($rows_rup->pagu_paket),
+                                        "Rp. ".number_format($sisa_pagu),
+                                        "Rp. ".number_format($realisasi_keuangan),
+                                        $realisasi_fisik."%",
+                                        $status
+                                   );
+                         }
                     }
                }
+               echo json_encode($data);
           }
-          echo json_encode($data);
+          else{
+               redirect(base_url());
+          }
      }
 
      public function getMainDataRealisasi($id_rup){
@@ -282,6 +312,9 @@ class Endasirup_controller extends CI_Controller {
                          );
                }
                echo json_encode($data);
+          }
+          else{
+               redirect(base_url());
           }
      }
 
@@ -314,6 +347,9 @@ class Endasirup_controller extends CI_Controller {
                     );
                $this->model->insertData($data);
                echo json_encode(array("status"=>TRUE));
+          }
+          else{
+               redirect(base_url());
           }
      }
 
@@ -348,6 +384,9 @@ class Endasirup_controller extends CI_Controller {
                }
                echo json_encode($data);
           }
+          else{
+               redirect(base_url());
+          }
      }
 
      public function updateData(){
@@ -377,12 +416,18 @@ class Endasirup_controller extends CI_Controller {
                $this->model->updateData($this->input->post("token"), $data);
                echo json_encode(array("status"=>TRUE));
           }
+          else{
+               redirect(base_url());
+          }
      }
 
      public function trashData($token){
           if ($this->session->userdata('auth_id') != '') {
                $this->model->deleteData($token);
                echo json_encode(array("status"=>TRUE));
+          }
+          else{
+               redirect(base_url());
           }
      }
 
@@ -393,6 +438,9 @@ class Endasirup_controller extends CI_Controller {
                     $this->model->deleteData($rows);
                }
                echo json_encode(array("status"=>TRUE));
+          }
+          else{
+               redirect(base_url());
           }
      }
 }

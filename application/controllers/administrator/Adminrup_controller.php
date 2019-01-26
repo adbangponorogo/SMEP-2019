@@ -13,6 +13,9 @@ class Adminrup_controller extends CI_Controller {
 		if ($this->session->userdata("auth_id") != "") {
 			$this->load->view('pages/administrator/rup/data');
 		}
+		else{
+			redirect(base_url());
+		}
 	}
 
 	public function getMainDataAllSKPD($id_skpd){
@@ -42,6 +45,9 @@ class Adminrup_controller extends CI_Controller {
 				}
 			}
 			echo json_encode($data);
+		}
+		else{
+			redirect(base_url());
 		}
 	}
 
@@ -344,6 +350,9 @@ class Adminrup_controller extends CI_Controller {
 				}
 			}
 
+		}
+		else{
+			redirect(base_url());
 		}
 	}	
 }

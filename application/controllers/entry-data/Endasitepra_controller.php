@@ -13,11 +13,17 @@ class Endasitepra_controller extends CI_Controller {
 		if ($this->session->userdata('auth_id') != "") {
 			$this->load->view('pages/entry-data/realisasi-tepra/data');
 		}
+		else{
+            redirect(base_url());
+        }
 	}
 
     public function formPage(){
         if ($this->session->userdata('auth_id') != "") {
         	$this->load->view('pages/entry-data/realisasi-tepra/data-form');
+        }
+        else{
+            redirect(base_url());
         }
     }
 
@@ -75,6 +81,9 @@ class Endasitepra_controller extends CI_Controller {
         		}
         	}
         	echo json_encode($data);
+        }
+        else{
+            redirect(base_url());
         }
     }
 
@@ -219,6 +228,9 @@ class Endasitepra_controller extends CI_Controller {
 	    	}
 	    	echo json_encode($data);
     	}
+    	else{
+            redirect(base_url());
+        }
     }
 
     public function saveData(){
@@ -245,5 +257,8 @@ class Endasitepra_controller extends CI_Controller {
     		}
     		echo json_encode(array("status"=>TRUE));
     	}
+    	else{
+            redirect(base_url());
+        }
     }
 }

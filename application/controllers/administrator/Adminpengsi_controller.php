@@ -13,11 +13,17 @@ class Adminpengsi_controller extends CI_Controller {
 		if ($this->session->userdata("auth_id") != "") {
 			$this->load->view('pages/administrator/pengguna-aplikasi/data');
 		}
+		else{
+			redirect(base_url());
+		}
 	}
 
 	public function userPage(){
 		if ($this->session->userdata("auth_id") != "") {
 			$this->load->view('pages/administrator/pengguna-aplikasi/data-user');
+		}
+		else{
+			redirect(base_url());
 		}
 	}
 
@@ -25,6 +31,9 @@ class Adminpengsi_controller extends CI_Controller {
 		if ($this->session->userdata("auth_id") != "") {
 			$result = $this->model->getMainData();
 			echo json_encode($result);
+		}
+		else{
+			redirect(base_url());
 		}
 	}
 
@@ -49,6 +58,9 @@ class Adminpengsi_controller extends CI_Controller {
 						);
 			}
 			echo json_encode($data);
+		}
+		else{
+			redirect(base_url());
 		}
 	}
 
@@ -84,6 +96,9 @@ class Adminpengsi_controller extends CI_Controller {
 			}
 			echo json_encode($data);
 		}
+		else{
+			redirect(base_url());
+		}
 	}
 
 	public function getDataSKPD($token){
@@ -98,6 +113,9 @@ class Adminpengsi_controller extends CI_Controller {
 						);
 			}
 			echo json_encode($data);
+		}
+		else{
+			redirect(base_url());
 		}
 	}
 
@@ -133,6 +151,9 @@ class Adminpengsi_controller extends CI_Controller {
 			else{
 				echo json_encode(1); 
 			}
+		}
+		else{
+			redirect(base_url());
 		}
 	}
  
@@ -172,6 +193,9 @@ class Adminpengsi_controller extends CI_Controller {
 				}
 			}
 		}
+		else{
+			redirect(base_url());
+		}
 	}
 
 	public function updateData(){
@@ -210,12 +234,18 @@ class Adminpengsi_controller extends CI_Controller {
 				}
 			}
 		}
+		else{
+			redirect(base_url());
+		}
 	}
 
 	public function trashData($username){
 		if ($this->session->userdata("auth_id") != "") {
 			$this->model->deleteDataUsers($username);
 			echo json_encode(array("status"=>TRUE));
+		}
+		else{
+			redirect(base_url());
 		}
 	}
 
@@ -250,6 +280,9 @@ class Adminpengsi_controller extends CI_Controller {
 					}
 				}
 			}
+		}
+		else{
+			redirect(base_url());
 		}
 	}
 }

@@ -28,6 +28,9 @@ class Applogin_controller extends CI_Controller {
 			echo json_encode(array("status"=>TRUE));
 			}
 		}
+		else{
+			redirect(base_url());
+		}
 	} 
 
 	public function checkSession(){
@@ -43,6 +46,9 @@ class Applogin_controller extends CI_Controller {
 		if ($this->session->userdata('auth_id') != '') {
 			$this->session->unset_userdata(array('auth_id'));
 			echo json_encode(array("status"=>TRUE));
+		}
+		else{
+			redirect(base_url());
 		}
 	}
 

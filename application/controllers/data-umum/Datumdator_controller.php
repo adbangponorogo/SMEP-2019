@@ -13,6 +13,9 @@ class Datumdator_controller extends CI_Controller {
 		if ($this->session->userdata('auth_id') != "") {
 			$this->load->view('pages/data-umum/data-organisasi/data');
 		}
+		else{
+			redirect(base_url());
+		}
 	}
 
 	public function getMainData($id_skpd){
@@ -59,6 +62,9 @@ class Datumdator_controller extends CI_Controller {
 			}
 			echo json_encode($data);
 		}
+		else{
+			redirect(base_url());
+		}
 	}
 
 	public function saveData(){
@@ -100,6 +106,9 @@ class Datumdator_controller extends CI_Controller {
 				$this->model->insertData($data);
 			}
 			echo json_encode(array("status"=>TRUE));
+		}
+		else{
+			redirect(base_url());
 		}
 	}
 }

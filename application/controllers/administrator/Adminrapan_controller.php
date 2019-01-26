@@ -13,6 +13,9 @@ class Adminrapan_controller extends CI_Controller {
 		if ($this->session->userdata("auth_id") != "") {
 			$this->load->view('pages/administrator/rencana-pengadaan/data');
 		}
+		else{
+			redirect(base_url());
+		}
 	}
 
 	public function getPrintData(){
@@ -235,6 +238,9 @@ class Adminrapan_controller extends CI_Controller {
 				$object_writer->save('php://output');
 			}
 		}
+		else{
+			redirect(base_url());
+		}
 	}
 
 	public function nullValue($value){
@@ -246,6 +252,9 @@ class Adminrapan_controller extends CI_Controller {
 				$data = $value;
 			}
 			return $data;
+		}
+		else{
+			redirect(base_url());
 		}
 	}
 

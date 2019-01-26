@@ -13,6 +13,9 @@ class Laporteprarealisasi_controller extends CI_Controller {
 		if ($this->session->userdata('auth_id') != "") {
 			$this->load->view('pages/laporan/tepra/realisasi/data');
 		}
+		else{
+			redirect(base_url());
+		}
 	}
 
 	public function getMainDataAllSKPD($id_skpd){
@@ -43,6 +46,9 @@ class Laporteprarealisasi_controller extends CI_Controller {
 			}
 			echo json_encode($data);
 		}
+		else{
+			redirect(base_url());
+		}
 	}
 
 	public function getMainData($skpd, $bulan){
@@ -61,6 +67,9 @@ class Laporteprarealisasi_controller extends CI_Controller {
 
 			$data = $this->tepraRealisasiProcess($id_skpd, $kd_skpd, $bulan);
 			echo json_encode($data);
+		}
+		else{
+			redirect(base_url());
 		}
 	}
 
@@ -905,8 +914,10 @@ class Laporteprarealisasi_controller extends CI_Controller {
 							[$rup_pho_desember, $get_rup_pho_desember]
 						]
 					];
-
 			return $data;
+		}
+		else{
+			redirect(base_url());
 		}
 	}
 
@@ -916,8 +927,10 @@ class Laporteprarealisasi_controller extends CI_Controller {
 			foreach ($result->result() as $rows) {
 				$data = $rows->nilai;
 			}
-
 			return $data;
+		}
+		else{
+			redirect(base_url());
 		}
 	}
 
@@ -930,6 +943,9 @@ class Laporteprarealisasi_controller extends CI_Controller {
 
 			return $data;
 		}
+		else{
+			redirect(base_url());
+		}
 	}
 
 	public function dataRealisasiTepra($id_skpd, $tahap, $bulan){
@@ -940,6 +956,9 @@ class Laporteprarealisasi_controller extends CI_Controller {
 			}
 
 			return $data;
+		}
+		else{
+			redirect(base_url());
 		}
 	}
 
@@ -953,6 +972,9 @@ class Laporteprarealisasi_controller extends CI_Controller {
 			}
 			return $data;
 		}
+		else{
+			redirect(base_url());
+		}
 	}
 
 	public function getMonthValue($value, $bulan, $max_bulan){
@@ -964,6 +986,9 @@ class Laporteprarealisasi_controller extends CI_Controller {
 				$data = 0;
 			}
 			return $data;
+		}
+		else{
+			redirect(base_url());
 		}
 	}
 
@@ -977,6 +1002,9 @@ class Laporteprarealisasi_controller extends CI_Controller {
 			}
 			return $data;
 		}
+		else{
+			redirect(base_url());
+		}
 	}
 
 	public function getIsNan($value){
@@ -988,6 +1016,9 @@ class Laporteprarealisasi_controller extends CI_Controller {
 				$data = 0;
 			}
 			return $data;
+		}
+		else{
+			redirect(base_url());
 		}
 	}
 }

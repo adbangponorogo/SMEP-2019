@@ -13,6 +13,9 @@ class Laporlapan_controller extends CI_Controller {
 		if ($this->session->userdata('auth_id') != "") {
 			$this->load->view('pages/laporan/laporan-pengadaan/data');
 		}
+		else{
+            redirect(base_url());
+        }
 	}
 
 	public function getMainDataAllSKPD($id_skpd){
@@ -43,6 +46,9 @@ class Laporlapan_controller extends CI_Controller {
 			}
 			echo json_encode($data);
 		}
+		else{
+            redirect(base_url());
+        }
 	}
 
 	public function getPrintData(){
@@ -388,6 +394,9 @@ class Laporlapan_controller extends CI_Controller {
 				$object_writer->save('php://output');	
 			}
 		}
+		else{
+            redirect(base_url());
+        }
 	}
 
 	public function null_value($value){
@@ -400,6 +409,9 @@ class Laporlapan_controller extends CI_Controller {
 			}
 			return $data;
 		}
+		else{
+            redirect(base_url());
+        }
 	}
 	
 }

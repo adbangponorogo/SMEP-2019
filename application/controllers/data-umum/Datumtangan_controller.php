@@ -13,6 +13,9 @@ class Datumtangan_controller extends CI_Controller {
 		if ($this->session->userdata('auth_id') != "") {
 			$this->load->view('pages/data-umum/target-keuangan/data');
 		}
+		else{
+			redirect(base_url());
+		}
 	}
 
 	public function getMainData($id_skpd){
@@ -32,6 +35,9 @@ class Datumtangan_controller extends CI_Controller {
 				}
 			}
 			echo json_encode($data);
+		}
+		else{
+			redirect(base_url());
 		}
 	}
 
@@ -87,6 +93,9 @@ class Datumtangan_controller extends CI_Controller {
 			$data[] = array($pagu, $januari, $februari, $maret, $april, $mei, $juni, $juli, $agustus, $september, $oktober, $november, $desember);
 			echo json_encode($data);
 		}
+		else{
+			redirect(base_url());
+		}
 	}
 
 	public function saveData(){
@@ -129,6 +138,9 @@ class Datumtangan_controller extends CI_Controller {
 			}
 
 			echo json_encode(array("status"=>TRUE));
+		}
+		else{
+			redirect(base_url());
 		}
 	}
 }

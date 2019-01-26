@@ -13,6 +13,9 @@ class Datumdapan_controller extends CI_Controller {
 		if ($this->session->userdata('auth_id') != "") {
 			$this->load->view('pages/data-umum/pencairan-sppd/data');
 		}
+		else{
+			redirect(base_url());
+		}
 	}
 
 	public function getMainDataAllSKPD($id_skpd){
@@ -43,6 +46,9 @@ class Datumdapan_controller extends CI_Controller {
 			}
 			echo json_encode($data);
 		}
+		else{
+			redirect(base_url());
+		}
 	}
 
 	public function getMainDataAllKegiatan($id_skpd){
@@ -69,6 +75,9 @@ class Datumdapan_controller extends CI_Controller {
 				}
 			}
 			echo json_encode($data);
+		}
+		else{
+			redirect(base_url());
 		}
 	}
 
@@ -268,6 +277,9 @@ class Datumdapan_controller extends CI_Controller {
 				header('Content-Disposition: attachment; filename="Data Pencairan SPPD.xls"');
 				$object_writer->save('php://output');
 			}
+		}
+		else{
+			redirect(base_url());
 		}
 	}
 }

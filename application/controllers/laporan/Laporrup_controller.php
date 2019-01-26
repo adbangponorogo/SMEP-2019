@@ -13,6 +13,9 @@ class Laporrup_controller extends CI_Controller {
 		if ($this->session->userdata('auth_id') != "") {
 			$this->load->view('pages/laporan/rup/data');
 		}
+		else{
+			redirect(base_url());
+		}
 	}
 	
 	public function getMainDataAllSKPD($id_skpd){
@@ -42,6 +45,9 @@ class Laporrup_controller extends CI_Controller {
 				}
 			}
 			echo json_encode($data);
+		}
+		else{
+			redirect(base_url());
 		}
 	}
 
@@ -407,6 +413,9 @@ class Laporrup_controller extends CI_Controller {
 					$object_writer->save('php://output');
 				}
 			}
+		}
+		else{
+			redirect(base_url());
 		}
 	}
 }
