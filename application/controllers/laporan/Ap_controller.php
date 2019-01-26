@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Ap_controller extends CI_Controller {
+class Ap_controller extends Admin_Controller {
 
 	public function __construct()
 	{
@@ -56,6 +56,8 @@ class Ap_controller extends CI_Controller {
 	}
 
 	public function getPrintData(){
+		global $smep;
+		
 		$obj = new stdClass();
 		$obj->jenis_realisasi = $this->input->post("jenis_realisasi");
 		$obj->skpd = $this->input->post("skpd");
@@ -65,9 +67,10 @@ class Ap_controller extends CI_Controller {
 		
 		$obj->kd_skpd = $this->model->getSKPD($obj->skpd)->row()->kd_skpd;
 		$obj->nama_skpd = $this->model->getSKPD($obj->skpd)->row()->nama_skpd;
-		$obj->tingkat = $this->model->getConfig('tingkat')->row()->value;
-		$obj->klpd = $this->model->getConfig('klpd')->row()->value;
-		$obj->footerlap = $this->model->getConfig('footerlap')->row()->value;
+		
+		$obj->tingkat = $smep->tingkat;
+		$obj->klpd = $smep->klpd;
+		$obj->footerlap = $smep->footerlap;
 
 		switch ($obj->jenis_realisasi){
 			case 1: $this->getPrintDataAP1($obj); break;

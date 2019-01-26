@@ -1,21 +1,23 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Main_Controller extends CI_Controller {
+class Main_Controller extends Admin_Controller {
 
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('main_model', 'model');
 	}
 
 	public function index(){
-		if ($this->session->userdata('auth_id') != "") {
-			$data["user_data"] = $this->getUserData();
-			$this->load->view('Main_view', $data);
+		global $smep;
+		
+		if (empty($this->session->userdata('auth_id'))) {
+			redirect("app/auth/loginPage");
 		}
 		else{
-			redirect("app/auth/loginPage");
+			$data['title'] = strtoupper('SMEP '.$smep->tingkat.' '.$smep->klpd);
+			$data["user_data"] = $this->getUserData();
+			$this->load->view('Main_view', $data);
 		}
 	}
 
