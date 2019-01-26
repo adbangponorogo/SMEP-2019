@@ -69,7 +69,20 @@ jQuery(document).ready(function(){
 	});
 
 
+	// --------------- Laporan Danang --------------- //
+
+	jQuery(document).on("click", ".danang-smep-lapor-rapan-page", function(){
+		jQuery(".smep-content-page").load("laporan/rp/main-page");
+		return false;
+	});
+
+	jQuery(document).on("click", ".danang-smep-lapor-rebela-page", function(){
+		jQuery(".smep-content-page").load("laporan/ap/main-page");
+		return false;
+	});
+
 	// --------------- Laporan --------------- //
+
 	jQuery(document).on("click", ".smep-lapor-rapan-page", function(){
 		jQuery(".smep-content-page").load("laporan/rencana-pengadaan/main-page");
 		return false;

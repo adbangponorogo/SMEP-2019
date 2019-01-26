@@ -1,11 +1,42 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Laporrapan_model extends CI_Model {
+class Rp_model extends CI_Model {
 
 	public function __construct()
     {
         $this->load->database();
+    }
+
+    public function getProg($kd_skpd, $jenis_pengadaan){
+        $this->db->select('a.*');
+        $this->db->from('simda_program a');
+        $this->db->join("tb_rup b", "a.id = b.id_program");
+        $this->db->group_by('a.id');
+        $this->db->where('a.kd_skpd', $kd_skpd);
+        $this->db->where('b.jenis_pengadaan', $jenis_pengadaan);
+        return $this->db->get();
+    }
+
+    public function getKeg($id_parent_prog, $jenis_pengadaan){
+        $this->db->select('a.*, c.nama');
+        $this->db->from('simda_kegiatan a');
+        $this->db->join("tb_rup b", "a.id = b.id_kegiatan");
+        $this->db->join("tb_pptk c", "a.id_skpd = c.id_skpd");
+        $this->db->join("tb_pptk_kegiatan d", "c.id = d.id_pptk");
+        $this->db->group_by('a.id');
+        $this->db->where('a.id_parent_prog', $id_parent_prog);
+        $this->db->where('b.jenis_pengadaan', $jenis_pengadaan);
+        return $this->db->get();
+    }
+
+    public function getPaket($kd_skpd, $id_keg, $jenis_pengadaan){
+        $this->db->select('*');
+        $this->db->from('tb_rup');
+        $this->db->where('kd_skpd', $kd_skpd);
+        $this->db->where('id_kegiatan', $id_keg);
+        $this->db->where('jenis_pengadaan', $jenis_pengadaan);
+        return $this->db->get();
     }
 
     public function getDataUser($token){
@@ -37,42 +68,37 @@ class Laporrapan_model extends CI_Model {
         $data = $this->db->get();
         return $data;
     }
- 
-    public function getDataProgramUnique($id_skpd, $kd_skpd, $jenis_pengadaan){
+
+    public function getDataProgramUnique($kd_skpd, $jenis_pengadaan){
         $this->db->select("distinct(a.id), a.*");
         $this->db->from("simda_program a");
         $this->db->join("tb_rup b", "a.id = b.id_program");
-        // $this->db->where("a.id_skpd", $id_skpd);
         $this->db->where("a.kd_skpd", $kd_skpd);
         $this->db->where("b.jenis_pengadaan", $jenis_pengadaan);
         $data = $this->db->get();
         return $data;
     }
 
-    public function getDataKegiatanUnique($id_skpd, $kd_skpd, $id_program, $kd_program, $jenis_pengadaan){
+    public function getDataKegiatanUnique($id_program, $kd_program){
         $this->db->select("distinct(a.id), a.*");
         $this->db->from("simda_kegiatan a");
         $this->db->join("tb_rup b", "a.id = b.id_kegiatan");
-        $this->db->where("a.id_skpd", $id_skpd);
-        $this->db->where("a.kd_skpd", $kd_skpd);
         $this->db->where("a.id_program", $id_program);
         $this->db->where("a.kd_program", $kd_program);
-        $this->db->where("b.jenis_pengadaan", $jenis_pengadaan);
         $this->db->order_by('a.id', 'ASC');
         $data = $this->db->get();
         return $data;
     }
 
-    public function getDataRUP($id_skpd, $kd_skpd, $id_program, $id_kegiatan, $jenis_pengadaan, $bulan){
+    public function getDataRUP($id_skpd, $id_program, $id_kegiatan, $jenis_pengadaan, $bulan){
         $this->db->select("*");
         $this->db->from("tb_rup");
         $this->db->where("id_skpd", $id_skpd);
-        $this->db->where("kd_skpd", $kd_skpd);
         $this->db->where("id_program", $id_program);
         $this->db->where("id_kegiatan", $id_kegiatan);
         $this->db->where("jenis_pengadaan", $jenis_pengadaan);
         if ($bulan != 'all') {
-            $this->db->where("date_format(tanggal_buat, '%m')=", $bulan);
+            $this->db->where("date_format(tanggal_buat, '%m') = ", $bulan);
         }
         $this->db->order_by("id");
         $data = $this->db->get();

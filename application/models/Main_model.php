@@ -8,6 +8,27 @@ class Main_model extends CI_Model {
     	parent::__construct();
     }
 
+    public function getSKPD($id_skpd){
+        $this->db->select('*');
+        $this->db->from('simda_skpd');
+        $this->db->where('id', $id_skpd);
+        return $this->db->get();
+    }
+
+    public function getKaSKPD($id_skpd){
+        $this->db->select('*');
+        $this->db->from('tb_pptk');
+        $this->db->where('id_skpd', $id_skpd);
+        return $this->db->get();
+    }
+
+    public function getConfig($key){
+		$this->db->select('value');
+		$this->db->from('tb_config');
+		$this->db->where('key', $key);
+		return $this->db->get();
+    }
+
     public function getDataUser($token){
         $this->db->select("*");
         $this->db->from("v_auth");
