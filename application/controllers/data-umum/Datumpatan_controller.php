@@ -13,11 +13,17 @@ class Datumpatan_controller extends CI_Controller {
 		if ($this->session->userdata('auth_id') != "") {
 			$this->load->view('pages/data-umum/pagu-kegiatan/data');
 		}
+		else{
+			redirect(base_url());
+		}
 	}
 
 	public function rincianPage(){
 		if ($this->session->userdata('auth_id') != "") {
 			$this->load->view('pages/data-umum/pagu-kegiatan/data-rincian');
+		}
+		else{
+			redirect(base_url());
 		}
 	}  
 
@@ -26,6 +32,9 @@ class Datumpatan_controller extends CI_Controller {
 			$result = $this->model->getDataProgram($id_skpd);
 			echo json_encode($result);
 		}
+		else{
+			redirect(base_url());
+		}
 	}
 
 	public function getDataPaguSKPD($id_skpd){
@@ -33,12 +42,18 @@ class Datumpatan_controller extends CI_Controller {
 			$result = $this->model->getDataPaguSKPD($id_skpd);
 			echo json_encode($result);
 		}
+		else{
+			redirect(base_url());
+		}
 	}
 
 	public function getDataKegiatan($id_skpd, $id_program){
 		if ($this->session->userdata('auth_id') != '') {
 			$result = $this->model->getDataKegiatan($id_skpd, $id_program);
 			echo json_encode($result);
+		}
+		else{
+			redirect(base_url());
 		}
 	}
 
@@ -65,6 +80,9 @@ class Datumpatan_controller extends CI_Controller {
 						);
 			}
 			echo json_encode($data);
+		}
+		else{
+			redirect(base_url());
 		}
 	}
 
@@ -241,6 +259,9 @@ class Datumpatan_controller extends CI_Controller {
 			}
 			echo json_encode($data);
 		}
+		else{
+			redirect(base_url());
+		}
 	}
 
 	public function saveData($id_rincian_obyek, $sumber_dana){
@@ -255,6 +276,9 @@ class Datumpatan_controller extends CI_Controller {
 				$this->model->updateData($id_rincian_obyek, $data);
 			}
 			echo json_encode(array("status"=>TRUE));
+		}
+		else{
+			redirect(base_url());
 		}
 	}
 }

@@ -13,6 +13,9 @@ class Laporrebela_controller extends CI_Controller {
 		if ($this->session->userdata('auth_id') != "") {
 			$this->load->view('pages/laporan/realisasi-belanja-langsung/data');
 		}
+		else{
+            redirect(base_url());
+        }
 	}
 
 	public function getMainDataAllSKPD($id_skpd){
@@ -43,6 +46,9 @@ class Laporrebela_controller extends CI_Controller {
 			}
 			echo json_encode($data);
 		}
+		else{
+            redirect(base_url());
+        }
 	}
 
 	public function getPrintData(){
@@ -1270,6 +1276,9 @@ class Laporrebela_controller extends CI_Controller {
 				header('Content-Disposition: attachment; filename="Laporan Realisasi - AP'.$jenis_realisasi.'.xls"');
 				$object_writer->save('php://output');
 			}
+		}
+		else{
+			redirect(base_url());
 		}
 	}
 }

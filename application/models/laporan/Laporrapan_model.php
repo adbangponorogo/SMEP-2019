@@ -42,7 +42,7 @@ class Laporrapan_model extends CI_Model {
         $this->db->select("distinct(a.id), a.*");
         $this->db->from("simda_program a");
         $this->db->join("tb_rup b", "a.id = b.id_program");
-        $this->db->where("a.id_skpd", $id_skpd);
+        // $this->db->where("a.id_skpd", $id_skpd);
         $this->db->where("a.kd_skpd", $kd_skpd);
         $this->db->where("b.jenis_pengadaan", $jenis_pengadaan);
         $data = $this->db->get();

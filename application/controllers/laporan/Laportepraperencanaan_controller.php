@@ -13,6 +13,9 @@ class Laportepraperencanaan_controller extends CI_Controller {
 		if ($this->session->userdata('auth_id') != "") {
 			$this->load->view('pages/laporan/tepra/perencanaan/data');
 		}
+		else{
+			redirect(base_url());
+		}
 	}
 	
 	public function getMainDataAllSKPD($id_skpd){
@@ -42,6 +45,9 @@ class Laportepraperencanaan_controller extends CI_Controller {
 				}
 			}
 			echo json_encode($data);
+		}
+		else{
+			redirect(base_url());
 		}
 	}
 
@@ -99,6 +105,9 @@ class Laportepraperencanaan_controller extends CI_Controller {
 					];
 			echo json_encode($data);
 		}
+		else{
+			redirect(base_url());
+		}
 	}
 
 	public function getDataPaketPaguRUP($id_skpd, $metode_pemilihan){
@@ -108,6 +117,9 @@ class Laportepraperencanaan_controller extends CI_Controller {
 				$data = [[number_format($rows->pagu_paket)]];
 			}
 			echo json_encode($data);
+		}
+		else{
+			redirect(base_url());
 		}
 	}
 
@@ -133,11 +145,13 @@ class Laportepraperencanaan_controller extends CI_Controller {
 			}
 			echo json_encode($data);
 		}
+		else{
+			redirect(base_url());
+		}
 	}
 
 	public function getDataRekapRUP($id_skpd){
 		if ($this->session->userdata('auth_id') != '') {
-
 			// ---------- Barang -----------
 			$result_penyedia_barang1 = $this->model->getDataRekapRUP($id_skpd, 1, 1, "and pagu_paket <= 200000000");
 			foreach ($result_penyedia_barang1->result() as $rows_penyedia_barang1) {
@@ -870,6 +884,9 @@ class Laportepraperencanaan_controller extends CI_Controller {
 				header('Content-Disposition: attachment; filename="Laporan TEPRA Perencanaan - '.$nama_skpd.'.xls"');
 				$object_writer->save('php://output');
 			}
+		}
+		else{
+			redirect(base_url());
 		}
 	}
 }

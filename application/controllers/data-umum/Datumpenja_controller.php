@@ -13,6 +13,9 @@ class Datumpenja_controller extends CI_Controller {
 		if ($this->session->userdata('auth_id') != "") {
 			$this->load->view('pages/data-umum/penanggung-jawab/data');
 		}
+		else{
+			redirect(base_url());
+		}
 	}
 
 	public function getData($id_skpd){
@@ -49,6 +52,9 @@ class Datumpenja_controller extends CI_Controller {
 			}
 			echo json_encode($data);
 		}
+		else{
+			redirect(base_url());
+		}
 	}
 
 	public function sendData(){
@@ -64,6 +70,9 @@ class Datumpenja_controller extends CI_Controller {
 					);
 			$this->model->insertData($data);
 			echo json_encode(array("status"=>TRUE));	
+		}
+		else{
+			redirect(base_url());
 		}
 	}
 
@@ -84,6 +93,9 @@ class Datumpenja_controller extends CI_Controller {
 			}
 			echo json_encode($data);
 		}
+		else{
+			redirect(base_url());
+		}
 	}
 	
 	public function updateData(){
@@ -99,12 +111,18 @@ class Datumpenja_controller extends CI_Controller {
 			$this->model->updateData($this->input->post("token"), $data);
 			echo json_encode(array("status"=>TRUE));	
 		}
+		else{
+			redirect(base_url());
+		}
 	}
 
 	public function trashData($token){
 		if ($this->session->userdata('auth_id')) {
 			$this->model->deleteData($token);
 			echo json_encode(array("status"=>TRUE));
+		}
+		else{
+			redirect(base_url());
 		}
 	}
 }

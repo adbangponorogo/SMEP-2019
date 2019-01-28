@@ -33,6 +33,9 @@ class Applogin_controller extends MY_Controller {
 				echo json_encode(array("status"=>TRUE));
 			}
 		}
+		else{
+			redirect(base_url());
+		}
 	} 
 
 	public function checkSession(){
@@ -45,10 +48,24 @@ class Applogin_controller extends MY_Controller {
 	}
 
 	public function logoutProcess(){
+<<<<<<< HEAD
 		if (!empty($this->session->userdata('auth_id'))) {
 			$this->session->unset_userdata(array('auth_id'));
 		}
+=======
+// <<<<<<< HEAD
+// 		if ($this->session->userdata('auth_id') != '') {
+// 			$this->session->unset_userdata(array('auth_id'));
+// 			echo json_encode(array("status"=>TRUE));
+// 		}
+// 		else{
+// 			redirect(base_url());
+// 		}
+// =======
+		$this->session->unset_userdata(array('auth_id', 'skpd_id'));
+>>>>>>> 0409f1987e9cf982820da4a66fd73114a38a0a0a
 		echo json_encode(array("status"=>TRUE));
+// >>>>>>> 6763160db7f75fffb8619304914b5f983e96100a
 	}
 
 }

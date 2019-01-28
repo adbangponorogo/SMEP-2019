@@ -13,18 +13,27 @@ class Endarup_controller extends CI_Controller {
 		if ($this->session->userdata('auth_id') != "") {
 			$this->load->view('pages/entry-data/rup/data');
 		}
+          else{
+               redirect(base_url());
+          }
 	}
 
 	public function registerDataPage(){
 		if ($this->session->userdata('auth_id') != "") {
 			$this->load->view('pages/entry-data/rup/data-register');
 		}
+          else{
+               redirect(base_url());
+          }
 	}
 
 	public function editDataPage(){
 		if ($this->session->userdata('auth_id') != "") {
 			$this->load->view('pages/entry-data/rup/data-edit');
 		}
+          else{
+               redirect(base_url());
+          }
 	}
 
      public function getDataUser(){
@@ -39,6 +48,9 @@ class Endarup_controller extends CI_Controller {
                               );
                }
                echo json_encode($data); 
+          }
+          else{
+               redirect(base_url());
           }
      }
 
@@ -67,269 +79,292 @@ class Endarup_controller extends CI_Controller {
 			}
 			echo json_encode($data); 
 		}
+          else{
+               redirect(base_url());
+          }
 	}
 
 	public function getMainDataAllProgram($id_skpd){
-     	$result = $this->model->getMainDataAllProgram($id_skpd);
-     	$data = array();
-     	$no = 1;
-     	foreach ($result->result() as $rows) {
-     		switch ($rows->jenis_belanja) {
-     			case '1':
-     				$jenis_belanja = "Belanja Pegawai";
-     			break;
-     			case '2':
-     				$jenis_belanja = "Belanja Barang/Jasa";
-     			break;
-     			case '3':
-     				$jenis_belanja = "Belanja Modal";
-     			break;
-     			case '4':
-     				$jenis_belanja = "Belum Teridentifikasi";
-     			break;
-                    case '5':
-                         $jenis_belanja = "Belanja Bunga Utang";
-                    break;
-                    case '6':
-                         $jenis_belanja = "Belanja Subsidi";
-                    break;
-                    case '7':
-                         $jenis_belanja = "Belanja Hibah";
-                    break;
-                    case '8':
-                         $jenis_belanja = "Belanja Bantuan Sosial";
-                    break;
-                    case '9':
-                         $jenis_belanja = "Belanja Lain-Lain";
-                    break;
-     			
-     			default:
-     				$jenis_belanja = "Belanja Pegawai";
-     			break;
-     		}
+          if ($this->session->userdata('auth_id') != "") {
+               $result = $this->model->getMainDataAllProgram($id_skpd);
+               $data = array();
+               $no = 1;
+               foreach ($result->result() as $rows) {
+                    switch ($rows->jenis_belanja) {
+                         case '1':
+                              $jenis_belanja = "Belanja Pegawai";
+                         break;
+                         case '2':
+                              $jenis_belanja = "Belanja Barang/Jasa";
+                         break;
+                         case '3':
+                              $jenis_belanja = "Belanja Modal";
+                         break;
+                         case '4':
+                              $jenis_belanja = "Belum Teridentifikasi";
+                         break;
+                         case '5':
+                              $jenis_belanja = "Belanja Bunga Utang";
+                         break;
+                         case '6':
+                              $jenis_belanja = "Belanja Subsidi";
+                         break;
+                         case '7':
+                              $jenis_belanja = "Belanja Hibah";
+                         break;
+                         case '8':
+                              $jenis_belanja = "Belanja Bantuan Sosial";
+                         break;
+                         case '9':
+                              $jenis_belanja = "Belanja Lain-Lain";
+                         break;
+                         
+                         default:
+                              $jenis_belanja = "Belanja Pegawai";
+                         break;
+                    }
 
-               $keterangan_metode_pemilihan = [":: Swakelola ::", "E-Purchasing", "Tender", "Tender Cepat", "Pengadaan Langsung", "Penunjukkan Langsung", "Seleksi"];
-               if ($rows->cara_pengadaan == 1 || $rows->cara_pengadaan == 2 || $rows->cara_pengadaan == 3 || $rows->cara_pengadaan == 4 || $rows->cara_pengadaan == 5 || $rows->cara_pengadaan == 6) {
-                    $metode_pemilihan = $rows->metode_pemilihan;
+                    $keterangan_metode_pemilihan = [":: Swakelola ::", "E-Purchasing", "Tender", "Tender Cepat", "Pengadaan Langsung", "Penunjukkan Langsung", "Seleksi"];
+                    if ($rows->cara_pengadaan == 1 || $rows->cara_pengadaan == 2 || $rows->cara_pengadaan == 3 || $rows->cara_pengadaan == 4 || $rows->cara_pengadaan == 5 || $rows->cara_pengadaan == 6) {
+                         $metode_pemilihan = $rows->metode_pemilihan;
+                    }
+                    else{
+                         $metode_pemilihan = 0;
+                    }
+
+                    $row_first = $no++."<input type='checkbox' name='token_data[]' style='margin-left:5px;' class='rupenda-delete-data' value='".$rows->id."'>";
+
+                    $data[] = array(
+                                   $row_first,
+                                   $rows->nama_paket,
+                                   $jenis_belanja,
+                                   $keterangan_metode_pemilihan[$metode_pemilihan],
+                                   number_format($rows->pagu_paket),
+                                   "<button class='btn btn-primary btn-sm smep-rupenda-edit-btn' data-id='".$rows->id."'><i class='fa fa-edit'></i>&nbsp;Edit</button>".
+                                   "&nbsp;<button class='btn btn-danger btn-sm smep-rupenda-delete-btn' data-id='".$rows->id."'><i class='fa fa-trash'></i>&nbsp;Hapus</button>"
+                              );
                }
-               else{
-                    $metode_pemilihan = 0;
-               }
-
-               $row_first = $no++."<input type='checkbox' name='token_data[]' style='margin-left:5px;' class='rupenda-delete-data' value='".$rows->id."'>";
-
-     		$data[] = array(
-     					$row_first,
-     					$rows->nama_paket,
-     					$jenis_belanja,
-                              $keterangan_metode_pemilihan[$metode_pemilihan],
-     					number_format($rows->pagu_paket),
-     					"<button class='btn btn-primary btn-sm smep-rupenda-edit-btn' data-id='".$rows->id."'><i class='fa fa-edit'></i>&nbsp;Edit</button>".
-						"&nbsp;<button class='btn btn-danger btn-sm smep-rupenda-delete-btn' data-id='".$rows->id."'><i class='fa fa-trash'></i>&nbsp;Hapus</button>"
-     				);
-     	}
-     	echo json_encode($data);   
-    }
+               echo json_encode($data);
+          }
+          else{
+               redirect(base_url());
+          }
+     }
 
     public function getMainDataAllKegiatan($id_skpd, $id_program){
-     	$result = $this->model->getMainDataAllKegiatan($id_skpd, $id_program);
-     	$data = array();
-     	$no = 1;
-     	foreach ($result->result() as $rows) {
-     		switch ($rows->jenis_belanja) {
-                    case '1':
-                         $jenis_belanja = "Belanja Pegawai";
-                    break;
-                    case '2':
-                         $jenis_belanja = "Belanja Barang/Jasa";
-                    break;
-                    case '3':
-                         $jenis_belanja = "Belanja Modal";
-                    break;
-                    case '4':
-                         $jenis_belanja = "Belum Teridentifikasi";
-                    break;
-                    case '5':
-                         $jenis_belanja = "Belanja Bunga Utang";
-                    break;
-                    case '6':
-                         $jenis_belanja = "Belanja Subsidi";
-                    break;
-                    case '7':
-                         $jenis_belanja = "Belanja Hibah";
-                    break;
-                    case '8':
-                         $jenis_belanja = "Belanja Bantuan Sosial";
-                    break;
-                    case '9':
-                         $jenis_belanja = "Belanja Lain-Lain";
-                    break;
-                    
-                    default:
-                         $jenis_belanja = "Belanja Pegawai";
-                    break;
+          if ($this->session->userdata('auth_id') != "") {
+               $result = $this->model->getMainDataAllKegiatan($id_skpd, $id_program);
+               $data = array();
+               $no = 1;
+               foreach ($result->result() as $rows) {
+                    switch ($rows->jenis_belanja) {
+                         case '1':
+                              $jenis_belanja = "Belanja Pegawai";
+                         break;
+                         case '2':
+                              $jenis_belanja = "Belanja Barang/Jasa";
+                         break;
+                         case '3':
+                              $jenis_belanja = "Belanja Modal";
+                         break;
+                         case '4':
+                              $jenis_belanja = "Belum Teridentifikasi";
+                         break;
+                         case '5':
+                              $jenis_belanja = "Belanja Bunga Utang";
+                         break;
+                         case '6':
+                              $jenis_belanja = "Belanja Subsidi";
+                         break;
+                         case '7':
+                              $jenis_belanja = "Belanja Hibah";
+                         break;
+                         case '8':
+                              $jenis_belanja = "Belanja Bantuan Sosial";
+                         break;
+                         case '9':
+                              $jenis_belanja = "Belanja Lain-Lain";
+                         break;
+                         
+                         default:
+                              $jenis_belanja = "Belanja Pegawai";
+                         break;
+                    }
+
+                    switch ($rows->cara_pengadaan) {
+                         case '1':
+                              $cara_pengadaan = "Penyedia";
+                         break;
+                         case '2':
+                              $cara_pengadaan = "Swakelola";
+                         break;
+                         
+                         default:
+                              $cara_pengadaan = "Penyedia";
+                         break;
+                    }
+
+                    $row_first = $no++."<input type='checkbox' name='token_data[]' style='margin-left:5px;' class='rupenda-delete-data' value='".$rows->id."'>";
+
+                    $data[] = array(
+                                   $row_first,
+                                   $rows->nama_paket,
+                                   $jenis_belanja,
+                                   $cara_pengadaan,
+                                   number_format($rows->pagu_paket),
+                                   "<button class='btn btn-primary btn-sm smep-rupenda-edit-btn' data-id='".$rows->id."'><i class='fa fa-edit'></i>&nbsp;Edit</button>".
+                                   "&nbsp;<button class='btn btn-danger btn-sm smep-rupenda-delete-btn' data-id='".$rows->id."'><i class='fa fa-trash'></i>&nbsp;Hapus</button>"
+                              );
                }
-
-               switch ($rows->cara_pengadaan) {
-                    case '1':
-                         $cara_pengadaan = "Penyedia";
-                    break;
-                    case '2':
-                         $cara_pengadaan = "Swakelola";
-                    break;
-                    
-                    default:
-                         $cara_pengadaan = "Penyedia";
-                    break;
-               }
-
-               $row_first = $no++."<input type='checkbox' name='token_data[]' style='margin-left:5px;' class='rupenda-delete-data' value='".$rows->id."'>";
-
-               $data[] = array(
-                              $row_first,
-                              $rows->nama_paket,
-                              $jenis_belanja,
-                              $cara_pengadaan,
-                              number_format($rows->pagu_paket),
-                              "<button class='btn btn-primary btn-sm smep-rupenda-edit-btn' data-id='".$rows->id."'><i class='fa fa-edit'></i>&nbsp;Edit</button>".
-                              "&nbsp;<button class='btn btn-danger btn-sm smep-rupenda-delete-btn' data-id='".$rows->id."'><i class='fa fa-trash'></i>&nbsp;Hapus</button>"
-                         );
-     	}
-     	echo json_encode($data);   
+               echo json_encode($data);
+          }
+          else{
+               redirect(base_url());
+          }   
     }
 
     public function getMainDataAllRincianObyek($id_skpd, $id_program, $id_kegiatan){
-     	$result = $this->model->getMainDataAllRincianObyek($id_skpd, $id_program, $id_kegiatan);
-     	$data = array();
-     	$no = 1;
-     	foreach ($result->result() as $rows) {
-     		switch ($rows->jenis_belanja) {
-                    case '1':
-                         $jenis_belanja = "Belanja Pegawai";
-                    break;
-                    case '2':
-                         $jenis_belanja = "Belanja Barang/Jasa";
-                    break;
-                    case '3':
-                         $jenis_belanja = "Belanja Modal";
-                    break;
-                    case '4':
-                         $jenis_belanja = "Belum Teridentifikasi";
-                    break;
-                    case '5':
-                         $jenis_belanja = "Belanja Bunga Utang";
-                    break;
-                    case '6':
-                         $jenis_belanja = "Belanja Subsidi";
-                    break;
-                    case '7':
-                         $jenis_belanja = "Belanja Hibah";
-                    break;
-                    case '8':
-                         $jenis_belanja = "Belanja Bantuan Sosial";
-                    break;
-                    case '9':
-                         $jenis_belanja = "Belanja Lain-Lain";
-                    break;
-                    
-                    default:
-                         $jenis_belanja = "Belanja Pegawai";
-                    break;
+          if ($this->session->userdata('auth_id') != "") {
+               $result = $this->model->getMainDataAllRincianObyek($id_skpd, $id_program, $id_kegiatan);
+               $data = array();
+               $no = 1;
+               foreach ($result->result() as $rows) {
+                    switch ($rows->jenis_belanja) {
+                         case '1':
+                              $jenis_belanja = "Belanja Pegawai";
+                         break;
+                         case '2':
+                              $jenis_belanja = "Belanja Barang/Jasa";
+                         break;
+                         case '3':
+                              $jenis_belanja = "Belanja Modal";
+                         break;
+                         case '4':
+                              $jenis_belanja = "Belum Teridentifikasi";
+                         break;
+                         case '5':
+                              $jenis_belanja = "Belanja Bunga Utang";
+                         break;
+                         case '6':
+                              $jenis_belanja = "Belanja Subsidi";
+                         break;
+                         case '7':
+                              $jenis_belanja = "Belanja Hibah";
+                         break;
+                         case '8':
+                              $jenis_belanja = "Belanja Bantuan Sosial";
+                         break;
+                         case '9':
+                              $jenis_belanja = "Belanja Lain-Lain";
+                         break;
+                         
+                         default:
+                              $jenis_belanja = "Belanja Pegawai";
+                         break;
+                    }
+
+                    switch ($rows->cara_pengadaan) {
+                         case '1':
+                              $cara_pengadaan = "Penyedia";
+                         break;
+                         case '2':
+                              $cara_pengadaan = "Swakelola";
+                         break;
+                         
+                         default:
+                              $cara_pengadaan = "Penyedia";
+                         break;
+                    }
+
+                    $row_first = $no++."<input type='checkbox' name='token_data[]' style='margin-left:5px;' class='rupenda-delete-data' value='".$rows->id."'>";
+
+                    $data[] = array(
+                                   $row_first,
+                                   $rows->nama_paket,
+                                   $jenis_belanja,
+                                   $cara_pengadaan,
+                                   number_format($rows->pagu_paket),
+                                   "<button class='btn btn-primary btn-sm smep-rupenda-edit-btn' data-id='".$rows->id."'><i class='fa fa-edit'></i>&nbsp;Edit</button>".
+                                   "&nbsp;<button class='btn btn-danger btn-sm smep-rupenda-delete-btn' data-id='".$rows->id."'><i class='fa fa-trash'></i>&nbsp;Hapus</button>"
+                              );
                }
-
-               switch ($rows->cara_pengadaan) {
-                    case '1':
-                         $cara_pengadaan = "Penyedia";
-                    break;
-                    case '2':
-                         $cara_pengadaan = "Swakelola";
-                    break;
-                    
-                    default:
-                         $cara_pengadaan = "Penyedia";
-                    break;
-               }
-
-               $row_first = $no++."<input type='checkbox' name='token_data[]' style='margin-left:5px;' class='rupenda-delete-data' value='".$rows->id."'>";
-
-               $data[] = array(
-                              $row_first,
-                              $rows->nama_paket,
-                              $jenis_belanja,
-                              $cara_pengadaan,
-                              number_format($rows->pagu_paket),
-                              "<button class='btn btn-primary btn-sm smep-rupenda-edit-btn' data-id='".$rows->id."'><i class='fa fa-edit'></i>&nbsp;Edit</button>".
-                              "&nbsp;<button class='btn btn-danger btn-sm smep-rupenda-delete-btn' data-id='".$rows->id."'><i class='fa fa-trash'></i>&nbsp;Hapus</button>"
-                         );
-     	}
-     	echo json_encode($data);   
+               echo json_encode($data);
+          }
+          else{
+               redirect(base_url());
+          }
     }
     public function getMainDataUniqueRincianObyek($id_skpd, $id_program, $id_kegiatan, $id_rincian_obyek){
-     	$result = $this->model->getMainDataUniqueRincianObyek($id_skpd, $id_program, $id_kegiatan, $id_rincian_obyek);
-     	$data = array();
-     	$no = 1;
-     	foreach ($result->result() as $rows) {
-     		switch ($rows->jenis_belanja) {
-                    case '1':
-                         $jenis_belanja = "Belanja Pegawai";
-                    break;
-                    case '2':
-                         $jenis_belanja = "Belanja Barang/Jasa";
-                    break;
-                    case '3':
-                         $jenis_belanja = "Belanja Modal";
-                    break;
-                    case '4':
-                         $jenis_belanja = "Belum Teridentifikasi";
-                    break;
-                    case '5':
-                         $jenis_belanja = "Belanja Bunga Utang";
-                    break;
-                    case '6':
-                         $jenis_belanja = "Belanja Subsidi";
-                    break;
-                    case '7':
-                         $jenis_belanja = "Belanja Hibah";
-                    break;
-                    case '8':
-                         $jenis_belanja = "Belanja Bantuan Sosial";
-                    break;
-                    case '9':
-                         $jenis_belanja = "Belanja Lain-Lain";
-                    break;
-                    
-                    default:
-                         $jenis_belanja = "Belanja Pegawai";
-                    break;
+          if ($this->session->userdata('auth_id') != "") {
+               $result = $this->model->getMainDataUniqueRincianObyek($id_skpd, $id_program, $id_kegiatan, $id_rincian_obyek);
+               $data = array();
+               $no = 1;
+               foreach ($result->result() as $rows) {
+                    switch ($rows->jenis_belanja) {
+                         case '1':
+                              $jenis_belanja = "Belanja Pegawai";
+                         break;
+                         case '2':
+                              $jenis_belanja = "Belanja Barang/Jasa";
+                         break;
+                         case '3':
+                              $jenis_belanja = "Belanja Modal";
+                         break;
+                         case '4':
+                              $jenis_belanja = "Belum Teridentifikasi";
+                         break;
+                         case '5':
+                              $jenis_belanja = "Belanja Bunga Utang";
+                         break;
+                         case '6':
+                              $jenis_belanja = "Belanja Subsidi";
+                         break;
+                         case '7':
+                              $jenis_belanja = "Belanja Hibah";
+                         break;
+                         case '8':
+                              $jenis_belanja = "Belanja Bantuan Sosial";
+                         break;
+                         case '9':
+                              $jenis_belanja = "Belanja Lain-Lain";
+                         break;
+                         
+                         default:
+                              $jenis_belanja = "Belanja Pegawai";
+                         break;
+                    }
+
+                    switch ($rows->cara_pengadaan) {
+                         case '1':
+                              $cara_pengadaan = "Penyedia";
+                         break;
+                         case '2':
+                              $cara_pengadaan = "Swakelola";
+                         break;
+                         
+                         default:
+                              $cara_pengadaan = "Penyedia";
+                         break;
+                    }
+
+                    $row_first = $no++."<input type='checkbox' name='token_data[]' style='margin-left:5px;' class='rupenda-delete-data' value='".$rows->id."'>";
+
+                    $data[] = array(
+                                   $row_first,
+                                   $rows->nama_paket,
+                                   $jenis_belanja,
+                                   $cara_pengadaan,
+                                   number_format($rows->pagu_paket),
+                                   "<button class='btn btn-primary btn-sm smep-rupenda-edit-btn' data-id='".$rows->id."'><i class='fa fa-edit'></i>&nbsp;Edit</button>".
+                                   "&nbsp;<button class='btn btn-danger btn-sm smep-rupenda-delete-btn' data-id='".$rows->id."'><i class='fa fa-trash'></i>&nbsp;Hapus</button>"
+                              );
                }
-
-               switch ($rows->cara_pengadaan) {
-                    case '1':
-                         $cara_pengadaan = "Penyedia";
-                    break;
-                    case '2':
-                         $cara_pengadaan = "Swakelola";
-                    break;
-                    
-                    default:
-                         $cara_pengadaan = "Penyedia";
-                    break;
-               }
-
-               $row_first = $no++."<input type='checkbox' name='token_data[]' style='margin-left:5px;' class='rupenda-delete-data' value='".$rows->id."'>";
-
-               $data[] = array(
-                              $row_first,
-                              $rows->nama_paket,
-                              $jenis_belanja,
-                              $cara_pengadaan,
-                              number_format($rows->pagu_paket),
-                              "<button class='btn btn-primary btn-sm smep-rupenda-edit-btn' data-id='".$rows->id."'><i class='fa fa-edit'></i>&nbsp;Edit</button>".
-                              "&nbsp;<button class='btn btn-danger btn-sm smep-rupenda-delete-btn' data-id='".$rows->id."'><i class='fa fa-trash'></i>&nbsp;Hapus</button>"
-                         );
-     	}
-     	echo json_encode($data);   
-    }
+               echo json_encode($data);
+          }
+          else{
+               redirect(base_url());
+          }
+     }
 
 	public function getDataMAK($token){
 		if ($this->session->userdata("auth_id") != "") {
@@ -342,6 +377,9 @@ class Endarup_controller extends CI_Controller {
 			$kd_opd 			= $kd_urusan.".".$kd_kelompok_urusan.".".sprintf("%03s", $skpd[2]);
 			echo json_encode(array($kd_urusan, $kd_kelompok_urusan, $kd_opd));
 		}
+          else{
+               redirect(base_url());
+          }
 	}
 
 	public function getDataProgram($id_skpd){
@@ -349,6 +387,9 @@ class Endarup_controller extends CI_Controller {
 			$result = $this->model->getDataProgram($id_skpd);
 			echo json_encode($result);
 		}
+          else{
+               redirect(base_url());
+          }
 	}
 
 	public function getDataKegiatan($id_program){
@@ -356,6 +397,9 @@ class Endarup_controller extends CI_Controller {
 			$result = $this->model->getDataKegiatan($id_program);
 			echo json_encode($result);
 		}
+          else{
+               redirect(base_url());
+          }
 	}
 
 	public function getDataRincianObyek($id_kegiatan){
@@ -363,6 +407,9 @@ class Endarup_controller extends CI_Controller {
 			$result = $this->model->getDataRincianObyek($id_kegiatan);
 			echo json_encode($result);
 		}
+          else{
+               redirect(base_url());
+          }
 	}
 
 	public function getDataRincianObyekUnique($token){
@@ -370,6 +417,9 @@ class Endarup_controller extends CI_Controller {
 			$result = $this->model->getDataRincianObyekUnique($token);
 			echo json_encode($result);
 		}
+          else{
+               redirect(base_url());
+          }
 	}
 
      public function getDataSKPD($id_skpd){
@@ -383,6 +433,9 @@ class Endarup_controller extends CI_Controller {
                     }
                }
                echo json_encode($data);
+          }
+          else{
+               redirect(base_url());
           }
      }
 
@@ -398,6 +451,9 @@ class Endarup_controller extends CI_Controller {
                               );
                }
                echo json_encode($data); 
+          }
+          else{
+               redirect(base_url());
           }
      }
 
@@ -520,6 +576,9 @@ class Endarup_controller extends CI_Controller {
 			$this->model->insertData($data);
 			echo json_encode(array("status"=>TRUE));
 		}
+          else{
+               redirect(base_url());
+          }
 	}
 
 	public function changeData($token){
@@ -600,6 +659,9 @@ class Endarup_controller extends CI_Controller {
 			}
 			echo json_encode($data);
 		}
+          else{
+               redirect(base_url());
+          }
 	}
 
      public function updateData(){
@@ -653,12 +715,18 @@ class Endarup_controller extends CI_Controller {
                $this->model->updateData($this->input->post("token"), $data);
                echo json_encode(array("status"=>TRUE));
           }
+          else{
+               redirect(base_url());
+          }
      }
 
      public function trashData($token){
           if ($this->session->userdata('auth_id') != "") {
                $this->model->deleteData($token);
                echo json_encode(array("status"=>TRUE));
+          }
+          else{
+               redirect(base_url());
           }
      }
 
@@ -669,6 +737,9 @@ class Endarup_controller extends CI_Controller {
                     $this->model->deleteData($rows);
                }
                echo json_encode(array("status"=>TRUE));
+          }
+          else{
+               redirect(base_url());
           }
      }
 }
