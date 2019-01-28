@@ -1,23 +1,16 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Rp_controller extends CI_Controller {
+class Rp_controller extends MY_Admin_Controller {
 
 	public function __construct()
 	{
 		parent::__construct();
-		if (empty($this->session->userdata('auth_id'))) { //Filter untuk semua
-			if (stristr(uri_string(), 'main-page'))
-				$this->load->view('pages/errors/data');
-			else
-				redirect(base_url());
-		}
-		$this->load->model('Main_model', 'model');
 		$this->load->model('laporan/Rp_model', 'rp_model');
 	}
 
 	public function index(){
-		if (empty($this->model->getKaSKPD($this->session->userdata('skpd_id'))->row()->nama)) { //Filter khusus modul laporan
+		if (empty($this->model->getKaSKPD($this->session->userdata('auth_id'))->row()->nama)) { //Filter khusus modul laporan
 			$this->load->view('pages/laporan/errors/data-ka-skpd-kosong');
 		}
 		else {			
@@ -56,28 +49,24 @@ class Rp_controller extends CI_Controller {
 	}
 
 	public function getPrintData(){
-		$skpd = $this->input->post('skpd');
+		$id_skpd = $this->input->post('skpd');
 		$jenis_pengadaan = $this->input->post('jenis_pengadaan');
 		$tgl_cetak = $this->input->post('tgl_cetak');
 		$tahun = $this->input->post('tahun');
 
-		echo '1'.$this->model->getKaSKPD($skpd)->row()->nama;
-		if (empty($this->model->getKaSKPD($skpd)->row()->nama)) die ('Kepala SKPD belum dientrikan! Klik <a href="'.base_url().'">disini</a> untuk kembali.');
-		echo '2'.$this->model->getKaSKPD($skpd)->row()->nama;
-		
-		$kd_skpd = $this->model->getSKPD($skpd)->row()->kd_skpd;
-		$nama_skpd = $this->model->getSKPD($skpd)->row()->nama_skpd;
+		$kd_skpd = $this->model->getSKPD($id_skpd)->row()->kd_skpd;
+		$nama_skpd = $this->model->getSKPD($id_skpd)->row()->nama_skpd;
 		$klpd = $this->model->getConfig('klpd')->row()->value;
 		$footerlap = $this->model->getConfig('footerlap')->row()->value;
 		
- 		$this->load->library('Excel');
- 		$this->load->helper('office_helper');
- 		$this->load->helper('other_helper');
+		$this->load->library('Excel');
+		$this->load->helper('office_helper');
+		$this->load->helper('other_helper');
 
 		$nama_jenis_pengadaan = getJenisPengadaan($jenis_pengadaan);
 
 		$r = PHPExcel_IOFactory::createReader('Excel2007');
-		$p = $r->load('assets/tpl/rp.xlsx');
+		$p = $r->load(TPLPATH.'rp.xlsx');
 		$x = $p->getActiveSheet();
 
 		$x->setCellValue('D3', ': '.strtoupper($nama_skpd));
@@ -166,7 +155,7 @@ class Rp_controller extends CI_Controller {
 			$row,
 			$klpd,
 			$tgl_cetak,
-			$this->model->getKaSKPD($skpd)->row(),//data kepala SKPD
+			$this->model->getKaSKPD($id_skpd, false)->row(),//data kepala SKPD
 			'I' // Posisi kolom penanggungjawab
 		);
 		

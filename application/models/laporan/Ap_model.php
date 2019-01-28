@@ -9,9 +9,9 @@ class Ap_model extends CI_Model {
     }
 
     public function getProg($kd_skpd){
-        $this->db->select('a.*, SUM(b.jumlah) jumlah');
+        $this->db->select('a.*, b.sumber_dana, SUM(b.jumlah) jumlah');
         $this->db->from('simda_program a');
-        $this->db->join("simda_rincian_obyek b", "a.kd_skpd = b.kd_skpd AND a.id=b.id_parent_prog");
+        $this->db->join("v_rincian_obyek b", "a.kd_skpd = b.kd_skpd AND a.id=b.id_parent_prog");
         $this->db->group_by('a.id');
         $this->db->where('a.kd_skpd', $kd_skpd);
         return $this->db->get();
@@ -20,7 +20,7 @@ class Ap_model extends CI_Model {
     public function getKeg($id_parent_prog){
         $this->db->select('a.*, SUM(b.jumlah) jumlah');
         $this->db->from('simda_kegiatan a');
-        $this->db->join("simda_rincian_obyek b", "a.id=b.id_parent_keg");
+        $this->db->join("v_rincian_obyek b", "a.id=b.id_parent_keg");
         $this->db->group_by('a.id');
         $this->db->where('a.id_parent_prog', $id_parent_prog);
         return $this->db->get();
@@ -28,7 +28,7 @@ class Ap_model extends CI_Model {
 
     public function getRO($id_parent_keg){
         $this->db->select('*');
-        $this->db->from('simda_rincian_obyek');
+        $this->db->from('v_rincian_obyek');
         $this->db->where('id_parent_keg', $id_parent_keg);
         return $this->db->get();
     }

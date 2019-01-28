@@ -15,10 +15,15 @@ class Main_model extends CI_Model {
         return $this->db->get();
     }
 
-    public function getKaSKPD($id_skpd){
-        $this->db->select('*');
-        $this->db->from('tb_pptk');
-        $this->db->where('id_skpd', $id_skpd);
+    public function getKaSKPD($id, $auth=true){
+        $this->db->select('a.*');
+        $this->db->from('tb_pptk a');
+        $this->db->join("v_auth b", "a.id_skpd = b.id_skpd");
+        $this->db->where('a.status', 3);
+		if ($auth)
+			$this->db->where('b.id', $id);
+		else
+			$this->db->where('a.id_skpd', $id);
         return $this->db->get();
     }
 
