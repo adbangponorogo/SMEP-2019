@@ -16,3 +16,15 @@ class MY_Controller extends CI_Controller {
 	}
 
 }
+
+class Admin_Controller extends MY_Controller {
+
+	public function __construct()
+	{
+		parent::__construct();
+		if (empty($this->session->userdata('auth_id'))) { //Filter untuk semua
+			$this->load->view('pages/errors/data');
+		}
+	}
+
+}
