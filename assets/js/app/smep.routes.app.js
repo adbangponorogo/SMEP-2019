@@ -10,61 +10,72 @@ jQuery(document).ready(function(){
 
 	// --------------- Application --------------- //
 	jQuery(document).on("click", ".smep-app-dashboard-page", function(){
-		jQuery(".smep-content-page").load("app/dashboard/main-page");
+		var url = "app/dashboard/main-page";
+		appMainCheckSession(url);
 		return false;
 	});
 
 
 	// --------------- Data Umum --------------- //
 	jQuery(document).on("click", ".smep-datum-penja-page", function(){
-		jQuery(".smep-content-page").load("data-umum/penanggung-jawab/main-page");
+		var url = "data-umum/penanggung-jawab/main-page";
+		appMainCheckSession(url);
 		return false;
 	});
 
 	jQuery(document).on("click", ".smep-datum-daftan-page", function(){
-		jQuery(".smep-content-page").load("data-umum/kegiatan/main-page");
+		var url = "data-umum/kegiatan/main-page";
+		appMainCheckSession(url);
 		return false;
 	});
 
 	jQuery(document).on("click", ".smep-datum-dator-page", function(){
-		jQuery(".smep-content-page").load("data-umum/data-organisasi/main-page");
+		var url = "data-umum/data-organisasi/main-page";
+		appMainCheckSession(url);
 		return false;
 	});
 
 	jQuery(document).on("click", ".smep-datum-patan-page", function(){
-		jQuery(".smep-content-page").load("data-umum/pagu-kegiatan/main-page");
+		var url = "data-umum/pagu-kegiatan/main-page";
+		appMainCheckSession(url);
 		return false;
 	});
 
 	jQuery(document).on("click", ".smep-datum-dapan-page", function(){
-		jQuery(".smep-content-page").load("data-umum/pencairan-sppd/main-page");
+		var url = "data-umum/pencairan-sppd/main-page";
+		appMainCheckSession(url);
 		return false;
 	});
 
 	jQuery(document).on("click", ".smep-datum-tangan-page", function(){
-		jQuery(".smep-content-page").load("data-umum/target-keuangan/main-page");
+		var url = "data-umum/target-keuangan/main-page";
+		appMainCheckSession(url);
 		return false;
 	});
 
 	jQuery(document).on("click", ".smep-datum-tasik-page", function(){
-		jQuery(".smep-content-page").load("data-umum/target-fisik/main-page");
+		var url = "data-umum/target-fisik/main-page";
+		appMainCheckSession(url);
 		return false;
 	});
  
 
 	// --------------- Entry Data --------------- //
 	jQuery(document).on("click", ".smep-enda-rup-page", function(){
-		jQuery(".smep-content-page").load("entry-data/data-rup/main-page");
+		var url = "entry-data/data-rup/main-page";
+		appMainCheckSession(url);
 		return false;
 	});
 	
 	jQuery(document).on("click", ".smep-enda-sirup-page", function(){
-		jQuery(".smep-content-page").load("entry-data/realisasi-rup/main-page");
+		var url = "entry-data/realisasi-rup/main-page";
+		appMainCheckSession(url);
 		return false;
 	});
 
 	jQuery(document).on("click", ".smep-enda-sitepra-page", function(){
-		jQuery(".smep-content-page").load("entry-data/realisasi-tepra/main-page");
+		var url = "entry-data/realisasi-tepra/main-page";
+		appMainCheckSession(url);
 		return false;
 	});
 
@@ -72,49 +83,58 @@ jQuery(document).ready(function(){
 	// --------------- Laporan Danang --------------- //
 
 	jQuery(document).on("click", ".danang-smep-lapor-rapan-page", function(){
-		jQuery(".smep-content-page").load("laporan/rp/main-page");
+		var url = "laporan/rp/main-page";
+		appMainCheckSession(url);
 		return false;
 	});
 
 	jQuery(document).on("click", ".danang-smep-lapor-rebela-page", function(){
-		jQuery(".smep-content-page").load("laporan/ap/main-page");
+		var url = "laporan/ap/main-page";
+		appMainCheckSession(url);
 		return false;
 	});
 
 	// --------------- Laporan --------------- //
 
 	jQuery(document).on("click", ".smep-lapor-rapan-page", function(){
-		jQuery(".smep-content-page").load("laporan/rencana-pengadaan/main-page");
+		var url = "laporan/rencana-pengadaan/main-page";
+		appMainCheckSession(url);
 		return false;
 	});
 
 	jQuery(document).on("click", ".smep-lapor-tepra-perencanaan-page", function(){
-		jQuery(".smep-content-page").load("laporan/tepra/perencanaan/main-page");
+		var url = "laporan/tepra/perencanaan/main-page";
+		appMainCheckSession(url);
 		return false;
 	});
 
 	jQuery(document).on("click", ".smep-lapor-tepra-realisasi-page", function(){
-		jQuery(".smep-content-page").load("laporan/tepra/realisasi/main-page");
+		var url = "laporan/tepra/realisasi/main-page";
+		appMainCheckSession(url);
 		return false;
 	});
 
 	jQuery(document).on("click", ".smep-lapor-lapan-page", function(){
-		jQuery(".smep-content-page").load("laporan/laporan-pengadaan/main-page");
+		var url = "laporan/laporan-pengadaan/main-page";
+		appMainCheckSession(url);
 		return false;
 	});
 
 	jQuery(document).on("click", ".smep-lapor-rebela-page", function(){
-		jQuery(".smep-content-page").load("laporan/realisasi-belanja-langsung/main-page");
+		var url = "laporan/realisasi-belanja-langsung/main-page";
+		appMainCheckSession(url);
 		return false;
 	});
 
 	jQuery(document).on("click", ".smep-lapor-bast-page", function(){
-		jQuery(".smep-content-page").load("laporan/bast/main-page");
+		var url = "laporan/bast/main-page";
+		appMainCheckSession(url);
 		return false;
 	});
 
 	jQuery(document).on("click", ".smep-lapor-rup-page", function(){
-		jQuery(".smep-content-page").load("laporan/rup/main-page");
+		var url = "laporan/rup/main-page";
+		appMainCheckSession(url);
 		return false;
 	});
 
@@ -123,37 +143,44 @@ jQuery(document).ready(function(){
 
 	// --------------- Administrator --------------- //
 	jQuery(document).on("click", ".smep-admin-pengsi-page", function(){
-		jQuery(".smep-content-page").load("administrator/pengguna-aplikasi/main-page");
+		var url = "administrator/pengguna-aplikasi/main-page";
+		appMainCheckSession(url);
 		return false;
 	});
 
 	jQuery(document).on("click", ".smep-admin-rup-page", function(){
-		jQuery(".smep-content-page").load("administrator/rup/main-page");
+		var url = "administrator/rup/main-page";
+		appMainCheckSession(url);
 		return false;
 	});
 
 	jQuery(document).on("click", ".smep-admin-rapan-page", function(){
-		jQuery(".smep-content-page").load("administrator/rencana-pengadaan/main-page");
+		var url = "administrator/rencana-pengadaan/main-page";
+		appMainCheckSession(url);
 		return false;
 	});
 
 	jQuery(document).on("click", ".smep-admin-lapan-page", function(){
-		jQuery(".smep-content-page").load("administrator/laporan-pengadaan/main-page");
+		var url = "administrator/laporan-pengadaan/main-page";
+		appMainCheckSession(url);
 		return false;
 	});
 
 	jQuery(document).on("click", ".smep-admin-rebela-page", function(){
-		jQuery(".smep-content-page").load("administrator/realisasi-belanja-langsung/main-page");
+		var url = "administrator/realisasi-belanja-langsung/main-page";
+		appMainCheckSession(url);
 		return false;
 	});
 
 	jQuery(document).on("click", ".smep-admin-misc-page", function(){
-		jQuery(".smep-content-page").load("administrator/misc/main-page");
+		var url = "administrator/misc/main-page";
+		appMainCheckSession(url);
 		return false;
 	});
 
 	jQuery(document).on("click", ".smep-admin-rup-aktual-page", function(){
-		jQuery(".smep-content-page").load("administrator/rup-aktual/main-page");
+		var url = "administrator/rup-aktual/main-page";
+		appMainCheckSession(url);
 		return false;
 	});
 
@@ -167,5 +194,24 @@ jQuery(document).ready(function(){
 		return false;
 	});
 
-
+	function appMainCheckSession(url){
+		jQuery.ajax({
+			type 		: 'AJAX',
+			method 		: 'GET',
+			url 		: 'app/auth/checkSession',
+			async		: true,
+			dataType 	: 'JSON',
+			success 	: function(JSON){
+				if (JSON == 0) {
+					jQuery(".smep-content-page").load(url);
+				}
+				if (JSON == 1) {
+					location.href = 'app/auth/sessionPage';
+				}
+			},
+			error		: function(jqXHR, textStatus, errorThrown){
+				location.href = window.location.href+"app/auth/sessionPage";
+			}
+		});
+	}
 });

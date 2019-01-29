@@ -34,7 +34,7 @@ jQuery(document).ready(function(){
 				jQuery(".smep-pengsiadmin-user-register-modal").modal("show");
 			},
 			error 		: function(jqXHR, textStatus, errorThrown){
-				console.log('failed');
+				location.href = window.location.href+"app/auth/sessionPage";
 			}
 		});
 		return false;
@@ -92,7 +92,7 @@ jQuery(document).ready(function(){
 							}
 						},
 						error 		: function(jqXHR, textStatus, errorThrown){
-							console.log('failed');
+							location.href = window.location.href+"app/auth/sessionPage";
 						}
 					});
 				}
@@ -121,7 +121,7 @@ jQuery(document).ready(function(){
 								}
 							},
 							error 		: function(jqXHR, textStatus, errorThrown){
-								console.log('failed');
+								location.href = window.location.href+"app/auth/sessionPage";
 							}
 						});
 					}
@@ -188,7 +188,7 @@ jQuery(document).ready(function(){
 				jQuery(".smep-pengsiadmin-user-edit-modal").modal("show");
 			},
 			error 		: function(jqXHR, textStatus, errorThrown){
-				console.log('failed');
+				location.href = window.location.href+"app/auth/sessionPage";
 			}
 		});
 		return false;
@@ -209,7 +209,7 @@ jQuery(document).ready(function(){
 					jQuery(".smep-pengsiadmin-user-edit-modal").modal("hide");
 				},
 				error 		: function(jqXHR, textStatus, errorThrown){
-						console.log('failed');
+					location.href = window.location.href+"app/auth/sessionPage";
 				}
 			});
 		}
@@ -228,7 +228,7 @@ jQuery(document).ready(function(){
 						jQuery(".smep-pengsiadmin-user-edit-modal").modal("hide");
 					},
 					error 		: function(jqXHR, textStatus, errorThrown){
-						console.log('failed');
+						location.href = window.location.href+"app/auth/sessionPage";
 					}
 				});
 			}
@@ -247,7 +247,7 @@ jQuery(document).ready(function(){
 							jQuery(".smep-pengsiadmin-user-edit-modal").modal("hide");
 						},
 						error 		: function(jqXHR, textStatus, errorThrown){
-							console.log('failed');
+							location.href = window.location.href+"app/auth/sessionPage";
 						}
 					});
 				}
@@ -280,7 +280,7 @@ jQuery(document).ready(function(){
 					adminPengsiUserData();
 				},
 				error 		: function(jqXHR, textStatus, errorThrown){
-					console.log('failed');
+					location.href = window.location.href+"app/auth/sessionPage";
 				}
 			});
 			return false;
@@ -299,7 +299,7 @@ jQuery(document).ready(function(){
 				adminPengsiUserData();
 			},
 			error 		: function(jqXHR, textStatus, errorThrown){
-				console.log('failed');
+				location.href = window.location.href+"app/auth/sessionPage";
 			}
 		});
 		return false;

@@ -57,6 +57,7 @@ $route['translate_uri_dashes'] = 'FALSE';
 // ------------------ Application ------------------ //
 // ------ Authentication ------ //
 $route['app/auth/loginPage'] = 'app/Applogin_controller/loginPage';
+$route['app/auth/sessionPage'] = 'app/Applogin_controller/LostSessionPage';
 $route['app/auth/login'] = 'app/Applogin_controller/loginProcess';
 $route['app/auth/checkSession'] = 'app/Applogin_controller/checkSession';
 $route['app/auth/logout'] = 'app/Applogin_controller/logoutProcess';

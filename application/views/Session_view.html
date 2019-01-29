@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <?php
+    include_once 'lib/head.html';
+    include_once 'lib/style.html';
+  ?>
+  <title>SMEP</title>
+</head>
+<body class="hold-transition lockscreen">
+  <div class="lockscreen-wrapper">
+    <div class="lockscreen-logo">
+      <img src="<?=base_url('custom/logo.png')?>" style="width:170px; height:115px;"><br>
+    </div>
+    <div class="lockscreen-logo">
+      <a><b>[404]</b></a><br>
+      <a><b>Halaman Tidak Ditemukan</b></a><br>
+    </div>
+    <div class="lockscreen-name">Sesi tidak ditemukan, mohon untuk login.<br>Terima Kasih.</div>
+    <div class="help-block text-center">
+        <a href="<?=base_url('app/auth/loginPage')?>">
+          <button class="btn btn-primary">Halaman Login <i class="fa fa-sign-out"></i></button>
+        </a>
+    </div>
+    <div class="lockscreen-footer text-center" style="margin-top: 30px;">
+      Copyright&nbsp;&copy;&nbsp;2019<br>
+      <b>
+        <a href="https://pembangunan.ponorogo.go.id/" class="text-black">
+          Bagian Administrasi Pembangunan<br>Kabupaten Ponorogo
+        </a>
+      </b>
+    </div>
+  </div>
+</body>
+  <?php
+    include_once 'lib/js.html';
+  ?>
+</html>

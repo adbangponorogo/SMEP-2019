@@ -114,7 +114,7 @@
         jQuery(".daftandatum-status-pptk-edit").val(JSON[0][12]);
       },
       error     : function(jqXHR, textStatus, errorThrown){
-        console.log('failed');
+        location.href = window.location.href+"app/auth/sessionPage";
       }
     });
   }

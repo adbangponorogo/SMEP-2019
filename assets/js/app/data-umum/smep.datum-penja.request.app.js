@@ -21,7 +21,7 @@ jQuery(document).ready(function(){
 					jQuery(".smep-penjadatum-register-modal").modal("hide");
 				},
 				error 		: function(jqXHR, textStatus, errorThrown){
-					console.log('failed');
+					location.href = window.location.href+"app/auth/sessionPage";
 				}
 			});
 		}
@@ -58,7 +58,7 @@ jQuery(document).ready(function(){
 			jQuery(".smep-penjadatum-edit-modal").modal("show");
 	      },
 	      error     : function(jqXHR, textStatus, errorThrown){
-	        console.log('failed');
+	        location.href = window.location.href+"app/auth/sessionPage";
 	      }
 	    });
 		return false;
@@ -79,7 +79,7 @@ jQuery(document).ready(function(){
 					jQuery(".smep-penjadatum-edit-modal").modal("hide");
 				},
 				error 		: function(jqXHR, textStatus, errorThrown){
-					console.log('failed');
+					location.href = window.location.href+"app/auth/sessionPage";
 				}
 			});
 		}
@@ -108,7 +108,7 @@ jQuery(document).ready(function(){
 					datumPenjaData();
 				},
 				error 		: function(jqXHR, textStatus, errorThrown){
-					console.log('failed');
+					location.href = window.location.href+"app/auth/sessionPage";
 				}
 			});
 		}

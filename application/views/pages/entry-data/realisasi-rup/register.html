@@ -231,7 +231,7 @@
 		    	jQuery(".sirupenda-nilai-kontrak-reg").val(JSON[0][4]);
 		    },
 		    error     : function(jqXHR, textStatus, errorThrown){
-		        console.log('failed');
+		        location.href = window.location.href+"app/auth/sessionPage";
 		    }
 	    });
 	}

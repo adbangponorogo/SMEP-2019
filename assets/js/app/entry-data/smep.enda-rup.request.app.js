@@ -299,7 +299,7 @@ jQuery(document).ready(function(){
 				jQuery(".smep-content-page").load("entry-data/data-rup/main-page");
 			},
 			error 		: function(jqXHR, textStatus, errorThrown){
-				console.log('failed');
+				location.href = window.location.href+"app/auth/sessionPage";
 			}
 		});
 		return false;
@@ -557,7 +557,7 @@ jQuery(document).ready(function(){
 				jQuery(".smep-content-page").load("entry-data/data-rup/main-page");
 			},
 			error 		: function(jqXHR, textStatus, errorThrown){
-				console.log('failed');
+				location.href = window.location.href+"app/auth/sessionPage";
 			}
 		});
 		return false;

@@ -17,7 +17,7 @@ jQuery(document).ready(function(){
 				}
 			},
 			error		: function(jqXHR, textStatus, errorThrown){
-				console.log('failed');
+				location.href = window.location.href+"app/auth/sessionPage";
 			}
 		});
 	}
@@ -34,7 +34,7 @@ jQuery(document).ready(function(){
 				checkSession();
 			},
 			error 		: function(jqXHR, textStatus, errorThrown){
-				console.log('failed');
+				location.href = window.location.href+"app/auth/sessionPage";
 			}
 		});
 		return false;
@@ -81,7 +81,7 @@ jQuery(document).ready(function(){
 			jQuery(".smep-skpd-categories-main").select2();
 		},
 		error 		: function(jqXHR, textStatus, errorThrown){
-			console.log('failed');
+			location.href = window.location.href+"app/auth/sessionPage";
 		}
 	});
 	

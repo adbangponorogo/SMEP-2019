@@ -26,7 +26,7 @@ jQuery(document).ready(function(){
 		      	datumTasikRencanaFisikData();
 		    },
 		    error     : function(jqXHR, textStatus, errorThrown){
-		        console.log('failed');
+		        location.href = window.location.href+"app/auth/sessionPage";
 		    }
 		});
 		return false;

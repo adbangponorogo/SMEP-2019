@@ -219,7 +219,7 @@
 		    	jQuery(".sirupenda-metode-pemilihan-edit").val(JSON[0][8]);
 		    },
 		    error     : function(jqXHR, textStatus, errorThrown){
-		        console.log('failed');
+		        location.href = window.location.href+"app/auth/sessionPage";
 		    }
 	    });
 	}
@@ -258,7 +258,7 @@
 		    	jQuery(".sirupenda-tanggal-surat-serah-terima-edit").val(JSON[0][20]);
 		    },
 		    error     : function(jqXHR, textStatus, errorThrown){
-		        console.log('failed');
+		        location.href = window.location.href+"app/auth/sessionPage";
 		    }
 	    });
 	}

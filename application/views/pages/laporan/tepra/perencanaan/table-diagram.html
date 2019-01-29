@@ -145,7 +145,7 @@
                 laporTepraPerencanaanRencanaData();
           },
           error     : function(jqXHR, textStatus, errorThrown){
-            console.log('failed');
+            location.href = window.location.href+"app/auth/sessionPage";
           }
         });
     }
@@ -207,7 +207,7 @@
           	jQuery(".laportepra-perencanaan-md").html(JSON[9]+"<br><i>"+JSON[10]+" Paket</i>");
           },
           error     : function(jqXHR, textStatus, errorThrown){
-            console.log('failed');
+            location.href = window.location.href+"app/auth/sessionPage";
           }
         });
     }

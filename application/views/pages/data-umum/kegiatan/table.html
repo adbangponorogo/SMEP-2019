@@ -59,7 +59,7 @@
           jQuery(".smep-daftan-datum-program-option").select2();
         },
         error     : function(jqXHR, textStatus, errorThrown){
-          console.log('failed');
+          location.href = window.location.href+"app/auth/sessionPage";
         }
       });
    }
@@ -86,7 +86,7 @@
             
           },
           error     : function(jqXHR, textStatus, errorThrown){
-            console.log('failed');
+            location.href = window.location.href+"app/auth/sessionPage";
           }
         });
       return false;

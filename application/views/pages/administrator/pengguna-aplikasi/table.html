@@ -83,7 +83,7 @@
         });
       },
       error     : function(jqXHR, textStatus, errorThrown){
-        console.log('failed');
+        location.href = window.location.href+"app/auth/sessionPage";
       }
     });
   }
@@ -115,7 +115,7 @@
         jQuery(".smep-pengsiadmin-user-ppk-register-modal").modal("show");
       },
       error     : function(jqXHR, textStatus, errorThrown){
-        console.log('failed');
+        location.href = window.location.href+"app/auth/sessionPage";
       }
     });
     return false;
