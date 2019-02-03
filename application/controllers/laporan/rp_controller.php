@@ -10,7 +10,8 @@ class Rp_controller extends MY_Admin_Controller {
 	}
 
 	public function index(){
-		if (empty($this->model->getKaSKPD($this->session->userdata('auth_id'))->row()->nama)) { //Filter khusus modul laporan
+		if (empty($this->model->getKaSKPD($this->session->userdata('auth_id'))->row()->nama)) { 
+			//Filter khusus modul laporan
 			$this->load->view('pages/laporan/errors/data-ka-skpd-kosong');
 		}
 		else {			

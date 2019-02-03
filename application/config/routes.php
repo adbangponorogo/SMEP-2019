@@ -285,3 +285,11 @@ $route['administrator/misc/print-data'] = 'administrator/Adminmisc_controller/ge
 $route['administrator/rup-aktual/main-page'] = 'administrator/Adminrupaktual_controller/mainPage';
 $route['administrator/rup-aktual/skpd/all/(:any)'] = 'administrator/Adminrupaktual_controller/getMainDataAllSKPD/$1';
 $route['administrator/rup-aktual/print-data'] = 'administrator/Adminrupaktual_controller/getPrintData';
+
+
+// ------ Konfigurasi ------ //
+$route['administrator/konfigurasi/main-page'] = 'administrator/Adminkonfigurasi_controller/mainPage';
+$route['administrator/konfigurasi/edit-data'] = 'administrator/Adminkonfigurasi_controller/changeData';
+$route['administrator/konfigurasi/update-data'] = 'administrator/Adminkonfigurasi_controller/updateData';
+$route['administrator/konfigurasi/trash-image'] = 'administrator/Adminkonfigurasi_controller/trashImage';
+

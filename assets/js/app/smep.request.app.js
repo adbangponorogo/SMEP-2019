@@ -64,26 +64,29 @@ jQuery(document).ready(function(){
 
 
 	// --- SKPD Option ---
-	jQuery.ajax({
-		type 		: 'AJAX',
-		method 		: 'GET',
-		url 		: 'app/main/data-skpd',
-		async		: true,
-		dataType 	: 'JSON',
-		success 	: function(JSON){
-			var option = '';
-			for (var skpd = 0; skpd < JSON.length; skpd++) {
-				option += "<option value='"+JSON[skpd][0]+"'>["+JSON[skpd][1]+"] - "+
-				JSON[skpd][2]+"</option>";
+	checkMainSKPD();
+	function checkMainSKPD(){
+		jQuery.ajax({
+			type 		: 'AJAX',
+			method 		: 'GET',
+			url 		: 'app/main/data-skpd',
+			async		: true,
+			dataType 	: 'JSON',
+			success 	: function(JSON){
+				var option = '';
+				for (var skpd = 0; skpd < JSON.length; skpd++) {
+					option += "<option value='"+JSON[skpd][0]+"'>["+JSON[skpd][1]+"] - "+
+					JSON[skpd][2]+"</option>";
+				}
+				jQuery(".smep-skpd-categories-main").html(option);
+				jQuery(".smep-skpd-categories-main").val(JSON[0][0]).change();
+				jQuery(".smep-skpd-categories-main").select2();
+			},
+			error 		: function(jqXHR, textStatus, errorThrown){
+				// location.href = window.location.href+"app/auth/sessionPage";
 			}
-			jQuery(".smep-skpd-categories-main").html(option);
-			jQuery(".smep-skpd-categories-main").val(JSON[0][0]).change();
-			jQuery(".smep-skpd-categories-main").select2();
-		},
-		error 		: function(jqXHR, textStatus, errorThrown){
-			location.href = window.location.href+"app/auth/sessionPage";
-		}
-	});
+		});
+	}
 	
 	jQuery(document).on("change", ".smep-skpd-categories-main", function(){
 		jQuery(".smep-skpd-main").val(jQuery(this).val());

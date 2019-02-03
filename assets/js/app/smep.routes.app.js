@@ -184,6 +184,12 @@ jQuery(document).ready(function(){
 		return false;
 	});
 
+	jQuery(document).on("click", ".smep-admin-konfigurasi-page", function(){
+		var url = "administrator/konfigurasi/main-page";
+		appMainCheckSession(url);
+		return false;
+	});
+
 
 	jQuery(document).on("click", ".empty-value", function(){
 		jQuery(".smep-unique-token").val("");
