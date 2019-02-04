@@ -3,7 +3,7 @@
     <div class="user-panel">
       <div class="pull-left image">
         <?php
-          if ($logo != '' || !is_null($logo)){
+          if ($logo != '' && !is_null($logo)){
         ?>
             <img src="<?php echo base_url('assets/uploads/').$logo; ?>" class="img-circle" alt="User Image">
         <?php
