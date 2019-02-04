@@ -13,6 +13,18 @@ class MY_Controller extends CI_Controller {
 		$smep->tingkat = $this->model->getConfig('tingkat')->row()->value;
 		$smep->klpd = $this->model->getConfig('klpd')->row()->value;
 		$smep->footerlap = $this->model->getConfig('footerlap')->row()->value;
+
+		// Logo
+		$result_logo = $this->model->getConfig('logo');
+		if ($result_logo->num_rows() > 0) {
+			foreach ($result_logo->result() as $rows_logo) {
+				$nama_logo = $rows_logo->value;
+			}
+		}
+		else{
+			$nama_logo = '';
+		}
+		$smep->logo = $nama_logo;
 	}
 
 }

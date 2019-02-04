@@ -134,7 +134,7 @@ class Adminkonfigurasi_controller extends CI_Controller {
 				if (isset($_FILES["logo"]["name"])) {
 					$config['upload_path']="./assets/uploads/";
 			        $config['allowed_types']='gif|jpg|jpeg|png';
-			        // $config['encrypt_name'] = TRUE;
+			        $config['encrypt_name'] = TRUE;
 
 			        $this->load->library('upload', $config);
 			        if ($this->upload->do_upload('logo')) {

@@ -21,7 +21,18 @@
   ?>
 <div class="login-box">
   <div class="login-logo">
-    <img src="<?=base_url('custom/logo.png')?>" style="width:170px; height:115px;"><br>
+    <?php
+      if ($logo != '' || !is_null($logo)){
+    ?>
+      <img src="<?php echo base_url('assets/uploads/').$logo; ?>" style="width:150px;"><br>
+    <?php
+      }
+      else{
+    ?>
+      <img src="<?=base_url('custom/logo.png')?>" style="width:150px;"><br>
+    <?php
+      }
+    ?>
     <a><b>SMEP</b></a><br>
     <h5><b>Sistem Monitoring Evaluasi Pelaporan</b></h5>
     <h5><b>Tahun Anggaran 2019 (Sebelum PAK)</b></h5>

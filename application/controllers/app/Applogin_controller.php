@@ -14,6 +14,7 @@ class Applogin_controller extends MY_Controller {
 
 		if (empty($this->session->userdata('auth_id'))) {
 			$data['title'] = strtoupper('SMEP '.$smep->tingkat.' '.$smep->klpd);
+			$data['logo'] = $smep->logo;
 			$this->load->view('Login_view', $data);
 		}
 		else{
