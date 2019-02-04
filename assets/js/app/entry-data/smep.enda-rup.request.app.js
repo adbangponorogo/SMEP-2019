@@ -14,7 +14,7 @@ jQuery(document).ready(function(){
 			jQuery(".smep-rupenda-register-body-modal").children("h4").append().html(notification);
 		}
 		if (type_alert == 2) {	
-			var notification = "Mohon maaf <b>"+notif+"</b> anda salah";
+			var notification = "Mohon maaf Bro<b>"+notif+"</b> anda salah";
 			var save_button = "";
 			jQuery(".smep-rupenda-register-save-area-modal").append().html(save_button);
 			jQuery(".smep-rupenda-register-body-modal").children("h4").append().html(notification);
@@ -48,7 +48,7 @@ jQuery(document).ready(function(){
 			jQuery(".smep-rupenda-edit-body-modal").children("h4").append().html(notification);
 		}
 		if (type_alert == 2) {	
-			var notification = "Mohon maaf <b>"+notif+"</b> anda salah";
+			var notification = "Mohon maaf gaes<b>"+notif+"</b> anda salah";
 			var save_button = "";
 			jQuery(".smep-rupenda-edit-change-area-modal").append().html(save_button);
 			jQuery(".smep-rupenda-edit-body-modal").children("h4").append().html(notification);

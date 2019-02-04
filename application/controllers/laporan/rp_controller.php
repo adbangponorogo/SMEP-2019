@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Rp_controller extends MY_Admin_Controller {
+class Rp_controller extends Admin_Controller {
 
 	public function __construct()
 	{
@@ -49,6 +49,10 @@ class Rp_controller extends MY_Admin_Controller {
 	}
 
 	public function getPrintData(){
+		global $smep;
+		
+		$jenis_form = 'RP';
+
 		$id_skpd = $this->input->post('skpd');
 		$jenis_pengadaan = $this->input->post('jenis_pengadaan');
 		$tgl_cetak = $this->input->post('tgl_cetak');
@@ -56,8 +60,6 @@ class Rp_controller extends MY_Admin_Controller {
 
 		$kd_skpd = $this->model->getSKPD($id_skpd)->row()->kd_skpd;
 		$nama_skpd = $this->model->getSKPD($id_skpd)->row()->nama_skpd;
-		$klpd = $this->model->getConfig('klpd')->row()->value;
-		$footerlap = $this->model->getConfig('footerlap')->row()->value;
 		
 		$this->load->library('Excel');
 		$this->load->helper('office_helper');
@@ -66,14 +68,15 @@ class Rp_controller extends MY_Admin_Controller {
 		$nama_jenis_pengadaan = getJenisPengadaan($jenis_pengadaan);
 
 		$r = PHPExcel_IOFactory::createReader('Excel2007');
-		$p = $r->load(TPLPATH.'rp.xlsx');
+		$p = $r->load(TPLPATH.$jenis_form.'.xlsx');
 		$x = $p->getActiveSheet();
 
 		$x->setCellValue('D3', ': '.strtoupper($nama_skpd));
-		$x->setCellValue('D4', ': '.strtoupper($klpd));
+		$x->setCellValue('A4', strtoupper($smep->tingkat));
+		$x->setCellValue('D4', ': '.strtoupper($smep->klpd));
 		$x->setCellValue('D5', ': '.$tahun);
 		$x->setCellValue('D7', ': '.strtoupper($nama_jenis_pengadaan));
-		$x->setCellValue('L7', 'Form RP-'.$jenis_pengadaan);
+		$x->setCellValue('L7', 'Form '.$jenis_form.'-'.$jenis_pengadaan);
 
 		$mulai = 12;
 		$row = $mulai;
@@ -81,7 +84,7 @@ class Rp_controller extends MY_Admin_Controller {
 		$prog = $this->rp_model->getProg($kd_skpd, $jenis_pengadaan);
 		if ($prog->num_rows()){
 			foreach ($prog->result() as $d){
-				// -------- Value ---------
+				// -------- Program ---------
 				$x->setCellValue('B'.$row, $d->kd_gabungan.' ');
 				$x->setCellValue('C'.$row, strtoupper($d->keterangan_program));
 				xl_autoheight($x, 'B'.$row);
@@ -91,7 +94,7 @@ class Rp_controller extends MY_Admin_Controller {
 
 				$keg = $this->rp_model->getKeg($d->id, $jenis_pengadaan);
 				foreach ($keg->result() as $e){
-					// -------- Value ---------
+					// -------- Kegiatan ---------
 					$x->setCellValue('B'.$row, $e->kd_gabungan);
 					$x->setCellValue('C'.$row, $e->keterangan_kegiatan);
 					
@@ -105,9 +108,9 @@ class Rp_controller extends MY_Admin_Controller {
 					$row++;
 
 					$no = 0;
-					$paket = $this->rp_model->getPaket($kd_skpd, $e->id, $jenis_pengadaan);
+					$paket = $this->rp_model->getPaket($e->id, $jenis_pengadaan);
 					foreach ($paket->result() as $f){
-						// -------- Value ---------
+						// -------- Rincian Obyek ---------
 						$x->setCellValue('A'.$row, ++$no);
 						$x->setCellValue('B'.$row, substr($f->kd_mak, -11));
 						$x->setCellValue('C'.$row, $f->nama_paket);
@@ -153,7 +156,7 @@ class Rp_controller extends MY_Admin_Controller {
 		getPenanggungJawab(
 			$x,
 			$row,
-			$klpd,
+			$smep->klpd,
 			$tgl_cetak,
 			$this->model->getKaSKPD($id_skpd, false)->row(),//data kepala SKPD
 			'I' // Posisi kolom penanggungjawab
@@ -161,10 +164,10 @@ class Rp_controller extends MY_Admin_Controller {
 		
 		xl_footer(
 			$x,
-			$footerlap,//footer laporan sebelah kiri
-			'RP-'.$jenis_pengadaan,//Jenis Form Laporan (AP1-2, RP1-4, LP1-4 dst)
+			$smep->footerlap,//footer laporan sebelah kiri
+			$jenis_form.'-'.$jenis_pengadaan,//Jenis Form Laporan (RP1-4 & LP1-4)
 			$nama_skpd
 		);
-		export2xl($p, str_replace(' ', '-', $nama_skpd).'_RP-'.$jenis_pengadaan);
+		export2xl($p, str_replace(' ', '-', $nama_skpd).'_'.$jenis_form.'-'.$jenis_pengadaan);
 	}
 }

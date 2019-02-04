@@ -37,6 +37,68 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	}
 */
 
+	if ( !function_exists('getKolomSumberDana') )
+	{
+		function getKolomSumberDana($sumber_dana, $jenis='pagu') // $jenis = 'pagu' / 'real' / 'fisik'
+		{
+			if ($jenis == 'pagu') {
+				switch ($sumber_dana) {
+					case 'APBN':
+						$klm_xl = 'D';
+						break;
+					case 'APBD PROV':
+						$klm_xl = 'F';
+						break;
+					case 'DAK':
+						$klm_xl = 'H';
+						break;
+					case 'DBHCHT':
+						$klm_xl = 'I';
+						break;
+					default: //APBD KAB
+						$klm_xl = 'G';
+				}
+			}
+			elseif ($jenis == 'real') {
+				switch ($sumber_dana) {
+					case 'APBN':
+						$klm_xl = 'J';
+						break;
+					case 'APBD PROV':
+						$klm_xl = 'N';
+						break;
+					case 'DAK':
+						$klm_xl = 'R';
+						break;
+					case 'DBHCHT':
+						$klm_xl = 'T';
+						break;
+					default: //APBD KAB
+						$klm_xl = 'P';
+				}
+			}
+			else { // fisik
+				switch ($sumber_dana) {
+					case 'APBN':
+						$klm_xl = 'K';
+						break;
+					case 'APBD PROV':
+						$klm_xl = 'O';
+						break;
+					case 'DAK':
+						$klm_xl = 'S';
+						break;
+					case 'DBHCHT':
+						$klm_xl = 'U';
+						break;
+					default: //APBD KAB
+						$klm_xl = 'Q';
+				}
+			}
+			return $klm_xl;
+		}
+	}
+
 	if ( !function_exists('sumber_dana') )
 	{
 		function sumber_dana($i)
