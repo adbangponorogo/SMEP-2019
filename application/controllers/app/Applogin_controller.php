@@ -23,8 +23,12 @@ class Applogin_controller extends MY_Controller {
 	}
 
 	public function LostSessionPage(){
+		global $smep;
+		
 		if (empty($this->session->userdata('auth_id'))) {
-			$this->load->view('Session_view');
+			$data['title'] = strtoupper('SMEP '.$smep->tingkat.' '.$smep->klpd);
+			$data['logo'] = $smep->logo;
+			$this->load->view('Session_view', $data);
 		}
 		else{
 			redirect(base_url());
