@@ -10,8 +10,18 @@
 <body class="hold-transition lockscreen">
   <div class="lockscreen-wrapper">
     <div class="lockscreen-logo">
-      <img src="<?=base_url('custom/logo.png')?>" style="width:170px; height:115px;"><br>
-    </div>
+      <?php
+        if ($logo != '' && !is_null($logo)){
+      ?>
+        <img src="<?php echo base_url('assets/uploads/').$logo; ?>" style="width:150px;"><br>
+      <?php
+        }
+        else{
+      ?>
+        <img src="<?=base_url('custom/logo.png')?>" style="width:150px;"><br>
+      <?php
+        }
+      ?>    </div>
     <div class="lockscreen-logo">
       <a><b>[404]</b></a><br>
       <a><b>Halaman Tidak Ditemukan</b></a><br>
