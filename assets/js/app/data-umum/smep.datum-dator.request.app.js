@@ -19,7 +19,7 @@ jQuery(document).ready(function(){
 			jQuery(".smep-content-page").load("data-umum/data-organisasi/main-page");
 	      },
 	      error     : function(jqXHR, textStatus, errorThrown){
-	        console.log('failed');
+	       location.href = window.location.href+"app/auth/sessionPage";
 	      }
 	    });
 		return false;

@@ -78,7 +78,7 @@
         jQuery(".smep-patan-datum-program-option").select2();
       },
       error     : function(jqXHR, textStatus, errorThrown){
-        console.log('failed');
+        location.href = window.location.href+"app/auth/sessionPage";
       }
     });
    }
@@ -95,7 +95,7 @@
         jQuery(".smep-patan-datum-pagu-anggaran").val(JSON[0][0]);
       },
       error     : function(jqXHR, textStatus, errorThrown){
-        console.log('failed');
+        location.href = window.location.href+"app/auth/sessionPage";
       }
     });
   }
@@ -119,10 +119,9 @@
               "lengthMenu"    : [10],
               "data"          : JSON
             });
-            
           },
           error     : function(jqXHR, textStatus, errorThrown){
-            console.log('failed');
+            location.href = window.location.href+"app/auth/sessionPage";
           }
         });
     return false;

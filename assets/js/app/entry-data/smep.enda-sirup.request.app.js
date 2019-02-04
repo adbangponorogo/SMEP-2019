@@ -15,22 +15,22 @@ jQuery(document).ready(function(){
 			jQuery(".smep-sirupenda-register-body-modal").children("h4").append().html(notification);
 			jQuery(".smep-sirupenda-register-save-area-modal").append().html("");
 		}
-		if (type_alert == 2) {	
+		if (type_alert == 2) {
 			notification = "Mohon maaf <b>"+notif+"</b> anda salah";
 			jQuery(".smep-sirupenda-register-body-modal").children("h4").append().html(notification);
 			jQuery(".smep-sirupenda-register-save-area-modal").append().html("");
 		}
-		if (type_alert == 3) {	
+		if (type_alert == 3) {
 			notification = "Mohon maaf tanggal <b>"+notif+"</b> tidak boleh sama dengan bulan ini/menggunakan tanggal sebelum bulan ini/menggunakan tanggal sebelum pelaksanaan awal";
 			jQuery(".smep-sirupenda-register-body-modal").children("h4").append().html(notification);
 			jQuery(".smep-sirupenda-register-save-area-modal").append().html("");
 		}
-		if (type_alert == 4) {	
+		if (type_alert == 4) {
 			notification = "Mohon maaf <b>"+notif+"</b> melebihi pagu paket / sisa pagu yang tersedia";
 			jQuery(".smep-sirupenda-register-body-modal").children("h4").append().html(notification);
 			jQuery(".smep-sirupenda-register-save-area-modal").append().html("");
 		}
-		if (type_alert == 5) {	
+		if (type_alert == 5) {
 			notification = "Apakah anda yakin ingin menyimpan data ini?";
 			save_button = "<button class='btn btn-primary smep-sirupenda-register-save-modal-btn'><i class='fa fa-save'></i> Simpan</button>";
 			jQuery(".smep-sirupenda-register-save-area-modal").append().html(save_button);
@@ -45,22 +45,22 @@ jQuery(document).ready(function(){
 			jQuery(".smep-sirupenda-edit-body-modal").children("h4").append().html(notification);
 			jQuery(".smep-sirupenda-edit-change-area-modal").append().html("");
 		}
-		if (type_alert == 2) {	
+		if (type_alert == 2) {
 			notification = "Mohon maaf <b>"+notif+"</b> anda salah";
 			jQuery(".smep-sirupenda-edit-body-modal").children("h4").append().html(notification);
 			jQuery(".smep-sirupenda-edit-change-area-modal").append().html("");
 		}
-		if (type_alert == 3) {	
+		if (type_alert == 3) {
 			notification = "Mohon maaf tanggal <b>"+notif+"</b> tidak boleh sama dengan bulan ini/menggunakan tanggal sebelum bulan ini/menggunakan tanggal sebelum pelaksanaan awal";
 			jQuery(".smep-sirupenda-edit-body-modal").children("h4").append().html(notification);
 			jQuery(".smep-sirupenda-edit-change-area-modal").append().html("");
 		}
-		if (type_alert == 4) {	
+		if (type_alert == 4) {
 			notification = "Mohon maaf <b>"+notif+"</b> melebihi pagu paket / sisa pagu yang tersedia";
 			jQuery(".smep-sirupenda-edit-body-modal").children("h4").append().html(notification);
 			jQuery(".smep-sirupenda-edit-change-area-modal").append().html("");
 		}
-		if (type_alert == 5) {	
+		if (type_alert == 5) {
 			notification = "Apakah anda yakin ingin menyimpan data ini?";
 			save_button = "<button class='btn btn-primary smep-sirupenda-edit-update-modal-btn'><i class='fa fa-save'></i> Simpan</button>";
 			jQuery(".smep-sirupenda-edit-change-area-modal").append().html(save_button);
@@ -69,7 +69,7 @@ jQuery(document).ready(function(){
 		jQuery(".smep-sirupenda-edit-modal").modal("show");
 	}
 
- 
+
 	// ---------------- Register ---------------- //
 	jQuery(document).on("click", ".smep-sirupenda-ro-rup-register-btn", function(){
 		jQuery(".smep-content-page").load("entry-data/realisasi-rup/register-page");
@@ -83,7 +83,7 @@ jQuery(document).ready(function(){
 					if (jQuery(".sirupenda-realisasi-fisik-reg").val() != "") {
 						split_rf = jQuery(".sirupenda-realisasi-fisik-reg").val().split(".");
 						parse_rf = parseInt(split_rf[0]+""+split_rf[1]);
-						if (parse_rf >= 0 && parse_rf <= 100) {
+						if (parse_rf >= 0 && parse_rf <= 10000) {
 							if (parseInt(jQuery(".sirupenda-realisasi-keuangan-reg").val()) <= parseInt(jQuery(".sirupenda-sisa-pagu-paket-reg").val())) {
 								if (jQuery(".sirupenda-nilai-kontrak-reg").val() != '') {
 									if (jQuery(".sirupenda-nilai-kontrak-reg").val() >= 0) {
@@ -143,7 +143,7 @@ jQuery(document).ready(function(){
 		    	jQuery(".smep-content-page").load("entry-data/realisasi-rup/realisasi-page");
 		    },
 		    error     	: function(jqXHR, textStatus, errorThrown){
-		        console.log('failed');
+		        location.href = window.location.href+"app/auth/sessionPage";
 		    }
 	    });
 		return false;
@@ -216,7 +216,7 @@ jQuery(document).ready(function(){
 		    	jQuery(".smep-content-page").load("entry-data/realisasi-rup/realisasi-page");
 		    },
 		    error     	: function(jqXHR, textStatus, errorThrown){
-		        console.log('failed');
+		        location.href = window.location.href+"app/auth/sessionPage";
 		    }
 	    });
 		return false;
@@ -240,7 +240,7 @@ jQuery(document).ready(function(){
 		    	jQuery(".smep-content-page").load("entry-data/realisasi-rup/realisasi-page");
 		    },
 		    error     	: function(jqXHR, textStatus, errorThrown){
-		        console.log('failed');
+		        location.href = window.location.href+"app/auth/sessionPage";
 		    }
 	    });
 		return false;
@@ -265,7 +265,7 @@ jQuery(document).ready(function(){
 		    	jQuery(".smep-content-page").load("entry-data/realisasi-rup/realisasi-page");
 		    },
 		    error     	: function(jqXHR, textStatus, errorThrown){
-		        console.log('failed');
+		        location.href = window.location.href+"app/auth/sessionPage";
 		    }
 	    });
 		return false;

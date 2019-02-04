@@ -156,7 +156,7 @@
           		jQuery(".sitepraenda-proses-hand-over-update").val(JSON[0][12]).change();
           	},
           	error     : function(jqXHR, textStatus, errorThrown){
-              	console.log('failed');
+              	location.href = window.location.href+"app/auth/sessionPage";
           	}
         });
     }

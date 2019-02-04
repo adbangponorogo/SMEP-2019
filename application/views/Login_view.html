@@ -4,7 +4,18 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title><?=$title?></title>
-  <link rel="icon" type="image/png" sizes="16x16" href="<?=base_url('custom/icon.png')?>">
+  <?php
+    if ($logo != '' && !is_null($logo)){
+  ?>
+      <link rel="icon" type="image/png" sizes="16x16" href="<?php echo base_url('assets/uploads/').$logo; ?>">
+  <?php
+    }
+    else{
+  ?>
+      <link rel="icon" type="image/png" sizes="16x16" href="<?=base_url('custom/icon.png')?>">
+  <?php
+    }
+  ?>
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <meta name="description" content="">
   <meta name="author" content="LPSE PONOROGO DEVELOPER">
@@ -21,7 +32,18 @@
   ?>
 <div class="login-box">
   <div class="login-logo">
-    <img src="<?=base_url('custom/logo.png')?>" style="width:170px; height:115px;"><br>
+    <?php
+      if ($logo != '' && !is_null($logo)){
+    ?>
+      <img src="<?php echo base_url('assets/uploads/').$logo; ?>" style="width:150px;"><br>
+    <?php
+      }
+      else{
+    ?>
+      <img src="<?=base_url('custom/logo.png')?>" style="width:150px;"><br>
+    <?php
+      }
+    ?>
     <a><b>SMEP</b></a><br>
     <h5><b>Sistem Monitoring Evaluasi Pelaporan</b></h5>
     <h5><b>Tahun Anggaran 2019 (Sebelum PAK)</b></h5>

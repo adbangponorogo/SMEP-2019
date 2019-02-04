@@ -94,7 +94,7 @@ jQuery(".sppddatum-urutan-update").select2();
 	      	jQuery(".sppddatum-skpd-update").select2();
       },
       error     : function(jqXHR, textStatus, errorThrown){
-        console.log('failed');
+        location.href = window.location.href+"app/auth/sessionPage";
       }
     });
   }
@@ -122,7 +122,7 @@ jQuery(".sppddatum-urutan-update").select2();
 	      	jQuery(".sppddatum-kegiatan-update").select2();
       },
       error     : function(jqXHR, textStatus, errorThrown){
-        console.log('failed');
+        location.href = window.location.href+"app/auth/sessionPage";
       }
     });
   }

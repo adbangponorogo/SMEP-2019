@@ -14,7 +14,21 @@ class Applogin_controller extends MY_Controller {
 
 		if (empty($this->session->userdata('auth_id'))) {
 			$data['title'] = strtoupper('SMEP '.$smep->tingkat.' '.$smep->klpd);
+			$data['logo'] = $smep->logo;
 			$this->load->view('Login_view', $data);
+		}
+		else{
+			redirect(base_url());
+		}
+	}
+
+	public function LostSessionPage(){
+		global $smep;
+		
+		if (empty($this->session->userdata('auth_id'))) {
+			$data['title'] = strtoupper('SMEP '.$smep->tingkat.' '.$smep->klpd);
+			$data['logo'] = $smep->logo;
+			$this->load->view('Session_view', $data);
 		}
 		else{
 			redirect(base_url());
@@ -48,6 +62,20 @@ class Applogin_controller extends MY_Controller {
 	}
 
 	public function logoutProcess(){
+// <<<<<<< HEAD
+// 		// if (!empty($this->session->userdata('auth_id'))) {
+// 		// 	$this->session->unset_userdata(array('auth_id'));
+// 		// }
+// // 		if ($this->session->userdata('auth_id') != '') {
+// // 			$this->session->unset_userdata(array('auth_id'));
+// // 			echo json_encode(array("status"=>TRUE));
+// // 		}
+// // 		else{
+// // 			redirect(base_url());
+// // 		}
+// 		$this->session->unset_userdata(array('auth_id', 'skpd_id'));
+// =======
+// >>>>>>> 0db30e581085bd198b3009f54f9421720b5d5e58
 		if (!empty($this->session->userdata('auth_id'))) {
 			$this->session->unset_userdata(array('auth_id'));
 		}

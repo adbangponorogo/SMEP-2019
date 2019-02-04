@@ -4,9 +4,9 @@ jQuery(document).ready(function(){
 	// 	jQuery.ajax({
 	//       type      : 'AJAX',
 	//       method    : 'POST',
-	//       url       : 'data-umum/pencairan-sppd/print-data',
+	//       url       : 'URL',
 	//       async     : true,
-	//       data  	: jQuery(".sppddatum-download-form").serialize(),
+	//       data  	: jQuery("FORM").serialize(),
 	//       dataType  : 'JSON',
 	//       success   : function(JSON){
 	//       	console.log(JSON);

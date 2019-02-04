@@ -65,7 +65,7 @@
           	jQuery(".laportepra-perencanaan-total-pagu-rup").val(JSON[0][0]);
           },
           error     : function(jqXHR, textStatus, errorThrown){
-            console.log('failed');
+            location.href = window.location.href+"app/auth/sessionPage";
           }
         });
   	}
@@ -86,7 +86,7 @@
 			});
           },
           error     : function(jqXHR, textStatus, errorThrown){
-            console.log('failed');
+            location.href = window.location.href+"app/auth/sessionPage";
           }
         });
   	}

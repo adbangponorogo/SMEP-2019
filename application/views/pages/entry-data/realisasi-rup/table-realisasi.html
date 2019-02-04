@@ -145,7 +145,7 @@
           	jQuery(".smep-sirup-enda-realisasi-box-title").append().html(button);
           },
           error     : function(jqXHR, textStatus, errorThrown){
-              console.log('failed');
+            location.href = window.location.href+"app/auth/sessionPage";
           }
         });
 	}
@@ -168,7 +168,7 @@
 			});
           },
           error     : function(jqXHR, textStatus, errorThrown){
-              console.log('failed');
+            location.href = window.location.href+"app/auth/sessionPage";
           }
         });
 	}
