@@ -132,7 +132,7 @@ class Adminkonfigurasi_controller extends CI_Controller {
 			$result_logo = $this->model->getDataConfig('logo');
 			if ($result_logo->num_rows() <= 0) {
 				if (isset($_FILES["logo"]["name"])) {
-					$config['upload_path']="./assets/uploads/";
+					$config['upload_path']=LOGOPATH;
 			        $config['allowed_types']='gif|jpg|jpeg|png';
 			        $config['encrypt_name'] = TRUE;
 
