@@ -15,7 +15,7 @@ class Main_Controller extends MY_Controller {
 			redirect("app/auth/loginPage");
 		}
 		else{
-			$data['title'] = strtoupper('SMEP - '.$smep->tingkat.' '.$smep->klpd);
+			$data['title'] = strtoupper('SMEP '.$smep->tingkat.' '.$smep->klpd);
 			$data['logo'] = $smep->logo;
 			$data["user_data"] = $this->getUserData();
 			$this->load->view('Main_view', $data);

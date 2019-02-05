@@ -19,10 +19,10 @@ define('PASSWORD_DB_OLD', '');
 define('DATABASE_DB_OLD', '');
 
 //-----/ path logo /-----//
-define('LOGOPATH', 'custom' . DIRECTORY_SEPARATOR);
+define('LOGOPATH', 'custom/');
 
 //-----/ path template laporan /-----//
-define('TPLPATH', 'custom' . DIRECTORY_SEPARATOR . 'tpl' . DIRECTORY_SEPARATOR);
+define('TPLPATH', 'custom/tpl/');
 
 //-----/ object variabel /-----//
 $smep = new stdClass();

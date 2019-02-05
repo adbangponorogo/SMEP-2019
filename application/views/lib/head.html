@@ -3,15 +3,4 @@
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 <meta name="description" content="">
 <meta name="author" content="LPSE PONOROGO DEVELOPER">
-<?php
-	if ($logo != '' && !is_null($logo)){
-?>
-		<link rel="icon" type="image/png" sizes="16x16" href="<?php echo base_url('assets/uploads/').$logo; ?>">
-<?php
-	}
-	else{
-?>
-		<link rel="icon" type="image/png" sizes="16x16" href="<?=base_url('custom/icon.png')?>">
-<?php
-	}
-?>
+<link rel="icon" type="image/png" alt="" sizes="16x16" href="<?=base_url(LOGOPATH).$logo?>">

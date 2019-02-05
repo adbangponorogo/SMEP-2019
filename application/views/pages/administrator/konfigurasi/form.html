@@ -15,6 +15,7 @@
           <div class="form-group">
           	<label>Tingkat Daerah</label>
           	<select name="tingkat" class="form-control adminkonfigurasi-tingkat-daerah adminkonfigurasi-select2">
+          		<option value="Provinsi">Provinsi</option>
           		<option value="Kota">Kota</option>
           		<option value="Kabupaten">Kabupaten</option>
           	</select>
@@ -33,9 +34,9 @@
           	<div class="form-group">
           		<!-- If Ready -->
           		<img src="" class="adminkonfigurasi-image hidden-show" style="max-width:100%;">
-          		<button class="btn btn-primary btn-sm adminkonfigurasi-delete-image-btn hidden-show" style="margin-top: 5px;">
-          			<i class="fa fa-trash-o"></i>&nbsp;Delete Logo/Icon
-          		</button>
+          		<!-- <button class="btn btn-primary btn-sm adminkonfigurasi-delete-image-btn hidden-show" style="margin-top: 5px;"> -->
+          			<!-- <i class="fa fa-trash-o"></i>&nbsp;Reset Logo/Icon -->
+          		<!-- </button> -->
 
           		<!-- Create New -->
           		<label class="adminkonfigurasi-image-label hidden-show">:: Logo/Icon ::</label>
@@ -74,8 +75,8 @@
           		// Config
           		jQuery(".adminkonfigurasi-image").removeClass("visible-show");
           		jQuery(".adminkonfigurasi-image").removeClass("hidden-show");
-          		jQuery(".adminkonfigurasi-delete-image-btn").removeClass("visible-show");
-          		jQuery(".adminkonfigurasi-delete-image-btn").removeClass("hidden-show");
+          		//jQuery(".adminkonfigurasi-delete-image-btn").removeClass("visible-show");
+          		//jQuery(".adminkonfigurasi-delete-image-btn").removeClass("hidden-show");
           		jQuery(".adminkonfigurasi-image-label").removeClass("visible-show");
           		jQuery(".adminkonfigurasi-image-label").removeClass("hidden-show");
           		jQuery(".adminkonfigurasi-logo").removeClass("visible-show");
@@ -85,10 +86,10 @@
           			jQuery(".adminkonfigurasi-image").addClass("visible-show");
           			jQuery(".adminkonfigurasi-delete-image-btn").addClass("visible-show");
           			jQuery(".adminkonfigurasi-image-label").addClass("hidden-show");
-          			jQuery(".adminkonfigurasi-logo").addClass("hidden-show");
+          			jQuery(".adminkonfigurasi-logo").addClass("visible-show");
           			
           			// Value
-          			jQuery(".adminkonfigurasi-image").attr("src", "<?=base_url('assets/uploads/"+JSON[3][1]+"')?>");
+          			jQuery(".adminkonfigurasi-image").attr("src", "<?=base_url(LOGOPATH.'"+JSON[3][1]')?>);
           		}
           		if (JSON[3][0] == 1) {
           			jQuery(".adminkonfigurasi-image").addClass("hidden-show");
@@ -127,6 +128,7 @@
 	});
 
 	// --------------- Delete Image --------------- //
+	/*
     jQuery(document).on("click", ".adminkonfigurasi-delete-image-btn", function(){
     	jQuery.ajax({
 			type 		: 'AJAX',
@@ -143,4 +145,5 @@
 		});
     	return false;
     });
+*/
 </script>

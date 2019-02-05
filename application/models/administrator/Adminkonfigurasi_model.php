@@ -25,9 +25,9 @@ class Adminkonfigurasi_model extends CI_Model {
     	$this->db->update("tb_config", $data);
     }
 
-    public function deleteImage(){
+    public function deleteImage($data){
     	$this->db->where("key", "logo");
-    	$this->db->delete("tb_config");
+    	$this->db->update("tb_config", $data);
     }
 
 }

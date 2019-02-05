@@ -1,30 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title><?=$title?></title>
-  <?php
-    if ($logo != '' && !is_null($logo)){
-  ?>
-      <link rel="icon" type="image/png" sizes="16x16" href="<?php echo base_url('assets/uploads/').$logo; ?>">
-  <?php
-    }
-    else{
-  ?>
-      <link rel="icon" type="image/png" sizes="16x16" href="<?=base_url('custom/icon.png')?>">
-  <?php
-    }
-  ?>
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <meta name="description" content="">
-  <meta name="author" content="LPSE PONOROGO DEVELOPER">
+	<?php
+		include_once 'lib/head.html';
+	?>
   <script type="text/javascript" src="<?=base_url('assets/js/jquery-2.2.3.min.js')?>"></script>
   <link rel="stylesheet" href="<?=base_url('assets/css/bootstrap.min.css')?>">
   <link rel="stylesheet" href="<?=base_url('assets/css/font-awesome.min.css')?>">
   <link rel="stylesheet" href="<?=base_url('assets/css/build/AdminLTE.min.css')?>">
   <link rel="stylesheet" href="<?=base_url('assets/css/build/_all-skins.min.css')?>">
   <link rel="stylesheet" href="<?=base_url('assets/css/build/style.css')?>">
+  <title><?=$title?></title>
 </head>
 <body class="hold-transition login-page">
   <?php
@@ -32,18 +18,7 @@
   ?>
 <div class="login-box">
   <div class="login-logo">
-    <?php
-      if ($logo != '' && !is_null($logo)){
-    ?>
-      <img src="<?php echo base_url('assets/uploads/').$logo; ?>" style="width:150px;"><br>
-    <?php
-      }
-      else{
-    ?>
-      <img src="<?=base_url('custom/logo.png')?>" style="width:150px;"><br>
-    <?php
-      }
-    ?>
+      <img src="<?=base_url(LOGOPATH).$logo?>" alt="" style="width:150px;"><br>
     <a><b>SMEP</b></a><br>
     <h5><b>Sistem Monitoring Evaluasi Pelaporan</b></h5>
     <h5><b>Tahun Anggaran 2019 (Sebelum PAK)</b></h5>
