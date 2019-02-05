@@ -8,12 +8,12 @@ class MY_Controller extends CI_Controller {
 		global $smep;
 
 		parent::__construct();
-		$this->load->model('Main_model', 'model');
+		$this->load->model('Main_model', 'main_model');
 
-		$smep->tingkat = $this->model->getConfig('tingkat')->row()->value;
-		$smep->klpd = $this->model->getConfig('klpd')->row()->value;
-		$smep->footerlap = $this->model->getConfig('footerlap')->row()->value;
-		$smep->logo = $this->model->getConfig('logo')->row()->value;
+		$smep->tingkat = $this->main_model->getConfig('tingkat')->row()->value;
+		$smep->klpd = $this->main_model->getConfig('klpd')->row()->value;
+		$smep->footerlap = $this->main_model->getConfig('footerlap')->row()->value;
+		$smep->logo = $this->main_model->getConfig('logo')->row()->value;
 
 		// Logo
 		// $result_logo = $this->model->getConfig('logo');

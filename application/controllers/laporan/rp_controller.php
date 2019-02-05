@@ -10,7 +10,7 @@ class Rp_controller extends Admin_Controller {
 	}
 
 	public function index(){
-		if (empty($this->model->getKaSKPD($this->session->userdata('auth_id'))->row()->nama)) { 
+		if (empty($this->main_model->getKaSKPD($this->session->userdata('auth_id'))->row()->nama)) { 
 			//Filter khusus modul laporan
 			$this->load->view('pages/laporan/errors/data-ka-skpd-kosong');
 		}
@@ -59,8 +59,8 @@ class Rp_controller extends Admin_Controller {
 		$tgl_cetak = $this->input->post('tgl_cetak');
 		$tahun = $this->input->post('tahun');
 
-		$kd_skpd = $this->model->getSKPD($id_skpd)->row()->kd_skpd;
-		$nama_skpd = $this->model->getSKPD($id_skpd)->row()->nama_skpd;
+		$kd_skpd = $this->main_model->getSKPD($id_skpd)->row()->kd_skpd;
+		$nama_skpd = $this->main_model->getSKPD($id_skpd)->row()->nama_skpd;
 		
 		$this->load->library('Excel');
 		$this->load->helper('office_helper');
@@ -159,7 +159,7 @@ class Rp_controller extends Admin_Controller {
 			$row,
 			$smep->klpd,
 			$tgl_cetak,
-			$this->model->getKaSKPD($id_skpd, false)->row(),//data kepala SKPD
+			$this->main_model->getKaSKPD($id_skpd, false)->row(),//data kepala SKPD
 			'I' // Posisi kolom penanggungjawab
 		);
 		

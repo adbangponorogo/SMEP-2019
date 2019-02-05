@@ -1,0 +1,7 @@
+SELECT
+	a.*,
+	concat(b.id_program,'.',b.kd_program) kd_gab_prog,
+	b.kd_gabungan kd_gab_keg,
+	b.kd_rekening
+FROM tb_rup a
+JOIN simda_rincian_obyek b ON a.id_rincian_obyek=b.id

@@ -3,36 +3,36 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Ap_model extends CI_Model {
 
-		public function __construct()
-    {
-        $this->load->database();
-    }
+	public function __construct()
+	{
+		$this->load->database();
+	}
 
-    public function getProg($kd_skpd){
-        $this->db->select('*');
-        $this->db->from('simda_program');
-        $this->db->where('kd_skpd', $kd_skpd);
-        return $this->db->get();
-    }
+	public function getProg($kd_skpd){
+		$this->db->select('*');
+		$this->db->from('simda_program');
+		$this->db->where('kd_skpd', $kd_skpd);
+		return $this->db->get();
+	}
 
-    public function getKeg($id_parent_prog){
-        $this->db->select('*');
-        $this->db->from('simda_kegiatan');
-        $this->db->where('id_parent_prog', $id_parent_prog);
-        return $this->db->get();
-    }
+	public function getKeg($id_parent_prog){
+		$this->db->select('*');
+		$this->db->from('simda_kegiatan');
+		$this->db->where('id_parent_prog', $id_parent_prog);
+		return $this->db->get();
+	}
 
 // left, right, outer, inner, left outer, and right outer
 // $this->db->join('comments', 'comments.id = blogs.id', 'left');
 
-    public function getRO($id_parent_keg, $bln){
-        $this->db->select('a.*, SUM(a.jumlah) pagu, SUM(b.nilai) real_keu');
-        $this->db->from('v_rincian_obyek a');
-        $this->db->join('simda_realisasi_ro b', 'a.id=b.id AND b.bln<='.$bln, 'left');
-        $this->db->group_by('a.id');
-        $this->db->where('a.id_parent_keg', $id_parent_keg);
-        return $this->db->get();
-    }
+	public function getRO($id_parent_keg, $bln){
+		$this->db->select('a.*, a.jumlah pagu, SUM(b.nilai) real_keu');
+		$this->db->from('v_rincian_obyek a');
+		$this->db->join('simda_realisasi_ro b', 'a.id=b.id AND b.bln<='.$bln, 'left');
+		$this->db->group_by('a.id');
+		$this->db->where('a.id_parent_keg', $id_parent_keg);
+		return $this->db->get();
+	}
 
 	public function getProgAP2($kd_skpd){
 		$this->db->select('a.*');
@@ -45,23 +45,22 @@ class Ap_model extends CI_Model {
 	}
 
 	public function getKegAP2($id_parent_prog){
-		$this->db->select('a.*, c.nama');
+		$this->db->select('a.*');
 		$this->db->from('simda_kegiatan a');
 		$this->db->join("tb_rup b", "a.id = b.id_kegiatan");
-		$this->db->join("tb_pptk c", "a.id_skpd = c.id_skpd");
-		$this->db->join("tb_pptk_kegiatan d", "c.id = d.id_pptk");
 		$this->db->group_by('a.id');
 		$this->db->where('a.id_parent_prog', $id_parent_prog);
 		$this->db->where('b.jenis_pengadaan', 2);
 		return $this->db->get();
 	}
 
-	public function getPaketAP2($kd_skpd, $id_keg){
-		$this->db->select('*');
-		$this->db->from('tb_rup');
-		$this->db->where('kd_skpd', $kd_skpd);
-		$this->db->where('id_kegiatan', $id_keg);
-		$this->db->where('jenis_pengadaan', 2);
+	public function getPaketAP2($id_keg, $bln){
+		$this->db->select('a.*, SUM(b.realisasi_keuangan) real_keu, SUM(b.realisasi_fisik/100) real_fisik');
+		$this->db->from('v_rup a');
+		$this->db->join('tb_realisasi_rup b', 'a.id=b.id_rup AND b.bulan_pencairan<='.$bln, 'left');
+		$this->db->group_by('a.id');
+		$this->db->where('a.id_kegiatan', $id_keg);
+		$this->db->where('a.jenis_pengadaan', 2);
 		return $this->db->get();
 	}
 

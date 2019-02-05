@@ -10,7 +10,7 @@ class Ap_controller extends Admin_Controller {
 	}
 
 	public function index(){
-		if (empty($this->model->getKaSKPD($this->session->userdata('auth_id'))->row()->nama)) { //Filter khusus modul laporan
+		if (empty($this->main_model->getKaSKPD($this->session->userdata('auth_id'))->row()->nama)) { //Filter khusus modul laporan
 			$this->load->view('pages/laporan/errors/data-ka-skpd-kosong');
 		}
 		else {
@@ -58,8 +58,8 @@ class Ap_controller extends Admin_Controller {
 		$obj->bulan = $this->input->post("bulan");
 		$obj->tgl_cetak = $this->input->post("tgl_cetak");
 		
-		$obj->kd_skpd = $this->model->getSKPD($obj->id_skpd)->row()->kd_skpd;
-		$obj->nama_skpd = $this->model->getSKPD($obj->id_skpd)->row()->nama_skpd;
+		$obj->kd_skpd = $this->main_model->getSKPD($obj->id_skpd)->row()->kd_skpd;
+		$obj->nama_skpd = $this->main_model->getSKPD($obj->id_skpd)->row()->nama_skpd;
 		
 		$obj->tingkat = $smep->tingkat;
 		$obj->klpd = $smep->klpd;
@@ -202,7 +202,7 @@ class Ap_controller extends Admin_Controller {
 			$row,
 			$obj->klpd,
 			$obj->tgl_cetak,
-			$this->model->getKaSKPD($obj->id_skpd, false)->row(),//data kepala SKPD
+			$this->main_model->getKaSKPD($obj->id_skpd, false)->row(),//data kepala SKPD
 			'P' //Posisi kolom penanggungjawab
 		);
 		
@@ -308,7 +308,7 @@ class Ap_controller extends Admin_Controller {
 			$row,
 			$obj->klpd,
 			$obj->tgl_cetak,
-			$this->model->getKaSKPD($obj->id_skpd, false)->row(),//data kepala SKPD
+			$this->main_model->getKaSKPD($obj->id_skpd, false)->row(),//data kepala SKPD
 			'P' // Posisi kolom penanggungjawab
 		);
 		
@@ -338,7 +338,7 @@ class Ap_controller extends Admin_Controller {
 		$mulai = 11;
 		$row = $mulai;
 
-		$prog = $this->ap_model->getProg($obj->kd_skpd);
+		$prog = $this->ap_model->getProgAP2($obj->kd_skpd);
 		if ($prog->num_rows()){
 			foreach ($prog->result() as $d){
 				// -------- Program ---------
@@ -350,7 +350,7 @@ class Ap_controller extends Admin_Controller {
 				xl_font($x, 'B'.$row.':C'.$row,11,'bold');
 				$row++;
 
-				$keg = $this->ap_model->getKeg($d->id);
+				$keg = $this->ap_model->getKegAP2($d->id);
 				foreach ($keg->result() as $e){
 					// -------- Kegiatan ---------
 					$x->setCellValue('B'.$row, $e->kd_gabungan);
@@ -361,25 +361,20 @@ class Ap_controller extends Admin_Controller {
 					$row++;
 
 					$no = 0;
-					$ro = $this->ap_model->getRO($e->id, ($obj->bulan+0));
+					$ro = $this->ap_model->getPaketAP2($e->id, ($obj->bulan+0));
 					foreach ($ro->result() as $f){
 						// -------- Rincian Obyek ---------
 						$x->setCellValue('A'.$row, ++$no);
 						$x->setCellValue('B'.$row, $f->kd_rekening);
-						$x->setCellValue('C'.$row, $f->nama_rekening);
+						$x->setCellValue('C'.$row, $f->nama_paket);
+						$x->setCellValue('D'.$row, sumber_dana($f->sumber_dana));
 
-						$klm_pagu = getKolomSumberDana($f->sumber_dana); //pagu
-						$klm_real = getKolomSumberDana($f->sumber_dana, 'real');
-						$klm_fisik = getKolomSumberDana($f->sumber_dana, 'fisik');
-					
-						$x->setCellValue($klm_pagu.$row, ($f->pagu+0));
-						$x->setCellValue($klm_real.$row, ($f->real_keu+0));
+						$x->setCellValue('E'.$row, ($f->pagu_paket+0));
+						$x->setCellValue('K'.$row, ($f->real_keu+0));
+						$x->setCellValue('L'.$row, ($f->real_fisik+0));
 						
-						$persen_fisik = ($x->getCell($klm_pagu.$row)->getValue())? '='.$klm_real.$row.'/'.$klm_pagu.$row : 0;
-						$x->setCellValue($klm_fisik.$row, $persen_fisik);
-						
-						xl_persen($x, $klm_fisik.$row);
-						xl_wrap($x, 'C'.$row);
+						xl_persen($x, 'L'.$row);
+						xl_wrap($x, 'C'.$row.':H'.$row);
 						$row++;
 					}
 					$row++;
@@ -389,67 +384,39 @@ class Ap_controller extends Admin_Controller {
 			$x->setCellValue('C'.$row, 'NIHIL');
 			$row+=10;
 		}
-		xl_number_format($x, 'D'.$mulai.':J'.$row);
-		xl_number_format($x, 'L'.$mulai.':L'.$row);
-		xl_number_format($x, 'N'.$mulai.':N'.$row);
-		xl_number_format($x, 'P'.$mulai.':P'.$row);
-		xl_number_format($x, 'R'.$mulai.':R'.$row);
-		xl_number_format($x, 'T'.$mulai.':T'.$row);
-		xl_align($x, 'D'.$mulai.':I'.$row, 'right');
-		xl_align($x, 'A'.$mulai.':U'.$row, 'top');
+		xl_number_format($x, 'E'.$mulai.':E'.$row);
+		xl_number_format($x, 'K'.$mulai.':K'.$row);
+		xl_align($x, 'D'.$mulai.':D'.$row);
+		xl_align($x, 'M'.$mulai.':M'.$row);
+		xl_align($x, 'A'.$mulai.':M'.$row, 'top');
 
 		$x->setCellValue('C'.$row, 'Jumlah:');
 		xl_align($x, 'C'.$row, 'right');
 		
 		// Total pagu
-		$x->setCellValue('D'.$row, '=SUM(D'.$mulai.':D'.($row-2).')');
 		$x->setCellValue('E'.$row, '=SUM(E'.$mulai.':E'.($row-2).')');
-		$x->setCellValue('F'.$row, '=SUM(F'.$mulai.':F'.($row-2).')');
-		$x->setCellValue('G'.$row, '=SUM(G'.$mulai.':G'.($row-2).')');
-		$x->setCellValue('H'.$row, '=SUM(H'.$mulai.':H'.($row-2).')');
-		$x->setCellValue('I'.$row, '=SUM(I'.$mulai.':I'.($row-2).')');
 		
 		// Total real keu
-		$x->setCellValue('J'.$row, '=SUM(J'.$mulai.':J'.($row-2).')');
-		$x->setCellValue('L'.$row, '=SUM(L'.$mulai.':L'.($row-2).')');
-		$x->setCellValue('N'.$row, '=SUM(N'.$mulai.':N'.($row-2).')');
-		$x->setCellValue('P'.$row, '=SUM(P'.$mulai.':P'.($row-2).')');
-		$x->setCellValue('R'.$row, '=SUM(R'.$mulai.':R'.($row-2).')');
-		$x->setCellValue('T'.$row, '=SUM(T'.$mulai.':T'.($row-2).')');
+		$x->setCellValue('K'.$row, '=SUM(K'.$mulai.':K'.($row-2).')');
 
-		$sumD = ($x->getCell('D'.$row)->getCalculatedValue())? '=J'.$row.'/D'.$row : 0;
-		$sumE = ($x->getCell('E'.$row)->getCalculatedValue())? '=L'.$row.'/E'.$row : 0;
-		$sumF = ($x->getCell('F'.$row)->getCalculatedValue())? '=N'.$row.'/F'.$row : 0;
-		$sumG = ($x->getCell('G'.$row)->getCalculatedValue())? '=P'.$row.'/G'.$row : 0;
-		$sumH = ($x->getCell('H'.$row)->getCalculatedValue())? '=R'.$row.'/H'.$row : 0;
-		$sumI = ($x->getCell('I'.$row)->getCalculatedValue())? '=T'.$row.'/I'.$row 	: 0;
+		$sumE = ($x->getCell('E'.$row)->getCalculatedValue())? '=K'.$row.'/E'.$row : 0;
 		
 		// Total real fisik
 		//$x->setCellValue('K'.$row, '"'.$x->getCell('D'.$row)->getValue().'"'); //Get whatever value in cell, the formula.
-		$x->setCellValue('K'.$row, $sumD);
-		$x->setCellValue('M'.$row, $sumE);
-		$x->setCellValue('O'.$row, $sumF);
-		$x->setCellValue('Q'.$row, $sumG);
-		$x->setCellValue('S'.$row, $sumH);
-		$x->setCellValue('U'.$row, $sumI);
+		$x->setCellValue('L'.$row, $sumE);
 		
-		xl_persen($x, 'K'.$row);
-		xl_persen($x, 'M'.$row);
-		xl_persen($x, 'O'.$row);
-		xl_persen($x, 'Q'.$row);
-		xl_persen($x, 'S'.$row);
-		xl_persen($x, 'U'.$row);
+		xl_persen($x, 'L'.$row);
 		
-		xl_font($x, 'C'.$row.':U'.$row,11,'bold');
-		xl_borderall($x, 'A'.$mulai.':U'.$row);
+		xl_font($x, 'C'.$row.':M'.$row,11,'bold');
+		xl_borderall($x, 'A'.$mulai.':M'.$row);
 		
 		getPenanggungJawab(
 			$x,
 			$row,
 			$obj->klpd,
 			$obj->tgl_cetak,
-			$this->model->getKaSKPD($obj->id_skpd, false)->row(),//data kepala SKPD
-			'P' //Posisi kolom penanggungjawab
+			$this->main_model->getKaSKPD($obj->id_skpd, false)->row(),//data kepala SKPD
+			'J' //Posisi kolom penanggungjawab
 		);
 		
 		xl_footer(

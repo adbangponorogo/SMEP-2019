@@ -25,7 +25,7 @@ class Main_Controller extends MY_Controller {
 	public function getUserData(){
 		if ($this->session->userdata('auth_id') != '') {
 			$auth = $this->session->userdata('auth_id');
-			$result = $this->model->getDataUser($auth);
+			$result = $this->main_model->getDataUser($auth);
 			return $result;
 		}
 	}
@@ -36,7 +36,7 @@ class Main_Controller extends MY_Controller {
 			$data = array();
 			foreach ($resultUser->result() as $rows_user) {
 				if ($rows_user->status == 2 || $rows_user->status == 3) {
-					$resultSKPD = $this->model->getDataUserPPKUnique($rows_user->id_skpd);
+					$resultSKPD = $this->main_model->getDataUserPPKUnique($rows_user->id_skpd);
 					foreach ($resultSKPD->result() as $rows_SKPD) {
 						$data[] = array(
 									$rows_SKPD->id,
@@ -46,7 +46,7 @@ class Main_Controller extends MY_Controller {
 					}
 				}
 				if ($rows_user->status == 1) {
-					$resultSKPD = $this->model->getDataUserPPKAll($rows_user->id_skpd);
+					$resultSKPD = $this->main_model->getDataUserPPKAll($rows_user->id_skpd);
 					foreach ($resultSKPD->result() as $rows_SKPD) {
 						$data[] = array(
 									$rows_SKPD->id,

@@ -1,24 +1,24 @@
 SELECT
 	id,
 	id_skpd,
-	nama,	
-	lower(username) username,
-	password,	
-	status,	
-	email,	
-	telepon,	
+	nama,
+	LCASE(username) username,
+	password,
+	status,
+	email,
+	telepon,
 	alamat,
 	tanggal_buat
 FROM tb_users
-WHERE id!=''
+WHERE id<>''
 UNION ALL
 SELECT
 	a.id,
-	IFNULL(b.id_skpd, '-'),
+	IFNULL(b.id_skpd,'-') id_skpd,
 	a.nama,
-	lower(a.user) username,
+	LCASE(a.user) username,
 	a.pass password,
-	3 status,
+	3 AS status,
 	a.email,
 	a.telepon,
 	a.alamat,

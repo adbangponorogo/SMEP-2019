@@ -7,7 +7,7 @@ class Adminkonfigurasi_controller extends Admin_Controller {
 	{
 		parent::__construct();
 		$this->load->helper(array('form', 'url'));
-		$this->load->model('administrator/adminkonfigurasi_model', 'cfg_model');
+		$this->load->model('administrator/adminkonfigurasi_model', 'model');
 	}
 
 	public function mainPage(){
@@ -24,7 +24,7 @@ class Adminkonfigurasi_controller extends Admin_Controller {
 
 		if ($this->session->userdata("auth_id") != "") {
 			// ============== Tingkat ============== //
-			$result_tingkat = $this->cfg_model->getDataConfig('tingkat');
+			$result_tingkat = $this->model->getDataConfig('tingkat');
 			if ($result_tingkat->num_rows() > 0) {
 				foreach ($result_tingkat->result() as $rows_tingkat) {
 					$tingkat = $rows_tingkat->value;
@@ -35,7 +35,7 @@ class Adminkonfigurasi_controller extends Admin_Controller {
 			}
 
 			// ============== K/L/P/D ============== //
-			$result_klpd = $this->cfg_model->getDataConfig('klpd');
+			$result_klpd = $this->model->getDataConfig('klpd');
 			if ($result_klpd->num_rows() > 0) {
 				foreach ($result_klpd->result() as $rows_klpd) {
 					$klpd = $rows_klpd->value;
@@ -46,7 +46,7 @@ class Adminkonfigurasi_controller extends Admin_Controller {
 			}
 
 			// ============= Footerlap ============= //
-			$result_footerlap = $this->cfg_model->getDataConfig('footerlap');
+			$result_footerlap = $this->model->getDataConfig('footerlap');
 			if ($result_footerlap->num_rows() > 0) {
 				foreach ($result_footerlap->result() as $rows_footerlap) {
 					$footerlap = $rows_footerlap->value;
@@ -79,48 +79,48 @@ class Adminkonfigurasi_controller extends Admin_Controller {
 		
 		if ($this->session->userdata("auth_id") != "") {
 			// // ============== Tingkat ============== //
-			$result_tingkat = $this->cfg_model->getDataConfig('tingkat');
+			$result_tingkat = $this->model->getDataConfig('tingkat');
 			if ($result_tingkat->num_rows() > 0) {
 				$keyword = "tingkat";
 				$data = array("value" => $this->input->post("tingkat"));
-				$this->cfg_model->updateData($keyword, $data);
+				$this->model->updateData($keyword, $data);
 			}
 			else{
 				$data = array(
 								"key"	=> "tingkat",
 								"value" => $this->input->post("tingkat")
 							);
-				$this->cfg_model->uploadData($data);
+				$this->model->uploadData($data);
 			}
 
 			// // ============== K/L/P/D ============== //
-			$result_klpd = $this->cfg_model->getDataConfig('klpd');
+			$result_klpd = $this->model->getDataConfig('klpd');
 			if ($result_klpd->num_rows() > 0) {
 				$keyword = "klpd";
 				$data = array("value" => $this->input->post("klpd"));
-				$this->cfg_model->updateData($keyword, $data);
+				$this->model->updateData($keyword, $data);
 			}
 			else{
 				$data = array(
 								"key"	=> "klpd",
 								"value" => $this->input->post("klpd")
 							);
-				$this->cfg_model->uploadData($data);
+				$this->model->uploadData($data);
 			}
 
 			// // ============= Footerlap ============= //
-			$result_footerlap = $this->cfg_model->getDataConfig('footerlap');
+			$result_footerlap = $this->model->getDataConfig('footerlap');
 			if ($result_footerlap->num_rows() > 0) {
 				$keyword = "footerlap";
 				$data = array("value" => $this->input->post("footerlap"));
-				$this->cfg_model->updateData($keyword, $data);
+				$this->model->updateData($keyword, $data);
 			}
 			else{
 				$data = array(
 								"key"	=> "footerlap",
 								"value" => $this->input->post("footerlap")
 							);
-				$this->cfg_model->uploadData($data);
+				$this->model->uploadData($data);
 			}
 
 			// ========== Image (Logo/Icon) ======== //
@@ -137,7 +137,7 @@ class Adminkonfigurasi_controller extends Admin_Controller {
 												"key"	=> "logo",
 												"value" => $data['file_name']
 											);
-					$this->cfg_model->uploadData($data_upload);
+					$this->model->uploadData($data_upload);
 				}
 			}
 
