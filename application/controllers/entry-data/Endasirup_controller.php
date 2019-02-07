@@ -292,6 +292,7 @@ class Endasirup_controller extends CI_Controller {
                $no = 1;
                foreach ($result->result() as $rows) {
                     $row_first = $no++."<input type='checkbox' name='token_data[]' style='margin-left:5px;' class='sirupenda-delete-data' value='".$rows->id."'>";
+/* 
                     if (is_null($rows->nama_pemenang)) {
                          $nama_pemenang = '-';
                     }
@@ -301,8 +302,15 @@ class Endasirup_controller extends CI_Controller {
                     if (!is_null($rows->nama_pemenang) && $rows->nama_pemenang != "") {
                          $nama_pemenang = $rows->nama_pemenang;
                     }
+ */
+                    if ($rows->nama_pemenang)
+                         $nama_pemenang = $rows->nama_pemenang;
+										else
+                         $nama_pemenang = $rows->penyedia_swakelola;
+											 
                     $data[] = array(
                               $row_first,
+                              $rows->nomor_bukti,
                               $nama_pemenang,
                               $rows->tanggal_pencairan,
                               "Rp. ".number_format($rows->realisasi_keuangan),
@@ -318,69 +326,101 @@ class Endasirup_controller extends CI_Controller {
           }
      }
 
-     public function uploadData(){
-          if ($this->session->userdata('auth_id') != '') {
-               $data = array(
-                         "tahun" => $this->input->post("tahun"),
-                         "id_skpd" => $this->input->post("id_skpd"),
-                         "id_rup" => $this->input->post("id_rup"),
-                         "tanggal_pencairan" => $this->input->post("tanggal_pencairan"),
-                         "realisasi_keuangan" => $this->input->post("realisasi_keuangan"),
-                         "realisasi_fisik" => $this->input->post("realisasi_fisik"),
-                         "nomor_kontrak" => $this->input->post("nomor_kontrak"),
-                         "nomor_surat" => $this->input->post("nomor_surat"),
-                         "nama_pemenang" => $this->input->post("nama_pemenang"),
-                         "sanggah" => $this->input->post("sanggah"),
-                         "nilai_hps" => $this->input->post("nilai_hps"),
-                         "nilai_kontrak" => $this->input->post("nilai_kontrak"),
-                         "jumlah_mendaftar" => $this->input->post("jumlah_mendaftar"),
-                         "jumlah_lulus_kualifikasi" => $this->input->post("jumlah_lulus_kualifikasi"),
-                         "jumlah_menawar" => $this->input->post("jumlah_menawar"),
-                         "jumlah_lulus_teknis" => $this->input->post("jumlah_lulus_teknis"),
-                         "tanggal_pengumuman" => $this->input->post("tanggal_pengumuman"),
-                         "tanggal_anwijzing" => $this->input->post("tanggal_anwijzing"),
-                         "tanggal_pembukaan_penawaran" => $this->input->post("tanggal_pembukaan_penawaran"),
-                         "tanggal_klarifikasi_negosiasi" => $this->input->post("tanggal_klarifikasi_negosiasi"),
-                         "tanggal_kontrak" => $this->input->post("tanggal_kontrak"),
-                         "tanggal_spmk" => $this->input->post("tanggal_spmk"),
-                         "tanggal_surat_serah_terima" => $this->input->post("tanggal_surat_serah_terima"),
-                    );
-               $this->model->insertData($data);
-               echo json_encode(array("status"=>TRUE));
-          }
-          else{
-               redirect(base_url());
-          }
-     }
+	public function uploadData(){
+		if ($this->session->userdata('auth_id') != '') {
+
+			if (count(explode('-', $this->input->post("tanggal_pencairan"))) == 3)
+			list(, $bulan_pencairan, ) = explode('-', $this->input->post("tanggal_pencairan"));
+
+			$data = array(
+				"tahun" => $this->input->post("tahun"),
+				"id_skpd" => $this->input->post("id_skpd"),
+				"id_rup" => $this->input->post("id_rup"),
+				"tanggal_pencairan" => $this->input->post("tanggal_pencairan"),
+				"bulan_pencairan" => $bulan_pencairan,
+				"realisasi_keuangan" => $this->input->post("realisasi_keuangan"),
+				"realisasi_fisik" => $this->input->post("realisasi_fisik"),
+				"nomor_kontrak" => $this->input->post("nomor_kontrak"),
+				"nomor_surat" => $this->input->post("nomor_surat"),
+				"nama_pemenang" => $this->input->post("nama_pemenang"),
+				"sanggah" => $this->input->post("sanggah"),
+				"nilai_hps" => $this->input->post("nilai_hps"),
+				"nilai_kontrak" => $this->input->post("nilai_kontrak"),
+				"jumlah_mendaftar" => $this->input->post("jumlah_mendaftar"),
+				"jumlah_lulus_kualifikasi" => $this->input->post("jumlah_lulus_kualifikasi"),
+				"jumlah_menawar" => $this->input->post("jumlah_menawar"),
+				"jumlah_lulus_teknis" => $this->input->post("jumlah_lulus_teknis"),
+				"tanggal_pengumuman" => $this->input->post("tanggal_pengumuman"),
+				"tanggal_anwijzing" => $this->input->post("tanggal_anwijzing"),
+				"tanggal_pembukaan_penawaran" => $this->input->post("tanggal_pembukaan_penawaran"),
+				"tanggal_klarifikasi_negosiasi" => $this->input->post("tanggal_klarifikasi_negosiasi"),
+				"tanggal_kontrak" => $this->input->post("tanggal_kontrak"),
+				"tanggal_spmk" => $this->input->post("tanggal_spmk"),
+				"tanggal_surat_serah_terima" => $this->input->post("tanggal_surat_serah_terima"),
+				"nomor_bukti" => $this->input->post("nomor_bukti"),
+				"penyedia_swakelola" => $this->input->post("penyedia_swakelola"),
+				);
+			$this->model->insertData($data);
+
+			$data_rup = array(
+				"nomor_kontrak" => $this->input->post("nomor_kontrak"),
+				"nomor_surat" => $this->input->post("nomor_surat"),
+				"nama_pemenang" => $this->input->post("nama_pemenang"),
+				"sanggah" => $this->input->post("sanggah"),
+				"nilai_hps" => $this->input->post("nilai_hps"),
+				"nilai_kontrak" => $this->input->post("nilai_kontrak"),
+				"jumlah_mendaftar" => $this->input->post("jumlah_mendaftar"),
+				"jumlah_lulus_kualifikasi" => $this->input->post("jumlah_lulus_kualifikasi"),
+				"jumlah_menawar" => $this->input->post("jumlah_menawar"),
+				"jumlah_lulus_teknis" => $this->input->post("jumlah_lulus_teknis"),
+				"tanggal_pengumuman" => $this->input->post("tanggal_pengumuman"),
+				"tanggal_anwijzing" => $this->input->post("tanggal_anwijzing"),
+				"tanggal_pembukaan_penawaran" => $this->input->post("tanggal_pembukaan_penawaran"),
+				"tanggal_klarifikasi_negosiasi" => $this->input->post("tanggal_klarifikasi_negosiasi"),
+				"tanggal_kontrak" => $this->input->post("tanggal_kontrak"),
+				"tanggal_spmk" => $this->input->post("tanggal_spmk"),
+				"tanggal_surat_serah_terima" => $this->input->post("tanggal_surat_serah_terima"),
+				);
+			$this->model->updateDataRUP($this->input->post("id_rup"), $data_rup);
+			
+			echo json_encode(array("status"=>TRUE));
+		}
+		else{
+			redirect(base_url());
+		}
+	}
 
      public function changeData($token){
           if ($this->session->userdata('auth_id') != "") {
                $result = $this->model->getDataRealisasi($token);
                $data = array();
                foreach ($result->result() as $rows) {
-                    $data[] = array(
-                              $rows->id,
-                              $rows->tanggal_pencairan,
-                              $rows->realisasi_keuangan,
-                              $rows->realisasi_fisik,
-                              $rows->nilai_hps,
-                              $rows->nilai_kontrak,
-                              $rows->jumlah_mendaftar,
-                              $rows->jumlah_lulus_kualifikasi,
-                              $rows->jumlah_menawar,
-                              $rows->jumlah_lulus_teknis,
-                              $rows->tanggal_pengumuman,
-                              $rows->tanggal_anwijzing,
-                              $rows->tanggal_pembukaan_penawaran,
-                              $rows->tanggal_klarifikasi_negosiasi,
-                              $rows->tanggal_kontrak,
-                              $rows->tanggal_spmk,
-                              $rows->nomor_kontrak,
-                              $rows->nama_pemenang,
-                              $rows->sanggah,
-                              $rows->nomor_surat,
-                              $rows->tanggal_surat_serah_terima,
-                         );
+                    $data[0][0] = $rows->id;
+                    $data[0][1] = $rows->tanggal_pencairan;
+                    $data[0][2] = $rows->realisasi_keuangan;
+                    $data[0][3] = $rows->realisasi_fisik;
+                    $data[0][21] = $rows->nomor_bukti;
+                    $data[0][22] = $rows->penyedia_swakelola;
+               }
+               $result = $this->model->getDataRealisasiParentRUP($token);
+               foreach ($result->result() as $rows) {
+                    $data[0][4] = $rows->nilai_hps;
+                    $data[0][5] = $rows->nilai_kontrak;
+                    $data[0][6] = $rows->jumlah_mendaftar;
+                    $data[0][7] = $rows->jumlah_lulus_kualifikasi;
+                    $data[0][8] = $rows->jumlah_menawar;
+                    $data[0][9] = $rows->jumlah_lulus_teknis;
+                    $data[0][10] = $rows->tanggal_pengumuman;
+                    $data[0][11] = $rows->tanggal_anwijzing;
+                    $data[0][12] = $rows->tanggal_pembukaan_penawaran;
+                    $data[0][13] = $rows->tanggal_klarifikasi_negosiasi;
+                    $data[0][14] = $rows->tanggal_kontrak;
+                    $data[0][15] = $rows->tanggal_spmk;
+                    $data[0][16] = $rows->nomor_kontrak;
+                    $data[0][17] = $rows->nama_pemenang;
+                    $data[0][18] = $rows->sanggah;
+                    $data[0][19] = $rows->nomor_surat;
+                    $data[0][20] = $rows->tanggal_surat_serah_terima;
                }
                echo json_encode($data);
           }
@@ -389,37 +429,66 @@ class Endasirup_controller extends CI_Controller {
           }
      }
 
-     public function updateData(){
-          if ($this->session->userdata('auth_id') != '') {
-               $data = array(
-                         "tanggal_pencairan" => $this->input->post("tanggal_pencairan"),
-                         "realisasi_keuangan" => $this->input->post("realisasi_keuangan"),
-                         "realisasi_fisik" => $this->input->post("realisasi_fisik"),
-                         "nomor_kontrak" => $this->input->post("nomor_kontrak"),
-                         "nomor_surat" => $this->input->post("nomor_surat"),
-                         "nama_pemenang" => $this->input->post("nama_pemenang"),
-                         "sanggah" => $this->input->post("sanggah"),
-                         "nilai_hps" => $this->input->post("nilai_hps"),
-                         "nilai_kontrak" => $this->input->post("nilai_kontrak"),
-                         "jumlah_mendaftar" => $this->input->post("jumlah_mendaftar"),
-                         "jumlah_lulus_kualifikasi" => $this->input->post("jumlah_lulus_kualifikasi"),
-                         "jumlah_menawar" => $this->input->post("jumlah_menawar"),
-                         "jumlah_lulus_teknis" => $this->input->post("jumlah_lulus_teknis"),
-                         "tanggal_pengumuman" => $this->input->post("tanggal_pengumuman"),
-                         "tanggal_anwijzing" => $this->input->post("tanggal_anwijzing"),
-                         "tanggal_pembukaan_penawaran" => $this->input->post("tanggal_pembukaan_penawaran"),
-                         "tanggal_klarifikasi_negosiasi" => $this->input->post("tanggal_klarifikasi_negosiasi"),
-                         "tanggal_kontrak" => $this->input->post("tanggal_kontrak"),
-                         "tanggal_spmk" => $this->input->post("tanggal_spmk"),
-                         "tanggal_surat_serah_terima" => $this->input->post("tanggal_surat_serah_terima"),
-                    );
-               $this->model->updateData($this->input->post("token"), $data);
-               echo json_encode(array("status"=>TRUE));
-          }
-          else{
-               redirect(base_url());
-          }
-     }
+	public function updateData(){
+		if ($this->session->userdata('auth_id') != '') {
+			
+			if (count(explode('-', $this->input->post("tanggal_pencairan"))) == 3)
+				list(, $bulan_pencairan, ) = explode('-', $this->input->post("tanggal_pencairan"));
+
+			$data = array(
+				"tanggal_pencairan" => $this->input->post("tanggal_pencairan"),
+				"bulan_pencairan" => $bulan_pencairan,
+				"realisasi_keuangan" => $this->input->post("realisasi_keuangan"),
+				"realisasi_fisik" => $this->input->post("realisasi_fisik"),
+				"nomor_kontrak" => $this->input->post("nomor_kontrak"),
+				"nomor_surat" => $this->input->post("nomor_surat"),
+				"nama_pemenang" => $this->input->post("nama_pemenang"),
+				"sanggah" => $this->input->post("sanggah"),
+				"nilai_hps" => $this->input->post("nilai_hps"),
+				"nilai_kontrak" => $this->input->post("nilai_kontrak"),
+				"jumlah_mendaftar" => $this->input->post("jumlah_mendaftar"),
+				"jumlah_lulus_kualifikasi" => $this->input->post("jumlah_lulus_kualifikasi"),
+				"jumlah_menawar" => $this->input->post("jumlah_menawar"),
+				"jumlah_lulus_teknis" => $this->input->post("jumlah_lulus_teknis"),
+				"tanggal_pengumuman" => $this->input->post("tanggal_pengumuman"),
+				"tanggal_anwijzing" => $this->input->post("tanggal_anwijzing"),
+				"tanggal_pembukaan_penawaran" => $this->input->post("tanggal_pembukaan_penawaran"),
+				"tanggal_klarifikasi_negosiasi" => $this->input->post("tanggal_klarifikasi_negosiasi"),
+				"tanggal_kontrak" => $this->input->post("tanggal_kontrak"),
+				"tanggal_spmk" => $this->input->post("tanggal_spmk"),
+				"tanggal_surat_serah_terima" => $this->input->post("tanggal_surat_serah_terima"),
+				"nomor_bukti" => $this->input->post("nomor_bukti"),
+				"penyedia_swakelola" => $this->input->post("penyedia_swakelola"),
+				);
+			$this->model->updateData($this->input->post("token"), $data);
+			
+			$data_rup = array(
+				"nomor_kontrak" => $this->input->post("nomor_kontrak"),
+				"nomor_surat" => $this->input->post("nomor_surat"),
+				"nama_pemenang" => $this->input->post("nama_pemenang"),
+				"sanggah" => $this->input->post("sanggah"),
+				"nilai_hps" => $this->input->post("nilai_hps"),
+				"nilai_kontrak" => $this->input->post("nilai_kontrak"),
+				"jumlah_mendaftar" => $this->input->post("jumlah_mendaftar"),
+				"jumlah_lulus_kualifikasi" => $this->input->post("jumlah_lulus_kualifikasi"),
+				"jumlah_menawar" => $this->input->post("jumlah_menawar"),
+				"jumlah_lulus_teknis" => $this->input->post("jumlah_lulus_teknis"),
+				"tanggal_pengumuman" => $this->input->post("tanggal_pengumuman"),
+				"tanggal_anwijzing" => $this->input->post("tanggal_anwijzing"),
+				"tanggal_pembukaan_penawaran" => $this->input->post("tanggal_pembukaan_penawaran"),
+				"tanggal_klarifikasi_negosiasi" => $this->input->post("tanggal_klarifikasi_negosiasi"),
+				"tanggal_kontrak" => $this->input->post("tanggal_kontrak"),
+				"tanggal_spmk" => $this->input->post("tanggal_spmk"),
+				"tanggal_surat_serah_terima" => $this->input->post("tanggal_surat_serah_terima"),
+				);
+			$this->model->updateDataRUP($this->input->post("id_rup"), $data_rup);
+			
+			echo json_encode(array("status"=>TRUE));
+		}
+		else{
+			redirect(base_url());
+		}
+	}
 
      public function trashData($token){
           if ($this->session->userdata('auth_id') != '') {

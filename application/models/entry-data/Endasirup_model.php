@@ -99,6 +99,16 @@ class Endasirup_model extends CI_Model {
           $data = $this->db->get();
           return $data;
     }
+
+    public function getDataRealisasiParentRUP($token){
+          $this->db->select("a.*");
+          $this->db->from("tb_rup a");
+          $this->db->join("tb_realisasi_rup b", "a.id=b.id_rup");
+          $this->db->where("b.id", $token);
+          $data = $this->db->get();
+          return $data;
+    }
+
     public function getDataSumRealisasiRUP($id_rup){
           $this->db->select("sum(realisasi_keuangan) as realisasi_keuangan, sum(realisasi_fisik) as realisasi_fisik");
           $this->db->from("tb_realisasi_rup");
@@ -114,6 +124,11 @@ class Endasirup_model extends CI_Model {
     public function updateData($token, $data){
         $this->db->where("id", $token);
         $this->db->update("tb_realisasi_rup", $data);
+    }
+
+    public function updateDataRUP($token, $data){
+        $this->db->where("id", $token);
+        $this->db->update("tb_rup", $data);
     }
 
     public function deleteData($token){

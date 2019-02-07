@@ -70,12 +70,28 @@
 									</div>
 								</div>
 							</div>
+							
+							<div class="form-group">
+								<label>Nomor Bukti&nbsp;
+									<i class="fa fa-exclamation-circle" style="color: #d33724;"></i>
+								</label>
+								<input type="text" name="nomor_bukti" class="form-control sirupenda-nomor_bukti-edit" placeholder="Nomor SP/Kuitansi/Nota">
+							</div>
+
+							<div class="form-group">
+								<label>Penyedia Swakelola</label>
+								<input type="text" name="penyedia_swakelola" class="form-control sirupenda-penyedia_swakelola-edit" placeholder="Penyedia Swakelola">
+							</div>
+
 						</div>
 					</div>
 				</div>
 				<div class="col-md-12">
 					<div class="col-md-12">
 						<h3 class="page-header" style="font-size: 15px;"><b>Riwayat Pengadaan</b></h3>
+						
+						<div class="simple-info">Hanya diisi apabila pengadaan menghasilkan Surat Perjanjian Kerja (SPK) / Surat Perjanjian</div>
+						
 						<div class="col-md-12" style="padding: 0px;">
 							<div class="col-md-4" style="padding: 0px 5px;">
 								<div class="form-group">
@@ -135,9 +151,7 @@
 									<input type="text" name="nama_pemenang" class="form-control sirupenda-nama-pemenang-edit" placeholder="Nama Pemenang">
 								</div>
 								<div class="form-group">
-									<label>Nilai Kontrak&nbsp;
-										<i class="fa fa-exclamation-circle" style="color: #d33724;"></i>
-									</label>
+									<label>Nilai Kontrak</label>
 									<input type="number" name="nilai_kontrak" class="form-control sirupenda-nilai-kontrak-edit" min="0" placeholder="0">
 								</div>
 								<div class="form-group">
@@ -156,6 +170,9 @@
 				<div class="col-md-12">
 					<div class="col-md-12">
 						<h3 class="page-header" style="font-size: 15px;"><b>Serah Terima PPK Kepada PA/KPA</b></h3>
+
+						<div class="simple-info">Hanya diisi apabila paket termasuk Belanja Modal</div>
+
 						<div class="col-md-12" style="padding: 0px;">
 							<div class="col-md-12" style="padding: 0px">
 								<div class="form-group">
@@ -176,6 +193,7 @@
 						<div class="col-md-12">
 							<div class="form-gorup">
 								<input type="hidden" name="token" class="sirupenda-token-edit">
+								<input type="hidden" name="id_rup" class="sirupenda-id_rup-edit">
 								<button class="btn btn-primary smep-sirupenda-edit-change-btn">Simpan</button>
 								<button class="btn btn-danger smep-sirupenda-edit-cancel-btn">Batal</button>
 							</div>
@@ -234,6 +252,7 @@
 		    async     : true,
 		    dataType  : 'JSON',
 		    success   : function(JSON){
+		    	jQuery(".sirupenda-id_rup-edit").val(jQuery(".smep-unique-token").val());
 		    	jQuery(".sirupenda-token-edit").val(JSON[0][0]);
 		    	jQuery(".sirupenda-tanggal-pencairan-edit").val(JSON[0][1]);
 		    	jQuery(".sirupenda-realisasi-keuangan-edit").val(JSON[0][2]);
@@ -256,6 +275,8 @@
 		    	jQuery(".sirupenda-sanggah-edit").val(JSON[0][18]);
 		    	jQuery(".sirupenda-nomor-surat-edit").val(JSON[0][19]);
 		    	jQuery(".sirupenda-tanggal-surat-serah-terima-edit").val(JSON[0][20]);
+		    	jQuery(".sirupenda-nomor_bukti-edit").val(JSON[0][21]);
+		    	jQuery(".sirupenda-penyedia_swakelola-edit").val(JSON[0][22]);
 		    },
 		    error     : function(jqXHR, textStatus, errorThrown){
 		        location.href = window.location.href+"app/auth/sessionPage";

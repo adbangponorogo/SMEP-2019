@@ -85,6 +85,8 @@ jQuery(document).ready(function(){
 						parse_rf = parseInt(split_rf[0]+""+split_rf[1]);
 						if (parse_rf >= 0 && parse_rf <= 10000) {
 							if (parseInt(jQuery(".sirupenda-realisasi-keuangan-reg").val()) <= parseInt(jQuery(".sirupenda-sisa-pagu-paket-reg").val())) {
+										endaSiRUPRegisterModal(5);
+/* 
 								if (jQuery(".sirupenda-nilai-kontrak-reg").val() != '') {
 									if (jQuery(".sirupenda-nilai-kontrak-reg").val() >= 0) {
 										endaSiRUPRegisterModal(5);
@@ -98,6 +100,7 @@ jQuery(document).ready(function(){
 									endaSiRUPEditModal(1, "Nilai Kontrak");
 									jQuery(".sirupenda-nilai-kontrak-reg").focus();
 								}
+ */
 							}
 							else{
 								endaSiRUPRegisterModal(4, "Realisasi Keuangan");
@@ -168,6 +171,8 @@ jQuery(document).ready(function(){
 				if (jQuery(".sirupenda-realisasi-keuangan-edit").val() >= 0) {
 					var count_max_realisasi = parseInt(jQuery(".sirupenda-real-realisasi-keuangan-edit").val()) + parseInt(jQuery(".sirupenda-sisa-pagu-paket-edit").val());;
 					if (parseInt(jQuery(".sirupenda-realisasi-keuangan-edit").val()) <= count_max_realisasi) {
+								endaSiRUPEditModal(5);
+/* 								
 						if (jQuery(".sirupenda-nilai-kontrak-edit").val() != '') {
 							if (jQuery(".sirupenda-nilai-kontrak-edit").val() >= 0) {
 								endaSiRUPEditModal(5);
@@ -181,6 +186,7 @@ jQuery(document).ready(function(){
 							endaSiRUPEditModal(1, "Nilai Kontrak");
 							jQuery(".sirupenda-nilai-kontrak-edit").focus();
 						}
+ */
 					}
 					else{
 						endaSiRUPEditModal(4, "Realisasi Keuangan");
