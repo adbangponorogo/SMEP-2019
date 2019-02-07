@@ -7,7 +7,7 @@ class Adminpengsi_model extends CI_Model {
     {
         parent::__construct();
         $this->db = $this->load->database('default', TRUE);
-        $this->old_db = $this->load->database('smep_old', TRUE);
+//        $this->old_db = $this->load->database('smep_old', TRUE);
     }
 
     public function getDataSKPD($token){

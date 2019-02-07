@@ -14,3 +14,13 @@ Errrorrrrrrrrrr banyakkkkk, pokok'e uakeehhh
 
 ----- *Uji Coba* -----
 Tanya mbakk canii
+
+Finalisasi Laporan:
+1. Lap AP2-3 -> XL
+2. Lap LP1-4 -> XL
+3. RUP PS -> XL
+4. Tepra Rencana n Realisasi -> XL
+5. BAST -> Word
+
+Integrasi SiRUP:
+1. Buat Service / API SMEP untuk SiRUP

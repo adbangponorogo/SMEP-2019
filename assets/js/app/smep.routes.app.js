@@ -148,6 +148,12 @@ jQuery(document).ready(function(){
 		return false;
 	});
 
+	jQuery(document).on("click", ".smep-admin-api-sirup-page", function(){
+		var url = "administrator/api-sirup/main-page";
+		appMainCheckSession(url);
+		return false;
+	});
+
 	jQuery(document).on("click", ".smep-admin-rup-page", function(){
 		var url = "administrator/rup/main-page";
 		appMainCheckSession(url);

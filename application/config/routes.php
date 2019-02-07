@@ -257,6 +257,11 @@ $route['administrator/pengguna-aplikasi/delete-data/(:any)'] = 'administrator/Ad
 $route['administrator/pengguna-aplikasi/generate-data'] = 'administrator/Adminpengsi_controller/GenerateData';
 
 
+// ------ API SiRUP ------ //
+$route['administrator/api-sirup/main-page'] = 'administrator/Adminapisirup_controller';
+$route['api/program'] = 'administrator/Adminapisirup_controller/program';
+$route['api/kegiatan'] = 'administrator/Adminapisirup_controller/Kegiatan';
+
 // ------ Rekapitulasi Rencana Pengadaan ------ //
 $route['administrator/rencana-pengadaan/main-page'] = 'administrator/Adminrapan_controller/mainPage';
 $route['administrator/rencana-pengadaan/print-data'] = 'administrator/Adminrapan_controller/getPrintData';
