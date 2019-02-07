@@ -36,6 +36,10 @@
 								<input type="text" class="form-control sirupenda-sumber-dana-edit" readonly="readonly">
 							</div>
 							<div class="form-group">
+								<label>Jenis Belanja</label>
+								<input type="text" class="form-control sirupenda-jenis-belanja-edit" readonly="readonly">
+							</div>
+							<div class="form-group">
 								<label>Jenis Pengadaan (TEPRA)</label>
 								<input type="text" class="form-control sirupenda-jenis-pengadaan-edit" readonly="readonly">
 							</div>
@@ -235,6 +239,7 @@
 		    	jQuery(".sirupenda-sumber-dana-edit").val(JSON[0][6]);
 		    	jQuery(".sirupenda-jenis-pengadaan-edit").val(JSON[0][7]);
 		    	jQuery(".sirupenda-metode-pemilihan-edit").val(JSON[0][8]);
+		    	jQuery(".sirupenda-jenis-belanja-edit").val(JSON[0][9]);
 		    },
 		    error     : function(jqXHR, textStatus, errorThrown){
 		        location.href = window.location.href+"app/auth/sessionPage";

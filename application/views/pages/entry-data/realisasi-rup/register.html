@@ -36,6 +36,10 @@
 								<input type="text" class="form-control sirupenda-sumber-dana-reg" readonly="readonly">
 							</div>
 							<div class="form-group">
+								<label>Jenis Belanja</label>
+								<input type="text" class="form-control sirupenda-jenis-belanja-reg" readonly="readonly">
+							</div>
+							<div class="form-group">
 								<label>Jenis Pengadaan (TEPRA)</label>
 								<input type="text" class="form-control sirupenda-jenis-pengadaan-reg" readonly="readonly">
 							</div>
@@ -240,12 +244,12 @@
 		    	jQuery(".sirupenda-sumber-dana-reg").val(JSON[0][6]);
 		    	jQuery(".sirupenda-jenis-pengadaan-reg").val(JSON[0][7]);
 		    	jQuery(".sirupenda-metode-pemilihan-reg").val(JSON[0][8]);
+		    	jQuery(".sirupenda-jenis-belanja-reg").val(JSON[0][9]);
 		    	
 		    	jQuery(".sirupenda-real-pagu-paket-reg").val(JSON[0][4]);
 		    	jQuery(".sirupenda-realisasi-keuangan-reg").val(JSON[0][5]);
 		    	jQuery(".sirupenda-sisa-pagu-paket-reg").val(JSON[0][5]);
 		    	jQuery(".sirupenda-hps-reg").val(JSON[0][4]);
-		    	jQuery(".sirupenda-nilai-kontrak-reg").val(JSON[0][4]);
 		    },
 		    error     : function(jqXHR, textStatus, errorThrown){
 		        location.href = window.location.href+"app/auth/sessionPage";
@@ -259,7 +263,7 @@
 	    jQuery.ajax({
 		    type      : 'AJAX',
 		    method    : 'GET',
-		    url       : 'entry-data/realisasi-rup/edit-data/'+jQuery(".smep-unique-edit-token").val(),
+		    url       : 'entry-data/realisasi-rup/add-data/'+jQuery(".smep-unique-token").val(),
 		    async     : true,
 		    dataType  : 'JSON',
 		    success   : function(JSON){

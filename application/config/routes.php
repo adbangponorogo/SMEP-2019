@@ -166,6 +166,7 @@ $route['entry-data/realisasi-rup/main-data/rup-realisasi/all/(:any)'] = 'entry-d
 $route['entry-data/realisasi-rup/main-data/realisasi/all/(:any)'] = 'entry-data/Endasirup_controller/getMainDataRealisasi/$1';
 $route['entry-data/realisasi-rup/upload-data'] = 'entry-data/Endasirup_controller/uploadData';
 $route['entry-data/realisasi-rup/edit-page'] = 'entry-data/Endasirup_controller/editDataPage';
+$route['entry-data/realisasi-rup/add-data/(:any)'] = 'entry-data/Endasirup_controller/changeDataAdd/$1';
 $route['entry-data/realisasi-rup/edit-data/(:any)'] = 'entry-data/Endasirup_controller/changeData/$1';
 $route['entry-data/realisasi-rup/update-data'] = 'entry-data/Endasirup_controller/updateData';
 $route['entry-data/realisasi-rup/delete-data/(:any)'] = 'entry-data/Endasirup_controller/trashData/$1';

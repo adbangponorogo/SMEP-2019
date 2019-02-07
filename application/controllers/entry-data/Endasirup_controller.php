@@ -213,17 +213,50 @@ class Endasirup_controller extends CI_Controller {
                                    break;
                               }
 
+                              switch ($rows_rup->jenis_belanja) {
+																case 1:
+																	$jenis_belanja = 'Belanja Pegawai';
+																	break;
+																case 2:
+																	$jenis_belanja = 'Belanja Barang/Jasa';
+																	break;
+																case 3:
+																	$jenis_belanja = 'Belanja Modal';
+																	break;
+																case 4:
+																	$jenis_belanja = 'Belum Teridentifikasi';
+																	break;
+																case 5:
+																	$jenis_belanja = 'Belanja Bunga Utang';
+																	break;
+																case 6:
+																	$jenis_belanja = 'Belanja Subsidi';
+																	break;
+																case 7:
+																	$jenis_belanja = 'Belanja Hibah';
+																	break;
+																case 8:
+																	$jenis_belanja = 'Belanja Bantuan Sosial';
+																	break;
+																case 9:
+																	$jenis_belanja = 'Belanja Lain-Lain';
+																	break;
+																default:
+																	$jenis_belanja = '-';
+                              }
+
                               $sisa_pagu = intval($rows_rup->pagu_paket) - intval($realisasi_keuangan);
                               $data[] = array(
                                         "[".$rows_program->kd_gabungan."] - ".$rows_program->keterangan_program,
                                         "[".$rows_kegiatan->kd_gabungan."] - ".$rows_kegiatan->keterangan_kegiatan,
-                                        $rows_rup->nama_paket,
+                                        "[".substr($rows_rup->kd_mak, -11)."] - [".$rows_rup->id."] - ".$rows_rup->nama_paket,
                                         "Rp. ".number_format($rows_rup->pagu_paket),
                                         $rows_rup->pagu_paket,
                                         $sisa_pagu,
                                         $sumber_dana,
                                         $jenis_pengadaan,
-                                        $metode_pemilihan
+                                        $metode_pemilihan,
+                                        $jenis_belanja
                                    );
                          }
 
@@ -389,6 +422,35 @@ class Endasirup_controller extends CI_Controller {
 			redirect(base_url());
 		}
 	}
+
+     public function changeDataAdd($token){
+          if ($this->session->userdata('auth_id') != "") {
+               $result = $this->model->getDataRUP($token);
+               foreach ($result->result() as $rows) {
+                    $data[0][4] = $rows->nilai_hps;
+                    $data[0][5] = $rows->nilai_kontrak;
+                    $data[0][6] = $rows->jumlah_mendaftar;
+                    $data[0][7] = $rows->jumlah_lulus_kualifikasi;
+                    $data[0][8] = $rows->jumlah_menawar;
+                    $data[0][9] = $rows->jumlah_lulus_teknis;
+                    $data[0][10] = $rows->tanggal_pengumuman;
+                    $data[0][11] = $rows->tanggal_anwijzing;
+                    $data[0][12] = $rows->tanggal_pembukaan_penawaran;
+                    $data[0][13] = $rows->tanggal_klarifikasi_negosiasi;
+                    $data[0][14] = $rows->tanggal_kontrak;
+                    $data[0][15] = $rows->tanggal_spmk;
+                    $data[0][16] = $rows->nomor_kontrak;
+                    $data[0][17] = $rows->nama_pemenang;
+                    $data[0][18] = $rows->sanggah;
+                    $data[0][19] = $rows->nomor_surat;
+                    $data[0][20] = $rows->tanggal_surat_serah_terima;
+               }
+               echo json_encode($data);
+          }
+          else{
+               redirect(base_url());
+          }
+     }
 
      public function changeData($token){
           if ($this->session->userdata('auth_id') != "") {
