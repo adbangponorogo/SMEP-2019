@@ -55,7 +55,7 @@
             </ul>
           </li>
           <?php
-            if ($user->status == 1 || $user->status == 2){
+            if (false){
           ?>
             <li class="treeview">
               <a href="#"><i class="fa fa-bar-chart-o"></i> <span>Laporan</span>
@@ -86,10 +86,11 @@
             }
           ?>
           <?php
-            if ($user->username == 'reogpu'):
+            //if ($user->username == 'reogpu'):
+            if ($user->status == 1 || $user->status == 2):
           ?>
             <li class="treeview">
-              <a href="#"><i class="fa fa-camera-retro"></i> <span>Laporan Danang	</span>
+              <a href="#"><i class="fa fa-camera-retro"></i> <span>Laporan</span>
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
