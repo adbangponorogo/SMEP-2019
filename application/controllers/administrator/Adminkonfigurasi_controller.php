@@ -79,65 +79,40 @@ class Adminkonfigurasi_controller extends Admin_Controller {
 		
 		if ($this->session->userdata("auth_id") != "") {
 			// // ============== Tingkat ============== //
-			$result_tingkat = $this->model->getDataConfig('tingkat');
-			if ($result_tingkat->num_rows() > 0) {
-				$keyword = "tingkat";
-				$data = array("value" => $this->input->post("tingkat"));
-				$this->model->updateData($keyword, $data);
-			}
-			else{
-				$data = array(
-								"key"	=> "tingkat",
-								"value" => $this->input->post("tingkat")
-							);
-				$this->model->uploadData($data);
-			}
+			$keyword_1 = "tingkat";
+			$data_1 = array("value" => $this->input->post("tingkat"));
+			$this->model->updateData($keyword_1, $data_1);
+			
 
 			// // ============== K/L/P/D ============== //
-			$result_klpd = $this->model->getDataConfig('klpd');
-			if ($result_klpd->num_rows() > 0) {
-				$keyword = "klpd";
-				$data = array("value" => $this->input->post("klpd"));
-				$this->model->updateData($keyword, $data);
-			}
-			else{
-				$data = array(
-								"key"	=> "klpd",
-								"value" => $this->input->post("klpd")
-							);
-				$this->model->uploadData($data);
-			}
+			$keyword_2 = "klpd";
+			$data_2 = array("value" => $this->input->post("klpd"));
+			$this->model->updateData($keyword_2, $data_2);
+			
 
 			// // ============= Footerlap ============= //
-			$result_footerlap = $this->model->getDataConfig('footerlap');
-			if ($result_footerlap->num_rows() > 0) {
-				$keyword = "footerlap";
-				$data = array("value" => $this->input->post("footerlap"));
-				$this->model->updateData($keyword, $data);
-			}
-			else{
-				$data = array(
-								"key"	=> "footerlap",
-								"value" => $this->input->post("footerlap")
-							);
-				$this->model->uploadData($data);
-			}
+			$keyword_3 = "footerlap";
+			$data_3 = array("value" => $this->input->post("footerlap"));
+			$this->model->updateData($keyword_3, $data_3);
 
 			// ========== Image (Logo/Icon) ======== //
 			if (isset($_FILES["logo"]["name"])) {
-				if (file_exists(LOGOPATH.$smep->logo)) unlink(LOGOPATH.$smep->logo);
+				if (!file_exists(LOGOPATH.$smep->logo)) {
+
+				}
+				else{
+					unlink(LOGOPATH.$smep->logo);
+				}
 				$config['upload_path']=LOGOPATH;
-				$config['allowed_types']='gif|jpg|jpeg|png';
+				$config['allowed_types']='gif|jpg|jpeg|png'; 
 				//$config['encrypt_name'] = TRUE;
 
 				$this->load->library('upload', $config);
 				if ($this->upload->do_upload('logo')) {
-					$data = $this->upload->data();
-					$data_upload = array(
-												"key"	=> "logo",
-												"value" => $data['file_name']
-											);
-					$this->model->uploadData($data_upload);
+					$data_upload = $this->upload->data();
+					$keyword_4 = "logo";
+					$data_4 = array("value" => $data_upload['file_name']);
+					$this->model->updateData($keyword_4, $data_4);
 				}
 			}
 

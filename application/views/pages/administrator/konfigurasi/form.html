@@ -89,7 +89,7 @@
           			jQuery(".adminkonfigurasi-logo").addClass("visible-show");
           			
           			// Value
-          			jQuery(".adminkonfigurasi-image").attr("src", "<?=base_url(LOGOPATH.'"+JSON[3][1]')?>);
+          			jQuery(".adminkonfigurasi-image").attr("src", "<?=base_url(LOGOPATH)?>"+JSON[3][1]);
           		}
           		if (JSON[3][0] == 1) {
           			jQuery(".adminkonfigurasi-image").addClass("hidden-show");
@@ -119,6 +119,7 @@
 			cache		: false,
 			processData	: false,
 			success		: function(JSON){
+        jQuery(".adminkonfigurasi-update-form")[0].reset();
 				adminKonfigurasiData();
 			},
 			error 		: function(jqXHR){
