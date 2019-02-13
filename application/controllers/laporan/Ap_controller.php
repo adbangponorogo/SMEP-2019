@@ -212,8 +212,7 @@ class Ap_controller extends Admin_Controller {
 			$jenis_form,//Jenis Form Laporan (AP1-2)
 			$obj->nama_skpd
 		);
-		// export2xl($p, str_replace(' ', '-', $obj->nama_skpd).'_'.$jenis_form);
-		export2xl($p, 'AP-1');
+		export2xl($p, str_replace(' ', '-', $obj->nama_skpd).'_'.$jenis_form);
 	}
 
 /*
@@ -426,8 +425,7 @@ class Ap_controller extends Admin_Controller {
 			$jenis_form,//Jenis Form Laporan (AP1-2)
 			$obj->nama_skpd
 		);
-		// export2xl($p, str_replace(' ', '-', $obj->nama_skpd).'_'.$jenis_form);
-		export2xl($p, 'AP-2');
+		export2xl($p, str_replace(' ', '-', $obj->nama_skpd).'_'.$jenis_form);
 	}
 
 	public function getPrintDataAP3($obj){

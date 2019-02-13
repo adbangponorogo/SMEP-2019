@@ -146,20 +146,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	{
 		function export2xl($p, $xlFileName)
 		{
-			if ($_SERVER["SERVER_NAME"] == "localhost") {
-				$xl = PHPExcel_IOFactory::createWriter($p, 'Excel2007');
+			$xl = PHPExcel_IOFactory::createWriter($p, 'Excel2007');
 
-				header('Content-Type: application/vnd.ms-excel');
-				header('Content-Disposition: attachment;filename='.$xlFileName.'.xlsx'); 
-				header('Cache-Control: max-age=0');
-			}
-			else{
-				$xl = PHPExcel_IOFactory::createWriter($p, 'Excel5');
-
-				header('Content-Type: application/vnd.ms-excel');
-				header('Content-Disposition: attachment;filename='.$xlFileName.'.xls'); 
-				header('Cache-Control: max-age=0');	
-			}
+			header('Content-Type: application/vnd.ms-excel');
+			header('Content-Disposition: attachment;filename='.$xlFileName.'.xlsx'); 
+			header('Cache-Control: max-age=0');
 			
 			$xl->save('php://output'); // download file
 		}

@@ -211,13 +211,13 @@ class Datumdapan_controller extends CI_Controller {
 			}			
 
 			$no = 1;
-			$start_content_column = 7; 
+			$start_content_column = 7;
 			 
-			$result_skpd = $this->model->getDataSKPDUnique($skpd); 
+			$result_skpd = $this->model->getDataSKPDUnique($skpd);
 			foreach ($result_skpd->result() as $rows_skpd) {
 				$result_realisasi_ro = $this->model->getDataRealisasiRO($rows_skpd->kd_skpd, $kegiatan, $bulan, $order);
 				foreach ($result_realisasi_ro->result() as $rows_realisasi_ro) {
-					$result_rincian_obyek = $this->model->getDataRincianObyek($rows_realisasi_ro->kd_skpd, $rows_realisasi_ro->kd_program_kegiatan, $rows_realisasi_ro->kd_rekening);
+					$result_rincian_obyek = $this->model->getDataRincianObyek($rows_realisasi_ro->kd_skpd, $rows_realisasi_ro->kd_rekening);
 					foreach ($result_rincian_obyek->result() as $rows_ro) {
 						$object->getActiveSheet()->setCellValue('A'.$start_content_column, $no);
 						$object->getActiveSheet()->setCellValue('B'.$start_content_column, $rows_realisasi_ro->tanggal);
