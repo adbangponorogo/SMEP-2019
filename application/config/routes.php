@@ -186,6 +186,7 @@ $route['entry-data/realisasi-tepra/save-data'] = 'entry-data/Endasitepra_control
 // ------ Rencana Pengadaan ------ //
 $route['laporan/rp/main-page'] = 'laporan/Rp_controller';
 $route['laporan/rp/print-data'] = 'laporan/Rp_controller/getPrintData';
+$route['laporan/rp/test'] = 'laporan/Rp_controller/getTest';
 
 // ------ Realisasi Belanja Langsung ------ //
 $route['laporan/ap/main-page'] = 'laporan/Ap_controller';
@@ -261,6 +262,13 @@ $route['administrator/pengguna-aplikasi/generate-data'] = 'administrator/Adminpe
 $route['administrator/api-sirup/main-page'] = 'administrator/Adminapisirup_controller';
 $route['api/program'] = 'administrator/Adminapisirup_controller/program';
 $route['api/kegiatan'] = 'administrator/Adminapisirup_controller/Kegiatan';
+$route['api/objek-akun'] = 'administrator/Adminapisirup_controller/objekAkun';
+$route['api/rincian-objek-akun'] = 'administrator/Adminapisirup_controller/rinciObjekAkun';
+$route['api/users-ppk'] = 'administrator/Adminapisirup_controller/usersPPK';
+$route['api/penyedia'] = 'administrator/Adminapisirup_controller/penyedia';
+$route['api/swakelola'] = 'administrator/Adminapisirup_controller/swakelola';
+$route['api/histori-revisi-paket'] = 'administrator/Adminapisirup_controller/historiRevisiPaket';
+$route['api/struktur-anggaran'] = 'administrator/Adminapisirup_controller/strukturAnggaran';
 
 // ------ Rekapitulasi Rencana Pengadaan ------ //
 $route['administrator/rencana-pengadaan/main-page'] = 'administrator/Adminrapan_controller/mainPage';

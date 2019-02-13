@@ -12,9 +12,9 @@ class Rp_model extends CI_Model {
 		$this->db->select('a.*');
 		$this->db->from('simda_program a');
 		$this->db->join("tb_rup b", "a.id = b.id_program");
-		$this->db->group_by('a.id');
 		$this->db->where('a.kd_skpd', $kd_skpd);
 		$this->db->where('b.jenis_pengadaan', $jenis_pengadaan);
+		$this->db->group_by('a.id');
 		return $this->db->get();
 	}
 
@@ -24,9 +24,9 @@ class Rp_model extends CI_Model {
 		$this->db->join("tb_rup b", "a.id = b.id_kegiatan");
 		$this->db->join("tb_pptk c", "a.id_skpd = c.id_skpd");
 		$this->db->join("tb_pptk_kegiatan d", "c.id = d.id_pptk");
-		$this->db->group_by('a.id');
 		$this->db->where('a.id_parent_prog', $id_parent_prog);
 		$this->db->where('b.jenis_pengadaan', $jenis_pengadaan);
+		$this->db->group_by('a.id');
 		return $this->db->get();
 	}
 
@@ -78,12 +78,12 @@ class Rp_model extends CI_Model {
 		return $data;
 	}
 
-	public function getDataKegiatanUnique($id_program, $kd_program){
+	public function getDataKegiatanUnique($id_program, $jenis_pengadaan){
 		$this->db->select("distinct(a.id), a.*");
 		$this->db->from("simda_kegiatan a");
 		$this->db->join("tb_rup b", "a.id = b.id_kegiatan");
-		$this->db->where("a.id_program", $id_program);
-		$this->db->where("a.kd_program", $kd_program);
+		$this->db->where("a.id_parent_prog", $id_program);
+		$this->db->where("b.jenis_pengadaan", $jenis_pengadaan);
 		$this->db->order_by('a.id', 'ASC');
 		$data = $this->db->get();
 		return $data;
