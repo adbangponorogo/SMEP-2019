@@ -20,12 +20,19 @@ class Datumdator_controller extends CI_Controller {
 
 	public function getMainData($id_skpd){
 		if ($this->session->userdata('auth_id') != "") {
+			if (substr($id_skpd, 0, 6) != 401003) {
+	          	$sts_pimpinan_def = 2;
+	        }
+	        else{
+	        	$sts_pimpinan_def = 4;
+	        }
 			$result = $this->model->getDataMasterRUP($id_skpd);
 			$data = array();
 			if ($result->num_rows() > 0) {
 				foreach ($result->result() as $row) {
 					$alamat = $row->alamat;
 					$kode_pos = $row->kode_pos;
+					$sts_pimpinan = $row->sts_pimpinan;
 					$btl_pegawai = $row->btl_pegawai;
 					$btl_non_pegawai = $row->btl_non_pegawai;
 					$bl_pegawai = $row->belanja_langsung_pegawai;
@@ -35,6 +42,7 @@ class Datumdator_controller extends CI_Controller {
 					$data[] = array(
 									$alamat,
 									$kode_pos,
+									$sts_pimpinan,
 									$btl_pegawai,
 									$btl_non_pegawai,
 									$bl_pegawai,
@@ -51,6 +59,7 @@ class Datumdator_controller extends CI_Controller {
 						$data[] = array(
 										$row_ref_master_rup->alamat,
 										"",
+										$sts_pimpinan_def,
 										$row_ref_master_rup->btl1,
 										$row_ref_master_rup->btl2,
 										$row_ref_master_rup->bl1,
