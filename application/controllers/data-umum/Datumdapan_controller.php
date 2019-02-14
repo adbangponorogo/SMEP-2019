@@ -93,7 +93,7 @@ class Datumdapan_controller extends CI_Controller {
 				case '1':
 					$order = 'kd_program_kegiatan';
 				break;
-				
+
 				default:
 					$order = 'tgl';
 				break;
@@ -103,7 +103,7 @@ class Datumdapan_controller extends CI_Controller {
 			$this->load->library("Excel");
 			$object =  new PHPExcel();
 			$object->setActiveSheetIndex(0);
-			
+
 			// -------- Manual Setting Autosize -------- //
 			$object->getActiveSheet()->getColumnDimension('A')->setWidth(7);
 			$object->getActiveSheet()->getColumnDimension('B')->setWidth(15);
@@ -183,7 +183,7 @@ class Datumdapan_controller extends CI_Controller {
 			// -------- Kegiatan Info -------- //
 			if ($kegiatan == "all") {
 				$nama_kegiatan = "Semua Kegiatan";
-			} 
+			}
 			else{
 				$result_kegiatan = $this->model->getDataKegiatanByID($skpd, $kegiatan, TRUE);
 				foreach ($result_kegiatan->result() as $rows_kegiatan) {
@@ -208,15 +208,11 @@ class Datumdapan_controller extends CI_Controller {
 				$object->getActiveSheet()->getStyle('A6:AD6')->getFIll()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('D9D9D9');
 				$object->getActiveSheet()->getStyle('A6:AD6')->applyFromArray(array('borders'=>array('allborders'=>array('style'=> PHPExcel_Style_Border::BORDER_THIN))));
 				$start_header_column++;
-			}			
+			}
 
 			$no = 1;
-<<<<<<< HEAD
 			$start_content_column = 7;
-=======
-			$start_content_column = 7;  
->>>>>>> 90ea901874f7ca7739aed41cda0fdff0c0b6be19
-			 
+
 			$result_skpd = $this->model->getDataSKPDUnique($skpd);
 			foreach ($result_skpd->result() as $rows_skpd) {
 				$result_realisasi_ro = $this->model->getDataRealisasiRO($rows_skpd->kd_skpd, $kegiatan, $bulan, $order);
