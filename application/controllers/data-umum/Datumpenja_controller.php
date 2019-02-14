@@ -38,7 +38,7 @@ class Datumpenja_controller extends CI_Controller {
 						$status = 'KPA (Kuasa Pengguna Anggaran)';
 					break;
 					default:
-						$status = 'PPTK Perangkat Daerah';
+						$status = 'Pimpinan (Kepala Badan/Dinas/Kantor/Bagian/Kecamatan)';
 					break;
 				}
 				$data[] = array(

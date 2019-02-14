@@ -12,6 +12,7 @@ class Datumpenja_model extends CI_Model {
     	$this->db->select("*");
     	$this->db->from("tb_pptk");
     	$this->db->where("id_skpd", $id_skpd);
+    	$this->db->where("status!=", 3);
     	$data = $this->db->get();
     	return $data;
     }
