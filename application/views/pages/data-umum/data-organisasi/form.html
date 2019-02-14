@@ -75,8 +75,15 @@
       async     : true,
       dataType  : 'JSON',
       success   : function(JSON){
+        id_skpd = jQuery(".smep-skpd-main").val();
         jQuery(".daftandator-alamat-update").val(JSON[0][0]);
         jQuery(".daftandator-kodepos-update").val(JSON[0][1]);
+        if (id_skpd.substring(0, 6) != 401003) {
+          jQuery(".penjadatum-status-edit").val(2).change();
+        }
+        else{
+          jQuery(".penjadatum-status-edit").val(4).change();
+        }
         jQuery(".daftandator-btl1-update").val(JSON[0][2]);
         jQuery(".daftandator-btl2-update").val(JSON[0][3]);
         jQuery(".daftandator-bl1-update").val(JSON[0][4]);

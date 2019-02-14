@@ -72,6 +72,7 @@ class Datumdator_controller extends CI_Controller {
 			$id_skpd = $this->input->post("id_skpd");
 			$alamat = $this->input->post("alamat");
 			$kode_pos = $this->input->post("kode_pos");
+			$sts_pimpinan = $this->input->post("sts_pimpinan");
 			$btl_pegawai = $this->input->post("btl_pegawai");
 			$btl_non_pegawai = $this->input->post("btl_non_pegawai");
 			$bl_pegawai = $this->input->post("bl_pegawai");
@@ -84,6 +85,7 @@ class Datumdator_controller extends CI_Controller {
 							"id_skpd" => $id_skpd,
 							"alamat" => $alamat,
 							"kode_pos" => $kode_pos,
+							"sts_pimpinan" => $sts_pimpinan,
 							"btl_pegawai" => $btl_pegawai,
 							"btl_non_pegawai" => $btl_non_pegawai,
 							"belanja_langsung_pegawai" => $bl_pegawai,
@@ -97,6 +99,7 @@ class Datumdator_controller extends CI_Controller {
 							"id_skpd" => $id_skpd,
 							"alamat" => $alamat,
 							"kode_pos" => $kode_pos,
+							"sts_pimpinan" => $sts_pimpinan,
 							"btl_pegawai" => $btl_pegawai,
 							"btl_non_pegawai" => $btl_non_pegawai,
 							"belanja_langsung_pegawai" => $bl_pegawai,
