@@ -183,9 +183,9 @@ class Datumdapan_controller extends CI_Controller {
 			// -------- Kegiatan Info -------- //
 			if ($kegiatan == "all") {
 				$nama_kegiatan = "Semua Kegiatan";
-			}
+			} 
 			else{
-				$result_kegiatan = $this->model->getDataSKPDUnique($kegiatan);
+				$result_kegiatan = $this->model->getDataKegiatanByID($skpd, $kegiatan, TRUE);
 				foreach ($result_kegiatan->result() as $rows_kegiatan) {
 					$nama_kegiatan = $rows_kegiatan->keterangan_kegiatan;
 				}
@@ -211,7 +211,7 @@ class Datumdapan_controller extends CI_Controller {
 			}			
 
 			$no = 1;
-			$start_content_column = 7; 
+			$start_content_column = 7;  
 			 
 			$result_skpd = $this->model->getDataSKPDUnique($skpd); 
 			foreach ($result_skpd->result() as $rows_skpd) {

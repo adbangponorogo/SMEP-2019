@@ -61,6 +61,21 @@ class Datumdapan_model extends CI_Model {
         return $data;
     }
 
+    public function getDataKegiatanByID($id_skpd, $kd_gabungan, $status = FALSE){
+        $this->db->select("a.*");
+        $this->db->from("simda_kegiatan a");
+        $this->db->join("simda_skpd b", "a.kd_skpd = b.kd_skpd");
+        $this->db->join("tb_skpd_urutan c", "b.kd_skpd = c.kd_skpd");
+        $this->db->where("c.urutan >", 0);
+        if ($status == TRUE) {
+            $this->db->where("a.kd_gabungan", $kd_gabungan);
+        }
+        $this->db->where("b.id", $id_skpd);
+        $this->db->order_by("c.urutan", "ASC");
+        $data = $this->db->get();
+        return $data;
+    }
+
     public function getDataRealisasiRO($kd_skpd, $kd_gabungan, $bulan, $order){
         $data = $this->db->select("*");
         $data = $this->db->from("simda_realisasi_ro");
