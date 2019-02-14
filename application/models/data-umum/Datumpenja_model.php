@@ -12,7 +12,8 @@ class Datumpenja_model extends CI_Model {
     	$this->db->select("*");
     	$this->db->from("tb_pptk");
     	$this->db->where("id_skpd", $id_skpd);
-    	$this->db->where("status!=", 3);
+    	$this->db->where("status!=", 1); //sudah tidak perlu entri PPTK
+    	$this->db->where("status!=", 3); //sudah tidak perlu entri PPK
     	$data = $this->db->get();
     	return $data;
     }

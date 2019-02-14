@@ -36,10 +36,6 @@ class Datumpenja_controller extends CI_Controller {
 					break;
 					case '4':
 						$status = 'KPA (Kuasa Pengguna Anggaran)';
-					break;
-					default:
-						$status = 'Pimpinan (Kepala Badan/Dinas/Kantor/Bagian/Kecamatan)';
-					break;
 				}
 				$data[] = array(
 							$no++,
