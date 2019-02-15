@@ -86,6 +86,7 @@ class Datumdapan_controller extends CI_Controller {
 			$skpd = $this->input->post('skpd');
 			$kegiatan = $this->input->post('kegiatan');
 			$bulan = $this->input->post('bulan');
+			$tahun = $this->input->post('tahun');
 			switch ($this->input->post('urutan')) {
 				case '1':
 					$order = 'tgl';
@@ -140,6 +141,8 @@ class Datumdapan_controller extends CI_Controller {
 			// -------- PAPER Setup -------- //
 			$object->getActiveSheet()->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_LEGAL);
 			$object->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+			$object->getActiveSheet()->getSheetView()->setView(PHPExcel_Worksheet_SheetView::SHEETVIEW_PAGE_BREAK_PREVIEW);
+			$object->getActiveSheet()->getSheetView()->setZoomScale(80);
 			$object->getActiveSheet()->getHeaderFooter()->setOddFooter('&L https:://smep.ponorogo.go.id/smep_2019 | Data Pencairan SP2D');
 
 			// -------- Title Form -------- //
@@ -157,7 +160,7 @@ class Datumdapan_controller extends CI_Controller {
 			// $object->getActiveSheet()->getStyle('A1:H1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 
 			// -------- Title User Info -------- //
-			$title_info = 'Tahun Anggaran (2018)';
+			$title_info = 'Tahun Anggaran ('.$tahun.')';
 			$object->getActiveSheet()->setCellValue('A2', $title_info);
 			$object->getActiveSheet()->getStyle('A2')->getFont()->setBold(TRUE);
 			$object->getActiveSheet()->getStyle('A2')->getFont()->setSize(10);
@@ -214,10 +217,10 @@ class Datumdapan_controller extends CI_Controller {
 			$start_content_column = 7;
 
 			$result_skpd = $this->model->getDataSKPDUnique($skpd);
-			foreach ($result_skpd->result() as $rows_skpd) {
+			foreach ($result_skpd->result() as $rows_skpd) { 
 				$result_realisasi_ro = $this->model->getDataRealisasiRO($rows_skpd->kd_skpd, $kegiatan, $bulan, $order);
 				foreach ($result_realisasi_ro->result() as $rows_realisasi_ro) {
-					$result_rincian_obyek = $this->model->getDataRincianObyek($rows_realisasi_ro->kd_skpd, $rows_realisasi_ro->kd_rekening);
+					$result_rincian_obyek = $this->model->getDataRincianObyek($rows_realisasi_ro->kd_skpd, $rows_realisasi_ro->kd_program_kegiatan, $rows_realisasi_ro->kd_rekening);
 					foreach ($result_rincian_obyek->result() as $rows_ro) {
 						$object->getActiveSheet()->setCellValue('A'.$start_content_column, $no);
 						$object->getActiveSheet()->setCellValue('B'.$start_content_column, $rows_realisasi_ro->tanggal);

@@ -93,10 +93,11 @@ class Datumdapan_model extends CI_Model {
         return $data;
     }
 
-    public function getDataRincianObyek($kd_skpd, $kd_rekening){
+    public function getDataRincianObyek($kd_skpd, $kd_gabungan, $kd_rekening){
         $this->db->select("*");
         $this->db->from("simda_rincian_obyek");
         $this->db->where("kd_skpd", $kd_skpd);
+        $this->db->where("kd_gabungan", $kd_gabungan);
         $this->db->where("kd_rekening", $kd_rekening);
         $data = $this->db->get();
         return $data;

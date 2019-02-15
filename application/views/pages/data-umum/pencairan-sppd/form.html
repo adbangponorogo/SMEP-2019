@@ -14,6 +14,7 @@
 					<div class="form-group">
 						<label>Dokumen</label>
 						<input type="text" class="form-control" placeholder="" readonly="readonly" value="Data Pencairan SP2D">
+						<input type="hidden" name="tahun" class="sppddatum-tahun-update">
 					</div>
 					<div class="form-group">
 						<label>Data SKPD</label>
@@ -61,8 +62,11 @@
 <!-- Javascript -->
 <script type="text/javascript">
   // --------------- Select2 --------------- //
-jQuery(".sppddatum-bulan-update").select2();
-jQuery(".sppddatum-urutan-update").select2();
+  jQuery(".sppddatum-bulan-update").select2();
+  jQuery(".sppddatum-urutan-update").select2();
+
+  // --------------- Year Data --------------- //
+  jQuery(".sppddatum-tahun-update").val(jQuery(".smep-year-value").val());
   
   // --------------- SKPD option dan Value --------------- //
 
