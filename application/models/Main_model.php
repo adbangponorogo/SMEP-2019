@@ -19,7 +19,7 @@ class Main_model extends CI_Model {
 		$this->db->select('a.*');
 		$this->db->from('tb_pptk a');
 		$this->db->join("v_auth b", "a.id_skpd = b.id_skpd");
-		$this->db->where('a.status', 5);
+		$this->db->join("tb_master_rup c", "a.id_skpd = c.id_skpd AND a.status = c.sts_pimpinan");
 		if ($auth)
 			$this->db->where('b.id', $id);
 		else

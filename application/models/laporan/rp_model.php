@@ -19,11 +19,9 @@ class Rp_model extends CI_Model {
 	}
 
 	public function getKeg($id_parent_prog, $jenis_pengadaan){
-		$this->db->select('a.*, c.nama');
+		$this->db->select('a.*');
 		$this->db->from('simda_kegiatan a');
 		$this->db->join("tb_rup b", "a.id = b.id_kegiatan");
-		$this->db->join("tb_pptk c", "a.id_skpd = c.id_skpd");
-		$this->db->join("tb_pptk_kegiatan d", "c.id = d.id_pptk");
 		$this->db->group_by('a.id');
 		$this->db->where('a.id_parent_prog', $id_parent_prog);
 		$this->db->where('b.jenis_pengadaan', $jenis_pengadaan);
@@ -31,10 +29,11 @@ class Rp_model extends CI_Model {
 	}
 
 	public function getPaket($id_keg, $jenis_pengadaan){
-		$this->db->select('*');
-		$this->db->from('tb_rup');
-		$this->db->where('id_kegiatan', $id_keg);
-		$this->db->where('jenis_pengadaan', $jenis_pengadaan);
+		$this->db->select('a.*, b.nama');
+		$this->db->from('tb_rup a');
+		$this->db->join("spse_pegawai b", "a.id_user_ppk = b.id");
+		$this->db->where('a.id_kegiatan', $id_keg);
+		$this->db->where('a.jenis_pengadaan', $jenis_pengadaan);
 		return $this->db->get();
 	}
 

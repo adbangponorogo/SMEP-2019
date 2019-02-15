@@ -164,7 +164,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			
 			$mulai = $row;
 			
-			$x->setCellValue($cka_skpd.$row, ucfirst(strtolower($kota)).', '.tgl_indo($tgl_cetak));
+			$x->setCellValue($cka_skpd.$row, ucwords(strtolower($kota)).', '.tgl_indo($tgl_cetak));
 			++$row;
 			$x->setCellValue($cka_skpd.$row, $ka_skpd->jabatan);
 			
@@ -174,7 +174,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			
 			$x->setCellValue($cka_skpd.$row, $ka_skpd->nama);
 			++$row;
-			$x->setCellValue($cka_skpd.$row, $ka_skpd->pangkat);
+			$x->setCellValue($cka_skpd.$row, ucwords(strtolower($ka_skpd->pangkat)));
 			++$row;
 			$x->setCellValue($cka_skpd.$row, 'NIP. '.$ka_skpd->nip);
 
