@@ -99,12 +99,7 @@ class Rp_controller extends Admin_Controller {
 					$x->setCellValue('B'.$row, $e->kd_gabungan);
 					$x->setCellValue('C'.$row, $e->keterangan_kegiatan);
 					
-					$L = '-';
-					if (!empty($e->nama)) $L = $e->nama;
-					$x->setCellValue('L'.$row, $L);//Penanggung Jawab Kegiatan
-					
 					xl_wrap($x, 'C'.$row);
-					xl_wrap($x, 'L'.$row);
 					xl_font($x, 'A'.$row.':L'.$row,11,'bold');
 					$row++;
 
@@ -117,15 +112,22 @@ class Rp_controller extends Admin_Controller {
 						$x->setCellValue('C'.$row, $f->nama_paket);
 						$x->setCellValue('D'.$row, $f->pagu_paket);
 						$x->setCellValue('E'.$row, sumber_dana($f->sumber_dana));
+
+						$M = (empty($f->nama))? '-' : $f->nama;
+						$x->setCellValue('M'.$row, $M);//Penanggung Jawab Kegiatan
 						
-						$F = $G = $H = $I = $J = $K = '-';
+						xl_wrap($x, 'C'.$row);
+						xl_wrap($x, 'M'.$row);
+						
+						$F = $G = $H = $I = $J = $K = $L = '-';
 						switch ($f->metode_pemilihan){
 							case 1: $K='X'; break;	//E-Purchasing
 							case 2: $F='X'; break;	//Tender
 							case 3: $G='X'; break;	//Tender Cepat
 							case 4: $H='X'; break;	//Pengadaan Langsung
 							case 5: $I='X'; break;	//Penunjukkan Langsung
-							case 6: $J='X';			//Seleksi
+							case 6: $J='X';	break;	//Seleksi
+							default: $L='X';
 						}
 						$x->setCellValue('F'.$row, $F);
 						$x->setCellValue('G'.$row, $G);
@@ -133,6 +135,7 @@ class Rp_controller extends Admin_Controller {
 						$x->setCellValue('I'.$row, $I);
 						$x->setCellValue('J'.$row, $J);
 						$x->setCellValue('K'.$row, $K);
+						$x->setCellValue('L'.$row, $L);
 						
 						xl_wrap($x, 'C'.$row);
 						$row++;
@@ -145,14 +148,14 @@ class Rp_controller extends Admin_Controller {
 			$row+=10;
 		}
 		xl_number_format($x, 'D'.$mulai.':D'.$row);
-		xl_align($x, 'E'.$mulai.':L'.$row);
-		xl_align($x, 'A'.$mulai.':L'.$row, 'top');
+		xl_align($x, 'E'.$mulai.':M'.$row);
+		xl_align($x, 'A'.$mulai.':M'.$row, 'top');
 
 		$x->setCellValue('C'.$row, 'Jumlah:');
 		xl_align($x, 'C'.$row, 'right');
 		$x->setCellValue('D'.$row, '=SUM(D'.($mulai+2).':D'.($row-2).')');
 		xl_font($x, 'C'.$row.':D'.$row,11,'bold');
-		xl_borderall($x, 'A'.$mulai.':L'.$row);
+		xl_borderall($x, 'A'.$mulai.':M'.$row);
 		
 		getPenanggungJawab(
 			$x,
