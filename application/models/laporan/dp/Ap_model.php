@@ -64,33 +64,33 @@ class Ap_model extends CI_Model {
 		return $this->db->get();
 	}
 
-//-----/ model utk data plus jumlah /-----
-/*
-    public function getProg($kd_skpd){
-        $this->db->select('a.*, b.sumber_dana, SUM(b.jumlah) jumlah');
-        $this->db->from('simda_program a');
-        $this->db->join("v_rincian_obyek b", "a.kd_skpd=b.kd_skpd AND a.id=b.id_parent_prog");
-        $this->db->group_by('a.id');
-        $this->db->where('a.kd_skpd', $kd_skpd);
-        return $this->db->get();
-    }
+	public function getProgAP3($kd_skpd){
+		$this->db->select('a.*');
+		$this->db->from('simda_program a');
+		$this->db->join("tb_rup b", "a.id = b.id_program");
+		$this->db->group_by('a.id');
+		$this->db->where('a.kd_skpd', $kd_skpd);
+		return $this->db->get();
+	}
 
-    public function getKeg($id_parent_prog){
-        $this->db->select('a.*, b.sumber_dana, SUM(b.jumlah) jumlah');
-        $this->db->from('simda_kegiatan a');
-        $this->db->join("v_rincian_obyek b", "a.id=b.id_parent_keg");
-        $this->db->group_by('a.id');
-        $this->db->where('a.id_parent_prog', $id_parent_prog);
-        return $this->db->get();
-    }
+	public function getKegAP3($id_parent_prog){
+		$this->db->select('a.*');
+		$this->db->from('simda_kegiatan a');
+		$this->db->join("tb_rup b", "a.id = b.id_kegiatan");
+		$this->db->group_by('a.id');
+		$this->db->where('a.id_parent_prog', $id_parent_prog);
+		return $this->db->get();
+	}
 
-    public function getRO($id_parent_keg){
-        $this->db->select('*');
-        $this->db->from('v_rincian_obyek');
-        $this->db->where('id_parent_keg', $id_parent_keg);
-        return $this->db->get();
-    }
-*/
+	public function getPaketAP3($id_keg, $bln){
+		$this->db->select('a.*, SUM(b.realisasi_keuangan) real_keu, SUM(b.realisasi_fisik/100) real_fisik');
+		$this->db->from('v_rup a');
+		$this->db->join('tb_realisasi_rup b', 'a.id=b.id_rup AND b.bulan_pencairan<='.$bln, 'left');
+		$this->db->group_by('a.id');
+		$this->db->where('a.id_kegiatan', $id_keg);
+		return $this->db->get();
+	}
+
     public function getDataUser($token){
         $this->db->select("*");
         $this->db->from("v_auth");

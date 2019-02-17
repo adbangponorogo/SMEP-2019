@@ -1,36 +1,36 @@
-<div class="modal fade smep-laporrapan-download-modal" role="dialog">
+<div class="modal fade smep-laporrup-download-modal" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Danang - Download Modal</h4>
+                <h4 class="modal-title">Download Modal</h4>
             </div>
-            <form action="laporan/rp/print-data" method="POST" class="laporrapan-download-form">
+            <form action="laporan/rup/print-data" method="POST" enctype="multipart/form-data" class="laporrup-download-form">
                 <div class="modal-body">
                     <div class="form-group">
                         <label>Nama Laporan</label>
-                        <input type="text" class="form-control laporrapan-nama" readonly="readonly">
-                        <input type="hidden" name="jenis_pengadaan" class="laporrapan-jenis-pengadaan">
-                        <input type="hidden" name="tahun" class="laporrapan-tahun-pengadaan">
+                        <input name="nama_laporan" type="text" class="form-control laporrup-nama" readonly="readonly">
+                        <input type="hidden" name="cara_pengadaan" class="laporrup-cara-pengadaan">
+                        <input type="hidden" name="tahun" class="laporrup-tahun-pengadaan">
                     </div>
                     <div class="form-group">
-                        <label>SKPD</label><br>
-                        <select name="skpd" class="laporrapan-skpd" style="width: 100%;"></select>
+                        <label>SKPD</label>
+                        <select name="skpd" class="form-control laporrup-skpd" style="float: left;width: 100%;"></select>
                     </div>
                     <div class="form-group">
-                        <label>Tanggal Cetak</label><br>
-						<input type="text" name="tgl_cetak" class="form-control month-picker" placeholder="Tanggal Cetak">
+                        <label>Tanggal Cetak</label>
+                        <input name="tanggal_cetak" type="text" class="form-control laporrup-tanggal-cetak">
                     </div>
                 </div>
                 <div class="modal-footer">
                     <div class="col-md-12">
                         <div class="pull-left">
-                            <button class="btn btn-primary smep-laporrapan-print-btn">
+                            <button class="btn btn-primary smep-laporrup-print-btn">
                                 <i class="fa fa-cloud-download"></i>&nbsp;Download
                             </button>
                         </div>
                         <div class="pull-right">
-                            <button class="btn btn-danger smep-laporrapan-cancel-btn">
+                            <button class="btn btn-danger smep-laporrup-cancel-btn">
                                 <i class="fa fa-close"></i>&nbsp;Batal
                             </button>
                         </div>
@@ -43,27 +43,26 @@
 
 <!-- Javscript -->
 <script type="text/javascript">
-	jQuery(".month-picker").datepicker({
-		format		: 'dd-mm-yyyy',
-		viewMode	: 'dates',
-		minViewMode	: 'dates'
-	});
-
     // --------------- Year Data --------------- //
-    jQuery(".laporrapan-tahun-pengadaan").val(jQuery(".smep-year-value").val());
+    jQuery(".laporrup-tahun-pengadaan").val(jQuery(".smep-year-value").val());
 
-    // --------------- SKPD option dan Value --------------- //
-    jQuery(".laporrapan-bulan").select2({
-        dropdownParent  : jQuery(".smep-laporrapan-download-modal")
+    // --------------- Datepicker --------------- //
+    jQuery(".laporrup-tanggal-cetak").datepicker({
+        format      : 'dd-mm-yyyy'
+    });  
+
+    // --------------- Bulan option dan Value --------------- //
+    jQuery(".laporrup-bulan").select2({
+        dropdownParent  : jQuery(".smep-laporrup-download-modal")
     });
 
     // --------------- SKPD option dan Value --------------- //
-    laporRapanSKPDData();
-    function laporRapanSKPDData(){
+    laporRUPSKPDData();
+    function laporRUPSKPDData(){
         jQuery.ajax({
           type      : 'AJAX',
           method    : 'GET',
-          url       : 'laporan/rencana-pengadaan/skpd/all/'+jQuery(".smep-skpd-main").val(),
+          url       : 'laporan/rup/skpd/all/'+jQuery(".smep-skpd-main").val(),
           async     : true,
           dataType  : 'JSON',
           success   : function(JSON){
@@ -72,19 +71,19 @@
                     for (var skpd = 0; skpd < JSON.length; skpd++) {
                         option += "<option value='"+JSON[skpd][1]+"'>"+JSON[skpd][2]+"</option>";
                     }
-                    jQuery(".laporrapan-skpd").html(option);
-                    jQuery(".laporrapan-skpd").val("all").change();
+                    jQuery(".laporrup-skpd").html(option);
+                    jQuery(".laporrup-skpd").val("all").change();
                 }
                 else{
                     var option = "";
                     for (var skpd = 0; skpd < JSON.length; skpd++) {
                         option += "<option value='"+JSON[skpd][1]+"'>"+JSON[skpd][2]+"</option>";
                     }
-                    jQuery(".laporrapan-skpd").html(option);
-                    jQuery(".laporrapan-skpd").val(JSON[0][1]).change();
+                    jQuery(".laporrup-skpd").html(option);
+                    jQuery(".laporrup-skpd").val(JSON[0][1]).change();
                 }
-                jQuery(".laporrapan-skpd").select2({
-                    dropdownParent  : jQuery(".smep-laporrapan-download-modal")
+                jQuery(".laporrup-skpd").select2({
+                    dropdownParent  : jQuery(".smep-laporrup-download-modal")
                 });
           },
           error     : function(jqXHR, textStatus, errorThrown){

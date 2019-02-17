@@ -79,7 +79,7 @@
 								<label>Nomor Bukti&nbsp;
 									<i class="fa fa-exclamation-circle" style="color: #d33724;"></i>
 								</label>
-								<input type="text" name="nomor_bukti" class="form-control sirupenda-nomor_bukti-edit" placeholder="Nomor SP/Kuitansi/Nota">
+								<input type="text" name="nomor_bukti" class="form-control sirupenda-nomor_bukti-edit" placeholder="Nomor Kuitansi/Nota">
 							</div>
 
 							<div class="form-group">
@@ -137,12 +137,16 @@
 									<input type="text" name="tanggal_klarifikasi_negosiasi" class="form-control month-picker sirupenda-tanggal-klarifikasi-negosiasi-edit" placeholder="Klarifikasi & Negosiasi">
 								</div>
 								<div class="form-group">
+									<label>Tanggal Penetapan Pemenang</label>
+									<input type="text" name="tanggal_penetapan_pemenang" class="form-control month-picker sirupenda-tanggal-penetapan-pemenang-edit" placeholder="Penetapan Pemenang">
+								</div>
+								<div class="form-group">
 									<label>Tanggal Kontrak</label>
 									<input type="text" name="tanggal_kontrak" class="form-control month-picker sirupenda-tanggal-kontrak-edit" placeholder="Kontrak">
 								</div>
 								<div class="form-group">
-									<label>Tanggal SPMK/SP</label>
-									<input type="text" name="tanggal_spmk" class="form-control month-picker sirupenda-tanggal-spmk-edit" placeholder="SPMK/SP">
+									<label>Tanggal SPMK</label>
+									<input type="text" name="tanggal_spmk" class="form-control month-picker sirupenda-tanggal-spmk-edit" placeholder="SPMK">
 								</div>
 							</div>
 							<div class="col-md-4" style="padding: 0px 5px;">
@@ -277,11 +281,12 @@
 		    	jQuery(".sirupenda-tanggal-spmk-edit").val(JSON[0][15]);
 		    	jQuery(".sirupenda-nomor-kontrak-edit").val(JSON[0][16]);
 		    	jQuery(".sirupenda-nama-pemenang-edit").val(JSON[0][17]);
-		    	jQuery(".sirupenda-sanggah-edit").val(JSON[0][18]);
+		    	jQuery(".sirupenda-sanggah-edit").val(JSON[0][18]).change();
 		    	jQuery(".sirupenda-nomor-surat-edit").val(JSON[0][19]);
 		    	jQuery(".sirupenda-tanggal-surat-serah-terima-edit").val(JSON[0][20]);
 		    	jQuery(".sirupenda-nomor_bukti-edit").val(JSON[0][21]);
 		    	jQuery(".sirupenda-penyedia_swakelola-edit").val(JSON[0][22]);
+		    	jQuery(".sirupenda-tanggal-penetapan-pemenang-edit").val(JSON[0][23]);
 		    },
 		    error     : function(jqXHR, textStatus, errorThrown){
 		        location.href = window.location.href+"app/auth/sessionPage";

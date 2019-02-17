@@ -80,19 +80,40 @@ jQuery(document).ready(function(){
 	});
 
 
-	// --------------- Laporan Danang --------------- //
+	// --------------- Laporan DP --------------- //
 
-	jQuery(document).on("click", ".danang-smep-lapor-rapan-page", function(){
+	jQuery(document).on("click", ".dp-smep-lapor-rup-page", function(){
+		var url = "laporan/rup/main-page";
+		appMainCheckSession(url);
+		return false;
+	});
+
+	jQuery(document).on("click", ".dp-smep-lapor-rapan-page", function(){
 		var url = "laporan/rp/main-page";
 		appMainCheckSession(url);
 		return false;
 	});
 
-	jQuery(document).on("click", ".danang-smep-lapor-rebela-page", function(){
+	jQuery(document).on("click", ".dp-smep-lapor-lapan-page", function(){
+		var url = "laporan/lp/main-page";
+		appMainCheckSession(url);
+		return false;
+	});
+
+	jQuery(document).on("click", ".dp-smep-lapor-rebela-page", function(){
 		var url = "laporan/ap/main-page";
 		appMainCheckSession(url);
 		return false;
 	});
+
+	jQuery(document).on("click", ".dp-smep-lapor-tepra-perencanaan-page", function(){
+		var url = "laporan/tepra/perencanaan/main-page";
+		appMainCheckSession(url);
+		return false;
+	});
+
+	// --------------- Laporan DP End --------------- //
+
 
 	// --------------- Laporan --------------- //
 

@@ -31,7 +31,7 @@ class Rp_model extends CI_Model {
 	public function getPaket($id_keg, $jenis_pengadaan){
 		$this->db->select('a.*, b.nama');
 		$this->db->from('tb_rup a');
-		$this->db->join("spse_pegawai b", "a.id_user_ppk = b.id");
+		$this->db->join("spse_pegawai b", "a.id_user_ppk = b.id", 'left');
 		$this->db->where('a.id_kegiatan', $id_keg);
 		$this->db->where('a.jenis_pengadaan', $jenis_pengadaan);
 		return $this->db->get();
