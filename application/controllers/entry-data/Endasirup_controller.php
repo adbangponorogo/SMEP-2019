@@ -444,6 +444,7 @@ class Endasirup_controller extends CI_Controller {
                     $data[0][18] = $rows->sanggah;
                     $data[0][19] = $rows->nomor_surat;
                     $data[0][20] = $rows->tanggal_surat_serah_terima;
+                    $data[0][21] = $rows->tanggal_penetapan_pemenang;
                }
                echo json_encode($data);
           }
@@ -483,6 +484,7 @@ class Endasirup_controller extends CI_Controller {
                     $data[0][18] = $rows->sanggah;
                     $data[0][19] = $rows->nomor_surat;
                     $data[0][20] = $rows->tanggal_surat_serah_terima;
+                    $data[0][23] = $rows->tanggal_penetapan_pemenang;
                }
                echo json_encode($data);
           }
@@ -542,6 +544,7 @@ class Endasirup_controller extends CI_Controller {
 				"tanggal_kontrak" => $this->input->post("tanggal_kontrak"),
 				"tanggal_spmk" => $this->input->post("tanggal_spmk"),
 				"tanggal_surat_serah_terima" => $this->input->post("tanggal_surat_serah_terima"),
+				"tanggal_penetapan_pemenang" => $this->input->post("tanggal_penetapan_pemenang"),
 				);
 			$this->model->updateDataRUP($this->input->post("id_rup"), $data_rup);
 			

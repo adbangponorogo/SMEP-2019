@@ -181,17 +181,29 @@ $route['entry-data/realisasi-tepra/realsiasi-tepra-data/(:any)'] = 'entry-data/E
 $route['entry-data/realisasi-tepra/save-data'] = 'entry-data/Endasitepra_controller/saveData';
 
 
-// ------------------/ Laporan Danang /------------------ //
+// ------------------/ Laporan DP /------------------ //
+
+// ------ Rencana Umum Pengadaan ------ //
+$route['laporan/rup/main-page'] = 'laporan/dp/Rup_controller';
+$route['laporan/rup/print-data'] = 'laporan/dp/Rup_controller/getPrintData';
 
 // ------ Rencana Pengadaan ------ //
-$route['laporan/rp/main-page'] = 'laporan/Rp_controller';
-$route['laporan/rp/print-data'] = 'laporan/Rp_controller/getPrintData';
+$route['laporan/rp/main-page'] = 'laporan/dp/Rp_controller';
+$route['laporan/rp/print-data'] = 'laporan/dp/Rp_controller/getPrintData';
+
+// ------ Laporan Pengadaan ------ //
+$route['laporan/lp/main-page'] = 'laporan/dp/Lp_controller';
+$route['laporan/lp/print-data'] = 'laporan/dp/Lp_controller/getPrintData';
 
 // ------ Realisasi Belanja Langsung ------ //
-$route['laporan/ap/main-page'] = 'laporan/Ap_controller';
-$route['laporan/ap/print-data'] = 'laporan/Ap_controller/getPrintData';
+$route['laporan/ap/main-page'] = 'laporan/dp/Ap_controller';
+$route['laporan/ap/print-data'] = 'laporan/dp/Ap_controller/getPrintData';
 
-// ------------------/ Laporan Danang /------------------ //
+// ------ Laporan Tepra Perencanaan ------ //
+$route['laporan/tepra/perencanaan/main-page'] = 'laporan/dp/Tepraperencanaan_controller/mainPage';
+$route['laporan/tepra/perencanaan/print-data'] = 'laporan/dp/Tepraperencanaan_controller/getPrintData';
+
+// ------------------/ Laporan DP End /------------------ //
 
 
 // ------------------ Laporan ------------------ //
@@ -202,13 +214,13 @@ $route['laporan/rencana-pengadaan/print-data'] = 'laporan/Laporrapan_controller/
 
 // ------ TEPRA ------ //
 // --- Perencanaan --- //
-$route['laporan/tepra/perencanaan/main-page'] = 'laporan/Laportepraperencanaan_controller/mainPage';
+//$route['laporan/tepra/perencanaan/main-page'] = 'laporan/Laportepraperencanaan_controller/mainPage';
 $route['laporan/tepra/perencanaan/skpd/all/(:any)'] = 'laporan/Laportepraperencanaan_controller/getMainDataAllSKPD/$1';
 $route['laporan/tepra/perencanaan/dana/(:any)'] = 'laporan/Laportepraperencanaan_controller/getDataDana/$1';
 $route['laporan/tepra/perencanaan/pagu-paket/(:any)/(:any)'] = 'laporan/Laportepraperencanaan_controller/getDataPaketPaguRUP/$1/$2';
 $route['laporan/tepra/perencanaan/paket/(:any)/(:any)'] = 'laporan/Laportepraperencanaan_controller/getDataPaketRUP/$1/$2';
 $route['laporan/tepra/perencanaan/rekap-paket/(:any)'] = 'laporan/Laportepraperencanaan_controller/getDataRekapRUP/$1';
-$route['laporan/tepra/perencanaan/print-data'] = 'laporan/Laportepraperencanaan_controller/getPrintData';
+//$route['laporan/tepra/perencanaan/print-data'] = 'laporan/Laportepraperencanaan_controller/getPrintData';
 
 
 // --- Realisasi --- //
@@ -233,9 +245,9 @@ $route['laporan/bast/main-page'] = 'laporan/Laporbast_controller/mainPage';
 $route['laporan/bast/(:any)'] = 'laporan/Laporbast_controller/getMainData/$1';
 
 // ------ Rencana Umum Pengadaan ------ //
-$route['laporan/rup/main-page'] = 'laporan/Laporrup_controller/mainPage';
+//$route['laporan/rup/main-page'] = 'laporan/Laporrup_controller/mainPage';
 $route['laporan/rup/skpd/all/(:any)'] = 'laporan/Laporrup_controller/getMainDataAllSKPD/$1';
-$route['laporan/rup/print-data'] = 'laporan/Laporrup_controller/getPrintData';
+//$route['laporan/rup/print-data'] = 'laporan/Laporrup_controller/getPrintData';
 
 
 

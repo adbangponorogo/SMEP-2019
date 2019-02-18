@@ -6,7 +6,7 @@ class Rp_controller extends Admin_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('laporan/Rp_model', 'rp_model');
+		$this->load->model('laporan/dp/Rp_model', 'model');
 	}
 
 	public function index(){
@@ -15,17 +15,17 @@ class Rp_controller extends Admin_Controller {
 			$this->load->view('pages/laporan/errors/data-ka-skpd-kosong');
 		}
 		else {			
-			$this->load->view('pages/laporan/rp/data');
+			$this->load->view('pages/laporan/dp-rp/data');
 		}
 	}
 
 	public function getMainDataAllSKPD($id_skpd){
 		if ($this->session->userdata('auth_id') != '') {
-			$result_user = $this->rp_model->getDataUser($this->session->userdata('auth_id'));
+			$result_user = $this->model->getDataUser($this->session->userdata('auth_id'));
 			$data = array();
 			foreach ($result_user->result() as $rows_user) {
 				if ($rows_user->status != 1) {
-					$result_skpd = $this->rp_model->getDataSKPDUnique($rows_user->id_skpd);
+					$result_skpd = $this->model->getDataSKPDUnique($rows_user->id_skpd);
 					foreach ($result_skpd->result() as $rows_skpd) {
 						$data[] = array(
 									$rows_user->status,
@@ -35,7 +35,7 @@ class Rp_controller extends Admin_Controller {
 					}
 				}
 				else{
-					$result_skpd = $this->rp_model->getDataSKPD();
+					$result_skpd = $this->model->getDataSKPD();
 					foreach ($result_skpd->result() as $rows_skpd) {
 						$data[] = array(
 										$rows_user->status,
@@ -52,37 +52,47 @@ class Rp_controller extends Admin_Controller {
 	public function getPrintData(){
 		global $smep;
 		
-		$jenis_form = 'RP';
+		$obj = new stdClass();
+		$obj->id_skpd = $this->input->post('skpd');
+		$obj->jenis_pengadaan = $this->input->post('jenis_pengadaan');
+		$obj->tgl_cetak = $this->input->post('tgl_cetak');
+		$obj->tahun = $this->input->post('tahun');
 
-		$id_skpd = $this->input->post('skpd');
-		$jenis_pengadaan = $this->input->post('jenis_pengadaan');
-		$tgl_cetak = $this->input->post('tgl_cetak');
-		$tahun = $this->input->post('tahun');
-
-		$kd_skpd = $this->main_model->getSKPD($id_skpd)->row()->kd_skpd;
-		$nama_skpd = $this->main_model->getSKPD($id_skpd)->row()->nama_skpd;
+		$obj->kd_skpd = $this->main_model->getSKPD($obj->id_skpd)->row()->kd_skpd;
+		$obj->nama_skpd = $this->main_model->getSKPD($obj->id_skpd)->row()->nama_skpd;
 		
+		$obj->tingkat = $smep->tingkat;
+		$obj->klpd = $smep->klpd;
+		$obj->footerlap = $smep->footerlap;
+
 		$this->load->library('Excel');
 		$this->load->helper('office_helper');
 		$this->load->helper('other_helper');
+		
+		switch ($obj->jenis_pengadaan){
+			//case 1: $this->getPrintDataRP($obj); break;
+			default: $this->getPrintDataRP($obj);
+		}
+	}
 
-		$nama_jenis_pengadaan = getJenisPengadaan($jenis_pengadaan);
+	public function getPrintDataRP($obj){
+		$jenis_form = 'RP';
 
 		$r = PHPExcel_IOFactory::createReader('Excel2007');
 		$p = $r->load(TPLPATH.$jenis_form.'.xlsx');
 		$x = $p->getActiveSheet();
 
-		$x->setCellValue('D3', ': '.strtoupper($nama_skpd));
-		$x->setCellValue('A4', strtoupper($smep->tingkat));
-		$x->setCellValue('D4', ': '.strtoupper($smep->klpd));
-		$x->setCellValue('D5', ': '.$tahun);
-		$x->setCellValue('D7', ': '.strtoupper($nama_jenis_pengadaan));
-		$x->setCellValue('L7', 'Form '.$jenis_form.'-'.$jenis_pengadaan);
+		$x->setCellValue('D3', ': '.strtoupper($obj->nama_skpd));
+		$x->setCellValue('A4', strtoupper($obj->tingkat));
+		$x->setCellValue('D4', ': '.strtoupper($obj->klpd));
+		$x->setCellValue('D5', ': '.$obj->tahun);
+		$x->setCellValue('D7', ': '.strtoupper(jenis_pengadaan($obj->jenis_pengadaan)));
+		$x->setCellValue('M7', 'Form '.$jenis_form.'-'.$obj->jenis_pengadaan);
 
 		$mulai = 12;
 		$row = $mulai;
 
-		$prog = $this->rp_model->getProg($kd_skpd, $jenis_pengadaan);
+		$prog = $this->model->getProg($obj->kd_skpd, $obj->jenis_pengadaan);
 		if ($prog->num_rows()){
 			foreach ($prog->result() as $d){
 				// -------- Program ---------
@@ -93,7 +103,7 @@ class Rp_controller extends Admin_Controller {
 				xl_font($x, 'A'.$row.':C'.$row,11,'bold');
 				$row++;
 
-				$keg = $this->rp_model->getKeg($d->id, $jenis_pengadaan);
+				$keg = $this->model->getKeg($d->id, $obj->jenis_pengadaan);
 				foreach ($keg->result() as $e){
 					// -------- Kegiatan ---------
 					$x->setCellValue('B'.$row, $e->kd_gabungan);
@@ -104,16 +114,16 @@ class Rp_controller extends Admin_Controller {
 					$row++;
 
 					$no = 0;
-					$paket = $this->rp_model->getPaket($e->id, $jenis_pengadaan);
+					$paket = $this->model->getPaket($e->id, $obj->jenis_pengadaan);
 					foreach ($paket->result() as $f){
 						// -------- Rincian Obyek ---------
 						$x->setCellValue('A'.$row, ++$no);
 						$x->setCellValue('B'.$row, substr($f->kd_mak, -11));
 						$x->setCellValue('C'.$row, $f->nama_paket);
-						$x->setCellValue('D'.$row, $f->pagu_paket);
+						$x->setCellValue('D'.$row, $f->pagu_paket+0);
 						$x->setCellValue('E'.$row, sumber_dana($f->sumber_dana));
 
-						$M = (empty($f->nama))? '-' : $f->nama;
+						$M = (empty($f->nama))? 'Belum dipilih' : $f->nama;
 						$x->setCellValue('M'.$row, $M);//Penanggung Jawab Kegiatan
 						
 						xl_wrap($x, 'C'.$row);
@@ -160,18 +170,18 @@ class Rp_controller extends Admin_Controller {
 		getPenanggungJawab(
 			$x,
 			$row,
-			$smep->klpd,
-			$tgl_cetak,
-			$this->main_model->getKaSKPD($id_skpd, false)->row(),//data kepala SKPD
+			$obj->klpd,
+			$obj->tgl_cetak,
+			$this->main_model->getKaSKPD($obj->id_skpd, false)->row(),//data kepala SKPD
 			'I' // Posisi kolom penanggungjawab
 		);
 		
 		xl_footer(
 			$x,
-			$smep->footerlap,//footer laporan sebelah kiri
-			$jenis_form.'-'.$jenis_pengadaan,//Jenis Form Laporan (RP1-4 & LP1-4)
-			$nama_skpd
+			$obj->footerlap,//footer laporan sebelah kiri
+			$jenis_form.'-'.$obj->jenis_pengadaan,//Jenis Form Laporan (RP1-4 & LP1-4)
+			$obj->nama_skpd
 		);
-		export2xl($p, str_replace(' ', '-', $nama_skpd).'_'.$jenis_form.'-'.$jenis_pengadaan);
+		export2xl($p, str_replace(' ', '-', $obj->nama_skpd).'_'.$jenis_form.'-'.$obj->jenis_pengadaan.'_'.$obj->tahun);
 	}
 }

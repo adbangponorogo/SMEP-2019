@@ -160,25 +160,31 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	{
 		function getPenanggungJawab($x, $row, $kota, $tgl_cetak, $ka_skpd, $cka_skpd)
 		{
-			for ($i=0; $i<2; $i++) ++$row;
+			$ci =& get_instance();
+			$auth = $ci->session->userdata('auth_id');
+			$sts = $ci->main_model->getDataUser($auth)->row()->status;
 			
-			$mulai = $row;
-			
-			$x->setCellValue($cka_skpd.$row, ucwords(strtolower($kota)).', '.tgl_indo($tgl_cetak));
-			++$row;
-			$x->setCellValue($cka_skpd.$row, $ka_skpd->jabatan);
-			
-			for ($i=0; $i<5; $i++) ++$row;
-			
-			xl_font($x, $cka_skpd.$row,'11','both');
-			
-			$x->setCellValue($cka_skpd.$row, $ka_skpd->nama);
-			++$row;
-			$x->setCellValue($cka_skpd.$row, ucwords(strtolower($ka_skpd->pangkat)));
-			++$row;
-			$x->setCellValue($cka_skpd.$row, 'NIP. '.$ka_skpd->nip);
+			if ($sts > 1) {
+				for ($i=0; $i<2; $i++) ++$row;
+				
+				$mulai = $row;
+				
+				$x->setCellValue($cka_skpd.$row, ucwords(strtolower($kota)).', '.tgl_indo($tgl_cetak));
+				++$row;
+				$x->setCellValue($cka_skpd.$row, $ka_skpd->jabatan);
+				
+				for ($i=0; $i<5; $i++) ++$row;
+				
+				xl_font($x, $cka_skpd.$row,'11','both');
+				
+				$x->setCellValue($cka_skpd.$row, $ka_skpd->nama);
+				++$row;
+				$x->setCellValue($cka_skpd.$row, ucwords(strtolower($ka_skpd->pangkat)));
+				++$row;
+				$x->setCellValue($cka_skpd.$row, 'NIP. '.$ka_skpd->nip);
 
-			xl_align($x, $cka_skpd.$mulai.':'.$cka_skpd.$row);
+				xl_align($x, $cka_skpd.$mulai.':'.$cka_skpd.$row);
+			}
 		}
 	}
 

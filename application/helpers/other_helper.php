@@ -121,26 +121,75 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 	}
 
-	if ( !function_exists('getMetodePemilihan') )
+	if ( !function_exists('metode_pemilihan') )
 	{
-		function getMetodePemilihan($i)
+		function metode_pemilihan($i)
 		{
 			$metode_pemilihan = array(
 									'',
-									'E-Purchasing',//9
+									'e-Purchasing',//9
 									'Tender',//13
 									'Tender Cepat',//14
 									'Pengadaan Langsung',//8
 									'Penunjukkan Langsung',//7
 									'Seleksi'//15
 									);
-			return $metode_pemilihan[$i];
+			return ($metode_pemilihan[$i])? $metode_pemilihan[$i] : '-';
 		}
 	}
 
-	if ( !function_exists('getJenisPengadaan') )
+	if ( !function_exists('cara_pengadaan') )
 	{
-		function getJenisPengadaan($i)
+		function cara_pengadaan($i)
+		{
+			$cara_pengadaan = array(
+									'',
+									'Penyedia',
+									'Swakelola'
+									);
+			return $cara_pengadaan[$i];
+		}
+	}
+
+	if ( !function_exists('sanggah') )
+	{
+		function sanggah($i)
+		{
+			$i = empty($i)? 1 : $i;
+			$sanggah = array(
+									'',
+									'-',
+									'Sanggah',
+									'Sanggah Banding',
+									'Pengaduan'
+									);
+			return $sanggah[$i];
+		}
+	}
+
+	if ( !function_exists('jenis_belanja') )
+	{
+		function jenis_belanja($i)
+		{
+			$jenis_belanja = array(
+									'',
+									'Belanja Pegawai',
+									'Belanja Barang/Jasa',
+									'Belanja Modal',
+									'Belum Teridentifikasi',
+									'Belanja Bunga Utang',
+									'Belanja Subsidi',
+									'Belanja Hibah',
+									'Belanja Bantuan Sosial',
+									'Belanja Lain-Lain'
+									);
+			return $jenis_belanja[$i];
+		}
+	}
+
+	if ( !function_exists('jenis_pengadaan') )
+	{
+		function jenis_pengadaan($i)
 		{
 			$jenis_pengadaan = array(
 									'',

@@ -157,7 +157,7 @@
 					</div>
 					<div class="col-md-9">
 						<div class="form-group">
-							<input type="text" name="tanggal_cetak" class="form-control laportepra-perencanaan-tanggal-cetak">
+							<input type="text" name="tgl_cetak" class="form-control laportepra-perencanaan-tanggal-cetak">
 						</div>
 					</div>
 				</div>
@@ -183,7 +183,9 @@
     jQuery(".laportepra-perencanaan-tahun").val(jQuery(".smep-year-value").val());
 
 	// ----------- Tanggal Cetak -------------
-  	jQuery(".laportepra-perencanaan-tanggal-cetak").datepicker();
+    jQuery(".laportepra-perencanaan-tanggal-cetak").datepicker({
+        format      : 'dd-mm-yyyy'
+    });
 
 	// ----------- Data Rekapitulasi ------------- 
   	function laporTepraPerencanaanRekap(idskpd){
