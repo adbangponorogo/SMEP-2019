@@ -144,8 +144,8 @@ PENYEDIA
     "NAMA_PAKET": "Pembangunan Jembatan",
     "LIST_LOKASI_PEKERJAAN":  [
         {
-            "ID_PROVINSI":11, // tidak boleh null
-            "ID_KABUPATEN":11243, // boleh null
+            "ID_PROVINSI":11, // tidak boleh null    15
+            "ID_KABUPATEN":11243, // boleh null   14834
             "DETIL_LOKASI":"Jalan A", //tidak boleh null
         },
         {
@@ -346,7 +346,7 @@ PPK
         "IS_DELETED": false
     },
 
-]
+] 
 Parameter:
 1. tahun: integer
 2. date: integer unix time
@@ -454,17 +454,17 @@ ASAL_DANA tabel kldi
 ID_SATKER tabel satuan_kerja
 
 SUMBER_DANA
-1;"APBD"
-2;"APBN"
-3;"PHLN"
-4;"PNBP"
-5;"APBNP"
-6;"APBDP"
-7;"BLU"
-8;"BLUD"
-9;"BUMN"
-10;"BUMD"
-11;"Lainnya"
+1;"APBD" 1
+2;"APBN" 3
+3;"PHLN" 9
+4;"PNBP" 10
+5;"APBNP" 4
+6;"APBDP" 2
+7;"BLU" 5
+8;"BLUD" 6
+9;"BUMN" 8
+10;"BUMD" 7
+11;"Lainnya" 11
 
 $sumber_dana = array(
 						0'',

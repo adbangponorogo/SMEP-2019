@@ -14,7 +14,7 @@
         </div>
         <div class="col-md-9">
             <div class="form-group" style="margin:10px 0px;">
-							<a href="api/program"target="blank">https://smep.ponorogo.go.id/api/program</a>
+							<a class="api-program" target="blank">https://smep.ponorogo.go.id/api/program</a>
             </div>
         </div>
       </div>
@@ -26,10 +26,93 @@
         </div>
         <div class="col-md-9">
             <div class="form-group" style="margin:10px 0px;">
-							<a href="api/kegiatan"target="blank">https://smep.ponorogo.go.id/api/kegiatan</a>
+							<a class="api-kegiatan" target="blank">https://smep.ponorogo.go.id/api/kegiatan</a>
+            </div>
+        </div>
+      </div>
+      <div class="col-md-12" style="margin-bottom: 10px;">
+        <div class="col-md-3">
+          <div class="form-group" style="margin: 10px 0px">
+            <b>Data Objek Akun</b>
+          </div>
+        </div>
+        <div class="col-md-9">
+            <div class="form-group" style="margin:10px 0px;">
+              <a class="api-objek-akun" target="blank">https://smep.ponorogo.go.id/api/objekAkun</a>
+            </div>
+        </div>
+      </div>
+      <div class="col-md-12" style="margin-bottom: 10px;">
+        <div class="col-md-3">
+          <div class="form-group" style="margin: 10px 0px">
+            <b>Data Rincian Objek Akun</b>
+          </div>
+        </div>
+        <div class="col-md-9">
+            <div class="form-group" style="margin:10px 0px;">
+              <a class="api-rincian-objek-akun" target="blank">https://smep.ponorogo.go.id/api/rincianObjekAkun</a>
+            </div>
+        </div>
+      </div>
+      <div class="col-md-12" style="margin-bottom: 10px;">
+        <div class="col-md-3">
+          <div class="form-group" style="margin: 10px 0px">
+            <b>Data Penyedia</b>
+          </div>
+        </div>
+        <div class="col-md-9">
+            <div class="form-group" style="margin:10px 0px;">
+              <a class="api-penyedia" target="blank">https://smep.ponorogo.go.id/api/penyedia</a>
+            </div>
+        </div>
+      </div>
+      <div class="col-md-12" style="margin-bottom: 10px;">
+        <div class="col-md-3">
+          <div class="form-group" style="margin: 10px 0px">
+            <b>Data Swakelola</b>
+          </div>
+        </div>
+        <div class="col-md-9">
+            <div class="form-group" style="margin:10px 0px;">
+              <a class="api-swakelola" target="blank">https://smep.ponorogo.go.id/api/swakelola</a>
+            </div>
+        </div>
+      </div>
+      <div class="col-md-12" style="margin-bottom: 10px;">
+        <div class="col-md-3">
+          <div class="form-group" style="margin: 10px 0px">
+            <b>Data PPK</b>
+          </div>
+        </div>
+        <div class="col-md-9">
+            <div class="form-group" style="margin:10px 0px;">
+              <a class="api-user-ppk" target="blank">https://smep.ponorogo.go.id/api/ppk</a>
+            </div>
+        </div>
+      </div>
+      <div class="col-md-12" style="margin-bottom: 10px;">
+        <div class="col-md-3">
+          <div class="form-group" style="margin: 10px 0px">
+            <b>Data Struktur Anggaran</b>
+          </div>
+        </div>
+        <div class="col-md-9">
+            <div class="form-group" style="margin:10px 0px;">
+              <a class="api-struktur-anggaran" target="blank">https://smep.ponorogo.go.id/api/strukturAnggaran</a>
             </div>
         </div>
       </div>
     </div>
   </div>    
 </div>
+
+<script type="text/javascript">
+  jQuery(".api-program").attr("href", "api/program/"+jQuery(".smep-year-value").val());
+  jQuery(".api-kegiatan").attr("href", "api/kegiatan/"+jQuery(".smep-year-value").val());
+  jQuery(".api-objek-akun").attr("href", "api/objek-akun/"+jQuery(".smep-year-value").val());
+  jQuery(".api-rincian-objek-akun").attr("href", "api/rincian-objek-akun/"+jQuery(".smep-year-value").val());
+  jQuery(".api-penyedia").attr("href", "api/penyedia/"+jQuery(".smep-year-value").val());
+  jQuery(".api-swakelola").attr("href", "api/swakelola/"+jQuery(".smep-year-value").val());
+  jQuery(".api-user-ppk").attr("href", "api/users-ppk/"+jQuery(".smep-year-value").val());
+  jQuery(".api-struktur-anggaran").attr("href", "api/struktur-anggaran/"+jQuery(".smep-year-value").val());
+</script>

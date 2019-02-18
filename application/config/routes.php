@@ -259,8 +259,14 @@ $route['administrator/pengguna-aplikasi/generate-data'] = 'administrator/Adminpe
 
 // ------ API SiRUP ------ //
 $route['administrator/api-sirup/main-page'] = 'administrator/Adminapisirup_controller';
-$route['api/program'] = 'administrator/Adminapisirup_controller/program';
-$route['api/kegiatan'] = 'administrator/Adminapisirup_controller/Kegiatan';
+$route['api/program/(:any)'] = 'administrator/Adminapisirup_controller/program/$1';
+$route['api/kegiatan/(:any)'] = 'administrator/Adminapisirup_controller/kegiatan/$1';
+$route['api/objek-akun/(:any)'] = 'administrator/Adminapisirup_controller/objekAkun/$1';
+$route['api/rincian-objek-akun/(:any)'] = 'administrator/Adminapisirup_controller/rincianObjekAkun/$1';
+$route['api/penyedia/(:any)'] = 'administrator/Adminapisirup_controller/penyedia/$1';
+$route['api/swakelola/(:any)'] = 'administrator/Adminapisirup_controller/swakelola/$1';
+$route['api/users-ppk/(:any)'] = 'administrator/Adminapisirup_controller/ppk/$1';
+$route['api/struktur-anggaran/(:any)'] = 'administrator/Adminapisirup_controller/strukturAnggaran/$1';
 
 // ------ Rekapitulasi Rencana Pengadaan ------ //
 $route['administrator/rencana-pengadaan/main-page'] = 'administrator/Adminrapan_controller/mainPage';
