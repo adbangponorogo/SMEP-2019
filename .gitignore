@@ -1,6 +1,7 @@
 application/*
 assets/*
-custom/*
+custom/tpl/*
+custom/index.html
 !custom/globalvar.php
 system/*
 tmp/*
