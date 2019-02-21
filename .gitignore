@@ -1,8 +1,7 @@
 application/*
 assets/*
-custom/tpl/*
-custom/index.html
-custom/logo.png
+custom/*
+!custom/globalvar.php
 system/*
 tmp/*
 .editorconfig
