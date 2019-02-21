@@ -1,3 +1,0 @@
-ALTER TABLE `tb_realisasi_rup`
-ADD `penyedia_swakelola` tinytext NULL AFTER `realisasi_fisik`,
-ADD `nomor_bukti` tinytext NULL AFTER `penyedia_swakelola`;
