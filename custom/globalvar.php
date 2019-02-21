@@ -26,3 +26,5 @@ define('TPLPATH', 'custom/tpl/');
 
 //-----/ object variabel /-----//
 $smep = new stdClass();
+
+$test = 1;
