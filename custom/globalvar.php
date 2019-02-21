@@ -5,6 +5,7 @@
  * @author	Danang Ponorogo @260119
  *
  */
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 //-----/ akun database /-----//
 define('HOSTNAME', 'localhost');
