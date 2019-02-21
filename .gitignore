@@ -2,7 +2,7 @@ application/*
 assets/*
 custom/tpl/*
 custom/index.html
-custom/!globalvar!.php
+custom/!globalvar.php!
 system/*
 tmp/*
 .editorconfig
