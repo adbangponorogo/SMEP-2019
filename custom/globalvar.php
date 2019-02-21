@@ -24,5 +24,6 @@ define('LOGOPATH', 'custom/');
 //-----/ path template laporan /-----//
 define('TPLPATH', 'custom/tpl/');
 
+$test = 1;
 //-----/ object variabel /-----//
 $smep = new stdClass();
