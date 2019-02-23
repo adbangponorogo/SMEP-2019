@@ -8,10 +8,10 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 //-----/ akun database /-----//
-define('HOSTNAME', 'localhost');
-define('USERNAME', 'lpsepono_smep');
-define('PASSWORD', 'lpseappnew123');
-define('DATABASE', 'lpsepono_smep_2019');
+define('HOSTNAME', '');
+define('USERNAME', '');
+define('PASSWORD', '');
+define('DATABASE', '');
 
 //-----/ akun database lama - Kepentingan Generate! /-----//
 define('HOSTNAME_DB_OLD', 'localhost');
