@@ -572,6 +572,7 @@ class Endarup_controller extends CI_Controller {
                     "pelaksanaan_pemanfaatan" => $pelaksanaan_pemanfaatan,
                     "pelaksanaan_pekerjaan_awal" => $pelaksanaan_pekerjaan_awal,
 				"pelaksanaan_pekerjaan_akhir" => $pelaksanaan_pekerjaan_akhir,
+				"tanggal_buat" => 'now()',
 			);
 			$this->model->insertData($data);
 			echo json_encode(array("status"=>TRUE));
@@ -689,6 +690,7 @@ class Endarup_controller extends CI_Controller {
                          "pelaksanaan_kontrak_awal" => $this->input->post("pelaksanaan_kontrak_awal"),
                          "pelaksanaan_kontrak_akhir" => $this->input->post("pelaksanaan_kontrak_akhir"),
                          "pelaksanaan_pemanfaatan" => $this->input->post("pelaksanaan_pemanfaatan"),
+												 "tanggal_buat" => 'now()',
                     );
                }
                if ($this->input->post("cara_pengadaan") == 2) {
@@ -709,7 +711,8 @@ class Endarup_controller extends CI_Controller {
                          "jenis_pengadaan" => $this->input->post("jenis_pengadaan"),
                          "umumkan_paket" => $this->input->post("umumkan_paket"),
                          "pelaksanaan_pekerjaan_awal" => $this->input->post("pelaksanaan_pekerjaan_awal"),
-                         "pelaksanaan_pekerjaan_akhir" => $this->input->post("pelaksanaan_pekerjaan_akhir")
+                         "pelaksanaan_pekerjaan_akhir" => $this->input->post("pelaksanaan_pekerjaan_akhir"),
+												 "tanggal_buat" => 'now()',
                     );
                }
                $this->model->updateData($this->input->post("token"), $data);

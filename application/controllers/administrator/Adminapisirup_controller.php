@@ -39,14 +39,14 @@ class Adminapisirup_controller extends Admin_Controller {
 		foreach ($result->result() as $row) {
 			$data[] = 	array(
 								"ID_PROGRAM"		=> ('2019'.$row->id_sirup_program)+0,
-						        "ID_KEGIATAN"		=> ('2019'.$row->id_sirup)+0,
-						        "ID_SATKER"			=> "14834",
-						        "NAMA_KEGIATAN"		=> $row->keterangan_kegiatan,
-						        "KODE_KEGIATAN"		=> $row->kd_gabungan,
-						        "PAGU"				=> $row->jumlah+0,
-						        "IS_DELETED"		=> $boolean[1],
-						        "CREATE_TIME"		=> $row->updated+0,
-						        "LASTUPDATE_TIME"	=> $row->updated+0
+								"ID_KEGIATAN"		=> ('2019'.$row->id_sirup)+0,
+								"ID_SATKER"			=> "14834",
+								"NAMA_KEGIATAN"		=> $row->keterangan_kegiatan,
+								"KODE_KEGIATAN"		=> $row->kd_gabungan,
+								"PAGU"				=> $row->jumlah+0,
+								"IS_DELETED"		=> $boolean[1],
+								"CREATE_TIME"		=> $row->updated+0,
+								"LASTUPDATE_TIME"	=> $row->updated+0
 						);
 		}
 		echo json_encode($data);
@@ -59,15 +59,15 @@ class Adminapisirup_controller extends Admin_Controller {
 		foreach ($result->result() as $row) {
 			$data[] = 	array(
 								"ID_PROGRAM"		=> ('2019'.$row->id_sirup_program)+0,
-						        "ID_KEGIATAN"		=> ('2019'.$row->id_sirup_kegiatan)+0,
-						        "ID_OBJEK_AKUN"		=> ('2019'.$row->id_sirup)+0,
-						        "ID_SATKER"			=> "14834",
-						        "NAMA_OBJEK_AKUN"	=> $row->nama_rekening,
-						        "KODE_OBJEK_AKUN"	=> $row->kd_rekening,
-						        "PAGU"				=> $row->jumlah+0,
-						        "IS_DELETED"		=> $boolean[1],
-						        "CREATE_TIME"		=> $row->updated+0,
-						        "LASTUPDATE_TIME"	=> $row->updated+0
+								"ID_KEGIATAN"		=> ('2019'.$row->id_sirup_kegiatan)+0,
+								"ID_OBJEK_AKUN"		=> ('2019'.$row->id_sirup)+0,
+								"ID_SATKER"			=> "14834",
+								"NAMA_OBJEK_AKUN"	=> $row->nama_rekening,
+								"KODE_OBJEK_AKUN"	=> $row->kd_rekening,
+								"PAGU"				=> $row->jumlah+0,
+								"IS_DELETED"		=> $boolean[1],
+								"CREATE_TIME"		=> $row->updated+0,
+								"LASTUPDATE_TIME"	=> $row->updated+0
 						);
 		}
 		echo json_encode($data);
@@ -80,16 +80,16 @@ class Adminapisirup_controller extends Admin_Controller {
 		foreach ($result->result() as $row) {
 			$data[] = 	array(
 								"ID_PROGRAM"				=> ('2019'.$row->id_sirup_program)+0,
-						        "ID_KEGIATAN"				=> ('2019'.$row->id_sirup_kegiatan)+0,
-						        "ID_OBJEK_AKUN"				=> ('2019'.$row->id_sirup_ro)+0,
-						        "ID_RINCI_OBJEK_AKUN"		=> ('2019'.$row->id)+0,
-						        "ID_SATKER"					=> "14834",
-						        "NAMA_RINCI_OBJEK_AKUN"		=> $row->nama_paket,
-						        "KODE_RINCI_OBJEK_AKUN"		=> $row->kd_rekening,
-						        "PAGU"						=> $row->pagu_paket+0,
-						        "IS_DELETED"				=> $boolean[1],
-						        "CREATE_TIME"				=> $row->updated+0,
-						        "LASTUPDATE_TIME"			=> $row->updated+0
+								"ID_KEGIATAN"				=> ('2019'.$row->id_sirup_kegiatan)+0,
+								"ID_OBJEK_AKUN"				=> ('2019'.$row->id_sirup_ro)+0,
+								"ID_RINCI_OBJEK_AKUN"		=> ('2019'.$row->id)+0,
+								"ID_SATKER"					=> "14834",
+								"NAMA_RINCI_OBJEK_AKUN"		=> $row->nama_paket,
+								"KODE_RINCI_OBJEK_AKUN"		=> $row->kd_rekening,
+								"PAGU"						=> $row->pagu_paket+0,
+								"IS_DELETED"				=> $boolean[1],
+								"CREATE_TIME"				=> $row->updated+0,
+								"LASTUPDATE_TIME"			=> $row->updated+0
 						);
 		}
 		echo json_encode($data);
@@ -284,8 +284,8 @@ class Adminapisirup_controller extends Admin_Controller {
 			$bl_pegawai = intval($row->bl1);
 			$bl_non_pegawai = intval($row->bl2)+intval($row->bl3);
 			
-			$data[] = 	array(
-								"ID"													=> $row->id_sirup,
+			$data[] = array(
+										"ID"													=> $row->id_sirup,
 						        "BELANJA_LANGSUNG_PEGAWAI"								=> $bl_pegawai,
 						        "BELANJA_LANGSUNG_BUKAN_PEGAWAI"						=> $bl_non_pegawai,
 

@@ -392,6 +392,7 @@ class Endasirup_controller extends CI_Controller {
 				"tanggal_surat_serah_terima" => $this->input->post("tanggal_surat_serah_terima"),
 				"nomor_bukti" => $this->input->post("nomor_bukti"),
 				"penyedia_swakelola" => $this->input->post("penyedia_swakelola"),
+ 			  "tanggal_buat" => 'now()',
 				);
 			$this->model->insertData($data);
 
@@ -523,6 +524,7 @@ class Endasirup_controller extends CI_Controller {
 				"tanggal_surat_serah_terima" => $this->input->post("tanggal_surat_serah_terima"),
 				"nomor_bukti" => $this->input->post("nomor_bukti"),
 				"penyedia_swakelola" => $this->input->post("penyedia_swakelola"),
+ 			  "tanggal_buat" => 'now()',
 				);
 			$this->model->updateData($this->input->post("token"), $data);
 			
