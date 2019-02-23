@@ -1,0 +1,80 @@
+jQuery(document).ready(function(){
+
+	// Call ready function
+	thisFunction();
+
+	// Function basic
+	function thisFunction(){
+		jQuery(".").DataTable({
+			processing	 	: true,
+			serverSide 		: true,
+			destroy 		: true,
+			ajax 			: {
+				type 		: 'AJAX',
+				method 		: 'POST',
+				url 		: '',
+				async 		: true,
+				data 		: '',
+				dataType 	: 'JSON'
+			}
+		});
+		jQuery.ajax({
+			type 		: 'AJAX',
+			method 		: 'POST',
+			url 		: '',
+			async 		: true,
+			data 		: {"<?php echo $this->security->get_csrf_token_name();?>" : "<?php echo $this->security->get_csrf_hash();?>"},
+			dataType 	: 'JSON',
+			success 	: function(JSON){
+
+				// Get Edit Data
+			},
+			error		: function(jqXHR, textStatus, errorThrown){
+				console.log("error");
+			}
+		});
+	}
+
+	// Store Data
+	jQuery(document).on("click", ".", function(){
+
+	});
+
+	// Update Data
+	jQuery(document).on("click", ".", function(){
+
+	});
+
+	// Delete Data
+	jQuery(document).on("click", ".", function(){
+
+	});
+
+	// Multiple Delete
+	jQuery(document).on("click", ".", function(){
+
+	});
+
+	jQuery.ajax({
+			type 		: 'AJAX',
+			method 		: 'GET',
+			url 		: 'administrator/pengguna-aplikasi/data-skpd',
+			async		: true,
+			dataType 	: 'JSON',
+			success 	: function(JSON){
+				var option = '';
+				for (var skpd = 0; skpd < JSON.length; skpd++) {
+					option += "<option value='"+JSON[skpd][0]+"'>["+JSON[skpd][1]+"] - "+
+					JSON[skpd][2]+"</option>";
+				}
+				jQuery(".pengsiadmin-skpd-user-reg").html(option);
+				jQuery(".pengsiadmin-skpd-user-reg").select2({
+					dropdownParent:jQuery(".smep-pengsiadmin-user-register-modal")
+				});
+				console.log(JSON);
+			},
+			error 		: function(jqXHR, textStatus, errorThrown){
+				console.log('failed');
+			}
+		});
+});

@@ -1,0 +1,7 @@
+Contoh Format MAK: 1.20.1.20.009.01.002.5.2.2.03.01
+1			:	Kode Urusan
+20			:	Kode Kelompok Urusan / Kode Bidang
+1.20.009	:	Kode OPD
+01			:	Kode Program
+002			:	Kode Kegiatan
+5.2.2.03.01	:	Rekening Belanja / Akun / Rincian Obyek

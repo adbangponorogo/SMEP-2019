@@ -1,0 +1,676 @@
+<div class="col-md-12">
+	<div class="box box-primary">
+		<div class="box-header with-border">
+			<div class="col-md-12">
+				<h3 class="box-title">Form Data</h3>
+				<div class="box-tools pull-right">
+			        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+			    </div>
+			</div>
+		</div>
+		<div class="box-body rupenda-body-form">
+			<form action="#" method="POST" class="rupenda-register-form">
+				<div class="col-md-12">
+					<div class="col-md-12">
+						<h3 class="page-header" style="font-size: 15px;"><b>Rencana Pengadaan</b></h3>
+						<div class="col-md-3">
+							<div class="form-group" style="padding: 10px 0px;"><b>Program</b></div>
+						</div>
+						<div class="col-md-9">
+							<div class="form-group"> 
+								<select class="form-control rupenda-program-option-reg"></select>
+								<input type="hidden" name="idprogram" class="rupenda-idprogram-reg">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="col-md-3">
+							<div class="form-group" style="padding: 10px 0px;"><b>Kegiatan</b></div>
+						</div>
+						<div class="col-md-9">
+							<div class="form-group">
+								<select class="form-control rupenda-kegiatan-option-reg"></select>
+								<input type="hidden" name="idkegiatan" class="rupenda-idkegiatan-reg">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="col-md-3">
+							<div class="form-group" style="padding: 10px 0px;"><b>Rincian Obyek</b></div>
+						</div>
+						<div class="col-md-9">
+							<div class="form-group">
+								<select class="form-control rupenda-rincianobyek-option-reg"></select>
+								<input type="hidden" name="idrincianobyek" class="rupenda-idrincianobyek-reg">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="col-md-3">
+							<div class="form-group" style="padding: 10px 0px;"><b>M.A.K</b></div>
+						</div>
+						<div class="col-md-9">
+							<input type="text" name="kd_urusan" class="form-control rupenda-kdurusan-reg" readonly="readonly" style="float: left; width: 10%; text-align: center;">
+							<input type="text" name="kd_bidang" class="form-control rupenda-kdbidang-reg" readonly="readonly" style="float: left; width: 10%; text-align: center;">
+							<input type="text" name="kd_opd" class="form-control rupenda-kdopd-reg" readonly="readonly" style="float: left; width: 30%; text-align: center;">
+							<input type="text" name="kd_program" class="form-control rupenda-kdprogram-reg" readonly="readonly" style="float: left; width: 10%; text-align: center;">
+							<input type="text" name="kd_kegiatan" class="form-control rupenda-kdkegiatan-reg" readonly="readonly" style="float: left; width: 10%; text-align: center;">
+							<input type="text" name="kd_rekening" class="form-control rupenda-kdrekening-reg" readonly="readonly" style="float: left; width: 30%; text-align: center;">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12" style="margin-top: 30px;">
+					<div class="col-md-12">
+						<h3 class="page-header" style="font-size: 15px;"><b>Form Data RUP</b></h3>
+						<div class="col-md-6" style="padding: 0px 5px; padding-right: 20px;">
+							<div class="form-group">
+								<label>Nama PPK&nbsp;
+									<i class="fa fa-exclamation-circle" style="color: #d33724;"></i>
+								</label>
+								<select name="iduserppk" class="form-control rupenda-user-ppk-reg"></select>
+							</div>
+							<div class="form-group">
+								<label>Nama Paket&nbsp;
+									<i class="fa fa-exclamation-circle" style="color: #d33724;"></i>
+								</label>
+								<input type="text" name="nama_paket" class="form-control rupenda-nama-paket-reg" placeholder="Nama Paket">
+							</div>
+							<div class="form-group">
+								<label>Volume Pekerjaan&nbsp;
+									<i class="fa fa-exclamation-circle" style="color: #d33724;"></i>
+								</label>
+								<input type="text" name="volume_pekerjaan" class="form-control rupenda-volume-pekerjaan-reg" placeholder="Volume Paket" value="1 Paket">
+							</div>
+							<div class="form-group">
+								<label>Cara Pengadaan</label>
+								<select name="cara_pengadaan" class="form-control rupenda-cara-pengadaan-reg select2-option"> 
+									<option value="1">Penyedia</option>
+									<option value="2">Swakelola</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label>
+									Tipe Swakelola&nbsp;
+									<label class="label bg-blue color-pallete smep-rupenda-swakelola-btn" style="cursor: pointer;">?</label>
+								</label>
+								<select name="tipe_swakelola" class="form-control rupenda-tipe-swakelola-reg select2-option" disabled="disabled">
+									<option value="1" selected="selected">Swakelola Tipe 1</option>
+									<option value="2">Swakelola Tipe 2</option>
+									<option value="3">Swakelola Tipe 3</option>
+									<option value="4">Swakelola Tipe 4</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label>SKPD Swakelola</label>
+								<input type="text" class="form-control rupenda-skpd-swakelola-text-reg visible-show" readonly="readonly" value="Direncanakan, Dilaksanakan, dan Diawasi oleh K/L/P/D sendiri">
+								<select name="skpd_swakelola" class="form-control rupenda-skpd-swakelola-reg" disabled="disabled" style="width: 100%"></select>
+							</div>
+							<div class="form-group">
+								<label>Jenis Belanja</label>
+								<select name="jenis_belanja" class="form-control rupenda-jenis-belanja-reg select2-option">
+									<option value="1">Belanja Pegawai</option>
+									<option value="2" selected="selected">Belanja Barang/Jasa</option>
+									<option value="3">Belanja Modal</option>
+									<option value="4">Belum Teridentifikasi</option>
+									<option value="5">Belanja Bunga Utang</option>
+									<option value="6">Belanja Subsidi</option>
+									<option value="7">Belanja Hibah</option>
+									<option value="8">Belanja Bantuan Sosial</option>
+									<option value="9">Belanja Lain-Lain</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label>Uraian Pekerjaan</label>
+								<textarea name="uraian_pekerjaan" class="form-control rupenda-uraian-pekerjaan-reg" placeholder="Uraian Pekerjaan" style="min-width: 100%; max-width: 100%; min-height:93px; max-height: 93px;"></textarea>
+							</div>
+						</div>
+						<div class="col-md-6" style="padding: 0px 5px; padding-left: 20px;">
+							<div class="form-group">
+								<label>Lokasi Pekerjaan</label>
+								<input type="text" name="lokasi_pekerjaan" class="form-control rupenda-lokasi-pekerjaan-reg" placeholder="Lokasi Pekerjaan">
+							</div>
+							<div class="form-group">
+								<label>Pagu Pekerjaan&nbsp;
+									<i class="fa fa-exclamation-circle" style="color: #d33724;"></i>
+								</label>
+								<input type="number" name="pagu_paket" class="form-control rupenda-pagu-pekerjaan-reg" placeholder="0" min="0">
+							</div>
+							<div class="form-group">
+								<label>Pagu Tersedia</label>
+								<input type="number" name="max_pagu_paket" class="form-control rupenda-max-pagu-reg" readonly="readonly">
+							</div>
+							<div class="form-group">
+								<label>Pra DIPA/DPA</label>
+								<select name="pra_dipa" class="form-control rupenda-pra-dipa-reg select2-option">
+									<option value="0">Ya</option>
+									<option value="1" selected="selected">Tidak</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label>Nomor Renja</label>
+								<input type="text" name="nomor_renja" class="form-control rupenda-nomor-renja-reg" placeholder="Nomor Renja" readonly="readonly">
+							</div>
+							<div class="form-group">
+								<label>Sumber Dana</label>
+								<select name="sumber_dana" class="form-control rupenda-sumber-dana-reg select2-option">
+									<option value="1" selected="selected">APBD</option>
+									<option value="2">APBDP</option>
+									<option value="3">APBN</option>
+									<option value="4">APBNP</option>
+									<option value="5">BLU</option>
+									<option value="6">BLUD</option>
+									<option value="7">BUMD</option>
+									<option value="8">BUMN</option>
+									<option value="9">PHLN</option>
+									<option value="10">PNBP</option>
+									<option value="11">Lainnya</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label>Produk Dalam Negeri</label>
+								<select name="produk_dalam_negeri" class="form-control rupenda-pdn-reg select2-option">
+									<option value="0">Ya</option>
+									<option value="1" selected="selected">Tidak</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label>Usaha Kecil</label>
+								<select name="usaha_kecil" class="form-control rupenda-usaha-kecil-reg select2-option">
+									<option value="0">Ya</option>
+									<option value="1" selected="selected">Tidak</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label>Umumkan Paket</label>
+								<select name="umumkan_paket" class="form-control rupenda-umumkan-paket-reg select2-option">
+									<option value="0">Ya</option>
+									<option value="1">Tidak</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>	
+				<div class="col-md-12" style="margin-top: 30px;">
+					<div class="col-md-12">
+						<h3 class="page-header" style="font-size: 15px;"><b>TEPRA</b></h3>
+						<div class="col-md-12">
+							<div class="form-group">
+								<label>Jumlah Paket&nbsp;
+									<i class="fa fa-exclamation-circle" style="color: #d33724;"></i>
+								</label>
+								<input type="number" name="jumlah_paket" class="form-control rupenda-jumlah-paket-reg" min="0" placeholder="0" value="1">
+							</div>
+							<div class="form-group">
+								<label>Jenis Pengadaan</label>
+								<select name="jenis_pengadaan" class="form-control rupenda-jenis-pengadaan-reg select2-option">
+									<option value="1">Barang</option>
+									<option value="2">Konstruksi</option>
+									<option value="3">Jasa Konsultasi</option>
+									<option value="4">Jasa Lainnya</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label>Metode Pemilihan</label>
+								<select name="metode_pemilihan" class="form-control rupenda-metode-pemilihan-reg select2-option">
+									<option value="1">E-Purchasing</option>
+									<option value="2">Tender</option>
+									<option value="3">Tender Cepat</option>
+									<option value="4" selected="selected">Pengadaan Langsung</option>
+									<option value="5">Penunjukkan Langsung</option>
+									<option value="6">Seleksi</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12" style="margin-top: 30px;">
+					<div class="col-md-12 rupenda-jadwal-pekerjaan-penyedia-reg visible-show">
+						<h3 class="page-header" style="font-size: 15px;"><b>Jadwal Pengadaan</b></h3>
+						<div class="col-md-4">
+							<h3 class="page-header" style="font-size: 15px;"><b>Pelaksanaan Pengadaan</b></h3>
+							<div class="form-group">
+								<label>Mulai&nbsp;
+									<i class="fa fa-exclamation-circle" style="color: #d33724;"></i>
+								</label>
+								<input type="text" name="pelaksanaan_pengadaan_awal" class="form-control month-picker rupenda-pelaksanaan-pengadaan-awal-reg">
+							</div>
+							<div class="form-group">
+								<label>Selesai&nbsp;
+									<i class="fa fa-exclamation-circle" style="color: #d33724;"></i>
+								</label>
+								<input type="text" name="pelaksanaan_pengadaan_akhir" class="form-control month-picker rupenda-pelaksanaan-pengadaan-akhir-reg">
+							</div>
+						</div>
+						<div class="col-md-4">
+							<h3 class="page-header" style="font-size: 15px;"><b>Pelaksanaan Kontrak</b></h3>
+							<div class="form-group">
+								<label>Mulai&nbsp;
+									<i class="fa fa-exclamation-circle" style="color: #d33724;"></i>
+								</label>
+								<input type="text" name="pelaksanaan_kontrak_awal" class="form-control month-picker rupenda-pelaksanaan-kontrak-awal-reg">
+							</div>
+							<div class="form-group">
+								<label>Selesai&nbsp;
+									<i class="fa fa-exclamation-circle" style="color: #d33724;"></i>
+								</label>
+								<input type="text" name="pelaksanaan_kontrak_akhir" class="form-control month-picker rupenda-pelaksanaan-kontrak-akhir-reg">
+							</div>
+						</div>
+						<div class="col-md-4">
+							<h3 class="page-header" style="font-size: 15px;"><b>Mulai Penggunaan</b></h3>
+							<div class="form-group">
+								<label>Bulan&nbsp;
+									<i class="fa fa-exclamation-circle" style="color: #d33724;"></i>
+								</label>
+								<input type="text" name="pelaksanaan_pemanfaatan" class="form-control month-picker rupenda-mulai-penggunaan-reg">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12 rupenda-jadwal-pekerjaan-swakelola-reg hidden-show">
+						<h3 class="page-header" style="font-size: 15px;"><b>Jadwal Pengadaan</b></h3>
+						<div class="col-md-12">
+							<h3 class="page-header" style="font-size: 15px;"><b>Pelaksanaan Pekerjaan</b></h3>
+							<div class="form-group">
+								<label>Mulai&nbsp;
+									<i class="fa fa-exclamation-circle" style="color: #d33724;"></i>
+								</label>
+								<input type="text" name="pelaksanaan_pekerjaan_awal" class="form-control month-picker rupenda-pelaksanaan-pekerjaan-awal-reg">
+							</div>
+							<div class="form-group">
+								<label>Selesai&nbsp;
+									<i class="fa fa-exclamation-circle" style="color: #d33724;"></i>
+								</label>
+								<input type="text" name="pelaksanaan_pekerjaan_akhir" class="form-control month-picker rupenda-pelaksanaan-pekerjaan-akhir-reg">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="col-md-12">
+						<h3 class="page-header"></h3>
+						<div class="col-md-12">
+							<div class="form-group">
+								<input type="hidden" name="idskpd" class="rupenda-idskpd-reg">
+								<input type="hidden" name="tahun" class="rupenda-tahun-reg">
+								<button class="btn btn-primary smep-rupenda-register-send-btn">
+									<i class="fa fa-save"></i>&nbsp;
+									Simpan
+								</button>
+								<button class="btn btn-danger smep-rupenda-register-cancel-btn">
+									<i class="fa fa-close"></i>&nbsp;
+									Batal
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+ 
+<!-- Javascript -->
+<script type="text/javascript">
+	jQuery(".month-picker").datepicker({
+		format		: 'mm-yyyy',
+		viewMode	: 'months',
+		minViewMode	: 'months'
+	});
+	
+	// --------------- Default Select2 --------------- //
+	jQuery(".select2-option").select2();
+
+	// --------------- Year Data --------------- //
+    jQuery(".rupenda-tahun-reg").val(jQuery(".smep-year-value").val());
+
+	// ---------------- Users PPK ---------------- //
+	jQuery(".rupenda-idskpd-reg").val(jQuery(".smep-skpd-main").val());
+
+	// ---------------- Data SKPD ---------------- //
+	endaRUPSKPDData();
+	function endaRUPSKPDData() {
+	    jQuery.ajax({
+		    type      : 'AJAX',
+		    method    : 'GET',
+		    url       : 'entry-data/data-rup/skpd-data/'+jQuery(".smep-skpd-main").val(),
+		    async     : true,
+		    dataType  : 'JSON',
+		    success   : function(JSON){
+		    	jQuery(".rupenda-lokasi-pekerjaan-reg").val(JSON[0][0]);
+		    },
+		    error     : function(jqXHR, textStatus, errorThrown){
+		        location.href = window.location.href+"app/auth/sessionPage";
+		    }
+	    });
+	}
+
+	// ---------------- Data SKPD Unique ---------------- //
+	endaRUPSKPDUniqueData();
+	function endaRUPSKPDUniqueData() {
+	    jQuery.ajax({
+		    type      : 'AJAX',
+		    method    : 'GET',
+		    url       : 'entry-data/data-rup/skpd-data-unique/'+jQuery(".smep-skpd-main").val(),
+		    async     : true,
+		    dataType  : 'JSON',
+		    success   : function(JSON){
+		    	option = '';
+		    	for (var skpd = 0; skpd < JSON.length; skpd++) {
+		    		option += "<option value="+JSON[skpd][0]+">["+JSON[skpd][1]+"] - "+JSON[skpd][2]+"</option>";
+		    	}
+		    	jQuery(".rupenda-skpd-swakelola-reg").val(JSON[0][0]).change();
+		    	jQuery(".rupenda-skpd-swakelola-reg").html(option);
+		        jQuery(".rupenda-skpd-swakelola-reg").select2().next().hide();
+		    },
+		    error     : function(jqXHR, textStatus, errorThrown){
+		        location.href = window.location.href+"app/auth/sessionPage";
+		    }
+	    });
+	}
+
+	// ---------------- Users PPK ---------------- //
+	endaRUPUserPPkData();
+	function endaRUPUserPPkData() {
+	    jQuery.ajax({
+		    type      : 'AJAX',
+		    method    : 'GET',
+		    url       : 'entry-data/data-rup/users-data/ppk/'+jQuery(".smep-skpd-main").val(),
+		    async     : true,
+		    dataType  : 'JSON',
+		    success   : function(JSON){
+		    	option = '';
+		    	if (JSON.length > 0) {
+		    		for (var ppk = 0; ppk < JSON.length; ppk++) {
+		    		option += "<option value="+JSON[ppk][0]+">"+JSON[ppk][1]+"</option>";
+		    	}
+		    	jQuery(".rupenda-user-ppk-reg").val(JSON[0][0]).change();
+		    	}
+		    	jQuery(".rupenda-user-ppk-reg").html(option);
+		        jQuery(".rupenda-user-ppk-reg").select2();
+		    },
+		    error     : function(jqXHR, textStatus, errorThrown){
+		        location.href = window.location.href+"app/auth/sessionPage";
+		    }
+	    });
+	}
+
+	// ---------------- Default MAK ---------------- //
+	endaRUPMAKData();
+	function endaRUPMAKData() {
+	    jQuery.ajax({
+		    type      : 'AJAX',
+		    method    : 'GET',
+		    url       : 'entry-data/data-rup/mak-data/'+jQuery(".smep-skpd-main").val(),
+		    async     : true,
+		    dataType  : 'JSON',
+		    success   : function(JSON){
+		    	jQuery(".rupenda-kdurusan-reg").val(JSON[0]);
+		    	jQuery(".rupenda-kdbidang-reg").val(JSON[1]);
+		    	jQuery(".rupenda-kdopd-reg").val(JSON[2]);
+		    },
+		    error     : function(jqXHR, textStatus, errorThrown){
+		        location.href = window.location.href+"app/auth/sessionPage";
+		    }
+	    });
+	}
+
+	// ---------------- Check ID Value ---------------- //
+	endaRUPCheckID();
+	function endaRUPCheckID(){
+	    var id_program = jQuery(".smep-idprogram-token").val();
+	    var id_kegiatan = jQuery(".smep-idkegiatan-token").val();
+	    var id_ro = jQuery(".smep-idro-token").val();
+
+	    if (id_program == '' && id_kegiatan == '' && id_ro == '') {
+	      	endaRUPProgram('');
+	    }
+	    if (id_program != '' && id_kegiatan == '' && id_ro == '') {
+	      	endaRUPProgram(id_program);
+	    }
+	    if (id_program != '' && id_kegiatan != '' && id_ro == '') {
+	      	endaRUPProgram(id_program);
+	      	endaRUPKegiatan(id_program, id_kegiatan);
+	    }
+	    if (id_program != '' && id_kegiatan != '' && id_ro != '') {
+	    	endaRUPProgram(id_program);
+	    	endaRUPKegiatan(id_program, id_kegiatan);
+	     	endaRUPRO(id_program, id_kegiatan, id_ro);
+	    }
+	}
+
+
+	// ---------------- Program Option and Value ---------------- //
+	function endaRUPProgram(id_program) {
+	    jQuery.ajax({
+		    type      : 'AJAX',
+		    method    : 'GET',
+		    url       : 'entry-data/data-rup/program-data/'+jQuery(".smep-skpd-main").val(),
+		    async     : true, 
+		    dataType  : 'JSON',
+		    success   : function(JSON){
+		        var option = '';
+		        for (var program = 0; program < JSON.length; program++) {
+		          option += "<option value='"+JSON[program][0]+"'>"+
+		          "["+JSON[program][2]+"] - "+JSON[program][3]+"</option>";
+		        }
+		        jQuery(".rupenda-program-option-reg").html(option);
+		        jQuery(".rupenda-kdprogram-reg").val(JSON[0][1]);
+		        jQuery(".rupenda-program-option-reg").select2();
+
+		        if (id_program == '' || id_program == 'all' || isNaN(id_program)) {
+		        	jQuery(".rupenda-idprogram-reg").val(JSON[0][0]);
+		        	jQuery(".rupenda-program-option-reg").val(JSON[0][0]).change();
+		        	jQuery(".smep-idprogram-token").val(JSON[0][0]);
+		        }
+		        else{
+		        	jQuery(".rupenda-idprogram-reg").val(id_program);
+		        	jQuery(".rupenda-program-option-reg").val(id_program).change();	
+		        	jQuery(".smep-idprogram-token").val(id_program);
+		        }
+		    },
+		    error     : function(jqXHR, textStatus, errorThrown){
+		        location.href = window.location.href+"app/auth/sessionPage";
+		    }
+	    });
+	}
+
+	// ---------------- Kegiatan Option and Value ---------------- //
+	function endaRUPKegiatan(id_program, id_kegiatan){
+		jQuery.ajax({
+		    type      : 'AJAX',
+		    method    : 'GET',
+		    url       : 'entry-data/data-rup/kegiatan-data/'+id_program,
+		    async     : true,
+		    dataType  : 'JSON',
+		    success   : function(JSON){
+		        var option = '';
+		        for (var kegiatan = 0; kegiatan < JSON.length; kegiatan++) {
+		          option += "<option value='"+JSON[kegiatan][0]+"'>"+
+		          "["+JSON[kegiatan][3]+"] - "+JSON[kegiatan][4]+"</option>";
+		        }
+		        jQuery(".rupenda-kegiatan-option-reg").html(option);
+		        jQuery(".rupenda-kdprogram-reg").val(JSON[0][1]);
+		        jQuery(".rupenda-kdkegiatan-reg").val(JSON[0][2]);
+		        jQuery(".rupenda-kegiatan-option-reg").select2();
+		        if (id_kegiatan == '' || id_kegiatan == 'all' || isNaN(id_kegiatan)) {
+		        	jQuery(".rupenda-idkegiatan-reg").val(JSON[0][0]);
+		        	jQuery(".rupenda-kegiatan-option-reg").val(JSON[0][0]).change();
+		        	jQuery(".smep-idkegiatan-token").val(JSON[0][0]);
+		        }
+		        else{
+		        	jQuery(".rupenda-idkegiatan-reg").val(id_kegiatan);
+		        	jQuery(".rupenda-kegiatan-option-reg").val(id_kegiatan).change();	
+		        	jQuery(".smep-idkegiatan-token").val(id_kegiatan);
+		        }
+		    },
+		    error     : function(jqXHR, textStatus, errorThrown){
+		        location.href = window.location.href+"app/auth/sessionPage";
+		    }
+	    });
+	}
+
+	// ---------------- Rincian Obyek Option and Value ---------------- //
+	function endaRUPRO(id_program, id_kegiatan, id_ro){
+		jQuery.ajax({
+		    type      : 'AJAX',
+		    method    : 'GET',
+		    url       : 'entry-data/data-rup/rincian-obyek-data/'+id_kegiatan,
+		    async     : true,
+		    dataType  : 'JSON',
+		    success   : function(JSON){
+		        var option = '';
+		        for (var ro = 0; ro < JSON.length; ro++) {
+		          option += "<option value='"+JSON[ro][0]+"'>"+
+		          "["+JSON[ro][3]+"] - "+JSON[ro][4]+"</option>";
+		        }
+		        jQuery(".rupenda-rincianobyek-option-reg").html(option);
+		        jQuery(".rupenda-kdkegiatan-reg").val(JSON[0][1]);
+		        jQuery(".rupenda-kdrekening-reg").val(JSON[0][2]);
+		        jQuery(".rupenda-rincianobyek-option-reg").select2();
+		        if (id_ro == '' || id_ro == 'all' || isNaN(id_ro)) {
+		        	jQuery(".rupenda-idrincianobyek-reg").val(JSON[0][0]);
+			        jQuery(".rupenda-rincianobyek-option-reg").val(JSON[0][0]).change();
+			        jQuery(".smep-idro-token").val(JSON[0][0]);
+		        }
+		        else{
+		        	jQuery(".rupenda-idrincianobyek-reg").val(id_ro);
+			        jQuery(".rupenda-rincianobyek-option-reg").val(id_ro).change();
+			        jQuery(".smep-idro-token").val(id_ro);
+		        }
+		    },
+		    error     : function(jqXHR, textStatus, errorThrown){
+		        location.href = window.location.href+"app/auth/sessionPage";
+		    }
+	    });
+	}
+
+	// ---------------- Rincian Obyek Value ---------------- //
+	function endaRUPROData(id_program, id_kegiatan, id_ro){
+		jQuery.ajax({
+		    type      : 'AJAX',
+		    method    : 'GET',
+		    url       : 'entry-data/data-rup/rincian-obyek-unique-data/'+id_ro,
+		    async     : true,
+		    dataType  : 'JSON',
+		    success   : function(JSON){
+		        jQuery(".rupenda-max-pagu-reg").val(JSON[0][0]);
+		        jQuery(".rupenda-kdrekening-reg").val(JSON[0][1]);
+
+		        jQuery(".rupenda-pagu-pekerjaan-reg").val(JSON[0][0]);
+				jQuery(".rupenda-nama-paket-reg").val(JSON[0][2]);
+				jQuery(".rupenda-uraian-pekerjaan-reg").val(JSON[0][2]);
+
+		    },
+		    error     : function(jqXHR, textStatus, errorThrown){
+		        location.href = window.location.href+"app/auth/sessionPage";
+		    }
+	    });
+	}
+
+	// ---------------- Change Session ---------------- //
+	jQuery(document).on("change", ".rupenda-program-option-reg", function(){
+		var id_program = jQuery(this).val();
+		var id_kegiatan = jQuery(".smep-idkegiatan-token").val();
+		var id_ro = jQuery(".smep-idro-token").val();
+		endaRUPKegiatan(id_program, id_kegiatan);
+	});
+
+	jQuery(document).on("change", ".rupenda-kegiatan-option-reg", function(){
+		var id_program = jQuery(".rupenda-program-option-reg").val();
+		var id_kegiatan = jQuery(this).val();
+		var id_ro = jQuery(".smep-idro-token").val();
+		endaRUPRO(id_program, id_kegiatan, id_ro);
+	});
+	
+	jQuery(document).on("change", ".rupenda-rincianobyek-option-reg", function(){
+		var id_program = jQuery(".rupenda-program-option-reg").val();
+		var id_kegiatan = jQuery(".rupenda-kegiatan-option-reg").val();
+		var id_ro = jQuery(this).val();
+		endaRUPROData(id_program, id_kegiatan, id_ro);
+	});
+	
+	// ---------------- Cara Pengadaan ---------------- //
+	jQuery(document).on("change", ".rupenda-cara-pengadaan-reg", function(){
+		if (jQuery(this).val() == 1) {
+			jQuery(".rupenda-tipe-swakelola-reg").prop("disabled", true);
+			jQuery(".rupenda-pdn-reg").prop("disabled", false);
+			jQuery(".rupenda-usaha-kecil-reg").prop("disabled", false);
+			jQuery(".rupenda-metode-pemilihan-reg").prop("disabled", false);
+			jQuery(".rupenda-jadwal-pekerjaan-penyedia-reg").removeClass("hidden-show");
+			jQuery(".rupenda-jadwal-pekerjaan-penyedia-reg").removeClass("visible-show");
+			jQuery(".rupenda-jadwal-pekerjaan-penyedia-reg").addClass("visible-show");
+			jQuery(".rupenda-jadwal-pekerjaan-swakelola-reg").removeClass("visible-show");
+			jQuery(".rupenda-jadwal-pekerjaan-swakelola-reg").removeClass("hidden-show");
+			jQuery(".rupenda-jadwal-pekerjaan-swakelola-reg").addClass("hidden-show");
+		}
+		if (jQuery(this).val() == 2) {
+			jQuery(".rupenda-tipe-swakelola-reg").prop("disabled", false);
+			jQuery(".rupenda-pdn-reg").prop("disabled", true);
+			jQuery(".rupenda-usaha-kecil-reg").prop("disabled", true);
+			jQuery(".rupenda-metode-pemilihan-reg").prop("disabled", true);
+			jQuery(".rupenda-jadwal-pekerjaan-penyedia-reg").removeClass("hidden-show");
+			jQuery(".rupenda-jadwal-pekerjaan-penyedia-reg").removeClass("visible-show");
+			jQuery(".rupenda-jadwal-pekerjaan-penyedia-reg").addClass("hidden-show");
+			jQuery(".rupenda-jadwal-pekerjaan-swakelola-reg").removeClass("visible-show");
+			jQuery(".rupenda-jadwal-pekerjaan-swakelola-reg").removeClass("hidden-show");
+			jQuery(".rupenda-jadwal-pekerjaan-swakelola-reg").addClass("visible-show");
+		}
+	});
+
+	// ---------------- SKPD Swakelola ---------------- //
+	jQuery(document).on("change", ".rupenda-tipe-swakelola-reg", function(){
+		if (jQuery(this).val() == 1 || jQuery(this).val() == 3 || jQuery(this).val() == 4) {
+			// Config
+			jQuery(".rupenda-skpd-swakelola-reg").prop("disabled", true);
+			
+			jQuery(".rupenda-skpd-swakelola-reg").select2().next().hide();
+
+			jQuery(".rupenda-skpd-swakelola-text-reg").removeClass("visible-show");
+			jQuery(".rupenda-skpd-swakelola-text-reg").removeClass("hidden-show");
+			jQuery(".rupenda-skpd-swakelola-text-reg").addClass("visible-show");
+
+			// Text Value
+			if (jQuery(this).val() == 1) {
+				jQuery(".rupenda-skpd-swakelola-text-reg").val("Direncanakan, Dilaksanakan, dan Diawasi oleh K/L/P/D sendiri");
+			}
+			if (jQuery(this).val() == 3) {
+				jQuery(".rupenda-skpd-swakelola-text-reg").val("Direncanakan, Dilaksanakan, dan Diawasi oleh Organisasi Masyarakat");
+			}
+			if (jQuery(this).val() == 4) {
+				jQuery(".rupenda-skpd-swakelola-text-reg").val("Direncanakan, Dilaksanakan, dan Diawasi oleh Kelompok Masyarakat");
+			}
+		}
+		if (jQuery(this).val() == 2) {
+			// Config
+			jQuery(".rupenda-skpd-swakelola-reg").prop("disabled", false);
+
+			jQuery(".rupenda-skpd-swakelola-reg").select2().next().show();
+
+			jQuery(".rupenda-skpd-swakelola-text-reg").removeClass("visible-show");
+			jQuery(".rupenda-skpd-swakelola-text-reg").removeClass("hidden-show");
+			jQuery(".rupenda-skpd-swakelola-text-reg").addClass("hidden-show");
+		}
+	});
+
+
+	// ---------------- Pra DIPA/DPA ---------------- //
+	jQuery(document).on("change", ".rupenda-pra-dipa-reg", function(){
+		if (jQuery(this).val() == 0) {
+			jQuery(".rupenda-nomor-renja-reg").removeAttr("readonly", "readonly");
+		}
+		if (jQuery(this).val() == 1) {
+			jQuery(".rupenda-nomor-renja-reg").attr("readonly", "readonly");
+		}
+	});
+
+
+	// ---------------- Modal Swakelola ---------------- //
+	jQuery(document).on("click", ".smep-rupenda-swakelola-btn", function(){
+		jQuery(".smep-rupenda-swakelola-modal").modal("show");
+		return false;
+	});
+	jQuery(document).on("click", ".smep-rupenda-swakelola-close-modal-btn", function(){
+		jQuery(".smep-rupenda-swakelola-modal").modal("hide");
+		return false;
+	});
+</script>

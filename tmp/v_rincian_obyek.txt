@@ -1,0 +1,25 @@
+SELECT
+	id_sirup,
+	updated,	
+	id,	
+	tahun,	
+	kd_skpd,	
+	kd_gabungan,	
+	kd_rekening,	
+	nama_rekening,
+	jumlah,	
+	id_program,	
+	kd_program,	
+	kd_kegiatan,	
+	id_parent_keg,	
+	id_parent_prog,	
+	kd_sumber,	
+	CASE
+		WHEN kd_sumber = 2 THEN	'DBHCHT'
+		WHEN kd_sumber BETWEEN 11 AND 23 THEN 'DAK'
+		WHEN kd_sumber IN (24, 25, 26) THEN 'APBD PROV'
+		WHEN kd_sumber IN (5, 8, 27) THEN 'APBN'
+	ELSE 'APBD KAB'
+    END sumber_dana,
+	id_skpd	
+FROM simda_rincian_obyek

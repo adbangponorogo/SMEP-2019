@@ -1,0 +1,64 @@
+$this->load->library("Excel");
+			$object =  new PHPExcel();
+			$object->setActiveSheetIndex(0);
+			$object->getActiveSheet()->calculateColumnWidths();
+			$object->getActiveSheet()->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_LEGAL);
+			$object->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+			$object->getActiveSheet()->getHeaderFooter()->setOddFooter('&L https:://smep.ponorogo.go.id/smep_2019 | Data Pencairan SP2D');
+
+			// -------- Title Form -------- //
+			$title_form = 'DATA PENCAIRAN SP2D BAGIAN - BULAN NOVEMBER';
+			$object->getActiveSheet()->setCellValue('A1', $title_form);
+			$object->getActiveSheet()->getStyle('A1')->getFont()->setBold(TRUE);
+			$object->getActiveSheet()->getStyle('A1')->getFont()->setSize(10);
+			$object->getActiveSheet()->mergeCells('A1:H1');
+			$object->getActiveSheet()->getStyle('A1:H1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+			// -------- Title User Info -------- //
+			$title_info = 'Tahun Anggaran (2018)';
+			$object->getActiveSheet()->setCellValue('A2', $title_info);
+			$object->getActiveSheet()->getStyle('A2')->getFont()->setBold(TRUE);
+			$object->getActiveSheet()->getStyle('A2')->getFont()->setSize(10);
+			$object->getActiveSheet()->mergeCells('A2:H2');
+			$object->getActiveSheet()->getStyle('A2:H2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+			// -------- User Info -------- //
+			$title_info = 'Nama SKPD : BAGIAN ADMINISTRASI PEMBANGUNAN';
+			$object->getActiveSheet()->setCellValue('A4', $title_info);
+			$object->getActiveSheet()->getStyle('A4')->getFont()->setSize(10);
+			$object->getActiveSheet()->mergeCells('A4:H4');
+
+			// -------- Kegiatan Info -------- //
+			$title_info = 'Nama Kegiatan : SEMUA KEGIATAN';
+			$object->getActiveSheet()->setCellValue('A5', $title_info);
+			$object->getActiveSheet()->getStyle('A5')->getFont()->setSize(10);
+			$object->getActiveSheet()->mergeCells('A5:H5');
+
+			// -------- Main Table -------- //
+			$table_header_column = array("");
+			$start_column = 0;
+			foreach ($table_header_column as $thead) {
+				$object->getActiveSheet()->setCellValueByColumnAndRow($start_column, 6, $thead);
+				$object->getActiveSheet()->getStyle('A:AD')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+				$object->getActiveSheet()->getStyle('A:AD')->applyFromArray(array('borders'=>array('allborders'=>array('style'=> PHPExcel_Style_Border::BORDER_THIN))));
+				$start_column++;
+			}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
+			header('Content-type: application/vnd.ms-excel');
+			header('Content-Disposition: attachment; filename="Data Pencairan SPPD.xls"');
+			$object_writer->save('php://output');

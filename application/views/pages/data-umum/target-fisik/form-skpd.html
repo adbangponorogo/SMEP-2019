@@ -1,0 +1,74 @@
+<div class="col-md-12">
+	<div class="box box-primary">
+		<div class="box-header with-border">
+			<div class="col-md-12">
+				<h3 class="box-title">Keterangan SKPD</h3>
+				<div class="box-tools pull-right">
+			       	<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+			    </div>
+			</div>
+		</div>
+		<div class="box-body">
+			<div class="col-md-12">
+				<div class="col-md-3">
+		          <div class="form-group" style="margin: 10px 0px">
+		            <b>Kode SKPD</b>
+		          </div>
+		        </div>
+		        <div class="col-md-9">
+		          <div class="form-group">
+		            <input type="text" class="form-control tasikdatum-kdskpd-update" readonly="readonly">
+		          </div>
+		        </div>
+			</div>
+			<div class="col-md-12">
+				<div class="col-md-3">
+		          <div class="form-group" style="margin: 10px 0px">
+		            <b>Nama SKPD</b>
+		          </div>
+		        </div>
+		        <div class="col-md-9">
+		          <div class="form-group">
+		            <input type="text" class="form-control tasikdatum-nama-skpd-update" readonly="readonly">
+		          </div>
+		        </div>
+			</div>
+			<div class="col-md-12">
+				<div class="col-md-3">
+		          <div class="form-group" style="margin: 10px 0px">
+		            <b>Pagu Kegiatan</b>
+		          </div>
+		        </div>
+		        <div class="col-md-9">
+		          <div class="form-group">
+		            <input type="text" class="form-control tasikdatum-pagu-kegiatan-update" readonly="readonly">
+		          </div>
+		        </div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Javascript -->
+<script type="text/javascript">
+  // --------------- Data Table --------------- //
+  datumTasikMainData();
+  function datumTasikMainData(){
+    jQuery.ajax({
+      type      : 'AJAX',
+      method    : 'GET',
+      url       : 'data-umum/target-fisik/main-data/'+jQuery(".smep-skpd-main").val(),
+      async     : true,
+      dataType  : 'JSON',
+      success   : function(JSON){
+      	jQuery(".tasikdatum-kdskpd-update").val(JSON[0][0]);
+      	jQuery(".tasikdatum-nama-skpd-update").val(JSON[0][1]);
+      	jQuery(".tasikdatum-pagu-kegiatan-update").val(JSON[0][2]);
+
+      },
+      error     : function(jqXHR, textStatus, errorThrown){
+        location.href = window.location.href+"app/auth/sessionPage";
+      }
+    });
+  }
+</script>

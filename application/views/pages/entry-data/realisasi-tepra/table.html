@@ -1,0 +1,59 @@
+<div class="col-md-12">
+	<div class="box box-primary smep-tepraenda-box">
+		<div class="box-header with-border">
+			<div class="col-md-12">
+				<h3 class="box-title">Tabel Data</h3>
+				<div class="box-tools pull-right">
+					<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+				</div>
+			</div>
+		</div>
+		<div class="box-body tepraenda-body">
+			<div class="col-md-12">
+				<div class="table-responsive">
+					<table class="table smep-sitepra-enda-table" width="100%" cellspacing="0">
+						<thead>
+							<tr>
+								<th width="5%">No</th>
+								<th width="10%">Kode Kegiatan</th>
+								<th width="25%">Nama Paket Pekerjaan</th>
+								<th width="20%">Proses</th>
+								<th width="10%">TT Kontrak</th>
+								<th width="10%">Pelaksanaan</th>
+								<th width="10%">PHO</th>
+								<th width="10%">Option</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Javascript -->
+<script type="text/javascript">
+// ---------------- RUP Data ---------------- //
+  	endaSiTepraData();
+    function endaSiTepraData() {
+        jQuery.ajax({
+          	type      : 'AJAX',
+          	method    : 'GET',
+          	url       : 'entry-data/realisasi-tepra/main-data/'+jQuery(".smep-skpd-main").val(),
+          	async     : true,
+          	dataType  : 'JSON',
+          	success   : function(JSON){
+          		jQuery(".smep-sitepra-enda-table").dataTable({
+          			destory			: true,
+          			processing		: true,
+          			"lengthMenu"    : [10],
+          			data 			: JSON
+          		});
+          	},
+          	error     : function(jqXHR, textStatus, errorThrown){
+              	location.href = window.location.href+"app/auth/sessionPage";
+          	}
+        });
+    }
+</script>

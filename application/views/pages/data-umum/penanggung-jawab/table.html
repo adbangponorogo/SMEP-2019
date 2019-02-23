@@ -1,0 +1,58 @@
+<div class="col-md-12">
+    <div class="box box-primary">
+      <div class="box-header with-border" style="padding: 10px 0px;">
+        <div class="col-md-6" style="padding-top: 5px;">
+          <h3 class="box-title smep-penjadatum-register-btn">
+            Tabel Data&nbsp;
+            <button class="btn btn-primary btn-sm">
+              Tambah Data&nbsp;
+              <i class="fa fa-plus"></i>
+            </button>
+          </h3>
+        </div>
+      </div>
+      <div class="box-body">
+        <div class="table-responsive">
+          <table class="table smep-penja-datum-table" width="100%" cellspacing="0">
+            <thead>
+              <tr>
+                <th width="5%">No</th>
+                <th width="35%">Nama</th>
+                <th width="25%">Jabatan</th>
+                <th width="20%">Status</th>
+                <th width="15%">Aksi</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- Javascript -->
+<script type="text/javascript">
+  // --------------- Data Table --------------- //
+  datumPenjaData();
+  function datumPenjaData(){
+    jQuery.ajax({
+      type      : 'AJAX',
+      method    : 'GET',
+      url       : 'data-umum/penanggung-jawab/main-data/'+jQuery(".smep-skpd-main").val(),
+      async     : true,
+      dataType  : 'JSON',
+      success   : function(JSON){
+        console.log('success');
+        jQuery(".smep-penja-datum-table").DataTable({
+          "destroy"       : true,
+          "processing"    : true,
+          "lengthMenu"    : [10],
+          "data"          : JSON
+        });
+      },
+      error     : function(jqXHR, textStatus, errorThrown){
+        location.href = window.location.href+"app/auth/sessionPage";
+      }
+    });
+  }
+</script>

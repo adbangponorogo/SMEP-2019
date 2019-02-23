@@ -1,0 +1,104 @@
+<div class="col-md-12">
+	<div class="box box-primary">
+		<div class="box-header with-border">
+			<div class="col-md-12">
+				<h3 class="box-title">Tabel Data</h3>
+				<div class="box-tools pull-right">
+					<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+				</div>
+			</div>
+		</div>
+		<div class="box-body">
+			<div class="col-md-12">
+				<div class="row">
+					<div class="col-md-12" style="margin-bottom: 10px;">
+			          	<div class="col-md-3">
+			            	<div class="form-group" style="margin:10px 0px;">
+			                	<b>Kode & Nama Kegiatan</b>
+			              	</div>
+			          	</div>
+			          	<div class="col-md-9" style="padding-top: 2.5px;">
+			            	<select class="form-control smep-sirup-enda-kegiatan-option" style="float:left; width: 100%;">
+			            	</select>
+			          	</div>
+			        </div>
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div class="table-responsive">
+					<table class="table smep-sirup-enda-table" width="100%" cellspacing="0">
+						<thead>
+							<tr>
+								<th width="5%" style="text-align:center;">No</th>
+								<th width="8%" style="text-align:center;">Kode Kegiatan</th>
+								<th width="25%" style="text-align:center;">Nama Paket Pekerjaan</th>
+								<th width="13%" style="text-align:center;">Pagu</th>
+								<th width="21%" style="text-align:center;">Lokasi</th>
+								<th width="13%" style="text-align:center;">Realisasi Keuangan</th>
+								<th width="5%" style="text-align:center;">Realisasi Fisik</th>
+								<th width="10%" style="text-align:center;">Aksi</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Javascript -->
+<script type="text/javascript">
+	// ---------------- Kegiatan Value dan Option ---------------- //
+	endaSirupKegiatanData(jQuery(".smep-idkegiatan-token").val());
+	function endaSirupKegiatanData(id_kegiatan){
+		jQuery.ajax({
+          type      : 'AJAX',
+          method    : 'GET',
+          url       : 'entry-data/realisasi-rup/kegiatan-data/'+jQuery(".smep-skpd-main").val(),
+          async     : true,
+          dataType  : 'JSON',
+          success   : function(JSON){
+          	var option = "<option value='all'>:: Semua Kegiatan ::</option>";
+            for (var kegiatan = 0; kegiatan < JSON.length; kegiatan++) {
+              option += "<option value='"+JSON[kegiatan][0]+"'>"+
+              "["+JSON[kegiatan][1]+"] - "+JSON[kegiatan][2]+"</option>";
+            }
+            jQuery(".smep-sirup-enda-kegiatan-option").html(option);
+            jQuery(".smep-sirup-enda-kegiatan-option").select2();
+            if (id_kegiatan == "") {
+            	jQuery(".smep-sirup-enda-kegiatan-option").val("all").change();
+            }
+            else{
+            	jQuery(".smep-sirup-enda-kegiatan-option").val(id_kegiatan).change();
+            }
+          },
+          error     : function(jqXHR, textStatus, errorThrown){
+            location.href = window.location.href+"app/auth/sessionPage";
+          }
+        });
+	}
+
+	// ---------------- Data RUP ---------------- //
+	jQuery(document).on("change", ".smep-sirup-enda-kegiatan-option", function(){
+		jQuery.ajax({
+          type      : 'AJAX',
+          method    : 'GET',
+          url       : 'entry-data/realisasi-rup/main-data/kegiatan/all/'+jQuery(".smep-skpd-main").val()+"/"+jQuery(this).val(),
+          async     : true,
+          dataType  : 'JSON',
+          success   : function(JSON){
+          	jQuery(".smep-sirup-enda-table").dataTable({
+				destroy			: true,
+				processing		: true,
+				"lengthMenu"    : [10],
+				data 			: JSON
+			});
+          },
+          error     : function(jqXHR, textStatus, errorThrown){
+            location.href = window.location.href+"app/auth/sessionPage";
+          }
+        });
+        jQuery(".smep-idkegiatan-token").val(jQuery(this).val());
+	});
+</script>

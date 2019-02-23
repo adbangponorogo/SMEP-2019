@@ -1,0 +1,200 @@
+<div class="modal fade smep-pengsiadmin-user-ppk-register-modal" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Tambah Pengguna Aplikasi - PPK</h4>
+        </div>
+        <div class="modal-body">
+            <div class="col-md-12">
+                <form action="#" method="POST" enctype="multipart/form-data" class="pengsiadmin-register-user-ppk-form">
+                    <div class="form-group">
+                        <label>Nama</label>
+                        <input type="text" class="form-control pengsiadmin-nama-user-ppk-reg" placeholder="Nama" readonly="readonly">
+                    </div>
+                    <div class="form-group">
+                        <label>Username&nbsp;
+                            <i class="fa fa-exclamation-circle" style="color: #d33724;"></i>
+                        </label>
+                        <input type="text" name="username" class="form-control pengsiadmin-username-user-ppk-reg" placeholder="Username" readonly="readonly">
+                    </div>
+                    <div class="form-group">
+                        <label>SKPD</label>
+                        <select name="skpd" class="form-control pengsiadmin-skpd-user-ppk-reg" style="float: left;width: 100%;">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="hidden" name="token" class="pengsiadmin-id-user-ppk-reg">
+                        <input type="hidden" name="nama" class="pengsiadmin-nama-user-ppk-reg">
+                        <input type="hidden" name="password" class="pengsiadmin-password-user-ppk-reg">
+                        <input type="hidden" name="status" class="pengsiadmin-status-user-ppk-reg">
+                        <input type="hidden" name="email" class="pengsiadmin-email-user-ppk-reg">
+                        <input type="hidden" name="telepon" class="pengsiadmin-telepon-user-ppk-reg">
+                        <input type="hidden" name="alamat" class="pengsiadmin-alamat-user-ppk-reg">
+                        <button class="btn btn-primary smep-pengsiadmin-register-user-ppk-upload-btn">
+                            <i class="fa fa-save"></i>&nbsp;Simpan
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-12" style="margin-top:20px;">
+                <div class="table-responsive">
+                    <table class="table smep-pengsi-admin-ppk-table" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th width="5%">No</th>
+                                <th width="50%">Nama</th>
+                                <th width="30%">Alamat</th>
+                                <th width="15%">Option</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <div class="form-group">
+                        <button class="btn btn-danger smep-pengsiadmin-register-user-ppk-cancel-btn">Batal</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+<!-- Javascript -->
+<script type="text/javascript">
+jQuery(document).ready(function(){
+    adminPengsiDataPPK();
+    function adminPengsiDataPPK(){
+        jQuery.ajax({
+            type      : 'AJAX',
+            method    : 'GET',
+            url       : 'administrator/pengguna-aplikasi/user-ppk/all',
+            async     : true,
+            dataType  : 'JSON',
+            success   : function(JSON){
+                jQuery(".smep-pengsi-admin-ppk-table").dataTable({
+                    "destroy"       : true,
+                    "processing"    : true,
+                    "data"          : JSON
+                });
+
+                jQuery(document).on("click", ".smep-pengsiadmin-choose-ppk-btn", function(){
+                    var data = jQuery(this).data("id");
+                    for (var ppk = 0; ppk < JSON.length; ppk++) {
+                        if (JSON[ppk][4] == data) {
+                            // jQuery(".pengsiadmin-id-user-ppk-reg").val(JSON[ppk][4]);
+                            jQuery(".pengsiadmin-nama-user-ppk-reg").val(JSON[ppk][1]);
+                            jQuery(".pengsiadmin-username-user-ppk-reg").val(JSON[ppk][5]);
+                            // jQuery(".pengsiadmin-password-user-ppk-reg").val(JSON[ppk][5]);
+                            jQuery(".pengsiadmin-status-user-ppk-reg").val(3);
+                            // jQuery(".pengsiadmin-email-user-ppk-reg").val(JSON[ppk][6]);
+                            // jQuery(".pengsiadmin-telepon-user-ppk-reg").val(JSON[ppk][7]);
+                            // jQuery(".pengsiadmin-alamat-user-ppk-reg").val(JSON[ppk][8]);
+                        }
+                    }
+                    return false;
+                });
+            },
+            error     : function(jqXHR, textStatus, errorThrown){
+              location.href = window.location.href+"app/auth/sessionPage";
+            }
+        });
+    }
+
+    adminPengsiDataSKPD();
+    function adminPengsiDataSKPD(){
+        jQuery.ajax({
+            type      : 'AJAX',
+            method    : 'GET',
+            url       : 'administrator/pengguna-aplikasi/data-skpd/all',
+            async     : true,
+            dataType  : 'JSON',
+            success   : function(JSON){
+                var option = '';
+                for (var skpd = 0; skpd < JSON.length; skpd++) {
+                    option += "<option value='"+JSON[skpd][0]+"'>["+JSON[skpd][1]+"] - "+JSON[skpd][2]+"</option>";
+                }
+                jQuery(".pengsiadmin-skpd-user-ppk-reg").html(option);
+                jQuery(".pengsiadmin-skpd-user-ppk-reg").val(JSON[0][0]).change();
+                jQuery(".pengsiadmin-skpd-user-ppk-reg").select2({
+                    dropdownParent  : jQuery(".smep-pengsiadmin-user-ppk-register-modal")
+                });
+            },
+            error     : function(jqXHR, textStatus, errorThrown){
+              location.href = window.location.href+"app/auth/sessionPage";
+            }
+        });
+    }
+
+    // --------------- Register PPK --------------- //
+    jQuery(document).on("click", ".smep-pengsiadmin-register-user-ppk-upload-btn", function(){
+        // if (jQuery(".pengsiadmin-nama-user-ppk-reg").val() != "") {
+            
+        // }
+        // else{
+        //     jQuery(".pengsiadmin-nama-user-ppk-reg").focus();
+        // }
+
+        if (jQuery(".pengsiadmin-username-user-ppk-reg").val() != "") {
+                jQuery.ajax({
+                        type        : 'AJAX',
+                        method      : 'POST',
+                        url         : 'administrator/pengguna-aplikasi/upload-data',
+                        async       : true,
+                        data        : jQuery(".pengsiadmin-register-user-ppk-form").serialize(),
+                        dataType    : 'JSON',
+                        success     : function(JSON){
+                            if (JSON == 0) {
+                                adminPengsiDataPPK();
+                                adminPengsiMainData();
+                                jQuery(".pengsiadmin-register-user-ppk-form")[0].reset();
+                                jQuery(".pengsiadmin-skpd-user-ppk-reg").val(JSON[0][0]).change();
+                            }
+                            if (JSON == 1) {
+                                var alert = "<div class='alert alert-danger alert-dismissible'>"+
+                                            "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>"+
+                                            "Username tidak dapat dipakai / username sudah terdaftar"+
+                                            "</div>";
+                                jQuery(".pengsiadmin-register-user-ppk-form .modal-body").prepend(alert);
+                                jQuery(".pengsiadmin-username-user-ppk-reg").focus();
+                            }
+                        },
+                        error       : function(jqXHR, textStatus, errorThrown){
+                            location.href = window.location.href+"app/auth/sessionPage";
+                        }
+                });
+            }
+            else{
+                jQuery(".pengsiadmin-username-user-ppk-reg").focus();
+            }
+        return false;
+    });
+
+    function adminPengsiMainData(){
+        jQuery.ajax({
+          type      : 'AJAX',
+          method    : 'GET',
+          url       : 'administrator/pengguna-aplikasi/main-data',
+          async     : true,
+          dataType  : 'JSON',
+          success   : function(JSON){
+            console.log('success');
+            jQuery(".smep-pengsi-admin-table").dataTable({
+              "destroy"       : true,
+              "processing"    : true,
+              "lengthMenu"    : [["10"], ["10"]],
+              "data"          : JSON
+            });
+          },
+          error     : function(jqXHR, textStatus, errorThrown){
+            location.href = window.location.href+"app/auth/sessionPage";
+          }
+        });
+      }
+});
+</script>

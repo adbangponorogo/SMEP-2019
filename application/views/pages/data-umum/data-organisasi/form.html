@@ -1,0 +1,93 @@
+<div class="col-md-12">
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">
+        Form Data
+      </h3>
+      <div class="box-tools pull-right">
+        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+      </div>
+    </div>
+    <form action="#" method="POST" class="daftandator-update-form">
+      <div class="box-body">
+        <div class="col-md-7">
+          <h5 class="box-title"><b>- General Data -</b></h5>
+          <div class="form-group">
+            <label>Alamat SKPD</label>
+            <textarea name="alamat" class="form-control daftandator-alamat-update" placeholder="Alamat SKPD" style="min-width: 100%;max-width: 100%; min-height: 100px; max-height: 100px;"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Kode Pos</label>
+            <input type="text" name="kode_pos" class="form-control daftandator-kodepos-update" placeholder="Kode Pos">
+          </div>
+          <div class="form-group">
+            <label>Status Pimpinan (Kepala Badan/Dinas/Kantor/Bagian/Kecamatan)</label>
+						<select name="sts_pimpinan" class="form-control penjadatum-status-edit select2-option-edit" style="width: 100%;">
+								<option value="2">2 - PA (Pengguna Anggaran)</option>
+								<option value="4">4 - KPA (Kuasa Pengguna Anggaran)</option>
+						</select>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <h5 class="box-title"><b>- Data Keuangan -</b></h5>
+          <div class="form-group">
+            <label>BTL Pegawai - BTL Gaji dan Tunjangan PNS</label>
+            <input type="number" name="btl_pegawai" class="form-control daftandator-btl1-update" placeholder="Rp.  0">
+          </div>
+          <div class="form-group">
+            <label>BTL Non-Pegawai - BTL Non Gaji PNS (Hibah, Bansos, dll)</label>
+            <input type="number" name="btl_non_pegawai" class="form-control daftandator-btl2-update" placeholder="Rp. 0">
+          </div>
+          <div class="form-group">
+            <label>Belanja Langsung Pegawai - Belanja Langsung Pegawai (Rekening 5.2.1)</label>
+            <input type="number" name="bl_pegawai" class="form-control daftandator-bl1-update" placeholder="Rp. 0">
+          </div>
+          <div class="form-group">
+            <label>Belanja Barang dan Jasa - Belanja Barang dan Jasa (Rekening 5.2.2)</label>
+            <input type="number" name="bl_barang_jasa" class="form-control daftandator-bl2-update" placeholder="Rp. 0">
+          </div>
+          <div class="form-group">
+            <label>Belanja Modal - Belanja Modal (Rekening 5.2.3)</label>
+            <input type="number" name="bl_modal" class="form-control daftandator-bl3-update" placeholder="Rp. 0">
+          </div>
+        </div>
+      </div>
+      <div class="box-footer">
+        <div class="col-md-12">
+          <input type="hidden" name="id_skpd" class="daftandator-idskpd-update">
+          <button class="btn btn-primary smep-daftandator-save-btn"><i class="fa fa-save"></i>&nbsp;Simpan Data</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Javascript -->
+<script type="text/javascript">
+  jQuery(".daftandator-idskpd-update").val(jQuery(".smep-skpd-main").val());
+
+  datumDatorData();
+  function datumDatorData(){
+    jQuery.ajax({
+      type      : 'AJAX',
+      method    : 'GET',
+      url       : 'data-umum/data-organisasi/main-data/'+jQuery(".smep-skpd-main").val(),
+      async     : true,
+      dataType  : 'JSON',
+      success   : function(JSON){
+        id_skpd = jQuery(".smep-skpd-main").val();
+        jQuery(".daftandator-alamat-update").val(JSON[0][0]);
+        jQuery(".daftandator-kodepos-update").val(JSON[0][1]);
+        jQuery(".penjadatum-status-edit").val(JSON[0][2]).change();
+        jQuery(".daftandator-btl1-update").val(JSON[0][3]);
+        jQuery(".daftandator-btl2-update").val(JSON[0][4]);
+        jQuery(".daftandator-bl1-update").val(JSON[0][5]);
+        jQuery(".daftandator-bl2-update").val(JSON[0][6]);
+        jQuery(".daftandator-bl3-update").val(JSON[0][7]);
+      },
+      error     : function(jqXHR, textStatus, errorThrown){
+        location.href = window.location.href+"app/auth/sessionPage";
+      }
+    });
+  }
+</script>

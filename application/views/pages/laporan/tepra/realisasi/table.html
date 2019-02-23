@@ -1,0 +1,287 @@
+<div class="col-md-12">
+  <div class="box box-primary">
+    <div class="box-header with-border" style="padding: 10px 0px;">
+      <div class="col-md-12" style="padding-top: 5px;">
+        <h3 class="box-title">Data Table</h3>
+        <div class="box-tools pull-right">
+          <button type="button" class="btn btn-box-tool teprarealisasi-minimize-button" data-widget="collapse"><i class="fa fa-plus"></i></button>
+        </div>
+      </div>
+    </div>
+    <div class="box-body">
+      <div class="col-md-12">
+        <div class="col-md-12" style="margin-bottom: 10px;">
+          <div class="col-md-3">
+            <div class="form-group" style="margin:10px 0px;">
+              <b>SKPD</b>
+            </div>
+          </div>
+          <div class="col-md-9" style="padding-top: 2.5px;">
+            <div class="form-group">
+              <select class="form-control laportepra-realisasi-skpd"></select>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12" style="margin-bottom: 10px;">
+          <div class="col-md-3">
+            <div class="form-group" style="margin:10px 0px;">
+              <b>Bulan</b>
+            </div>
+          </div>
+          <div class="col-md-9" style="padding-top: 2.5px;">
+            <div class="form-group">
+              <select class="form-control laportepra-realisasi-bulan"></select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12" style="display: block;">
+        <div class="table-responsive">
+          <table class="table" width="100%" cellspacing="0">
+            <thead>
+              <tr>
+                <td colspan="12" style="text-align: center;"><h4 style="margin: 0px;"><b>CAPAIAN</b></h4></td>
+              </tr>
+              <tr style="text-align: center;">
+                <th width="8.3%" style="text-align: center;">JAN</th>
+                <th width="8.3%" style="text-align: center;">FEB</th>
+                <th width="8.3%" style="text-align: center;">MAR</th>
+                <th width="8.3%" style="text-align: center;">APR</th>
+                <th width="8.3%" style="text-align: center;">MEI</th>
+                <th width="8.3%" style="text-align: center;">JUN</th>
+                <th width="8.3%" style="text-align: center;">JUL</th>
+                <th width="8.3%" style="text-align: center;">AGT</th>
+                <th width="8.3%" style="text-align: center;">SEP</th>
+                <th width="8.3%" style="text-align: center;">OKT</th>
+                <th width="8.3%" style="text-align: center;">NOV</th>
+                <th width="8.3%" style="text-align: center;">DES</th>
+              </tr>
+            </thead>
+              <tbody>
+                <tr class="rencana_keuangan" style="text-align: center;"></tr>
+                <tr class="realisasi_keuangan" style="text-align: center;"></tr>
+                <tr class="rencana_fisik" style="text-align: center;"></tr>
+                <tr class="realisasi_fisik" style="text-align: center;"></tr>
+              </tbody>
+              <thead>
+                <tr>
+                  <td colspan="12" style="text-align: center;">
+                    <h4 class="rup_tp" style="margin: 0px;"></h4>
+                </td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="rup_pp" style="text-align: center;"></tr>
+                <tr class="rup_ttk" style="text-align: center;"></tr>
+                <tr class="rup_plj" style="text-align: center;"></tr>
+                <tr class="rup_pho" style="text-align: center;"></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <form action="laporan/tepra/realisasi/print-data" method="POST">
+          <div class="col-md-12">
+            <h3 class="page-header" style="font-size: 15px;"><b>Cetak Dokumen</b></h3>
+            <div class="col-md-3">
+              <div class="form-group" style="padding: 10px 0px;">
+                <label>Tanggal Cetak</label>
+              </div>
+            </div>
+            <div class="col-md-9">
+              <div class="form-group">
+                <input type="text" name="tanggal_cetak" class="form-control laportepra-realisasi-tanggal-cetak">
+                <input type="hidden" name="bulan" class="laportepra-realisasi-idbulan" value="01">
+                <input type="hidden" name="tahun" class="laportepra-realisasi-tahun">
+                <input type="hidden" name="skpd" class="laportepra-realisasi-idskpd">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="col-md-12">
+              <div class="form-group">
+                <button class="btn btn-sm btn-primary smep-laportepra-realisasi-btn"><i class="fa fa-cloud-download"></i>&nbsp;Download Dokumen</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+</div>
+
+<!-- Javascript -->
+<script type="text/javascript">
+  // --------------- Year Data --------------- //
+    jQuery(".laportepra-realisasi-tahun").val(jQuery(".smep-year-value").val());
+
+    // --------------- Datepicker --------------- //
+    jQuery(".laportepra-realisasi-tanggal-cetak").datepicker({
+        format      : 'dd-mm-yyyy'
+    });
+
+    // --------------- SKPD option dan Value --------------- //
+    laporTepraRealisasiSKPDData();
+    function laporTepraRealisasiSKPDData(){
+        jQuery.ajax({
+          type      : 'AJAX',
+          method    : 'GET',
+          url       : 'laporan/tepra/realisasi/skpd/all/'+jQuery(".smep-skpd-main").val(),
+          async     : true,
+          dataType  : 'JSON',
+          success   : function(JSON){
+                if (JSON[0][0] == 1) {
+                    var option = "<option value='all'>:: Semua SKPD ::</option>";
+                    for (var skpd = 0; skpd < JSON.length; skpd++) {
+                        option += "<option value='"+JSON[skpd][1]+"'>"+JSON[skpd][2]+"</option>";
+                    }
+                    jQuery(".laportepra-realisasi-skpd").html(option);
+                    jQuery(".laportepra-realisasi-skpd").val("all").change();
+                    jQuery(".laportepra-realisasi-idskpd").val("all");
+                }
+                else{
+                    var option = "";
+                    for (var skpd = 0; skpd < JSON.length; skpd++) {
+                        option += "<option value='"+JSON[skpd][1]+"'>"+JSON[skpd][2]+"</option>";
+                    }
+                    jQuery(".laportepra-realisasi-skpd").html(option);
+                    jQuery(".laportepra-realisasi-skpd").val(JSON[0][1]).change();
+                    jQuery(".laportepra-realisasi-idskpd").val(JSON[0][1]);
+                }
+                jQuery(".laportepra-realisasi-skpd").select2();
+          },
+          error     : function(jqXHR, textStatus, errorThrown){
+            location.href = window.location.href+"app/auth/sessionPage";
+          }
+        });
+    }
+
+    jQuery(document).on("change", ".laportepra-realisasi-skpd", function(){
+      jQuery(".laportepra-realisasi-idskpd").val(jQuery(this).val());
+      laporTepraRealisasiBulanData();
+    });
+
+
+    // --------------- Bulan option dan Value --------------- //
+    function laporTepraRealisasiBulanData(){
+      var JSON_DATA = [
+                        ["01", "01 - Januari"],
+                        ["02", "02 - Februari"],
+                        ["03", "03 - Maret"],
+                        ["04", "04 - April"],
+                        ["05", "05 - Mei"],
+                        ["06", "06 - Juni"],
+                        ["07", "07 - Juli"],
+                        ["08", "08 - Agustus"],
+                        ["09", "09 - September"],
+                        ["10", "10 - Oktober"],
+                        ["11", "11 - November"],
+                        ["12", "12 - Desember"]
+                      ];
+      var option = '';
+      for (var bulan = 0; bulan < JSON_DATA.length; bulan++) {
+        option += "<option value="+JSON_DATA[bulan][0]+">"+JSON_DATA[bulan][1]+"</option>";
+      }
+      jQuery(".laportepra-realisasi-bulan").html(option);
+      jQuery(".laportepra-realisasi-bulan").val(JSON_DATA[0][0]).change();
+      jQuery(".laportepra-realisasi-bulan").select2();
+    }
+
+    jQuery(document).on("change", ".laportepra-realisasi-bulan", function(){
+      jQuery(".laportepra-realisasi-idbulan").val(jQuery(this).val());
+      laporTepraRealisasiMainData(jQuery(".laportepra-realisasi-skpd").val(), jQuery(this).val());
+    });
+
+    function laporTepraRealisasiMainData(id_skpd, bulan){
+      jQuery.ajax({
+          type      : 'AJAX',
+          method    : 'GET',
+          url       : 'laporan/tepra/realisasi/main-data/'+id_skpd+'/'+bulan,
+          async     : true,
+          dataType  : 'JSON',
+          success   : function(JSON){
+            
+            // Rencana Keuangan
+
+            var td_rencana_keuangan = '';
+            for (var rck = 0; rck <= ((JSON[0].length) - 1); rck++) {
+              td_rencana_keuangan += "<td style='text-align: center;'>"+JSON[0][rck]+"</td>";
+            }
+
+            // Realisasi Keuangan
+
+            var td_realisasi_keuangan = '';
+            for (var rlk = 0; rlk <= ((JSON[1].length) - 1); rlk++) {
+              td_realisasi_keuangan += "<td style='text-align: center;'>"+JSON[1][rlk]+"</td>";
+            }
+
+            // Rencana Fisik
+
+            var td_rencana_fisik = '';
+            for (var rcf = 0; rcf <= ((JSON[2].length) - 1); rcf++) {
+              td_rencana_fisik += "<td style='text-align: center;'>"+JSON[2][rcf]+"</td>";
+            }
+
+            // Realisasi Fisik
+
+            var td_realisasi_fisik = '';
+            for (var rlf = 0; rlf <= ((JSON[3].length) - 1); rlf++) {
+              td_realisasi_fisik += "<td style='text-align: center;'>"+JSON[3][rlf]+"</td>";
+            }
+
+
+            // Total Paket
+
+            var td_total_paket = '';
+            for (var tp = 0; tp <= ((JSON[4].length) - 1); tp++) {
+              td_total_paket += "<b>PROSES PENGADAAN BARANG DAN JASA STRATEGIS (Total Paket = "+JSON[4][tp]+")</b>";
+            }
+
+            // Paket RUP - Proes Pengadaan
+
+            var td_proses_pengadaan = '';
+            for (var pp = 0; pp <= ((JSON[5].length) - 1); pp++) {
+              td_proses_pengadaan += "<td style='text-align: center;'>"+JSON[5][pp][0]+"<br> ( "+JSON[5][pp][1]+" Pkt )</td>";
+            }
+
+            // Paket RUP - Tanda Tangan Kontrak
+
+            var td_tanda_tangan_kontrak = '';
+            for (var ttk = 0; ttk <= ((JSON[6].length) - 1); ttk++) {
+              td_tanda_tangan_kontrak += "<td style='text-align: center;'>"+JSON[6][ttk][0]+"<br> ( "+JSON[6][ttk][1]+" Pkt )</td>";
+            }
+
+            // Paket RUP - Pelaksanaan Pekerjaan
+
+            var td_pelaksanaan_pekerjaan = '';
+            for (var plj = 0; plj <= ((JSON[7].length) - 1); plj++) {
+              td_pelaksanaan_pekerjaan += "<td style='text-align: center;'>"+JSON[7][plj][0]+"<br> ( "+JSON[7][plj][1]+" Pkt )</td>";
+            }
+
+            // Paket RUP - Proses Hand Over
+
+            var td_proses_hand_over = '';
+            for (var pho = 0; pho <= ((JSON[8].length) - 1); pho++) {
+              td_proses_hand_over += "<td style='text-align: center;'>"+JSON[8][pho][0]+"<br> ( "+JSON[8][pho][1]+" Pkt )</td>";
+            }
+            
+            // ---------------- Values ---------------- //
+
+            jQuery(".rencana_keuangan").html(td_rencana_keuangan);
+            jQuery(".realisasi_keuangan").html(td_realisasi_keuangan);
+            jQuery(".rencana_fisik").html(td_rencana_fisik);
+            jQuery(".realisasi_fisik").html(td_realisasi_fisik);
+
+            jQuery(".rup_tp").html(td_total_paket);
+            jQuery(".rup_pp").html(td_proses_pengadaan);
+            jQuery(".rup_ttk").html(td_tanda_tangan_kontrak);
+            jQuery(".rup_plj").html(td_pelaksanaan_pekerjaan);
+            jQuery(".rup_pho").html(td_proses_hand_over);
+          
+
+
+          },
+          error     : function(jqXHR, textStatus, errorThrown){
+            location.href = window.location.href+"app/auth/sessionPage";
+          }
+        });
+    }
+</script>

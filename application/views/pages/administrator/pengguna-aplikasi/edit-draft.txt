@@ -1,0 +1,96 @@
+<div class="modal fade smep-pengsiadmin-user-edit-modal" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Tambah Pengguna Aplikasi</h4>
+      </div>
+        <form action="#" method="POST" enctype="multipart/form-data" class="pengsiadmin-edit-user-form">
+          <div class="modal-body">
+            <div class="form-group">
+                <label>Level Pengguna</label>
+                <input type="text" class="form-control pengsiadmin-status-user-edit" placeholder="Status" readonly="">
+                <input type="hidden" name="status" class="form-control pengsiadmin-idstatus-user-edit">
+            </div>
+            <div class="form-group">
+                <label>SKPD</label>
+                <input type="text" class="form-control pengsiadmin-skpd-user-edit" placeholder="SKPD" readonly="">
+            </div>
+            <div class="form-group">
+                <label>Nama Pegawai</label>
+                <input type="text" name="nama" class="form-control pengsiadmin-nama-user-edit" placeholder="Nama Pegawai">
+            </div>
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" class="form-control pengsiadmin-username-user-edit" placeholder="Username" readonly="">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="text" name="password" class="form-control pengsiadmin-password-user-edit" placeholder="Password sama seperti Username" readonly="">
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="text" name="email" class="form-control pengsiadmin-email-user-edit" placeholder="Email">
+            </div>
+            <div class="form-group">
+                <label>Telepon</label>
+                <input type="text" name="telepon" class="form-control pengsiadmin-telepon-user-edit" placeholder="Telepon">
+            </div>
+            <div class="form-group">
+                <label>Alamat</label>
+                <textarea name="alamat" class="form-control pengsiadmin-alamat-user-edit" placeholder="Alamat Kantor" style="min-width: 100%; max-width: 100%; min-height: 100px; max-height: 100px"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Nomor Identitas</label>
+                <input type="text" name="nomor_identitas" class="form-control pengsiadmin-nomoridentitas-user-edit" placeholder="Nomor Identitas" readonly="">
+            </div>
+            <div class="form-group">
+                <label>Jabatan Kerja</label>
+                <input type="text" name="jabatan_kerja" class="form-control pengsiadmin-jabatankerja-user-edit" placeholder="Jabatan Kerja" readonly="">
+            </div>
+            <div class="form-group">
+                <label>Status Kerja</label>
+                <select name="status_kerja" class="form-control pengsiadmin-statuskerja-user-edit" disabled="">
+                    <option value="1">PNS</option>
+                    <option value="2">NON PNS</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Golongan</label>
+                <select name="golongan" class="form-control pengsiadmin-golongan-user-edit" disabled="">
+                    <option value="NONPNS">NONPNS</option>
+                    <option value="IIA">Golongan IIA</option>
+                    <option value="IIB">Golongan IIB</option>
+                    <option value="IIC">Golongan IIC</option>
+                    <option value="IID">Golongan IID</option>
+                    <option value="IIIA">Golongan IIIA</option>
+                    <option value="IIIB">Golongan IIIB</option>
+                    <option value="IIIC">Golongan IIIC</option>
+                    <option value="IIID">Golongan IIID</option>
+                    <option value="IVA">Golongan IVA</option>
+                    <option value="IVB">Golongan IVB</option>
+                    <option value="IVC">Golongan IVC</option>
+                    <option value="IVD">Golongan IVD</option>
+                    <option value="IVE">Golongan IVE</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>SK Penunjukkan</label>
+                <input type="text" name="sk_penunjukkan" class="form-control pengsiadmin-SKpenunjukkan-user-edit" placeholder="SK Penunjukkan" readonly="">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <div class="col-md-12">
+                <div class="pull-left">
+                    <div class="form-group">
+                        <input type="hidden" name="token" class="pengsiadmin-token-user-edit">
+                        <button class="btn btn-primary smep-pengsiadmin-edit-user-update-btn">Simpan</button>
+                        <button class="btn btn-danger smep-pengsiadmin-edit-user-cancel-btn">Batal</button>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </form>
+    </div>
+  </div>
+</div>

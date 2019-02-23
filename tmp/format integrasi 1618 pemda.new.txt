@@ -1,0 +1,523 @@
+JSON 2019
+
+Parameter:
+1. tahun: integer
+2. date: integer unix time
+3. dateEnd: integer unix time untuk tanggal akhir
+
+contoh url http://contohURL.go.id/serviceProgram?tahun=2017&date=1423124123
+Data yang dikembalikan adalah program yang lebih baru dari waktu date
+dan
+contoh url http://contohURL.go.id/serviceProgram?tahun=2017&date=1423124123&dateEnd=178124123
+Data yang dikembalikan adalah program yang di create atau di update antara tanggal date dan dateEnd
+
+PROGRAM
+[
+    {
+        "ID_PROGRAM": 855, // id sequence anda
+        "ID_SATKER": "506327",
+        "NAMA_PROGRAM": "Peningkatan Sarana dan Prasarana",
+        "KODE_PROGRAM" : "01",
+        "PAGU": 100012413,
+        "IS_DELETED": false,
+        "CREATE_TIME": 12973273,
+        "LASTUPDATE_TIME": 1463964143
+    }
+]
+---
+
+Parameter:
+1. tahun: integer
+2. date: integer unix time
+3. dateEnd: integer unix time untuk tanggal akhir
+
+contoh url http://contohURL.go.id/serviceKegiatan?tahun=2017&date=1423124123
+Data yang dikembalikan adalah kegiatan yang lebih baru dari waktu date
+dan
+contoh url http://contohURL.go.id/serviceKegiatan?tahun=2017&date=1423124123&dateEnd=178124123
+Data yang dikembalikan adalah kegiatan di create atau di update antara tanggal date dan dateEnd
+
+KEGIATAN
+[
+    {
+        "ID_PROGRAM": 855,
+        "ID_KEGIATAN": 857, // id sequence anda
+        "ID_SATKER": "506327",
+        "NAMA_KEGIATAN": "Peningkatan Sarana dan Prasarana",
+        "KODE_KEGIATAN": "8942",
+        "PAGU": 100012413, //pagu kegiatan tidak boleh melebihi pagu program
+        "IS_DELETED": false,
+        "CREATE_TIME": 12973273,
+        "LASTUPDATE_TIME": 1463964143
+    }
+]
+
+Parameter:
+1. tahun: integer
+2. date: integer unix time
+3. dateEnd: integer unix time untuk tanggal akhir
+
+contoh url http://contohURL.go.id/serviceObjekAkun?tahun=2017&date=1423124123
+Data yang dikembalikan adalah objek akun yang lebih baru dari waktu date
+dan
+contoh url http://contohURL.go.id/serviceObjekAkun?tahun=2017&date=1423124123&dateEnd=178124123
+Data yang dikembalikan adalah objek akun di create atau di update antara tanggal date dan dateEnd
+
+OBJEK AKUN
+[
+    {
+        "ID_PROGRAM": 855,
+        "ID_KEGIATAN": 857,
+        "ID_OBJEK_AKUN": 858, // id sequence anda
+        "ID_SATKER": "506327",
+        "NAMA_OBJEK_AKUN": "Belanja bahan",
+        "KODE_OBJEK_AKUN": "90",
+        "PAGU": 1000413, //pagu objek akun tidak boleh melebihi pagu kegiatan
+        "IS_DELETED": false,
+        "CREATE_TIME": 12973273,
+        "LASTUPDATE_TIME": 1463964143
+    },
+    {
+        "ID_PROGRAM": 855,
+        "ID_KEGIATAN": 857,
+        "ID_OBJEK_AKUN": 859,
+        "ID_SATKER": "506327",
+        "NAMA_OBJEK_AKUN": "Biaya Transportasi",
+        "KODE_OBJEK_AKUN": "91",
+        "PAGU": 10001243, //pagu objek akun tidak boleh melebihi pagu kegiatan
+        "IS_DELETED": false,
+        "CREATE_TIME": 12973273,
+        "LASTUPDATE_TIME": 1463964143
+        }
+
+]
+
+Parameter:
+1. tahun: integer
+2. date: integer unix time
+3. dateEnd: integer unix time untuk tanggal akhir
+
+contoh url http://contohURL.go.id/serviceRinciObjekAkun?tahun=2017&date=1423124123
+Data yang dikembalikan adalah rinci objek akun yang lebih baru dari waktu date
+dan
+contoh url http://contohURL.go.id/serviceRinciObjekAkun?tahun=2017&date=1423124123&dateEnd=178124123
+Data yang dikembalikan adalah rinci objek akun di create atau di update antara tanggal date dan dateEnd
+
+RINCI OBJEK AKUN
+[
+    {
+        "ID_PROGRAM": 855,
+        "ID_KEGIATAN": 857,
+        "ID_OBJEK_AKUN": 858,
+        "ID_RINCI_OBJEK_AKUN": 890, // id sequence anda
+        "ID_SATKER": "506327",
+        "NAMA_RINCI_OBJEK_AKUN": "Belanja Perlatan Kantor",
+        "KODE_RINCI_OBJEK_AKUN": "90",
+        "PAGU": 100241, //pagu objek akun tidak boleh melebihi pagu objek akun
+        "IS_DELETED": false,
+        "CREATE_TIME": 12973273,
+        "LASTUPDATE_TIME": 1463964143
+    }
+]
+
+
+Parameter:
+1. tahun: integer
+2. date: integer unix time
+3. dateEnd: integer unix time untuk tanggal akhir
+
+contoh url http://contohURL.go.id/servicePenyedia?tahun=2017&date=1423124123
+Data yang dikembalikan adalah paket penyedia yang lebih baru dari waktu date
+dan
+contoh url http://contohURL.go.id/servicePenyedia?tahun=2017&date=1423124123&dateEnd=178124123
+Data yang dikembalikan adalah paket penyedia yang di create atau di update antara tanggal date dan dateEnd
+
+contoh url http://contohURL.go.id/servicePenyedia?tahun=2017&id=2198372
+Data yang dikembalikan adalah paket dengan ID_RUP 2198372
+
+PENYEDIA
+[
+  {
+    "ID_RUP": 857, // id sequence anda
+    "ID_SWAKELOLA": 857, // jika paket adalah penyedia dalam swakelola maka di isi ID swakelola nya, jika tidak maka null
+    "ID_SATKER": "506327",
+    "NAMA_PAKET": "Pembangunan Jembatan",
+    "LIST_LOKASI_PEKERJAAN":  [
+        {
+            "ID_PROVINSI":11, // tidak boleh null    15
+            "ID_KABUPATEN":11243, // boleh null   14834
+            "DETIL_LOKASI":"Jalan A", //tidak boleh null
+        },
+        {
+            "ID_PROVINSI":11,
+            "ID_KABUPATEN":11243,
+            "DETIL_LOKASI":"Jalan B"
+        }
+     ],
+    "VOLUME": "1 Buah",
+    "URAIAN_PEKERJAAN": "pekerjaan rutin",
+    "SPESIFIKASI": "traktor besar",
+    "PDN": true,
+    "UMUK": true,
+    "PRADIPA": true,
+    "NO_RENJA":"AB0001", // jika paket adalah pradipa maka no Renja wajib ada, jika tidak di isi null.
+    "TOTAL_PAGU": 300000000,
+    "LIST_PAKET_ANGGARAN": [
+      {
+        "TAHUN_ANGGARAN": 2018,
+        "SUMBER_DANA": 1,//APBD
+        "ASAL_DANA": "D141",
+        "ASAL_DANA_SATKER": "123",
+        "MAK": "111.11.111112.22.21.12.3313.131.414.141414",
+        "pagu": 100000000,
+        "ID_KEGIATAN": 1,
+        ID_RINCI_OBJEK_AKUN": 890
+
+      },
+      {
+        "TAHUN_ANGGARAN": 2018,
+        "SUMBER_DANA": 1,//APBD
+        "ASAL_DANA": "D141",
+        "ASAL_DANA_SATKER": "123",
+        "MAK": "111.11.111112.22.21.12.3313.131.414.141414",
+        "pagu": 200000000,
+        "ID_KEGIATAN": 2,
+        ID_RINCI_OBJEK_AKUN": 890
+      }
+    ],
+    "IZIN_TAHUN_JAMAK": "AS1101S", // boleh null apabila paket bukan tahun jamak / multiyears
+    "LIST_PAKET_JENIS_PENGADAAN": [
+         {
+           "JENIS_ID": 2,
+           "JUMLAH_PAGU": 200000000
+         },
+         {
+            "JENIS_ID": 3,
+            "JUMLAH_PAGU": 100000000
+         }
+       ],
+    "METODE_PENGADAAN": "8",
+    "TANGGAL_KEBUTUHAN": 1416459691,
+    "BULAN_PEKERJAAN_AKHIR": 1416459691,
+    "BULAN_PEKERJAAN_MULAI": 1416459691,
+    "BULAN_PEMILIHAN_AKHIR": 1416459691,
+    "BULAN_PEMILIHAN_MULAI": 1416459691,
+    "CREATE_TIME": 1416459691,
+    "LASTUPDATE_TIME": "1463964143",
+    "AKTIF": true, // apabila true maka paket aktif tidak di revisi
+    "UMUMKAN": true, // apabila true maka paket telah di umumkan oleh PAKPA
+    "IS_FINAL": true, // apabila true maka detail paket di anggap sudah benar oleh ppk
+    "ID_PPK":121,
+    "IS_DELETED": false // jika paket di hapus maka nilai nya true
+  }
+]
+---
+
+
+Parameter:
+1. tahun: integer
+2. date: integer unix time
+3. dateEnd: integer unix time untuk tanggal akhir
+
+Webservice yang perlu disediakan:
+
+1. contoh url http://contohURL.go.id/serviceSwakelolatahun=2017&date=1423124123
+Data yang dikembalikan adalah paket swakelola yang lebih baru dari waktu date
+dan
+2. contoh url http://contohURL.go.id/serviceSwakelola?tahun=2017&date=1423124123&dateEnd=178124123
+Data yang dikembalikan adalah paket swakelola yang  di create atau di update antara tanggal date dan dateEnd
+dan
+3. contoh url http://contohURL.go.id/serviceSwakelola?tahun=2017&id=1423123
+Data yang dikembalikan adalah paket swakelola dengan ID_RUP 1423123
+
+
+SWAKELOLA
+[
+  {
+    "ID_RUP": 857, // id sequence anda
+    "ID_SATKER": "506327",
+    "TIPE_SWAKELOLA": 2, // jika tipe swakelola 2 maka "NAMA_KLPD_LAIN" dan "NAMA_SATKER_LAIN" tidak boleh null
+    "NAMA_KLPD_LAIN": 'D11',
+    "NAMA_SATKER_LAIN": 122211,
+    "NAMA_PAKET": "Pembangunan Jembatan",
+    "LIST_LOKASI_PEKERJAAN":  [
+        {
+            "ID_PROVINSI":11, // tidak boleh null
+            "ID_KABUPATEN":11243, // boleh null
+            "DETIL_LOKASI":"Jalan A", //tidak boleh null
+        },
+        {
+            "ID_PROVINSI":11,
+            "ID_KABUPATEN":11243,
+            "DETIL_LOKASI":"Jalan B"
+        }
+     ],
+    "VOLUME": "1 Paket",
+    "URAIAN_PEKERJAAN": "abcdefghij",
+    "TOTAL_PAGU": 300000000,
+    "LIST_PAKET_ANGGARAN": [
+      {
+        "TAHUN_ANGGARAN": 2018,
+        "SUMBER_DANA": 1,
+        "ASAL_DANA": "D141",
+        "ASAL_DANA_SATKER": "123",
+        "MAK": "111.11.111112.22.21.12.3313.131.414.141414",
+        "pagu": 100000000,
+        "ID_KEGIATAN": 1,
+        ID_RINCI_OBJEK_AKUN": 890
+      },
+      {
+        "TAHUN_ANGGARAN": 2018,
+        "SUMBER_DANA": 1,
+        "ASAL_DANA": "D141",
+        "ASAL_DANA_SATKER": "123",
+        "MAK": "111.11.111112.22.21.12.3313.131.414.141415",
+        "PAGU": 200000000,
+        "ID_KEGIATAN": 1,
+        ID_RINCI_OBJEK_AKUN": 890
+      }
+    ],
+    "BULAN_PEKERJAAN_MULAI": 1416459691,
+    "BULAN_PEKERJAAN_AKHIR": 1416459691,
+    "CREATE_TIME": 1416459691,
+    "LASTUPDATE_TIME": 1463964143,
+    "AKTIF": true, // apabila true maka paket aktif tidak di revisi
+    "UMUMKAN": true, // apabila true maka paket telah di umumkan oleh PAKPA
+    "IS_FINAL": true, // apabila true maka detail paket di anggap sudah benar oleh ppk
+    "ID_PPK":121,
+    "IS_DELETED": false, // jika paket di hapus maka nilai nya true
+    "ID_KEGIATAN: 857
+  }
+]
+
+Parameter:
+1. tahun: integer
+2. date: integer unix time
+3. dateEnd: integer unix time untuk tanggal akhir
+
+Webservice yang perlu disediakan:
+
+1. contoh url http://contohURL.go.id/servicePPK?tahun=2017&date=1423124123
+Data yang dikembalikan adalah data PPK yang lebih baru dari waktu date
+dan
+2. contoh url http://contohURL.go.id/servicePPK?tahun=2017&date=1423124123&dateEnd=178124123
+Data yang dikembalikan adalah data PPK yang  di create atau di update antara tanggal date dan dateEnd
+dan
+3. contoh url http://contohURL.go.id/servicePPK?tahun=2017&id=1423123
+Data yang dikembalikan adalah data PPK dengan ID_RUP 1423123
+
+---
+PPK
+[
+    {
+        "ID":121, // id sequence anda
+        "NAMA":"Sunarno",
+        "JABATAN":"Kepala Biro",
+        "ALAMAT":"Jl. Baru No. 01",
+        "STATUS_PENGGUNA": 1, //1.PNS, 2.Non PNS(NIK), 3. TNI/POLRI (NRP)
+        "NIP":"1211100001121", //PNS
+        "NRP":"1211100001121", //TNI Polri
+        "NIK":"1211100001121", //KTP
+        "GOLONGAN":"IV A",
+        "NO_TELEPON":"0801222110",
+        "EMAIL":"lkpp@lkpp.com",
+        "NO_SK":"AS10001",
+        "CREATED_TIME": 123789783,
+        "LASTUPDATE_TIME": 1982791232,
+        "ID_SATKER": "122211"
+        "IS_DELETED": false
+    },
+    {
+        "ID":122,
+        "NAMA":"Yoshi Andrian",
+        "JABATAN":"Kepala Bagian",
+        "ALAMAT":"Jl. Baru No. 01",
+        "STATUS_PENGGUNA": 1, // 1.PNS, 2.Non PNS(NIK), 3. TNI/POLRI (NRP)
+        "NIP":"1211100001121", //isi jika PNS
+        "NRP":"1211100001121", //isi jika TNI Polri
+        "NIK":"1211100001121", //jika non pns isi KTP
+        "GOLONGAN":"IV A",
+        "NO_TELEPON":"0801222110",
+        "EMAIL":"lkpp@lkpp.com",
+        "NO_SK":"AS10001",
+        "CREATED_TIME": 123789783,
+        "LASTUPDATE_TIME": 1982791232
+        "ID_SATKER": "122211"
+        "IS_DELETED": false
+    },
+
+] 
+Parameter:
+1. tahun: integer
+2. date: integer unix time
+3. dateEnd: integer unix time untuk tanggal akhir
+
+    Webservice yang perlu disediakan:
+
+    1. contoh url http://contohURL.go.id/serviceRevisiPaket?tahun=2017&date=1423124123
+    Data yang dikembalikan adalah data history revisi paket yang lebih baru dari waktu date
+    dan
+    2. contoh url http://contohURL.go.id/serviceRevisiPaket?tahun=2017&date=1423124123&dateEnd=178124123
+    Data yang dikembalikan adalah data history revisi paket yang  di create atau di update antara tanggal date dan dateEnd
+dan
+3. contoh url http://contohURL.go.id/serviceRevisiPaket?tahun=2017&id=1423123
+Data yang dikembalikan adalah data history revisi paket dengan ID_RUP 1423123
+
+History Revisi Paket
+[
+    {
+        "ID":9, // id sequence anda
+        "ID_RUP": 855,
+        "ID_RUP_TO": 855,
+        "JENIS":"PENYEDIA", // pilihannya "PENYEDIA" atau "SWAKELOLA"
+        "TIPE":"PEMBATALAN", // "PEMBATALAN"
+        "ALASAN_REVISI":"Pemotongan Anggaran"
+        "CREATE_TIME": 1463964143",
+    },
+    {
+        "ID":10,
+        "ID_RUP": 856,
+        "ID_RUP_TO": 856,
+        "JENIS":"PENYEDIA", // pilihannya "PENYEDIA" atau "SWAKELOLA"
+        "TIPE":"PENGAKTIFAN", // "PENGAKTIFAN"
+        "ALASAN_REVISI":"APBNP"
+        "CREATE_TIME": 1463964143",
+    },
+    {
+        "ID":11,
+        "ID_RUP": 857,
+        "ID_RUP_TO": 858,
+        "JENIS":"PENYEDIA", // pilihannya "PENYEDIA" atau "SWAKELOLA"
+        "TIPE":"SATUKESATU", // revisi satu ke satu
+        "ALASAN_REVISI":"Perubahan Pagu"
+        "CREATE_TIME": 1463964143",
+    },
+     {
+         "ID":12,
+         "ID_RUP": 859,
+         "ID_RUP_TO": 860,
+         "JENIS":"PENYEDIA", // pilihannya "PENYEDIA" atau "SWAKELOLA"
+         "TIPE":"SATUKEBANYAK", // revisi satu ke banyak
+         "ALASAN_REVISI":"Perubahan Pagu"
+         "CREATE_TIME": 1463964143",
+     },
+    {
+          "ID":13,
+          "ID_RUP": 859,
+          "ID_RUP_TO": 861,
+          "JENIS":"PENYEDIA", // pilihannya "PENYEDIA" atau "SWAKELOLA"
+          "TIPE":"SATUKEBANYAK", // revisi satu ke banyak
+          "ALASAN_REVISI":"Perubahan Pagu"
+          "CREATE_TIME": 1463964143",
+    }
+]
+
+Struktur Anggaran // dapat melihat referensi di TEPRA http://monev.lkpp.go.id/
+
+[
+     {
+        "ID": 10, //  ada perubahan anggaran maka ,id tetap  // id sequence anda
+        "BELANJA_LANGSUNG_PEGAWAI": 10000000,
+        "BELANJA_LANGSUNG_BUKAN_PEGAWAI":10000000,
+        "BELANJA_LANGSUNG_BUKAN_PEGAWAI_BARANGJASA":5000000,
+        "BELANJA_LANGSUNG_BUKAN_PEGAWAI_MODAL":5000000,
+        "BELANJA_TIDAK_LANGSUNG_PEGAWAI":20000000,
+        "BELANJA_TIDAK_LANGSUNG_BUKAN_PEGAWAI":20000000,
+        "BELANJA_TIDAK_LANGSUNG_BUKAN_PEGAWAI_BUKAN_PENGADAAN":10000000,
+        "BELANJA_TIDAK_LANGSUNG_BUKAN_PEGAWAI_PENGADAAN":10000000,
+        "ID_SATKER":"506327", // anggaran per satker
+        "ID_KLDI": "D141"
+     },
+     {
+        "ID": 11,
+        "BELANJA_LANGSUNG_PEGAWAI": 10000000,
+        "BELANJA_LANGSUNG_BUKAN_PEGAWAI":20000000,
+        "BELANJA_LANGSUNG_BUKAN_PEGAWAI_BARANGJASA":10000000,
+        "BELANJA_LANGSUNG_BUKAN_PEGAWAI_MODAL":10000000,
+        "BELANJA_TIDAK_LANGSUNG_PEGAWAI":20000000,
+        "BELANJA_TIDAK_LANGSUNG_BUKAN_PEGAWAI":20000000,
+        "BELANJA_TIDAK_LANGSUNG_BUKAN_PEGAWAI_BUKAN_PENGADAAN":10000000,
+        "BELANJA_TIDAK_LANGSUNG_BUKAN_PEGAWAI_PENGADAAN":10000000,
+        "ID_SATKER":'507000',
+        "ID_KLDI":'D141'
+     }
+]
+
+
+
+NB:
+DATA MASTER
+
+Silakan lihat di tabel SPSE:
+LOKASI_PEKERJAAN tabel kabupaten
+ASAL_DANA tabel kldi
+ID_SATKER tabel satuan_kerja
+
+SUMBER_DANA
+1;"APBD" 1
+2;"APBN" 3
+3;"PHLN" 9
+4;"PNBP" 10
+5;"APBNP" 4
+6;"APBDP" 2
+7;"BLU" 5
+8;"BLUD" 6
+9;"BUMN" 8
+10;"BUMD" 7
+11;"Lainnya" 11
+
+$sumber_dana = array(
+						0'',
+						1'APBD',//1
+						2'APBDP',//6
+						3'APBN',//2
+						4'APBNP',//5
+						5'BLU',//7
+						6'BLUD',//8
+						7'BUMD',//10
+						8'BUMN',//9
+						9'PHLN',//3
+						10'PNBP',//4
+						11'LAINNYA'//11
+						);
+
+
+JENIS_PENGADAAN
+1;"Barang"
+2;"Pekerjaan Konstruksi"
+3;"Jasa Konsultansi"
+4;"Jasa Lainnya"
+
+METODE_PENGADAAN
+7;"Penunjukan Langsung"
+8;"Pengadaan Langsung"
+9;"E-Purchasing"
+13;"Tender"
+14;"Tender Cepat"
+15;"Seleksi"
+
+								<select name="metode_pemilihan" class="form-control rupenda-metode-pemilihan-reg select2-option">
+									<option value="1">E-Purchasing</option>9
+									<option value="2">Tender</option>13
+									<option value="3">Tender Cepat</option>14
+									<option value="4" selected="selected">Pengadaan Langsung</option>8
+									<option value="5">Penunjukkan Langsung</option>7
+									<option value="6">Seleksi</option>15
+								</select>
+
+
+TIPE_SWAKELOLA
+1;"Tipe Swakelola 1" // swakelola yang di kerjakan oleh Instasi sendiri
+2;"Tipe Swakelola 2" // swakelola yang di kerjakan oleh Instansi lain
+3;"Tipe Swakelola 3" // swakelola yang di kerjakan oleh organisasi masyarakat
+4;"Tipe Swakelola 4" // swakelola yang di kerjakana oleh kelompok masyarakat
+
+
+-- ID_PROGRAM:  Isi sesuai ID di Sistem masing-masing. Isi sesuai kode program di DIPA/DPA
+-- ID_KEGIATAN: Isi sesuai ID di Sistem masing-masing. Isi sesuai kode kegiatan di DIPA/DPA
+-- BULAN_PEMILIHAN_MULAI, BULAN_PEMILIHAN_AKHIR, BULAN_PEKERJAAN_MULAI, BULAN_PEKERJAAN_AKHIR, CREATE_TIME, LASTUPDATE_TIME isi dengan UNIX TIME. Khusus yang BULAN, SiRUP hanya akan mengambil informasi bulan dan tahun saja
+-- Data Satker tetap harus dikelola sendiri di Aplikasi SiRUP.
+
+
+
+

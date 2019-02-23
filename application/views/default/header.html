@@ -1,0 +1,78 @@
+<header class="main-header">
+  <a href="#" class="logo smep-app-dashboard-page">
+    <span class="logo-mini"><b>RUP</b></span>
+    <span class="logo-lg"><b>SMEP</b>LTE</span>
+  </a>
+  <nav class="navbar navbar-static-top" role="navigation">
+    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+      <span class="sr-only">Toggle navigation</span>
+    </a>
+    <div class="navbar-custom-menu">
+      <ul class="nav navbar-nav">
+      	<li class="second-header">
+			<select name="skpd" class="form-control smep-skpd-categories-main"></select>
+			<input type="hidden" name="id_skpd" class="smep-skpd-main">
+		</li>
+      	<?php
+      		foreach ($user_data->result() as $user) {
+		?>
+			<li class="dropdown user user-menu">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+					<img src="<?=base_url('assets/uploads/icon_CS.png')?>" class="user-image" alt="User Image">
+					<span class="hidden-xs">
+						<?php 
+							if (strlen($user->nama) > 16){
+								echo substr($user->nama, 0, 12)."...";
+							}
+							else{
+								echo $user->nama;
+							}
+						?>
+					</span>
+				</a>
+				<ul class="dropdown-menu">
+					<li class="user-header">
+					 	<img src="<?=base_url('assets/uploads/logo_tepra_crop.png')?>" class="img-circle" alt="User Image">
+					 	<p>
+					 		<?php
+					 			echo $user->nama;
+					 			switch ($user->status) {
+						            case '1':
+						            $status = 'Root - Administrator';
+						            break;
+						            case '2':
+						                $status = 'Operator - PA/KPA SKPD';
+						            break;
+						            case '3':
+						                $status = 'Pejabat Pembuat Komitmen (PPK)';
+						            break;
+						            default:
+						                $status = 'Operator - PA/KPA SKPD';
+						            break;
+						        }
+					 		?>
+					 			<small><?php echo $status; ?></small>
+					 	</p>
+					</li>
+					<li class="user-footer">
+				    	<div class="pull-left">
+				    		<a href="" class="btn btn-primary btn-flat smep-datum-dator-page empty-value">
+				    			<i class="fa fa-group"></i>&nbsp;
+				    			Data SKPD
+				    		</a>
+				    	</div>
+				    	<div class="pull-right">
+				    		<a href="#" class="btn btn-danger btn-flat smep-logout-auth">
+				    			<i class="fa fa-sign-out"></i>&nbsp;
+				    			Log Out
+				    		</a>
+				    	</div>
+				    </li>
+				</ul>
+			</li>
+		<?php	}
+      	?>
+      </ul>
+    </div>
+  </nav>
+</header>
