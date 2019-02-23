@@ -1,6 +1,6 @@
 .DS_Store
 
-custom
+custom/globalvar.php
 tmp
 
 application/cache/*
