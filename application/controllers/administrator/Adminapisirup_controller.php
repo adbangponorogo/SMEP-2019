@@ -14,7 +14,7 @@ class Adminapisirup_controller extends Admin_Controller {
 	}
 
 	public function program($tahun, $date, $dateEnd){
-		$result = $this->model->getProgram($date, $dateEnd);
+		$result = $this->model->getProgram($tahun, $date, $dateEnd);
 		$data = array();
 		$boolean = [TRUE, FALSE];
 		foreach ($result->result() as $row) {
@@ -33,7 +33,7 @@ class Adminapisirup_controller extends Admin_Controller {
 	}
 
 	public function kegiatan($tahun, $date, $dateEnd){
-		$result = $this->model->getKegiatan($date, $dateEnd);
+		$result = $this->model->getKegiatan($tahun, $date, $dateEnd);
 		$data = array();
 		$boolean = [TRUE, FALSE];
 		foreach ($result->result() as $row) {
@@ -53,7 +53,7 @@ class Adminapisirup_controller extends Admin_Controller {
 	}
 
 	public function objekAkun($tahun, $date, $dateEnd){
-		$result = $this->model->getObjekAkun($date, $dateEnd);
+		$result = $this->model->getObjekAkun($tahun, $date, $dateEnd);
 		$data = array();
 		$boolean = [TRUE, FALSE];
 		foreach ($result->result() as $row) {
@@ -74,7 +74,7 @@ class Adminapisirup_controller extends Admin_Controller {
 	}
 
 	public function rincianObjekAkun($tahun, $date, $dateEnd){
-		$result = $this->model->getRincianObjekAkun($date, $dateEnd);
+		$result = $this->model->getRincianObjekAkun($tahun, $date, $dateEnd);
 		$data = array();
 		$boolean = [TRUE, FALSE];
 		foreach ($result->result() as $row) {
@@ -96,7 +96,7 @@ class Adminapisirup_controller extends Admin_Controller {
 	}
 
 	public function penyedia($tahun, $date, $dateEnd){
-		$result = $this->model->getPenyedia($date, $dateEnd);
+		$result = $this->model->getPenyedia($tahun, $date, $dateEnd);
 		$data = array();
 		$boolean = [TRUE, FALSE];
 		$sumber_dana = ["-", 1, 6, 2, 5, 7, 8, 10, 9, 3, 4, 11];
@@ -172,7 +172,7 @@ class Adminapisirup_controller extends Admin_Controller {
 	}
 
 	public function swakelola($tahun, $date, $dateEnd){
-		$result = $this->model->getSwakelola($date, $dateEnd);
+		$result = $this->model->getSwakelola($tahun, $date, $dateEnd);
 		$data = array();
 		$boolean = [TRUE, FALSE];
 		$sumber_dana = ["-", 1, 6, 2, 5, 7, 8, 10, 9, 3, 4, 11];
@@ -249,7 +249,7 @@ class Adminapisirup_controller extends Admin_Controller {
 	}
 
 	public function ppk($tahun, $date, $dateEnd){
-		$result = $this->model->getPPK($date, $dateEnd);
+		$result = $this->model->getPPK($tahun, $date, $dateEnd);
 		$data = array();
 		$boolean = [TRUE, FALSE];
 		foreach ($result->result() as $row) {
@@ -274,7 +274,7 @@ class Adminapisirup_controller extends Admin_Controller {
 	}
 
 	public function strukturAnggaran($tahun, $date, $dateEnd){
-		$result = $this->model->getStrukturAnggaran($date, $dateEnd);
+		$result = $this->model->getStrukturAnggaran($tahun, $date, $dateEnd);
 		$data = array();
 		foreach ($result->result() as $row) {
 			$btl = intval($row->btl1)+intval($row->btl2);
