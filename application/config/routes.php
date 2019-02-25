@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+ 
 /*
 | -------------------------------------------------------------------------
 | URI ROUTING
@@ -271,14 +271,22 @@ $route['administrator/pengguna-aplikasi/generate-data'] = 'administrator/Adminpe
 
 // ------ API SiRUP ------ //
 $route['administrator/api-sirup/main-page'] = 'administrator/Adminapisirup_controller';
-$route['api/program/(:any)'] = 'administrator/Adminapisirup_controller/program/$1';
-$route['api/kegiatan/(:any)'] = 'administrator/Adminapisirup_controller/kegiatan/$1';
-$route['api/objek-akun/(:any)'] = 'administrator/Adminapisirup_controller/objekAkun/$1';
-$route['api/rincian-objek-akun/(:any)'] = 'administrator/Adminapisirup_controller/rincianObjekAkun/$1';
-$route['api/penyedia/(:any)'] = 'administrator/Adminapisirup_controller/penyedia/$1';
-$route['api/swakelola/(:any)'] = 'administrator/Adminapisirup_controller/swakelola/$1';
-$route['api/users-ppk/(:any)'] = 'administrator/Adminapisirup_controller/ppk/$1';
-$route['api/struktur-anggaran/(:any)'] = 'administrator/Adminapisirup_controller/strukturAnggaran/$1';
+$route['api/program/between/(:any)/(:any)/(:any)'] = 'administrator/Adminapisirup_controller/program/$1/$2/$3';
+$route['api/program/by-date/(:any)/(:any)'] = 'administrator/Adminapisirup_controller/program/$1/$2';
+$route['api/kegiatan/between/(:any)/(:any)/(:any)'] = 'administrator/Adminapisirup_controller/kegiatan/$1/$2/$3';
+$route['api/kegiatan/by-date/(:any)/(:any)'] = 'administrator/Adminapisirup_controller/kegiatan/$1/$2';
+$route['api/objek-akun/between/(:any)/(:any)/(:any)'] = 'administrator/Adminapisirup_controller/objekAkun/$1/$2/$3';
+$route['api/objek-akun/by-date/(:any)/(:any)'] = 'administrator/Adminapisirup_controller/objekAkun/$1/$2';
+$route['api/rincian-objek-akun/between/(:any)/(:any)/(:any)'] = 'administrator/Adminapisirup_controller/rincianObjekAkun/$1/$2/$3';
+$route['api/rincian-objek-akun/by-date/(:any)/(:any)'] = 'administrator/Adminapisirup_controller/rincianObjekAkun/$1/$2';
+$route['api/penyedia/between/(:any)/(:any)/(:any)'] = 'administrator/Adminapisirup_controller/penyedia/$1/$2/$3';
+$route['api/penyedia/by-date/(:any)/(:any)'] = 'administrator/Adminapisirup_controller/penyedia/$1/$2';
+$route['api/swakelola/between/(:any)/(:any)/(:any)'] = 'administrator/Adminapisirup_controller/swakelola/$1/$2/$3';
+$route['api/swakelola/by-date/(:any)/(:any)'] = 'administrator/Adminapisirup_controller/swakelola/$1/$2';
+$route['api/users-ppk/between/(:any)/(:any)/(:any)'] = 'administrator/Adminapisirup_controller/ppk/$1/$2/$3';
+$route['api/users-ppk/by-date/(:any)/(:any)'] = 'administrator/Adminapisirup_controller/ppk/$1/$2';
+$route['api/struktur-anggaran/between/(:any)/(:any)/(:any)'] = 'administrator/Adminapisirup_controller/strukturAnggaran/$1/$2/$3';
+$route['api/struktur-anggaran/by-date/(:any)/(:any)'] = 'administrator/Adminapisirup_controller/strukturAnggaran/$1/$2';
 
 // ------ Rekapitulasi Rencana Pengadaan ------ //
 $route['administrator/rencana-pengadaan/main-page'] = 'administrator/Adminrapan_controller/mainPage';
