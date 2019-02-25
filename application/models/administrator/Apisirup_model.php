@@ -14,10 +14,10 @@ class Apisirup_model extends CI_Model {
 		$this->db->from('simda_program a');
 		$this->db->join("simda_rincian_obyek b", "a.id=b.id_parent_prog");
 		$this->db->where("a.tahun", $tahun);
-		if ($dateEnd == 'null') {
+		if ($dateEnd == NULL) {
 			$this->db->where("date_format(a.updated, '%Y-%m-%d') = ", date("Y-m-d", $date));
 		}
-		if ($dateEnd != 'null') {
+		if ($dateEnd != NULL) {
 			$this->db->where("a.updated BETWEEN '".date("Y-m-d", $date)." 00:00:01' AND '".date("Y-m-d", $dateEnd)." 23:59:59'");
 		}
 		$this->db->group_by('a.id');
@@ -30,10 +30,10 @@ class Apisirup_model extends CI_Model {
 		$this->db->join('simda_program b', 'a.id_parent_prog = b.id');
 		$this->db->join('simda_rincian_obyek c', 'a.id = c.id_parent_keg');
 		$this->db->where("a.tahun", $tahun);
-		if ($dateEnd == 'null') {
+		if ($dateEnd == NULL) {
 			$this->db->where("date_format(a.updated, '%Y-%m-%d') = ", date("Y-m-d", $date));
 		}
-		if ($dateEnd != 'null') {
+		if ($dateEnd != NULL) {
 			$this->db->where("a.updated BETWEEN '".date("Y-m-d", $date)." 00:00:01' AND '".date("Y-m-d", $dateEnd)." 23:59:59'");
 		}
 		$this->db->group_by('a.id');
@@ -46,10 +46,10 @@ class Apisirup_model extends CI_Model {
 		$this->db->join("simda_program b", "a.id_parent_prog = b.id");
 		$this->db->join("simda_kegiatan c", "a.id_parent_keg = c.id");
 		$this->db->where("a.tahun", $tahun);
-		if ($dateEnd == 'null') {
+		if ($dateEnd == NULL) {
 			$this->db->where("date_format(a.updated, '%Y-%m-%d') = ", date("Y-m-d", $date));
 		}
-		if ($dateEnd != 'null') {
+		if ($dateEnd != NULL) {
 			$this->db->where("a.updated BETWEEN '".date("Y-m-d", $date)." 00:00:01' AND '".date("Y-m-d", $dateEnd)." 23:59:59'");
 		}
 		$this->db->group_by("a.id");
@@ -63,10 +63,10 @@ class Apisirup_model extends CI_Model {
 		$this->db->join("simda_kegiatan c", "c.id = a.id_kegiatan");
 		$this->db->join("simda_rincian_obyek d", "d.id = a.id_rincian_obyek");
 		$this->db->where("a.tahun", $tahun);
-		if ($dateEnd == 'null') {
+		if ($dateEnd == NULL) {
 			$this->db->where("date_format(a.tanggal_update, '%Y-%m-%d') = ", date("Y-m-d", $date));
 		}
-		if ($dateEnd != 'null') {
+		if ($dateEnd != NULL) {
 			$this->db->where("a.tanggal_update BETWEEN '".date("Y-m-d", $date)." 00:00:01' AND '".date("Y-m-d", $dateEnd)." 23:59:59'");
 		}
 		$this->db->group_by("a.id");
@@ -80,10 +80,10 @@ class Apisirup_model extends CI_Model {
 		$this->db->join("simda_rincian_obyek c", "a.id_rincian_obyek = c.id");
 		$this->db->where("a.cara_pengadaan", 1);
 		$this->db->where("a.tahun", $tahun);
-		if ($dateEnd == 'null') {
+		if ($dateEnd == NULL) {
 			$this->db->where("date_format(a.tanggal_update, '%Y-%m-%d') = ", date("Y-m-d", $date));
 		}
-		if ($dateEnd != 'null') {
+		if ($dateEnd != NULL) {
 			$this->db->where("a.tanggal_update BETWEEN '".date("Y-m-d", $date)." 00:00:01' AND '".date("Y-m-d", $dateEnd)." 23:59:59'");
 		}
 		$this->db->group_by("b.id");
@@ -97,10 +97,10 @@ class Apisirup_model extends CI_Model {
 		$this->db->join("simda_rincian_obyek c", "a.id_rincian_obyek = c.id");
 		$this->db->where("a.cara_pengadaan", 2);
 		$this->db->where("a.tahun", $tahun);
-		if ($dateEnd == 'null') {
+		if ($dateEnd == NULL) {
 			$this->db->where("date_format(a.tanggal_update, '%Y-%m-%d') = ", date("Y-m-d", $date));
 		}
-		if ($dateEnd != 'null') {
+		if ($dateEnd != NULL) {
 			$this->db->where("a.tanggal_update BETWEEN '".date("Y-m-d", $date)." 00:00:01' AND '".date("Y-m-d", $dateEnd)." 23:59:59'");
 		}
 		$this->db->group_by("b.id");
@@ -113,10 +113,10 @@ class Apisirup_model extends CI_Model {
 		$this->db->join("spse_pegawai b", "a.id = b.id");
 		$this->db->where("a.status", 3);
 		$this->db->where("date_format(b.tanggal_buat, '%Y') = ", $tahun);
-		if ($dateEnd == 'null') {
+		if ($dateEnd == NULL) {
 			$this->db->where("date_format(b.tanggal_buat, '%Y-%m-%d') = ", date("Y-m-d", $date));
 		}
-		if ($dateEnd != 'null') {
+		if ($dateEnd != NULL) {
 			$this->db->where("b.tanggal_buat BETWEEN '".date("Y-m-d", $date)." 00:00:01' AND '".date("Y-m-d", $dateEnd)." 23:59:59'");
 		}
 		$this->db->group_by("b.id");
@@ -127,10 +127,10 @@ class Apisirup_model extends CI_Model {
 		$this->db->select("*");
 		$this->db->from("simda_ref_master_rup");
 		$this->db->where("tahun", $tahun);
-		if ($dateEnd == 'null') {
+		if ($dateEnd == NULL) {
 			$this->db->where("date_format(updated, '%Y-%m-%d') = ", date("Y-m-d", $date));
 		}
-		if ($dateEnd != 'null') {
+		if ($dateEnd != NULL) {
 			$this->db->where("updated BETWEEN '".date("Y-m-d", $date)." 00:00:01' AND '".date("Y-m-d", $dateEnd)." 23:59:59'");
 		}
 		$this->db->group_by("id");

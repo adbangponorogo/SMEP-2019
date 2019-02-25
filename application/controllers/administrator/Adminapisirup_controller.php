@@ -13,7 +13,7 @@ class Adminapisirup_controller extends Admin_Controller {
 		$this->load->view('pages/administrator/api-sirup/data');
 	}
 
-	public function program($tahun, $date, $dateEnd){
+	public function program($tahun, $date, $dateEnd = NULL){
 		$result = $this->model->getProgram($tahun, $date, $dateEnd);
 		$data = array();
 		$boolean = [TRUE, FALSE];
@@ -32,7 +32,7 @@ class Adminapisirup_controller extends Admin_Controller {
 		echo json_encode($data);
 	}
 
-	public function kegiatan($tahun, $date, $dateEnd){
+	public function kegiatan($tahun, $date, $dateEnd = NULL){
 		$result = $this->model->getKegiatan($tahun, $date, $dateEnd);
 		$data = array();
 		$boolean = [TRUE, FALSE];
@@ -52,7 +52,7 @@ class Adminapisirup_controller extends Admin_Controller {
 		echo json_encode($data);
 	}
 
-	public function objekAkun($tahun, $date, $dateEnd){
+	public function objekAkun($tahun, $date, $dateEnd = NULL){
 		$result = $this->model->getObjekAkun($tahun, $date, $dateEnd);
 		$data = array();
 		$boolean = [TRUE, FALSE];
@@ -73,7 +73,7 @@ class Adminapisirup_controller extends Admin_Controller {
 		echo json_encode($data);
 	}
 
-	public function rincianObjekAkun($tahun, $date, $dateEnd){
+	public function rincianObjekAkun($tahun, $date, $dateEnd = NULL){
 		$result = $this->model->getRincianObjekAkun($tahun, $date, $dateEnd);
 		$data = array();
 		$boolean = [TRUE, FALSE];
@@ -95,7 +95,7 @@ class Adminapisirup_controller extends Admin_Controller {
 		echo json_encode($data);
 	}
 
-	public function penyedia($tahun, $date, $dateEnd){
+	public function penyedia($tahun, $date, $dateEnd = NULL){
 		$result = $this->model->getPenyedia($tahun, $date, $dateEnd);
 		$data = array();
 		$boolean = [TRUE, FALSE];
@@ -171,7 +171,7 @@ class Adminapisirup_controller extends Admin_Controller {
 		echo json_encode($data);
 	}
 
-	public function swakelola($tahun, $date, $dateEnd){
+	public function swakelola($tahun, $date, $dateEnd = NULL){
 		$result = $this->model->getSwakelola($tahun, $date, $dateEnd);
 		$data = array();
 		$boolean = [TRUE, FALSE];
@@ -248,7 +248,7 @@ class Adminapisirup_controller extends Admin_Controller {
 		echo json_encode($data);
 	}
 
-	public function ppk($tahun, $date, $dateEnd){
+	public function ppk($tahun, $date, $dateEnd = NULL){
 		$result = $this->model->getPPK($tahun, $date, $dateEnd);
 		$data = array();
 		$boolean = [TRUE, FALSE];
@@ -273,7 +273,7 @@ class Adminapisirup_controller extends Admin_Controller {
 		echo json_encode($data);
 	}
 
-	public function strukturAnggaran($tahun, $date, $dateEnd){
+	public function strukturAnggaran($tahun, $date, $dateEnd = NULL){
 		$result = $this->model->getStrukturAnggaran($tahun, $date, $dateEnd);
 		$data = array();
 		foreach ($result->result() as $row) {

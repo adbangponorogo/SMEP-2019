@@ -14,7 +14,7 @@
         </div>
         <div class="col-md-9">
             <div class="form-group" style="margin:10px 0px;">
-							<a class="api-program" target="blank">https://smep.ponorogo.go.id/api/program</a>
+							<a class="api-program" target="blank">https://smep.ponorogo.go.id/api/program/all/[:TAHUN]/[:DATE]/[:DATE-FINISH]</a>
             </div>
         </div>
       </div>
@@ -26,7 +26,7 @@
         </div>
         <div class="col-md-9">
             <div class="form-group" style="margin:10px 0px;">
-							<a class="api-kegiatan" target="blank">https://smep.ponorogo.go.id/api/kegiatan</a>
+							<a class="api-kegiatan" target="blank">https://smep.ponorogo.go.id/api/kegiatan/all/[:TAHUN]/[:DATE]/[:DATE-FINISH]</a>
             </div>
         </div>
       </div>
@@ -38,7 +38,7 @@
         </div>
         <div class="col-md-9">
             <div class="form-group" style="margin:10px 0px;">
-              <a class="api-objek-akun" target="blank">https://smep.ponorogo.go.id/api/objekAkun</a>
+              <a class="api-objek-akun" target="blank">https://smep.ponorogo.go.id/api/objek-akun/all/[:TAHUN]/[:DATE]/[:DATE-FINISH]</a>
             </div>
         </div>
       </div>
@@ -50,7 +50,7 @@
         </div>
         <div class="col-md-9">
             <div class="form-group" style="margin:10px 0px;">
-              <a class="api-rincian-objek-akun" target="blank">https://smep.ponorogo.go.id/api/rincianObjekAkun</a>
+              <a class="api-rincian-objek-akun" target="blank">https://smep.ponorogo.go.id/api/rincian-objek-akun/all/[:TAHUN]/[:DATE]/[:DATE-FINISH]</a>
             </div>
         </div>
       </div>
@@ -62,7 +62,7 @@
         </div>
         <div class="col-md-9">
             <div class="form-group" style="margin:10px 0px;">
-              <a class="api-penyedia" target="blank">https://smep.ponorogo.go.id/api/penyedia</a>
+              <a class="api-penyedia" target="blank">https://smep.ponorogo.go.id/api/penyedia/all/[:TAHUN]/[:DATE]/[:DATE-FINISH]</a>
             </div>
         </div>
       </div>
@@ -74,7 +74,7 @@
         </div>
         <div class="col-md-9">
             <div class="form-group" style="margin:10px 0px;">
-              <a class="api-swakelola" target="blank">https://smep.ponorogo.go.id/api/swakelola</a>
+              <a class="api-swakelola" target="blank">https://smep.ponorogo.go.id/api/swakelola/all/[:TAHUN]/[:DATE]/[:DATE-FINISH]</a>
             </div>
         </div>
       </div>
@@ -86,7 +86,7 @@
         </div>
         <div class="col-md-9">
             <div class="form-group" style="margin:10px 0px;">
-              <a class="api-user-ppk" target="blank">https://smep.ponorogo.go.id/api/ppk</a>
+              <a class="api-user-ppk" target="blank">https://smep.ponorogo.go.id/api/ppk/all/[:TAHUN]/[:DATE]/[:DATE-FINISH]</a>
             </div>
         </div>
       </div>
@@ -98,7 +98,7 @@
         </div>
         <div class="col-md-9">
             <div class="form-group" style="margin:10px 0px;">
-              <a class="api-struktur-anggaran" target="blank">https://smep.ponorogo.go.id/api/strukturAnggaran</a>
+              <a class="api-struktur-anggaran" target="blank">https://smep.ponorogo.go.id/api/struktur-anggaran/all/[:TAHUN]/[:DATE]/[:DATE-FINISH]</a>
             </div>
         </div>
       </div>
@@ -107,12 +107,12 @@
 </div>
 
 <script type="text/javascript">
-  jQuery(".api-program").attr("href", "api/program/"+jQuery(".smep-year-value").val());
-  jQuery(".api-kegiatan").attr("href", "api/kegiatan/"+jQuery(".smep-year-value").val());
-  jQuery(".api-objek-akun").attr("href", "api/objek-akun/"+jQuery(".smep-year-value").val());
-  jQuery(".api-rincian-objek-akun").attr("href", "api/rincian-objek-akun/"+jQuery(".smep-year-value").val());
-  jQuery(".api-penyedia").attr("href", "api/penyedia/"+jQuery(".smep-year-value").val());
-  jQuery(".api-swakelola").attr("href", "api/swakelola/"+jQuery(".smep-year-value").val());
-  jQuery(".api-user-ppk").attr("href", "api/users-ppk/"+jQuery(".smep-year-value").val());
-  jQuery(".api-struktur-anggaran").attr("href", "api/struktur-anggaran/"+jQuery(".smep-year-value").val());
+  jQuery(".api-program").attr("href", "api/program/between/"+jQuery(".smep-year-value").val()+"/Tanggal/Tanggal_Selesai");
+  jQuery(".api-kegiatan").attr("href", "api/kegiatan/between/"+jQuery(".smep-year-value").val()+"/Tanggal/Tanggal_Selesai");
+  jQuery(".api-objek-akun").attr("href", "api/objek-akun/between/"+jQuery(".smep-year-value").val()+"/Tanggal/Tanggal_Selesai");
+  jQuery(".api-rincian-objek-akun").attr("href", "api/rincian-objek-akun/between/"+jQuery(".smep-year-value").val()+"/Tanggal/Tanggal_Selesai");
+  jQuery(".api-penyedia").attr("href", "api/penyedia/between/"+jQuery(".smep-year-value").val()+"/Tanggal/Tanggal_Selesai");
+  jQuery(".api-swakelola").attr("href", "api/swakelola/between/"+jQuery(".smep-year-value").val()+"/Tanggal/Tanggal_Selesai");
+  jQuery(".api-user-ppk").attr("href", "api/users-ppk/between/"+jQuery(".smep-year-value").val()+"/Tanggal/Tanggal_Selesai");
+  jQuery(".api-struktur-anggaran").attr("href", "api/struktur-anggaran/between/"+jQuery(".smep-year-value").val()+"/Tanggal/Tanggal_Selesai");
 </script>
