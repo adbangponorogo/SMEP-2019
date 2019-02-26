@@ -195,6 +195,11 @@ div.dataTables_wrapper div.dataTables_info{
 	border: 1px solid #e6e2e2;
 }
 
+.small-box h3{
+	white-space: initial;
+	font-size: 28px;
+}
+
 
 /*------- Responsive --------*/
 @media(max-width: 1254px){

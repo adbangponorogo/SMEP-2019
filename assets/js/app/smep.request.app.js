@@ -81,6 +81,8 @@ jQuery(document).ready(function(){
 				jQuery(".smep-skpd-categories-main").html(option);
 				jQuery(".smep-skpd-categories-main").val(JSON[0][0]).change();
 				jQuery(".smep-skpd-categories-main").select2();
+				appDashboardBoxData(JSON[0][0]);
+				appDashboardTableData(JSON[0][0]);
 			},
 			error 		: function(jqXHR, textStatus, errorThrown){
 				// location.href = window.location.href+"app/auth/sessionPage";
@@ -101,5 +103,4 @@ jQuery(document).ready(function(){
 	jQuery(document).on('focus', 'textarea', function(){
 		jQuery(this).select();
 	});
-
 });

@@ -38,3 +38,49 @@
 	include_once 'lib/js.html';
 ?>
 </html>
+
+<script type="text/javascript">
+  function appDashboardBoxData(id_skpd){
+      jQuery.ajax({
+        type      : 'AJAX',
+        method    : 'GET',
+        url       : 'app/dashboard/rekapitulasi/'+id_skpd,
+        async     : true,
+        dataType  : 'JSON',
+        success   : function(JSON){
+          jQuery(".dashboard-app-pagu-anggaran").html(JSON[0][0]);
+          jQuery(".dashboard-app-pagu-terpaket").html(JSON[0][1]);
+          jQuery(".dashboard-app-pagu-belum-terpaket").html(JSON[0][2]);
+          jQuery(".dashboard-app-paket-rup").html(JSON[0][3]);
+          jQuery(".dashboard-app-pagu-terealisasi").html(JSON[0][4]);
+          jQuery(".dashboard-app-pagu-belum-terealisasi").html(JSON[0][5]);
+          jQuery(".dashboard-app-paket-terealisasi").html(JSON[0][6]);
+          jQuery(".dashboard-app-paket-belum-terealisasi").html(JSON[0][7]);
+        },
+        error     : function(jqXHR, textStatus, errorThrown){
+          location.href = window.location.href+"app/auth/sessionPage";
+        }
+      });
+  }
+
+  function appDashboardTableData(id_skpd){
+      jQuery.ajax({
+        type      : 'AJAX',
+        method    : 'GET',
+        url       : 'app/dashboard/paket-non-realisasi/'+id_skpd,
+        async     : true,
+        dataType  : 'JSON',
+        success   : function(JSON){
+        	jQuery(".smep-dashboard-app-table").DataTable({
+        		destroy     : true,
+	            processing  : true,
+	            "lengthMenu"    : [5],
+	            data        : JSON
+        	});
+        },
+        error     : function(jqXHR, textStatus, errorThrown){
+          location.href = window.location.href+"app/auth/sessionPage";
+        }
+      });
+  }
+</script>

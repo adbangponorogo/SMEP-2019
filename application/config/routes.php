@@ -70,6 +70,8 @@ $route['app/main/tester'] = 'Main_controller/getDataTester';
 
 // ------ Dashboard ------ //
 $route['app/dashboard/main-page'] = 'app/Appdashboard_controller/mainPage';
+$route['app/dashboard/rekapitulasi/(:any)'] = 'app/Appdashboard_controller/getDataRekap/$1';
+$route['app/dashboard/paket-non-realisasi/(:any)'] = 'app/Appdashboard_controller/getDataPaketNonRealisasi/$1';
 
 
 
