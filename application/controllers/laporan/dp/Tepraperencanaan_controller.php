@@ -377,18 +377,19 @@ class Tepraperencanaan_controller extends Admin_Controller {
  		$this->load->helper('office_helper');
  		$this->load->helper('other_helper');
 
-		//switch ($obj->jenis_pengadaan){
-			//case 3: $this->getPrintDataTepraR($obj); break;
-			//default:
+		switch (true){
+			//case 3:
+				//$this->getPrintDataTepraR($obj);
+				//break;
+			default:
+				$obj->jenis_form = 'TEPRA-P';
 				$this->getPrintDataTepraR($obj);
-		//}
+		}
 	}
 
 	public function getPrintDataTepraR($obj){
-		$jenis_form = 'TEPRA-P';
-		
 		$r = PHPExcel_IOFactory::createReader('Excel2007');
-		$p = $r->load(TPLPATH.$jenis_form.'.xlsx');
+		$p = $r->load(TPLPATH.$obj->jenis_form.'.xlsx');
 		$x = $p->getActiveSheet();
 
 		$x->setCellValue('B3', ': '.strtoupper($obj->nama_skpd));
@@ -401,9 +402,11 @@ class Tepraperencanaan_controller extends Admin_Controller {
 		$x->setCellValue('I18', $belanja->bl2+0);
 		$x->setCellValue('M18', $belanja->bl3+0);
 		
+		// Belanja Pegawai
 		$BP = $this->model->getBP($obj->id_skpd)->row()->jml;
 		$x->setCellValue('H15', $BP+0);
 
+		// Belanja Modal
 		$BM = $this->model->getBM($obj->id_skpd)->row()->jml;
 		$x->setCellValue('N19', $BM+0);
 
@@ -461,9 +464,9 @@ class Tepraperencanaan_controller extends Admin_Controller {
 		xl_footer(
 			$x,
 			$obj->footerlap,//footer laporan sebelah kiri
-			$jenis_form,//Jenis Form Laporan TEPRA-P
+			$obj->jenis_form,//Jenis Form Laporan TEPRA-P
 			$obj->nama_skpd
 		);
-		export2xl($p, str_replace(' ', '-', $obj->nama_skpd).'_'.$jenis_form.'_'.$obj->tahun);
+		export2xl($p, str_replace(' ', '-', $obj->nama_skpd).'_'.$obj->jenis_form.'_'.$obj->tahun);
 	}
 }
