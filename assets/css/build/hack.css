@@ -1,0 +1,22 @@
+.wrapper{
+	float: left;
+	width: 100%;
+}
+.txt-right{
+	text-align: right;
+}
+.txt-center{
+	text-align: center;
+}
+.second-header{
+	font-size: 13pt;
+}
+.headerdtc{
+	text-align:center !important;
+}
+.table-responsive{
+	padding-top:6px;
+}
+.sidebar-menu, .main-sidebar .user-panel, .sidebar-menu > li.header{
+  white-space: normal;
+}
