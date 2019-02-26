@@ -63,7 +63,7 @@
       });
   }
 
-  function appDashboardTableData(id_skpd){
+  function appDashboardTableRealisasiData(id_skpd){
       jQuery.ajax({
         type      : 'AJAX',
         method    : 'GET',
@@ -71,11 +71,11 @@
         async     : true,
         dataType  : 'JSON',
         success   : function(JSON){
-        	jQuery(".smep-dashboard-app-table").DataTable({
-        		destroy     : true,
-	            processing  : true,
-	            "lengthMenu"    : [5],
-	            data        : JSON
+        	jQuery(".smep-dashboard-app-table-realisasi").DataTable({
+            destroy         : true,
+            processing      : true,
+            "lengthMenu"    : [5],
+            data            : JSON
         	});
         },
         error     : function(jqXHR, textStatus, errorThrown){

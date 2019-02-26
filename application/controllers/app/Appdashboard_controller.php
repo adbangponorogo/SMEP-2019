@@ -94,7 +94,7 @@ class Appdashboard_controller extends CI_Controller {
 			foreach ($result_skpd->result() as $rows_skpd) {
 				$result = $this->model->getDataRUPNonRealisasi($rows_skpd->kd_skpd);
 				foreach ($result->result() as $rows) {
-					$data[] = array($no++, $rows->nama_paket, $rows->pagu_paket);
+					$data[] = array($no++, $rows->nama_paket, $this->MoneyFormat($rows->pagu_paket));
 				}
 			}
 			echo json_encode($data);
