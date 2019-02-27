@@ -83,6 +83,8 @@ jQuery(document).ready(function(){
 				jQuery(".smep-skpd-categories-main").select2();
 				appDashboardBoxData(JSON[0][0]);
 				appDashboardTableRealisasiData(JSON[0][0]);
+				appDashboardChartRealisasi(JSON[0][0]);
+				appDashboardTableTemporary();
 			},
 			error 		: function(jqXHR, textStatus, errorThrown){
 				// location.href = window.location.href+"app/auth/sessionPage";

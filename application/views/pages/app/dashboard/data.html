@@ -10,11 +10,19 @@
 </section>
 <section class="content">
 	<?php
-		include_once 'box.html';
-    include_once 'table-paket-non-realisasi.html';
+    include_once 'box.html';
+		include_once 'chart.html';
   ?>
+  <div class="row">
+    <?php
+      include_once 'table-paket-non-realisasi.html';
+      include_once 'table-temporary.html';
+    ?>
+  </div>
 </section>
 <script type="text/javascript">
   appDashboardBoxData(jQuery(".smep-skpd-main").val());
   appDashboardTableRealisasiData(jQuery(".smep-skpd-main").val());
+  appDashboardChartRealisasi(jQuery(".smep-skpd-main").val());
+  appDashboardTableTemporary();
 </script>

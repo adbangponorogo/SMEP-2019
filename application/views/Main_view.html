@@ -63,6 +63,53 @@
       });
   }
 
+    function appDashboardChartRealisasi(id_skpd){
+    jQuery.ajax({
+      type      : 'AJAX',
+      method    : 'GET',
+      url       : 'app/dashboard/realisasi/bulan/'+id_skpd,
+      async     : true,
+      dataType  : 'JSON',
+      success   : function(JSON){
+          Morris.Line({
+            element: 'line-chart',
+            resize: true,
+            data: [
+              {month: 'Januari',    item: JSON[0][0]},
+              {month: 'Februari',   item: JSON[0][1]},
+              {month: 'Maret',      item: JSON[0][2]},
+              {month: 'April',      item: JSON[0][3]},
+              {month: 'Mei',        item: JSON[0][4]},
+              {month: 'Juni',       item: JSON[0][5]},
+              {month: 'Juli',       item: JSON[0][6]},
+              {month: 'Agustus',    item: JSON[0][7]},
+              {month: 'September',  item: JSON[0][8]},
+              {month: 'Oktober',    item: JSON[0][9]},
+              {month: 'November',   item: JSON[0][10]},
+              {month: 'Desember',   item: JSON[0][11]}
+            ],
+            xkey              : 'month',
+            ykeys             : ['item'],
+            parseTime         : false,
+            labels            : ['Pagu Realisasi'],
+            lineColors        : ['#efefef'],
+            lineWidth         : 2,
+            hideHover         : 'auto',
+            gridTextColor     : "#fff",
+            gridStrokeWidth   : 0.4,
+            pointSize         : 2,
+            pointStrokeColors : ["#efefef"],
+            gridLineColor     : "#efefef",
+            gridTextFamily    : "Open Sans",
+            gridTextSize      : 10
+          });
+      },
+      error     : function(jqXHR, textStatus, errorThrown){
+        location.href = window.location.href+"app/auth/sessionPage";
+      }
+    });
+  }
+
   function appDashboardTableRealisasiData(id_skpd){
       jQuery.ajax({
         type      : 'AJAX',
@@ -77,6 +124,27 @@
             "lengthMenu"    : [10],
             data            : JSON
         	});
+        },
+        error     : function(jqXHR, textStatus, errorThrown){
+          location.href = window.location.href+"app/auth/sessionPage";
+        }
+      });
+  }
+
+  function appDashboardTableTemporary(){
+    jQuery.ajax({
+        type      : 'AJAX',
+        method    : 'GET',
+        url       : 'app/dashboard/temporary',
+        async     : true,
+        dataType  : 'JSON',
+        success   : function(JSON){
+          jQuery(".smep-dashboard-app-table-temporary").DataTable({
+            destroy         : true,
+            processing      : true,
+            "lengthMenu"    : [10],
+            data            : JSON
+          });
         },
         error     : function(jqXHR, textStatus, errorThrown){
           location.href = window.location.href+"app/auth/sessionPage";
