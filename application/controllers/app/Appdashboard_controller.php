@@ -49,7 +49,7 @@ class Appdashboard_controller extends CI_Controller {
 
 				// ================= Realisasi SKPD ================ //
 				// ================================================= //
-				$result_realisasi = $this->model->getDataRealisasiSKPD($rows_skpd->kd_skpd);
+				$result_realisasi = $this->model->getDataRealisasiSKPD($rows_skpd->kd_skpd, 'all');
 				if ($result_realisasi->num_rows() > 0) {
 					foreach ($result_realisasi->result() as $rows_realisasi) {
 						$total_paket_realisasi = $rows_realisasi->total_paket_realisasi;
@@ -102,6 +102,91 @@ class Appdashboard_controller extends CI_Controller {
 		else{
 			redirect(base_url());
 		}
+	}
+
+	public function getDataRealisasi($id_skpd){
+		if ($this->session->userdata('auth_id') != '') {
+			$result_skpd = $this->model->getDataSKPD($id_skpd);
+			$data = array();
+			$no = 1;
+			foreach ($result_skpd->result() as $rows_skpd) {
+				$data[] = array(
+									$this->valInt(strval($this->getDataRealisasiMonth($rows_skpd->kd_skpd, 1))),
+									$this->valInt(strval($this->getDataRealisasiMonth($rows_skpd->kd_skpd, 2))),
+									$this->valInt(strval($this->getDataRealisasiMonth($rows_skpd->kd_skpd, 3))),
+									$this->valInt(strval($this->getDataRealisasiMonth($rows_skpd->kd_skpd, 4))),
+									$this->valInt(strval($this->getDataRealisasiMonth($rows_skpd->kd_skpd, 5))),
+									$this->valInt(strval($this->getDataRealisasiMonth($rows_skpd->kd_skpd, 6))),
+									$this->valInt(strval($this->getDataRealisasiMonth($rows_skpd->kd_skpd, 7))),
+									$this->valInt(strval($this->getDataRealisasiMonth($rows_skpd->kd_skpd, 8))),
+									$this->valInt(strval($this->getDataRealisasiMonth($rows_skpd->kd_skpd, 9))),
+									$this->valInt(strval($this->getDataRealisasiMonth($rows_skpd->kd_skpd, 10))),
+									$this->valInt(strval($this->getDataRealisasiMonth($rows_skpd->kd_skpd, 11))),
+									$this->valInt(strval($this->getDataRealisasiMonth($rows_skpd->kd_skpd, 12))),
+							);
+			}
+			echo json_encode($data);
+		}
+		else{
+			redirect(base_url());
+		}
+	}
+
+	public function getDataTemporary(){
+		if ($this->session->userdata('auth_id') != '') {
+			$result_user = $this->model->getDataUsers($this->session->userdata('auth_id'));
+			foreach ($result_user->result() as $rows_user) {
+				$result_skpd = $this->model->getDataSKPD($rows_user->id_skpd);
+				$data = array();
+				$no = 1;
+				foreach ($result_skpd->result() as $rows_skpd) {
+					$result_temp = $this->model->getDataTemporarySKPD($rows_user->id, $rows_skpd->kd_skpd);
+					foreach ($result_temp->result() as $rows_temp) {
+						$data[] = array(
+									$no++,
+									$rows_temp->tanggal."<br>[".$rows_temp->id_users."] - ".$rows_temp->nama_user."<br>".
+									$rows_temp->keterangan,
+									$rows_temp->ip_address
+								);
+					}
+				}
+			}
+			echo json_encode($data);
+		}
+		else{
+			redirect(base_url());
+		}	
+	}
+
+
+
+
+
+
+	// ================= MISC ================= //
+
+	public function getDataRealisasiMonth($kd_skpd, $bulan){
+		$result_realisasi = $this->model->getDataRealisasiSKPD($kd_skpd, $bulan);
+		if ($result_realisasi->num_rows() > 0) {
+			foreach ($result_realisasi->result() as $rows_realisasi) {
+				$realisasi = $rows_realisasi->jumlah;
+			}
+		}
+		else{
+			$realisasi = 0;
+		}
+
+		return $realisasi;
+	}
+
+	public function valInt($value){
+		if ($value != '' || $value != NULL) {
+			$val = intval($value);
+		}
+		else{
+			$val = intval(0);
+		}
+		return $val;
 	}
 
 	public function MoneyFormat($money){

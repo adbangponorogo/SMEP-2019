@@ -61,6 +61,7 @@ $route['app/auth/sessionPage'] = 'app/Applogin_controller/LostSessionPage';
 $route['app/auth/login'] = 'app/Applogin_controller/loginProcess';
 $route['app/auth/checkSession'] = 'app/Applogin_controller/checkSession';
 $route['app/auth/logout'] = 'app/Applogin_controller/logoutProcess';
+$route['app/auth/tester'] = 'app/Applogin_controller/getDataTester';
 
 // ------ Main ------ //
 $route['app/main/data-user'] = 'Main_controller/getUserData';
@@ -71,7 +72,9 @@ $route['app/main/tester'] = 'Main_controller/getDataTester';
 // ------ Dashboard ------ //
 $route['app/dashboard/main-page'] = 'app/Appdashboard_controller/mainPage';
 $route['app/dashboard/rekapitulasi/(:any)'] = 'app/Appdashboard_controller/getDataRekap/$1';
+$route['app/dashboard/realisasi/bulan/(:any)'] = 'app/Appdashboard_controller/getDataRealisasi/$1';
 $route['app/dashboard/paket-non-realisasi/(:any)'] = 'app/Appdashboard_controller/getDataPaketNonRealisasi/$1';
+$route['app/dashboard/temporary'] = 'app/Appdashboard_controller/getDataTemporary';
 
 
 
