@@ -144,8 +144,9 @@ class Appdashboard_controller extends CI_Controller {
 					foreach ($result_temp->result() as $rows_temp) {
 						$data[] = array(
 									$no++,
-									$rows_temp->tanggal."<br>[".$rows_temp->id_users."] - ".$rows_temp->nama_user."<br>".
-									$rows_temp->keterangan,
+									"<b>Tanggal : </b>".$rows_temp->tanggal."<br>".
+									"<b>User : </b>[".$rows_temp->id_users."] - ".$rows_temp->nama_user."<br>".
+									"<b>Keterangan : </b>".$rows_temp->keterangan,
 									$rows_temp->ip_address
 								);
 					}

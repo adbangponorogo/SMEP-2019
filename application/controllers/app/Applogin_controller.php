@@ -41,9 +41,21 @@ class Applogin_controller extends MY_Controller {
 		$resultUsers = $this->app_model->getDataUsers($username, $password);
 		if ($resultUsers->num_rows() > 0) {
 			foreach ($resultUsers->result() as $rows_users) {
+				// Insert To Temporary
+				$data = array(
+							"kd_skpd" => $rows_users->kd_skpd,
+							"id_users" => $rows_users->id,
+							"keterangan"	=> "Melakukan Login",
+							"ip_address"	=> $this->getIPClient(),
+						);
+				$this->app_model->insertTemporary($data);
+
+
+				// Create Season
 				$this->session->set_userdata(array(
 					"auth_id" => $rows_users->id
 					));
+
 				echo json_encode(array("status"=>TRUE));
 			}
 		}
@@ -68,8 +80,7 @@ class Applogin_controller extends MY_Controller {
 		echo json_encode(array("status"=>TRUE));
 	}
 
-
-	public function getDataTester(){
+	public function getIPClient(){
 		// Get real visitor IP behind CloudFlare network
 	    if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
 	              $_SERVER['REMOTE_ADDR'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
@@ -92,7 +103,12 @@ class Applogin_controller extends MY_Controller {
 	        $ip = $remote;
 	    }
 
-	    echo $ip;
+	    return $ip;
+	}
+
+
+	public function getDataTester(){
+		// 
 	}
 
 }
