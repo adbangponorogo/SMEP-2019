@@ -10,20 +10,12 @@
 </section>
 <section class="content">
 	<?php
-    foreach ($user_data->result() as $user) {
-      if ($user->status == 1 || $user->status == 2){
-        include_once 'box.html';
-        include_once 'chart.html';
-      }
-    }
+      include_once 'box.html';
+      include_once 'chart.html';
   ?>
   <div class="row">
     <?php
-      foreach ($user_data->result() as $user) {
-        if ($user->status == 1 || $user->status == 2){
-          include_once 'table-paket-non-realisasi.html';
-        }
-      }
+      include_once 'table-paket-non-realisasi.html';
       include_once 'table-temporary.html';
     ?>
   </div>
