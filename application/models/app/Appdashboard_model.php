@@ -67,7 +67,7 @@ class Appdashboard_model extends CI_Model {
         $this->db->join("v_auth b", "a.id_users = b.id");
         $this->db->where("b.id", $id_user);
         $this->db->where("a.kd_skpd", $kd_skpd);
-        $this->db->order_by("id");
+        $this->db->order_by("id", "DESC");
         $data = $this->db->get();
         return $data;
     }
