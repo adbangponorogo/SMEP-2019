@@ -10,17 +10,19 @@
 <body class="hold-transition lockscreen">
   <div class="lockscreen-wrapper">
     <div class="lockscreen-logo">
+			<img src="<?php echo LOGOPATH.$logo; ?>" alt="" style="width:150px;"><br />
+
       <?php
-        if ($logo != '' && !is_null($logo)){
+//        if ($logo != '' && !is_null($logo)){
       ?>
-        <img src="<?php echo base_url('custom/').$logo; ?>" style="width:150px;"><br>
+        <!--img src="<?php echo base_url('custom/').$logo; ?>" style="width:150px;"><br-->
       <?php
-        }
-        else{
+//        }
+  //      else{
       ?>
-        <img src="<?=base_url('custom/logo.png')?>" style="width:150px;"><br>
+        <!--img src="<?=base_url('custom/logo.png')?>" style="width:150px;"><br-->
       <?php
-        }
+//        }
       ?>    </div>
     <div class="lockscreen-logo">
       <a><b>[404]</b></a><br>
