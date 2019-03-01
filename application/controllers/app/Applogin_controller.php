@@ -36,7 +36,7 @@ class Applogin_controller extends MY_Controller {
 	}
 
 	public function loginProcess(){
-		$username = $this->input->post("username");
+		$username = strtolower($this->input->post("username"));
 		$password = md5($this->input->post("password"));
 		$resultUsers = $this->app_model->getDataUsers($username, $password);
 		if ($resultUsers->num_rows() > 0) {

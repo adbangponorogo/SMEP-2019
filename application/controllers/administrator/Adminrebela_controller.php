@@ -53,8 +53,20 @@ class Adminrebela_controller extends CI_Controller {
 			$object->getActiveSheet()->getSheetView()->setView(PHPExcel_Worksheet_SheetView::SHEETVIEW_PAGE_BREAK_PREVIEW);
 			$object->getActiveSheet()->getSheetView()->setZoomScale(80);
 			$object->getActiveSheet()->getHeaderFooter()->setOddFooter('&L https:://smep.ponorogo.go.id/smep_2019 | Rekap AP-'.$jenis_realisasi.'&R&P');
+			$object->getDefaultStyle()->getFont()->setName('Times New Roman');
+
 
 			if ($jenis_realisasi == 1) {
+				
+				// -------- PAPER Setup -------- //
+				$object->getActiveSheet()->getColumnDimension('A')->setWidth(8.43);
+				$object->getActiveSheet()->getColumnDimension('B')->setWidth(55);
+				$object->getActiveSheet()->getColumnDimension('C')->setWidth(22);
+				$object->getActiveSheet()->getColumnDimension('D')->setWidth(15);
+				$object->getActiveSheet()->getColumnDimension('E')->setWidth(15);
+				$object->getActiveSheet()->getColumnDimension('F')->setWidth(15);
+				$object->getActiveSheet()->getColumnDimension('G')->setWidth(15);
+
 				// -------- Title Form -------- //
 				$title_form = 'PEMERINTAH KABUPATEN PONOROGO';
 				$object->getActiveSheet()->setCellValue('A1', $title_form);
@@ -134,7 +146,7 @@ class Adminrebela_controller extends CI_Controller {
 
 							// SETUP
 
-							$object->getActiveSheet()->getStyle('A'.$mulai.':G'.$mulai)->getFont()->setSize(10);
+							$object->getActiveSheet()->getStyle('A'.$mulai.':G'.$mulai)->getFont()->setSize(8);
 							$object->getActiveSheet()->getStyle('A'.$mulai.':G'.$mulai)->getAlignment()->setWrapText(true);
 							$object->getActiveSheet()->getStyle('C'.$mulai.':F'.$mulai)->getNumberFormat()->setFormatCode('#,##0');
 							$object->getActiveSheet()->getStyle('G'.$mulai)->getNumberFormat()->setFormatCode('0.00%');
@@ -179,6 +191,13 @@ class Adminrebela_controller extends CI_Controller {
 
 			}
 			if ($jenis_realisasi == 2) {
+				// -------- PAPER Setup -------- //
+				$object->getActiveSheet()->getColumnDimension('A')->setWidth(8.43);
+				$object->getActiveSheet()->getColumnDimension('B')->setWidth(80);
+				$object->getActiveSheet()->getColumnDimension('C')->setWidth(24);
+				$object->getActiveSheet()->getColumnDimension('D')->setWidth(10.14);
+				$object->getActiveSheet()->getColumnDimension('E')->setWidth(22.17);
+
 				// -------- Title Form -------- //
 				$title_form = 'PEMERINTAH KABUPATEN PONOROGO';
 				$object->getActiveSheet()->setCellValue('A1', $title_form);
@@ -254,7 +273,7 @@ class Adminrebela_controller extends CI_Controller {
 
 							// SETUP
 
-							$object->getActiveSheet()->getStyle('A'.$mulai.':E'.$mulai)->getFont()->setSize(10);
+							$object->getActiveSheet()->getStyle('A'.$mulai.':E'.$mulai)->getFont()->setSize(8);
 							$object->getActiveSheet()->getStyle('A'.$mulai.':E'.$mulai)->getAlignment()->setWrapText(true);
 							$object->getActiveSheet()->getStyle('C'.$mulai)->getNumberFormat()->setFormatCode('#,##0');
 							$object->getActiveSheet()->getStyle('D'.$mulai)->getNumberFormat()->setFormatCode('0.00%');
@@ -299,6 +318,19 @@ class Adminrebela_controller extends CI_Controller {
 
 			}
 			if ($jenis_realisasi == 3) {
+				// -------- PAPER Setup -------- //
+				$object->getActiveSheet()->getColumnDimension('A')->setWidth(7);
+				$object->getActiveSheet()->getColumnDimension('B')->setWidth(48.86);
+				$object->getActiveSheet()->getColumnDimension('C')->setWidth(9.86);
+				$object->getActiveSheet()->getColumnDimension('D')->setWidth(9.86);
+				$object->getActiveSheet()->getColumnDimension('E')->setWidth(9.86);
+				$object->getActiveSheet()->getColumnDimension('F')->setWidth(9.86);
+				$object->getActiveSheet()->getColumnDimension('G')->setWidth(9.86);
+				$object->getActiveSheet()->getColumnDimension('H')->setWidth(9.86);
+				$object->getActiveSheet()->getColumnDimension('I')->setWidth(9.86);
+				$object->getActiveSheet()->getColumnDimension('J')->setWidth(8.43);
+				$object->getActiveSheet()->getColumnDimension('K')->setWidth(9.86);
+
 				// -------- Title Form -------- //
 				$title_form = 'PEMERINTAH KABUPATEN PONOROGO';
 				$object->getActiveSheet()->setCellValue('A1', $title_form);
@@ -424,6 +456,7 @@ class Adminrebela_controller extends CI_Controller {
 							}
 
 							// -------------- Setup ---------------
+							$object->getActiveSheet()->getStyle('A'.(($mulai)).':K'.(($mulai)))->getFont()->setSize(8);
 							$object->getActiveSheet()->getStyle('A'.(($mulai)).':K'.(($mulai)))->getFont()->setBold(TRUE);
 							$object->getActiveSheet()->getStyle('A'.(($mulai)).':K'.(($mulai)))->getAlignment()->setWrapText(true);
 							$object->getActiveSheet()->getStyle('A'.(($mulai)))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
@@ -485,7 +518,7 @@ class Adminrebela_controller extends CI_Controller {
 									}
 
 									// -------------- Setup ---------------
-
+									$object->getActiveSheet()->getStyle('A'.(($mulai)).':K'.(($mulai)))->getFont()->setSize(8);
 									$object->getActiveSheet()->getStyle('A'.(($mulai)).':K'.(($mulai)))->getFont()->setBold(TRUE);
 									$object->getActiveSheet()->getStyle('A'.(($mulai)).':K'.(($mulai)))->getAlignment()->setWrapText(true);
 											
@@ -549,7 +582,7 @@ class Adminrebela_controller extends CI_Controller {
 												}
 
 												// -------------- Setup ---------------
-
+												$object->getActiveSheet()->getStyle('A'.(($mulai)).':K'.(($mulai)))->getFont()->setSize(8);
 												$object->getActiveSheet()->getStyle('A'.(($mulai)))->getFont()->setBold(TRUE);
 												$object->getActiveSheet()->getStyle('A'.(($mulai)).':K'.(($mulai)))->getAlignment()->setWrapText(true);
 
@@ -597,8 +630,8 @@ class Adminrebela_controller extends CI_Controller {
 
 
 				// SETUP
+				$object->getActiveSheet()->getStyle('A'.($mulai).':K'.($mulai))->getFont()->setSize(8);
 				$object->getActiveSheet()->mergeCells('A'.($mulai).':B'.($mulai));
-
 				$object->getActiveSheet()->getStyle('A'.$mulai.':K'.$mulai)->getFont()->setBold(TRUE);
 
 				$object->getActiveSheet()->getStyle('C12:E'.($mulai))->getNumberFormat()->setFormatCode('#,##0');

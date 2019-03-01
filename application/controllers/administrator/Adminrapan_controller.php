@@ -53,6 +53,20 @@ class Adminrapan_controller extends CI_Controller {
 			$object->getActiveSheet()->getSheetView()->setView(PHPExcel_Worksheet_SheetView::SHEETVIEW_PAGE_BREAK_PREVIEW);
 			$object->getActiveSheet()->getSheetView()->setZoomScale(80);
 			$object->getActiveSheet()->getHeaderFooter()->setOddFooter('&L https:://smep.ponorogo.go.id/smep_2019 | Rekap RP - '.$nama_jenis_pengadaan.'&R&P');
+			$object->getDefaultStyle()->getFont()->setName('Times New Roman');
+
+			$object->getActiveSheet()->getColumnDimension('A')->setWidth(8.43);
+			$object->getActiveSheet()->getColumnDimension('B')->setWidth(38);
+			$object->getActiveSheet()->getColumnDimension('C')->setWidth(18);
+			$object->getActiveSheet()->getColumnDimension('D')->setWidth(8.43);
+			$object->getActiveSheet()->getColumnDimension('E')->setWidth(8.43);
+			$object->getActiveSheet()->getColumnDimension('F')->setWidth(8.43);
+			$object->getActiveSheet()->getColumnDimension('G')->setWidth(8.43);
+			$object->getActiveSheet()->getColumnDimension('H')->setWidth(8.43);
+			$object->getActiveSheet()->getColumnDimension('I')->setWidth(8.43);
+			$object->getActiveSheet()->getColumnDimension('J')->setWidth(8.43);
+			$object->getActiveSheet()->getColumnDimension('K')->setWidth(8.43);
+			$object->getActiveSheet()->getColumnDimension('L')->setWidth(8.43);
 
 			// -------- Title Form -------- //
 			$title_form = 'REKAPITULASI';
@@ -171,7 +185,7 @@ class Adminrapan_controller extends CI_Controller {
 
 												// SETUP
 												$object->getActiveSheet()->getStyle('A'.($mulai).':L'.($mulai))->getAlignment()->setWrapText(true);
-												$object->getActiveSheet()->getStyle('A'.($mulai).':L'.($mulai))->getFont()->setSize(7);
+												$object->getActiveSheet()->getStyle('A'.($mulai).':L'.($mulai))->getFont()->setSize(8);
 
 												$object->getActiveSheet()->getStyle('C'.($mulai))->getNumberFormat()->setFormatCode('#,##0');
 
