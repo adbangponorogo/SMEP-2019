@@ -2,7 +2,7 @@ jQuery(document).ready(function(){
 	// --- Window Preload ---
 	windowLoad();
 	function windowLoad(){
-		var preload = "<div class='loader'><img src='assets/uploads/preload-animate.gif'></div>";
+		var preload = "<div class='loader'><img src='../../assets/uploads/preload-animate.gif'></div>";
 		jQuery('body').append(preload);
 		jQuery(window).on("load", function(){
 			jQuery(".loader").fadeOut("slow", function(){
@@ -12,7 +12,7 @@ jQuery(document).ready(function(){
 	}
 
 	jQuery(document).ajaxStart(function(){
-		var preload = "<div class='loader'><img src='assets/uploads/preload-animate.gif'></div>";
+		var preload = "<div class='loader'><img src='../../assets/uploads/preload-animate.gif'></div>";
 		jQuery('body').append(preload);
 	});
 	jQuery(document).ajaxComplete(function(){

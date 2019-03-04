@@ -11,8 +11,8 @@ class Applogin_model extends CI_Model {
     public function getDataUsers($username, $password){
     	$this->db->select("a.*, b.kd_skpd as kd_skpd");
     	$this->db->from("v_auth a");
-        $this->db->join("simda_skpd b", "a.id_skpd = b.id");
-        $this->db->where("a.username", $username);
+			$this->db->join("simda_skpd b", "a.id_skpd = b.id");
+			$this->db->where("a.username", $username);
     	$this->db->where("a.password", $password);
     	$data = $this->db->get();
     	return $data;
