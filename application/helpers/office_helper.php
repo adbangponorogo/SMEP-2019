@@ -149,7 +149,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$xl = PHPExcel_IOFactory::createWriter($p, 'Excel2007');
 
 			header('Content-Type: application/vnd.ms-excel');
-			header('Content-Disposition: attachment;filename="'.$xlFileName.'.xlsx"'); 
+			header('Content-Disposition: attachment;filename="'.str_replace(',', '', $xlFileName).'.xlsx"'); 
 			header('Cache-Control: max-age=0');
 			
 			$xl->save('php://output'); // download file
