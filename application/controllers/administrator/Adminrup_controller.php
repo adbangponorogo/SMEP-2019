@@ -126,6 +126,25 @@ class Adminrup_controller extends CI_Controller {
 			$object->getActiveSheet()->getStyle('A5:Q5')->getFont()->setBold(TRUE);
 
 			if ($cara_pengadaan == 1) {
+				// -------- Manual Setting Autosize -------- //
+				$object->getActiveSheet()->getColumnDimension('A')->setWidth(4);
+				$object->getActiveSheet()->getColumnDimension('B')->setWidth(6.86);
+				$object->getActiveSheet()->getColumnDimension('C')->setWidth(8.29);
+				$object->getActiveSheet()->getColumnDimension('D')->setWidth(7);
+				$object->getActiveSheet()->getColumnDimension('E')->setWidth(6.43);
+				$object->getActiveSheet()->getColumnDimension('F')->setWidth(7.86);
+				$object->getActiveSheet()->getColumnDimension('G')->setWidth(8.43);
+				$object->getActiveSheet()->getColumnDimension('H')->setWidth(6.86);
+				$object->getActiveSheet()->getColumnDimension('I')->setWidth(6.86);
+				$object->getActiveSheet()->getColumnDimension('J')->setWidth(6.43);
+				$object->getActiveSheet()->getColumnDimension('K')->setWidth(8.43);
+				$object->getActiveSheet()->getColumnDimension('L')->setWidth(8.29);
+				$object->getActiveSheet()->getColumnDimension('M')->setWidth(5.43);
+				$object->getActiveSheet()->getColumnDimension('N')->setWidth(4.29);
+				$object->getActiveSheet()->getColumnDimension('O')->setWidth(4);
+				$object->getActiveSheet()->getColumnDimension('P')->setWidth(4.14);
+				$object->getActiveSheet()->getColumnDimension('Q')->setWidth(6.43);
+
 				// TABLE HEADER
 				$table_header_first = array("NO", "SATUAN KERJA", "KEGIATAN", "NAMA PAKET", "LOKASI", "JENIS BELANJA", "JENIS PENGADAAN", "VOLUME", "SUMBER DANA", "KODE MAK", "PAGU (Rupiah)", "METODE PEMILIHAN PENYEDIA", "PELAKSANAAN PENGADAAN", "", "PELAKSANAAN KONTRAK", "", "DESKRIPSI");
 				$table_header_second = array("AWAL", "AKHIR", "AWAL", "AKHIR");
@@ -244,6 +263,21 @@ class Adminrup_controller extends CI_Controller {
 				}
 			}
 			if ($cara_pengadaan == 2) {
+				// -------- Manual Setting Autosize -------- //
+				$object->getActiveSheet()->getColumnDimension('A')->setWidth(5);
+				$object->getActiveSheet()->getColumnDimension('B')->setWidth(12);
+				$object->getActiveSheet()->getColumnDimension('C')->setWidth(9.86);
+				$object->getActiveSheet()->getColumnDimension('D')->setWidth(8.43);
+				$object->getActiveSheet()->getColumnDimension('E')->setWidth(8.43);
+				$object->getActiveSheet()->getColumnDimension('F')->setWidth(8.43);
+				$object->getActiveSheet()->getColumnDimension('G')->setWidth(8.43);
+				$object->getActiveSheet()->getColumnDimension('H')->setWidth(8.43);
+				$object->getActiveSheet()->getColumnDimension('I')->setWidth(8.43);
+				$object->getActiveSheet()->getColumnDimension('J')->setWidth(8.43);
+				$object->getActiveSheet()->getColumnDimension('K')->setWidth(8.43);
+				$object->getActiveSheet()->getColumnDimension('L')->setWidth(8.57);
+				$object->getActiveSheet()->getColumnDimension('M')->setWidth(9.29);
+
 				// TABLE HEADER
 				$table_header_first = array("NO", "NAMA ORGANISASI", "NAMA KEGIATAN", " LOKASI", "JENIS BELANJA", "SUMBER DANA", "KODE MAK", "JENIS PENGADAAN", "PAGU (Rupiah)", "VOLUME", "DESKRIPSI", "PELAKSANAAN PEKERJAAN", "");
 				$table_header_second = array("AWAL", "AKHIR");
