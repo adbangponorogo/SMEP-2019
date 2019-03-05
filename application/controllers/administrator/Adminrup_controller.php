@@ -201,6 +201,16 @@ class Adminrup_controller extends CI_Controller {
 		 				$no++;
 		 				$mulai++;
 	 				}
+	 			}
+	 			else{
+					$table_data = array("","NIHIL", "", "", "", "", "", "", "", "");
+
+					foreach ($table_data as $data_table) {
+						$object->getActiveSheet()->setCellValueByColumnAndRow(1, $mulai, $data_table);
+						$mulai++;
+					}
+	 			}
+
 		 			$object->getActiveSheet()->setCellValue('I'.$mulai, 'TOTAL');
 		 			$object->getActiveSheet()->setCellValue('K'.$mulai, '=SUM(K9:K'.(($mulai)-1).')');
 
@@ -219,12 +229,6 @@ class Adminrup_controller extends CI_Controller {
 
 		 			$object->getActiveSheet()->getStyle('A9:Q'.($mulai))->applyFromArray(array('borders'=>array('allborders'=>array('style'=> PHPExcel_Style_Border::BORDER_THIN))));
 		 			$object->getActiveSheet()->getStyle('K9:K'.($mulai))->getNumberFormat()->setFormatCode('#,##0');
-
-
-	 			}
-	 			else{
-					$object->getActiveSheet()->setCellValue('B10', 'NIHIL');
-	 			}
 
 				if ($_SERVER["SERVER_NAME"] == "localhost") {
 					$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel2007');
@@ -307,6 +311,17 @@ class Adminrup_controller extends CI_Controller {
 		 				$no++;
 		 				$mulai++;
 		 			}
+
+	 			}
+	 			else{
+	 				$table_data = array("","NIHIL", "", "", "", "", "", "", "", "");
+
+					foreach ($table_data as $data_table) {
+						$object->getActiveSheet()->setCellValueByColumnAndRow(1, $mulai, $data_table);
+						$mulai++;
+					}
+	 			}
+
 		 			$object->getActiveSheet()->setCellValue('G'.$mulai, 'TOTAL');
 		 			$object->getActiveSheet()->setCellValue('I'.$mulai, '=SUM(I9:I'.(($mulai)-1).')');
 
@@ -329,12 +344,7 @@ class Adminrup_controller extends CI_Controller {
 
 		 			$object->getActiveSheet()->getStyle('A9:M'.($mulai))->applyFromArray(array('borders'=>array('allborders'=>array('style'=> PHPExcel_Style_Border::BORDER_THIN))));
 		 			$object->getActiveSheet()->getStyle('I9:I'.($mulai))->getNumberFormat()->setFormatCode('#,##0');
-
-	 			}
-	 			else{
-	 				$object->getActiveSheet()->setCellValue('B10', 'NIHIL');
-	 			}
-
+		 			
 				
 				if ($_SERVER["SERVER_NAME"] == "localhost") {
 					$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel2007');
