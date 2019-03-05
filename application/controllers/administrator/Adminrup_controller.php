@@ -264,19 +264,19 @@ class Adminrup_controller extends CI_Controller {
 			}
 			if ($cara_pengadaan == 2) {
 				// -------- Manual Setting Autosize -------- //
-				$object->getActiveSheet()->getColumnDimension('A')->setWidth(5);
-				$object->getActiveSheet()->getColumnDimension('B')->setWidth(12);
-				$object->getActiveSheet()->getColumnDimension('C')->setWidth(9.86);
-				$object->getActiveSheet()->getColumnDimension('D')->setWidth(8.43);
-				$object->getActiveSheet()->getColumnDimension('E')->setWidth(8.43);
-				$object->getActiveSheet()->getColumnDimension('F')->setWidth(8.43);
-				$object->getActiveSheet()->getColumnDimension('G')->setWidth(8.43);
-				$object->getActiveSheet()->getColumnDimension('H')->setWidth(8.43);
-				$object->getActiveSheet()->getColumnDimension('I')->setWidth(8.43);
-				$object->getActiveSheet()->getColumnDimension('J')->setWidth(8.43);
-				$object->getActiveSheet()->getColumnDimension('K')->setWidth(8.43);
-				$object->getActiveSheet()->getColumnDimension('L')->setWidth(8.57);
-				$object->getActiveSheet()->getColumnDimension('M')->setWidth(9.29);
+				$object->getActiveSheet()->getColumnDimension('A')->setWidth(3.57);
+				$object->getActiveSheet()->getColumnDimension('B')->setWidth(16.86);
+				$object->getActiveSheet()->getColumnDimension('C')->setWidth(9.71);
+				$object->getActiveSheet()->getColumnDimension('D')->setWidth(9.00);
+				$object->getActiveSheet()->getColumnDimension('E')->setWidth(9.71);
+				$object->getActiveSheet()->getColumnDimension('F')->setWidth(9.71);
+				$object->getActiveSheet()->getColumnDimension('G')->setWidth(6.86);
+				$object->getActiveSheet()->getColumnDimension('H')->setWidth(13.43);
+				$object->getActiveSheet()->getColumnDimension('I')->setWidth(8.29);
+				$object->getActiveSheet()->getColumnDimension('J')->setWidth(8.29);
+				$object->getActiveSheet()->getColumnDimension('K')->setWidth(15.43);
+				$object->getActiveSheet()->getColumnDimension('L')->setWidth(12.57);
+				$object->getActiveSheet()->getColumnDimension('M')->setWidth(15.86);
 
 				// TABLE HEADER
 				$table_header_first = array("NO", "NAMA ORGANISASI", "NAMA KEGIATAN", " LOKASI", "JENIS BELANJA", "SUMBER DANA", "KODE MAK", "JENIS PENGADAAN", "PAGU (Rupiah)", "VOLUME", "DESKRIPSI", "PELAKSANAAN PEKERJAAN", "");
