@@ -437,4 +437,8 @@ class Ap_controller extends Admin_Controller {
 		);
 		export2xl($p, str_replace(' ', '-', $obj->nama_skpd).'_'.$jenis_form.'_'.$obj->bulan.'-'.$obj->tahun);
 	}
+
+	public function getTester(){
+		echo $this->main_model->getSKPD(102001001)->row()->nama_skpd;
+	}
 }

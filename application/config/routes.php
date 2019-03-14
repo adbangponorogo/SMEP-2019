@@ -203,6 +203,7 @@ $route['laporan/lp/print-data'] = 'laporan/dp/Lp_controller/getPrintData';
 // ------ Realisasi Belanja Langsung ------ //
 $route['laporan/ap/main-page'] = 'laporan/dp/Ap_controller';
 $route['laporan/ap/print-data'] = 'laporan/dp/Ap_controller/getPrintData';
+$route['laporan/ap/tester'] = 'laporan/dp/Ap_controller/getTester';
 
 // ------ Laporan Tepra Perencanaan ------ //
 $route['laporan/tepra/perencanaan/main-page'] = 'laporan/dp/Tepraperencanaan_controller/mainPage';

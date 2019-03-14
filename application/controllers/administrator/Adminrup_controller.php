@@ -126,6 +126,25 @@ class Adminrup_controller extends CI_Controller {
 			$object->getActiveSheet()->getStyle('A5:Q5')->getFont()->setBold(TRUE);
 
 			if ($cara_pengadaan == 1) {
+				// -------- Manual Setting Autosize -------- //
+				$object->getActiveSheet()->getColumnDimension('A')->setWidth(4);
+				$object->getActiveSheet()->getColumnDimension('B')->setWidth(6.86);
+				$object->getActiveSheet()->getColumnDimension('C')->setWidth(8.29);
+				$object->getActiveSheet()->getColumnDimension('D')->setWidth(7);
+				$object->getActiveSheet()->getColumnDimension('E')->setWidth(6.43);
+				$object->getActiveSheet()->getColumnDimension('F')->setWidth(7.86);
+				$object->getActiveSheet()->getColumnDimension('G')->setWidth(8.43);
+				$object->getActiveSheet()->getColumnDimension('H')->setWidth(6.86);
+				$object->getActiveSheet()->getColumnDimension('I')->setWidth(6.86);
+				$object->getActiveSheet()->getColumnDimension('J')->setWidth(6.43);
+				$object->getActiveSheet()->getColumnDimension('K')->setWidth(8.43);
+				$object->getActiveSheet()->getColumnDimension('L')->setWidth(8.29);
+				$object->getActiveSheet()->getColumnDimension('M')->setWidth(5.43);
+				$object->getActiveSheet()->getColumnDimension('N')->setWidth(4.29);
+				$object->getActiveSheet()->getColumnDimension('O')->setWidth(4);
+				$object->getActiveSheet()->getColumnDimension('P')->setWidth(4.14);
+				$object->getActiveSheet()->getColumnDimension('Q')->setWidth(6.43);
+
 				// TABLE HEADER
 				$table_header_first = array("NO", "SATUAN KERJA", "KEGIATAN", "NAMA PAKET", "LOKASI", "JENIS BELANJA", "JENIS PENGADAAN", "VOLUME", "SUMBER DANA", "KODE MAK", "PAGU (Rupiah)", "METODE PEMILIHAN PENYEDIA", "PELAKSANAAN PENGADAAN", "", "PELAKSANAAN KONTRAK", "", "DESKRIPSI");
 				$table_header_second = array("AWAL", "AKHIR", "AWAL", "AKHIR");
@@ -201,6 +220,16 @@ class Adminrup_controller extends CI_Controller {
 		 				$no++;
 		 				$mulai++;
 	 				}
+	 			}
+	 			else{
+					$table_data = array("","NIHIL", "", "", "", "", "", "", "", "");
+
+					foreach ($table_data as $data_table) {
+						$object->getActiveSheet()->setCellValueByColumnAndRow(1, $mulai, $data_table);
+						$mulai++;
+					}
+	 			}
+
 		 			$object->getActiveSheet()->setCellValue('I'.$mulai, 'TOTAL');
 		 			$object->getActiveSheet()->setCellValue('K'.$mulai, '=SUM(K9:K'.(($mulai)-1).')');
 
@@ -220,12 +249,6 @@ class Adminrup_controller extends CI_Controller {
 		 			$object->getActiveSheet()->getStyle('A9:Q'.($mulai))->applyFromArray(array('borders'=>array('allborders'=>array('style'=> PHPExcel_Style_Border::BORDER_THIN))));
 		 			$object->getActiveSheet()->getStyle('K9:K'.($mulai))->getNumberFormat()->setFormatCode('#,##0');
 
-
-	 			}
-	 			else{
-					$object->getActiveSheet()->setCellValue('B10', 'NIHIL');
-	 			}
-
 				if ($_SERVER["SERVER_NAME"] == "localhost") {
 					$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel2007');
 					header('Content-type: application/vnd.ms-excel');
@@ -240,6 +263,21 @@ class Adminrup_controller extends CI_Controller {
 				}
 			}
 			if ($cara_pengadaan == 2) {
+				// -------- Manual Setting Autosize -------- //
+				$object->getActiveSheet()->getColumnDimension('A')->setWidth(3.57);
+				$object->getActiveSheet()->getColumnDimension('B')->setWidth(16.86);
+				$object->getActiveSheet()->getColumnDimension('C')->setWidth(9.71);
+				$object->getActiveSheet()->getColumnDimension('D')->setWidth(9.00);
+				$object->getActiveSheet()->getColumnDimension('E')->setWidth(9.71);
+				$object->getActiveSheet()->getColumnDimension('F')->setWidth(9.71);
+				$object->getActiveSheet()->getColumnDimension('G')->setWidth(6.86);
+				$object->getActiveSheet()->getColumnDimension('H')->setWidth(13.43);
+				$object->getActiveSheet()->getColumnDimension('I')->setWidth(8.29);
+				$object->getActiveSheet()->getColumnDimension('J')->setWidth(8.29);
+				$object->getActiveSheet()->getColumnDimension('K')->setWidth(15.43);
+				$object->getActiveSheet()->getColumnDimension('L')->setWidth(12.57);
+				$object->getActiveSheet()->getColumnDimension('M')->setWidth(15.86);
+
 				// TABLE HEADER
 				$table_header_first = array("NO", "NAMA ORGANISASI", "NAMA KEGIATAN", " LOKASI", "JENIS BELANJA", "SUMBER DANA", "KODE MAK", "JENIS PENGADAAN", "PAGU (Rupiah)", "VOLUME", "DESKRIPSI", "PELAKSANAAN PEKERJAAN", "");
 				$table_header_second = array("AWAL", "AKHIR");
@@ -307,6 +345,17 @@ class Adminrup_controller extends CI_Controller {
 		 				$no++;
 		 				$mulai++;
 		 			}
+
+	 			}
+	 			else{
+	 				$table_data = array("","NIHIL", "", "", "", "", "", "", "", "");
+
+					foreach ($table_data as $data_table) {
+						$object->getActiveSheet()->setCellValueByColumnAndRow(1, $mulai, $data_table);
+						$mulai++;
+					}
+	 			}
+
 		 			$object->getActiveSheet()->setCellValue('G'.$mulai, 'TOTAL');
 		 			$object->getActiveSheet()->setCellValue('I'.$mulai, '=SUM(I9:I'.(($mulai)-1).')');
 
@@ -329,12 +378,7 @@ class Adminrup_controller extends CI_Controller {
 
 		 			$object->getActiveSheet()->getStyle('A9:M'.($mulai))->applyFromArray(array('borders'=>array('allborders'=>array('style'=> PHPExcel_Style_Border::BORDER_THIN))));
 		 			$object->getActiveSheet()->getStyle('I9:I'.($mulai))->getNumberFormat()->setFormatCode('#,##0');
-
-	 			}
-	 			else{
-	 				$object->getActiveSheet()->setCellValue('B10', 'NIHIL');
-	 			}
-
+		 			
 				
 				if ($_SERVER["SERVER_NAME"] == "localhost") {
 					$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel2007');
