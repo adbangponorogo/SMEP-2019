@@ -549,13 +549,15 @@ class Endarup_controller extends CI_Controller {
 				"nama_paket" => $this->input->post("nama_paket"),
 				"volume_pekerjaan" => $this->input->post("volume_pekerjaan"),
 				"jumlah_paket" => $this->input->post("jumlah_paket"),
-				"uraian_pekerjaan" => $this->input->post("uraian_pekerjaan"),
+                    "uraian_pekerjaan" => $this->input->post("uraian_pekerjaan"),
+				"spesifikasi_pekerjaan" => $this->input->post("spesifikasi_pekerjaan"),
 				"lokasi_pekerjaan" => $this->input->post("lokasi_pekerjaan"),
 				"produk_dalam_negeri" => $pdn,
 				"usaha_kecil" => $usaha_kecil,
 				"sumber_dana" => $this->input->post("sumber_dana"),
                     "pra_dipa" => $this->input->post("pra_dipa"),
-				"nomor_renja" => $this->input->post("nomor_renja"),
+                    "nomor_renja" => $this->input->post("nomor_renja"),
+				"no_izin_tahun_jamak" => $this->input->post("no_izin_tahun_jamak"),
 				"kd_mak" => $kd_mak,
 				"pagu_paket" => $this->input->post("pagu_paket"),
                     "cara_pengadaan" => $this->input->post("cara_pengadaan"),
@@ -652,7 +654,9 @@ class Endarup_controller extends CI_Controller {
                                                        $rows_rup->pelaksanaan_kontrak_akhir,
                                                        $rows_rup->pelaksanaan_pemanfaatan,
                                                        $rows_rup->pelaksanaan_pekerjaan_awal,
-                                                       $rows_rup->pelaksanaan_pekerjaan_akhir
+                                                       $rows_rup->pelaksanaan_pekerjaan_akhir,
+                                                       $rows_rup->spesifikasi_pekerjaan,
+                                                       $rows_rup->no_izin_tahun_jamak
                                                   );
                                    }
                               }
@@ -674,12 +678,14 @@ class Endarup_controller extends CI_Controller {
                          "volume_pekerjaan" => $this->input->post("volume_pekerjaan"),
                          "jumlah_paket" => $this->input->post("jumlah_paket"),
                          "uraian_pekerjaan" => $this->input->post("uraian_pekerjaan"),
+                         "spesifikasi_pekerjaan" => $this->input->post("spesifikasi_pekerjaan"),
                          "lokasi_pekerjaan" => $this->input->post("lokasi_pekerjaan"),
                          "produk_dalam_negeri" => $this->input->post("produk_dalam_negeri"),
                          "usaha_kecil" => $this->input->post("usaha_kecil"),
                          "sumber_dana" => $this->input->post("sumber_dana"),
                          "pra_dipa" => $this->input->post("pra_dipa"),
                          "nomor_renja" => $this->input->post("nomor_renja"),
+                         "no_izin_tahun_jamak" => $this->input->post("no_izin_tahun_jamak"),
                          "pagu_paket" => $this->input->post("pagu_paket"),
                          "jenis_belanja" => $this->input->post("jenis_belanja"),
                          "jenis_pengadaan" => $this->input->post("jenis_pengadaan"),
@@ -700,10 +706,12 @@ class Endarup_controller extends CI_Controller {
                          "volume_pekerjaan" => $this->input->post("volume_pekerjaan"),
                          "jumlah_paket" => $this->input->post("jumlah_paket"),
                          "uraian_pekerjaan" => $this->input->post("uraian_pekerjaan"),
+                         "spesifikasi_pekerjaan" => $this->input->post("spesifikasi_pekerjaan"),
                          "lokasi_pekerjaan" => $this->input->post("lokasi_pekerjaan"),
                          "sumber_dana" => $this->input->post("sumber_dana"),
                          "pra_dipa" => $this->input->post("pra_dipa"),
                          "nomor_renja" => $this->input->post("nomor_renja"),
+                         "no_izin_tahun_jamak" => $this->input->post("no_izin_tahun_jamak"),
                          "pagu_paket" => $this->input->post("pagu_paket"),
                          "tipe_swakelola" => $this->input->post("tipe_swakelola"),
                          "id_skpd_swakelola" => $this->input->post("skpd_swakelola"),
@@ -712,7 +720,7 @@ class Endarup_controller extends CI_Controller {
                          "umumkan_paket" => $this->input->post("umumkan_paket"),
                          "pelaksanaan_pekerjaan_awal" => $this->input->post("pelaksanaan_pekerjaan_awal"),
                          "pelaksanaan_pekerjaan_akhir" => $this->input->post("pelaksanaan_pekerjaan_akhir"),
-												 "tanggal_buat" => 'now()',
+					"tanggal_buat" => 'now()',
                     );
                }
                $this->model->updateData($this->input->post("token"), $data);

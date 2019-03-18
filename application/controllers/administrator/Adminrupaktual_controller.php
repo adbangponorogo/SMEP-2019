@@ -82,6 +82,17 @@ class Adminrupaktual_controller extends CI_Controller {
 			$object->getActiveSheet()->getHeaderFooter()->setOddFooter('&L https:://smep.ponorogo.go.id/smep_2019 | Rekap RUP Aktual - '.$nama_cara_pengadaan.'&R&P');
 
 			if ($cara_pengadaan == 1) {
+				// -------- Manual Setting Autosize -------- //
+				$object->getActiveSheet()->getColumnDimension('A')->setWidth(3);
+				$object->getActiveSheet()->getColumnDimension('B')->setWidth(31.29);
+				$object->getActiveSheet()->getColumnDimension('C')->setWidth(21.14);
+				$object->getActiveSheet()->getColumnDimension('D')->setWidth(10.57);
+				$object->getActiveSheet()->getColumnDimension('E')->setWidth(14.14);
+				$object->getActiveSheet()->getColumnDimension('F')->setWidth(12.57);
+				$object->getActiveSheet()->getColumnDimension('G')->setWidth(14.43);
+				$object->getActiveSheet()->getColumnDimension('H')->setWidth(14);
+				$object->getActiveSheet()->getColumnDimension('I')->setWidth(21.86);
+
 				// -------- Title Form -------- //
 				$title_form = 'REKAPITULASI';
 				$object->getActiveSheet()->setCellValue('A1', $title_form);
@@ -213,7 +224,22 @@ class Adminrupaktual_controller extends CI_Controller {
 				$object->getActiveSheet()->getStyle('A'.$mulai.':I'.$mulai)->getFIll()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('D9D9D9');
 
 			}
-			if ($cara_pengadaan == 2) { 
+			if ($cara_pengadaan == 2) {
+				// -------- Manual Setting Autosize -------- //
+				$object->getActiveSheet()->getColumnDimension('A')->setWidth(44.3);
+				$object->getActiveSheet()->getColumnDimension('B')->setWidth(17.57);
+				$object->getActiveSheet()->getColumnDimension('C')->setWidth(15);
+				$object->getActiveSheet()->getColumnDimension('D')->setWidth(9);
+				$object->getActiveSheet()->getColumnDimension('E')->setWidth(10.71);
+				$object->getActiveSheet()->getColumnDimension('F')->setWidth(9.86);
+				$object->getActiveSheet()->getColumnDimension('G')->setWidth(14.71);
+				$object->getActiveSheet()->getColumnDimension('H')->setWidth(13);
+				$object->getActiveSheet()->getColumnDimension('I')->setWidth(7.57);
+				$object->getActiveSheet()->getColumnDimension('J')->setWidth(9.43);
+				$object->getActiveSheet()->getColumnDimension('K')->setWidth(11.14);
+				$object->getActiveSheet()->getColumnDimension('L')->setWidth(8.57);
+				$object->getActiveSheet()->getColumnDimension('M')->setWidth(9);
+
 				// -------- Title Form -------- //
 				$title_form = 'RENCANA UMUM PENGADAAN MELALUI '.strtoupper($nama_cara_pengadaan);
 				$object->getActiveSheet()->setCellValue('A1', $title_form);

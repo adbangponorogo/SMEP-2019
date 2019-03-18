@@ -121,7 +121,11 @@
 							</div>
 							<div class="form-group">
 								<label>Uraian Pekerjaan</label>
-								<textarea name="uraian_pekerjaan" class="form-control rupenda-uraian-pekerjaan-reg" placeholder="Uraian Pekerjaan" style="min-width: 100%; max-width: 100%; min-height:93px; max-height: 93px;"></textarea>
+								<textarea name="uraian_pekerjaan" class="form-control rupenda-uraian-pekerjaan-reg" placeholder="Uraian Pekerjaan" style="min-width: 100%; max-width: 100%; min-height:70px; max-height: 70px;"></textarea>
+							</div>
+							<div class="form-group">
+								<label>Spesifikasi Pekerjaan</label>
+								<textarea name="spesifikasi_pekerjaan" class="form-control rupenda-spesifikasi-pekerjaan-reg" placeholder="Spesifikasi Pekerjaan" style="min-width: 100%; max-width: 100%; min-height:70px; max-height: 70px;"></textarea>
 							</div>
 						</div>
 						<div class="col-md-6" style="padding: 0px 5px; padding-left: 20px;">
@@ -149,6 +153,10 @@
 							<div class="form-group">
 								<label>Nomor Renja</label>
 								<input type="text" name="nomor_renja" class="form-control rupenda-nomor-renja-reg" placeholder="Nomor Renja" readonly="readonly">
+							</div>
+							<div class="form-group">
+								<label>Nomor Izin Tahun Jamak</label>
+								<input type="text" name="no_izin_tahun_jamak" class="form-control rupenda-no-izin-tahun-jamak-reg" placeholder="Nomor Izin Tahun Jamak">
 							</div>
 							<div class="form-group">
 								<label>Sumber Dana</label>
@@ -559,6 +567,7 @@
 		        jQuery(".rupenda-pagu-pekerjaan-reg").val(JSON[0][0]);
 				jQuery(".rupenda-nama-paket-reg").val(JSON[0][2]);
 				jQuery(".rupenda-uraian-pekerjaan-reg").val(JSON[0][2]);
+				jQuery(".rupenda-spesifikasi-pekerjaan-reg").val("-");
 
 		    },
 		    error     : function(jqXHR, textStatus, errorThrown){
