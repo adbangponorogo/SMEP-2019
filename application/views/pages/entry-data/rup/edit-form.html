@@ -1,0 +1,567 @@
+<div class="col-md-12 smep-rupenda-box-edit hidden-show">
+  <form action="#" method="POST" class="rupenda-edit-form">
+
+    <div class="box box-primary">
+      <div class="box-header with-border" style="padding: 10px 0px;">
+        <div class="col-md-12" style="padding-top: 5px;">
+          <h3 class="box-title">Form Data</h3>
+        </div>
+      </div>
+      <div class="box-body">
+        
+        <!-- * -->
+        <!-- * -->
+        <!-- ====== Rencana Pengadaan ===== -->
+        <!-- * -->
+        <!-- * -->
+
+        <div class="col-md-12">
+
+          <div class="col-md-12 smep-rup-enda-program-edit-data visible-show">
+            <!-- * -->
+            <!-- ====== Column Header ===== -->
+            <!-- * -->
+
+            <h3 class="page-header" style="font-size: 15px;"><b>Rencana Pengadaan</b></h3>
+            
+            <!-- * -->
+            <!-- ====== Column 1 ===== -->
+            <!-- * -->
+
+            <div class="col-md-3">
+              <div class="form-group" style="padding: 10px 0px;"><b>Program</b></div>
+            </div>
+            <div class="col-md-9">
+              <div class="form-group">
+                <input type="text" class="form-control rupenda-nama-program-edit" placeholder="Program" readonly="readonly">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 smep-rup-enda-kegiatan-edit-data visible-show">
+
+            <!-- * -->
+            <!-- ====== Column 1 ===== -->
+            <!-- * -->
+
+            <div class="col-md-3">
+              <div class="form-group" style="padding: 10px 0px;"><b>Kegiatan</b></div>
+            </div>
+            <div class="col-md-9">
+              <div class="form-group">
+                <input type="text" class="form-control rupenda-nama-kegiatan-edit" placeholder="Kegiatan" readonly="readonly">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 smep-rup-enda-ro-edit-data visible-show">
+
+
+            <!-- * -->
+            <!-- ====== Column 2 ===== -->
+            <!-- * -->
+
+            <div class="col-md-3">
+              <div class="form-group" style="padding: 10px 0px;"><b>Rincian Obyek</b></div>
+            </div>
+            <div class="col-md-9">
+              <div class="form-group">
+                <input type="text" class="form-control rupenda-nama-ro-edit" placeholder="Rincian Obyek" readonly="readonly">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+
+
+            <!-- * -->
+            <!-- ====== Column 1 ===== -->
+            <!-- * -->
+
+            <div class="col-md-3">
+              <div class="form-group" style="padding: 10px 0px;"><b>M.A.K</b></div>
+            </div>
+            <div class="col-md-9">
+              <input type="text" name="kd_urusan" class="form-control rupenda-kdurusan-edit" readonly="readonly" style="float: left; width: 10%; text-align: center;">
+              <input type="text" name="kd_kelompok" class="form-control rupenda-kdkelompok-edit" readonly="readonly" style="float: left; width: 10%; text-align: center;">
+              <input type="text" name="kd_opd" class="form-control rupenda-kdopd-edit" readonly="readonly" style="float: left; width: 30%; text-align: center;">
+              <input type="text" name="kd_program" class="form-control rupenda-kdprogram-edit" readonly="readonly" style="float: left; width: 10%; text-align: center;">
+              <input type="text" name="kd_kegiatan" class="form-control rupenda-kdkegiatan-edit" readonly="readonly" style="float: left; width: 10%; text-align: center;">
+              <input type="text" name="kd_rekening" class="form-control rupenda-kdrekening-edit" readonly="readonly" style="float: left; width: 30%; text-align: center;">
+            </div>
+
+            <!-- * -->
+            <!-- ====== Column 2 ===== -->
+            <!-- * -->
+
+            <input type="hidden" name="id_program" class="rupenda-idprogram-edit">
+            <input type="hidden" name="id_kegiatan" class="rupenda-idkegiatan-edit">
+            <input type="hidden" name="id_ro" class="rupenda-idro-edit">
+
+            <!-- * -->
+            <!-- ====== Column 2 ===== -->
+            <!-- * -->
+
+            <input type="hidden" class="rupenda-idprogram-first-edit">
+            <input type="hidden" class="rupenda-idkegiatan-first-edit">
+            <input type="hidden" class="rupenda-idro-first-edit">
+          
+          </div>
+          <div class="col-md-12 smep-rup-enda-categories-edit-data visible-show" style="margin-bottom: 10px;">
+
+            <!-- * -->
+            <!-- ====== Column 1 ===== -->
+            <!-- * -->
+
+            <div class="col-md-3">
+              <div class="form-group" style="margin:10px 0px;">
+                <b>Update Kategori</b>
+              </div>
+            </div>
+
+            <!-- * -->
+            <!-- ====== Column 2 ===== -->
+            <!-- * -->
+
+            <div class="col-md-9" style="padding-top: 2.5px;">
+              <button class="btn btn-primary smep-rup-enda-categories-edit-btn">
+                <i class="fa fa-pencil"></i>&nbsp;Ubah Kategori
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- =======**======= -->
+        <!-- =======**======= -->
+
+
+
+
+
+        <!-- * -->
+        <!-- * -->
+        <!-- ====== Form Data RUP ===== -->
+        <!-- * -->
+        <!-- * -->
+
+        <div class="col-md-12" style="margin-top: 30px;">
+            <div class="col-md-12">
+              
+              <!-- * -->
+              <!-- ====== Column Header ===== -->
+              <!-- * -->
+              <h3 class="page-header" style="font-size: 15px;"><b>Form Data RUP</b></h3>
+
+              <!-- * -->
+              <!-- ====== Column 1 ===== -->
+              <!-- * -->
+
+              <div class="col-md-6" style="padding: 0px 5px; padding-right: 20px;">
+                <div class="form-group">
+                  <label>Nama PPK&nbsp;
+                    <i class="fa fa-exclamation-circle" style="color: #d33724;"></i>
+                  </label>
+                  <select name="id_user_ppk" class="form-control rupenda-user-ppk-edit" style="float: left; width: 100%"></select>
+                </div>
+                <div class="form-group">
+                  <label>Nama Paket&nbsp;
+                    <i class="fa fa-exclamation-circle" style="color: #d33724;"></i>
+                  </label>
+                  <input type="text" name="nama_paket" class="form-control rupenda-nama-paket-edit" placeholder="Nama Paket">
+                </div>
+                <div class="form-group">
+                  <label>Volume Pekerjaan&nbsp;
+                    <i class="fa fa-exclamation-circle" style="color: #d33724;"></i>
+                  </label>
+                  <input type="text" name="volume_pekerjaan" class="form-control rupenda-volume-pekerjaan-edit" placeholder="Volume Paket" value="1 Paket">
+                </div>
+                <div class="form-group">
+                  <label>Cara Pengadaan</label>
+                  <select name="cara_pengadaan" class="form-control rupenda-cara-pengadaan-edit select2-option" style="float: left; width: 100%"> 
+                    <option value="1" selected="selected">Penyedia</option>
+                    <option value="2">Swakelola</option>
+                  </select>
+                </div>
+                <div class="form-group rupenda-tipe-swakelola-form-group hidden-show">
+                  <label>
+                    Tipe Swakelola&nbsp;
+                    <label class="label bg-blue color-pallete smep-rupenda-swakelola-btn" style="cursor: pointer;">?</label>
+                  </label>
+                  <select name="tipe_swakelola" class="form-control rupenda-tipe-swakelola-edit select2-option" style="float: left; width: 100%">
+                    <option value="1" selected="selected">Swakelola Tipe 1</option>
+                    <option value="2">Swakelola Tipe 2</option>
+                    <option value="3">Swakelola Tipe 3</option>
+                    <option value="4">Swakelola Tipe 4</option>
+                  </select>
+                </div>
+                <div class="form-group rupenda-skpd-swakelola-form-group hidden-show">
+                  <label>SKPD Swakelola</label>
+                  <select name="skpd_swakelola" class="form-control rupenda-skpd-swakelola-edit select2-option" style="float: left; width: 100%"></select>
+                </div>
+                <div class="form-group">
+                  <label>Jenis Belanja</label>
+                  <select name="jenis_belanja" class="form-control rupenda-jenis-belanja-edit select2-option" style="float: left; width: 100%">
+                    <option value="1">Belanja Pegawai</option>
+                    <option value="2" selected="selected">Belanja Barang/Jasa</option>
+                    <option value="3">Belanja Modal</option>
+                    <option value="4">Belum Teridentifikasi</option>
+                    <option value="5">Belanja Bunga Utang</option>
+                    <option value="6">Belanja Subsidi</option>
+                    <option value="7">Belanja Hibah</option>
+                    <option value="8">Belanja Bantuan Sosial</option>
+                    <option value="9">Belanja Lain-Lain</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Uraian Pekerjaan</label>
+                  <textarea name="uraian_pekerjaan" class="form-control rupenda-uraian-pekerjaan-edit" placeholder="Uraian Pekerjaan" style="min-width: 100%; max-width: 100%; min-height:70px; max-height: 70px;"></textarea>
+                </div>
+                <div class="form-group">
+                  <label>Spesifikasi Pekerjaan</label>
+                  <textarea name="spesifikasi_pekerjaan" class="form-control rupenda-spesifikasi-pekerjaan-edit" placeholder="Spesifikasi Pekerjaan" style="min-width: 100%; max-width: 100%; min-height:70px; max-height: 70px;">-</textarea>
+                </div>
+              </div>
+
+              <!-- =======**======= -->
+
+
+
+              <!-- * -->
+              <!-- ====== Column 2 ===== -->
+              <!-- * -->
+              <div class="col-md-6" style="padding: 0px 5px; padding-left: 20px;">
+                <div class="form-group">
+                  <label>Lokasi Pekerjaan</label>
+                  <input type="text" name="lokasi_pekerjaan" class="form-control rupenda-lokasi-pekerjaan-edit" placeholder="Lokasi Pekerjaan">
+                </div>
+                <div class="form-group">
+                  <label>Pagu Pekerjaan&nbsp;
+                    <i class="fa fa-exclamation-circle" style="color: #d33724;"></i>
+                  </label>
+                  <input type="number" name="pagu_paket" class="form-control rupenda-pagu-pekerjaan-edit" placeholder="0" min="0">
+                  <input type="hidden" class="rupenda-first-pagu-pekerjaan-edit">
+                </div>
+                <div class="form-group">
+                  <label>Batas Pagu Tersedia</label>
+                  <input type="number" class="form-control rupenda-max-pagu-pekerjaan-edit" readonly="readonly">
+                  <input type="hidden" class="rupenda-first-max-pagu-pekerjaan-edit">
+                </div>
+                <div class="form-group">
+                  <label>Pra DIPA/DPA</label>
+                  <select name="pra_dipa" class="form-control rupenda-pra-dipa-edit select2-option" style="float: left; width: 100%">
+                    <option value="0">Ya</option>
+                    <option value="1" selected="selected">Tidak</option>
+                  </select>
+                </div>
+                <div class="form-group rupenda-nomor-renja-form-group hidden-show">
+                  <label>Nomor Renja</label>
+                  <input type="text" name="nomor_renja" class="form-control rupenda-nomor-renja-edit" placeholder="Nomor Renja">
+                </div>
+                <div class="form-group">
+                  <label>Nomor Izin Tahun Jamak</label>
+                  <input type="text" name="no_izin_tahun_jamak" class="form-control rupenda-no-izin-tahun-jamak-edit" placeholder="Nomor Izin Tahun Jamak">
+                </div>
+                <div class="form-group">
+                  <label>Sumber Dana</label>
+                  <select name="sumber_dana" class="form-control rupenda-sumber-dana-edit select2-option" style="float: left; width: 100%" style="float: left; width: 100%">
+                    <option value="1" selected="selected">APBD</option>
+                    <option value="2">APBDP</option>
+                    <option value="3">APBN</option>
+                    <option value="4">APBNP</option>
+                    <option value="5">BLU</option>
+                    <option value="6">BLUD</option>
+                    <option value="7">BUMD</option>
+                    <option value="8">BUMN</option>
+                    <option value="9">PHLN</option>
+                    <option value="10">PNBP</option>
+                    <option value="11">Lainnya</option>
+                  </select>
+                </div>
+                <div class="form-group rupenda-pdn-form-group hidden-show">
+                  <label>Produk Dalam Negeri</label>
+                  <select name="produk_dalam_negeri" class="form-control rupenda-pdn-edit select2-option" style="float: left; width: 100%">
+                    <option value="0">Ya</option>
+                    <option value="1" selected="selected">Tidak</option>
+                  </select>
+                </div>
+                <div class="form-group rupenda-usaha-kecil-form-group hidden-show">
+                  <label>Usaha Kecil</label>
+                  <select name="usaha_kecil" class="form-control rupenda-usaha-kecil-edit select2-option" style="float: left; width: 100%">
+                    <option value="0">Ya</option>
+                    <option value="1" selected="selected">Tidak</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Umumkan Paket</label>
+                  <select name="umumkan_paket" class="form-control rupenda-umumkan-paket-edit select2-option" style="float: left; width: 100%">
+                    <option value="0" selected="selected">Ya</option>
+                    <option value="1">Tidak</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- =======**======= -->
+          <!-- =======**======= -->
+
+
+
+
+
+          <!-- * -->
+          <!-- * -->
+          <!-- ====== TEPRA ===== -->
+          <!-- * -->
+          <!-- * -->
+
+          <div class="col-md-12" style="margin-top: 30px;">
+            <div class="col-md-12">
+
+              <!-- * -->
+              <!-- ====== Column Header ===== -->
+              <!-- * -->
+
+              <h3 class="page-header" style="font-size: 15px;"><b>TEPRA</b></h3>
+
+              <!-- * -->
+              <!-- ====== Column 1 ===== -->
+              <!-- * -->
+
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Jumlah Paket&nbsp;
+                    <i class="fa fa-exclamation-circle" style="color: #d33724;"></i>
+                  </label>
+                  <input type="number" name="jumlah_paket" class="form-control rupenda-jumlah-paket-edit" min="0" placeholder="0" value="1">
+                </div>
+                <div class="form-group">
+                  <label>Jenis Pengadaan</label>
+                  <select name="jenis_pengadaan" class="form-control rupenda-jenis-pengadaan-edit select2-option" style="float: left; width: 100%">
+                    <option value="1" selected="selected">Barang</option>
+                    <option value="2">Konstruksi</option>
+                    <option value="3">Jasa Konsultasi</option>
+                    <option value="4">Jasa Lainnya</option>
+                  </select>
+                </div>
+                <div class="form-group rupenda-metode-pemilihan-form-group hidden-show">
+                  <label>Metode Pemilihan</label>
+                  <select name="metode_pemilihan" class="form-control rupenda-metode-pemilihan-edit select2-option" style="float: left; width: 100%">
+                    <option value="1">E-Purchasing</option>
+                    <option value="2">Tender</option>
+                    <option value="3">Tender Cepat</option>
+                    <option value="4" selected="selected">Pengadaan Langsung</option>
+                    <option value="5">Penunjukkan Langsung</option>
+                    <option value="6">Seleksi</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- =======**======= -->
+          <!-- =======**======= -->
+
+
+
+
+
+          <!-- * -->
+          <!-- * -->
+          <!-- ====== Jadwal Pengadaan ===== -->
+          <!-- * -->
+          <!-- * -->
+
+          <div class="col-md-12" style="margin-top: 30px;">
+            <div class="col-md-12 rupenda-jadwal-pekerjaan-penyedia-edit hidden-show">
+
+              <!-- * -->
+              <!-- ====== Column Header ===== -->
+              <!-- * -->
+              
+              <h3 class="page-header" style="font-size: 15px;"><b>Jadwal Pengadaan</b></h3>
+
+              <!-- * -->
+              <!-- ====== Column Penyedia ===== -->
+              <!-- ====== Column 1 ===== -->
+              <!-- * -->
+
+              <div class="col-md-4">
+                <h3 class="page-header" style="font-size: 15px;"><b>Pelaksanaan Pengadaan</b></h3>
+                <div class="form-group">
+                  <label>Mulai&nbsp;
+                    <i class="fa fa-exclamation-circle" style="color: #d33724;"></i>
+                  </label>
+                  <input type="text" name="pelaksanaan_pengadaan_awal" class="form-control month-picker rupenda-pelaksanaan-pengadaan-awal-edit">
+                  <input type="hidden" class="rupenda-first-pelaksanaan-pengadaan-awal-edit">
+                </div>
+                <div class="form-group">
+                  <label>Selesai&nbsp;
+                    <i class="fa fa-exclamation-circle" style="color: #d33724;"></i>
+                  </label>
+                  <input type="text" name="pelaksanaan_pengadaan_akhir" class="form-control month-picker rupenda-pelaksanaan-pengadaan-akhir-edit">
+                </div>
+              </div>
+
+              <!-- =======**======= -->
+
+
+
+              <!-- * -->
+              <!-- ====== Column Penyedia ===== -->
+              <!-- ====== Column 2 ===== -->
+              <!-- * -->
+
+              <div class="col-md-4">
+                <h3 class="page-header" style="font-size: 15px;"><b>Pelaksanaan Kontrak</b></h3>
+                <div class="form-group">
+                  <label>Mulai&nbsp;
+                    <i class="fa fa-exclamation-circle" style="color: #d33724;"></i>
+                  </label>
+                  <input type="text" name="pelaksanaan_kontrak_awal" class="form-control month-picker rupenda-pelaksanaan-kontrak-awal-edit">
+                </div>
+                <div class="form-group">
+                  <label>Selesai&nbsp;
+                    <i class="fa fa-exclamation-circle" style="color: #d33724;"></i>
+                  </label>
+                  <input type="text" name="pelaksanaan_kontrak_akhir" class="form-control month-picker rupenda-pelaksanaan-kontrak-akhir-edit">
+                </div>
+              </div>
+
+              <!-- =======**======= -->
+
+
+
+              <!-- * -->
+              <!-- ====== Column Penyedia ===== -->
+              <!-- ====== Column 3 ===== -->
+              <!-- * -->
+
+              <div class="col-md-4">
+                <h3 class="page-header" style="font-size: 15px;"><b>Mulai Penggunaan</b></h3>
+                <div class="form-group">
+                  <label>Bulan&nbsp;
+                    <i class="fa fa-exclamation-circle" style="color: #d33724;"></i>
+                  </label>
+                  <input type="text" name="pelaksanaan_pemanfaatan" class="form-control month-picker rupenda-mulai-penggunaan-edit">
+                </div>
+              </div>
+            </div>
+
+            <!-- =======**======= -->
+
+
+
+            <!-- * -->
+            <!-- ====== Column Swakelola ===== -->
+            <!-- ====== Column 1 ===== -->
+            <!-- * -->
+            <div class="col-md-12 rupenda-jadwal-pekerjaan-swakelola-edit hidden-show">
+              <h3 class="page-header" style="font-size: 15px;"><b>Jadwal Pengadaan</b></h3>
+              <div class="col-md-12">
+                <h3 class="page-header" style="font-size: 15px;"><b>Pelaksanaan Pekerjaan</b></h3>
+                <div class="form-group">
+                  <label>Mulai&nbsp;
+                    <i class="fa fa-exclamation-circle" style="color: #d33724;"></i>
+                  </label>
+                  <input type="text" name="pelaksanaan_pekerjaan_awal" class="form-control month-picker rupenda-pelaksanaan-pekerjaan-awal-edit">
+                  <input type="hidden" class="rupenda-first-pelaksanaan-pekerjaan-awal-edit">
+                </div>
+                <div class="form-group">
+                  <label>Selesai&nbsp;
+                    <i class="fa fa-exclamation-circle" style="color: #d33724;"></i>
+                  </label>
+                  <input type="text" name="pelaksanaan_pekerjaan_akhir" class="form-control month-picker rupenda-pelaksanaan-pekerjaan-akhir-edit">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- =======**======= -->
+          <!-- =======**======= -->
+
+
+
+
+
+          <!-- * -->
+          <!-- * -->
+          <!-- ====== Alasan Revisi ===== -->
+          <!-- * -->
+          <!-- * -->
+
+          <div class="col-md-12" style="margin-top: 30px;">
+            <div class="col-md-12">
+
+              <!-- * -->
+              <!-- ====== Column Header ===== -->
+              <!-- * -->
+
+              <h3 class="page-header" style="font-size: 15px;"><b>Alasan Revisi</b></h3>
+
+              <!-- * -->
+              <!-- ====== Column 1 ===== -->
+              <!-- * -->
+
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Keterangan Revisi&nbsp;
+                    <i class="fa fa-exclamation-circle" style="color: #d33724;"></i>
+                  </label>
+                  <textarea name="alasan_revisi" class="form-control rupenda-alasan-revisi-edit" placeholder="Alasan Revisi" style="min-width: 100%; max-width: 100%; min-height:70px; max-height: 70px;"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- =======**======= -->
+
+
+
+
+          <!-- * -->
+          <!-- * -->
+          <!-- ====== Button ===== -->
+          <!-- * -->
+          <!-- * -->
+
+          <div class="col-md-12" style="margin-top: 30px;">
+            <div class="col-md-12">
+
+              <!-- * -->
+              <!-- ====== Column Header ===== -->
+              <!-- * -->
+
+              <h3 class="page-header" style="font-size: 15px;"><b></b></h3>
+
+              <!-- * -->
+              <!-- ====== Column 1 ===== -->
+              <!-- * -->
+
+              <div class="col-md-12">
+                <div class="form-group">
+                  <input type="hidden" name="id" class="rupenda-idrup-edit">
+                  <input type="hidden" class="rupenda-type-form-edit" value="2">
+                  <input type="hidden" name="tahun" class="rupenda-tahun-edit">
+                  <input type="hidden" name="id_skpd" class="rupenda-idskpd-edit">
+                  <input type="hidden" name="kd_skpd" class="rupenda-kdskpd-edit">
+                  <input type="hidden" name="is_aktif" class="rupenda-isaktif-edit">
+                  <input type="hidden" name="id_rup_awal" class="rupenda-idrupawal-edit">
+                  <input type="hidden" name="is_last_paket" class="rupenda-islastpaket-edit">
+                  <button class="btn btn-primary smep-rupenda-edit-send-btn">
+                    <i class="fa fa-save"></i>&nbsp;Simpan
+                  </button>
+                  <button class="btn btn-danger smep-enda-rup-edit-back-button">
+                    <i class="fa fa-cancel"></i>&nbsp;Cancel
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- =======**======= -->
+          <!-- =======**======= -->
+
+      </div>
+    </div>
+  </form>
+</div>

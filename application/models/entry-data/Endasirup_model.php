@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Endasirup_model extends CI_Model {
 
-	public function __construct()
+  public function __construct()
     {
         $this->load->database();
     }
@@ -71,6 +71,7 @@ class Endasirup_model extends CI_Model {
           $this->db->select("*");
           $this->db->from("tb_rup");
           $this->db->where("id_skpd", $id_skpd);
+          $this->db->where("is_aktif", 1);
           $data = $this->db->get();
           return $data;
     }
@@ -80,6 +81,7 @@ class Endasirup_model extends CI_Model {
           $this->db->from("tb_rup");
           $this->db->where("id_skpd", $id_skpd);
           $this->db->where("id_kegiatan", $id_kegiatan);
+          $this->db->where("is_aktif", 1);
           $data = $this->db->get();
           return $data;
     }

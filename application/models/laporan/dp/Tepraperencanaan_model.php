@@ -10,7 +10,7 @@ class Tepraperencanaan_model extends CI_Model {
 
 	public function getBelanja($id_skpd){
 		$this->db->select('*');
-		$this->db->from('v_ref_master_rup');
+		$this->db->from('sirup_struktur_anggaran');
 		$this->db->where('id', $id_skpd);
 		return $this->db->get();
 	}
@@ -95,7 +95,7 @@ class Tepraperencanaan_model extends CI_Model {
 
 	public function getDataRefRUP($kd_skpd){
 		$this->db->select("sum(btl1) as btl1, sum(btl2) as btl2, sum(bl1) as bl1, sum(bl2) as bl2, sum(bl3) as bl3");
-		$this->db->from("v_ref_master_rup");
+		$this->db->from("sirup_struktur_anggaran");
 		$this->db->where("kd_skpd", $kd_skpd);
 		$data = $this->db->get();
 		return $data;

@@ -138,26 +138,23 @@ $route['data-umum/target-fisik/save-data'] = 'data-umum/Datumtasik_controller/sa
 // ------------------ Entry Data ------------------ //
 // ------ Rencana Umum Pengadaan ------ //
 $route['entry-data/data-rup/main-page'] = 'entry-data/Endarup_controller/mainPage';
-$route['entry-data/data-rup/users-data'] = 'entry-data/Endarup_controller/getDataUser';
-$route['entry-data/data-rup/users-data/ppk/(:any)'] = 'entry-data/Endarup_controller/getDataUserPPK/$1';
-$route['entry-data/data-rup/main-data/program/all/(:any)'] = 'entry-data/Endarup_controller/getMainDataAllProgram/$1';
-$route['entry-data/data-rup/main-data/kegiatan/all/(:any)/(:any)'] = 'entry-data/Endarup_controller/getMainDataAllKegiatan/$1/$2';
-$route['entry-data/data-rup/main-data/rincian-obyek/all/(:any)/(:any)/(:any)'] = 'entry-data/Endarup_controller/getMainDataAllRincianObyek/$1/$2/$3';
-$route['entry-data/data-rup/main-data/rincian-obyek/unique/(:any)/(:any)/(:any)/(:any)'] = 'entry-data/Endarup_controller/getMainDataUniqueRincianObyek/$1/$2/$3/$4';
-$route['entry-data/data-rup/register-page'] = 'entry-data/Endarup_controller/registerDataPage';
-$route['entry-data/data-rup/skpd-data/(:any)'] = 'entry-data/Endarup_controller/getDataSKPD/$1';
-$route['entry-data/data-rup/skpd-data-unique/(:any)'] = 'entry-data/Endarup_controller/getDataSKPDOther/$1';
-$route['entry-data/data-rup/mak-data/(:any)'] = 'entry-data/Endarup_controller/getDataMAK/$1';
-$route['entry-data/data-rup/program-data/(:any)'] = 'entry-data/Endarup_controller/getDataProgram/$1';
-$route['entry-data/data-rup/kegiatan-data/(:any)'] = 'entry-data/Endarup_controller/getDataKegiatan/$1';
-$route['entry-data/data-rup/rincian-obyek-data/(:any)'] = 'entry-data/Endarup_controller/getDataRincianObyek/$1';
-$route['entry-data/data-rup/rincian-obyek-unique-data/(:any)'] = 'entry-data/Endarup_controller/getDataRincianObyekUnique/$1';
-$route['entry-data/data-rup/upload-data'] = 'entry-data/Endarup_controller/uploadData';
-$route['entry-data/data-rup/edit-page'] = 'entry-data/Endarup_controller/editDataPage';
-$route['entry-data/data-rup/edit-data/(:any)'] = 'entry-data/Endarup_controller/changeData/$1';
-$route['entry-data/data-rup/update-data'] = 'entry-data/Endarup_controller/updateData';
-$route['entry-data/data-rup/delete-data/(:any)'] = 'entry-data/Endarup_controller/trashData/$1';
-$route['entry-data/data-rup/multi-delete-data'] = 'entry-data/Endarup_controller/multiTrashData';
+$route['entry-data/data-rup/main-data/program/(:any)'] = 'entry-data/Endarup_controller/getDataProgram/$1';
+$route['entry-data/data-rup/main-data/kegiatan/(:any)/(:any)'] = 'entry-data/Endarup_controller/getDataKegiatan/$1/$2';
+$route['entry-data/data-rup/main-data/rincian-obyek/(:any)/(:any)/(:any)'] = 'entry-data/Endarup_controller/getDataRO/$1/$2/$3';
+$route['entry-data/data-rup/main-data/rup/(:any)/(:any)/(:any)/(:any)'] = 'entry-data/Endarup_controller/getDataRUP/$1/$2/$3/$4';
+$route['entry-data/data-rup/main-data/ppk/(:any)'] = 'entry-data/Endarup_controller/getDataPPK/$1';
+$route['entry-data/data-rup/main-data/skpd-swakelola/(:any)'] = 'entry-data/Endarup_controller/getDataSKPDSwakelola/$1';
+$route['entry-data/data-rup/main-data/form-skpd/(:any)'] = 'entry-data/Endarup_controller/getDataSKPDForm/$1';
+$route['entry-data/data-rup/main-data/program-register/(:any)'] = 'entry-data/Endarup_controller/getDataProgramByID/$1';
+$route['entry-data/data-rup/main-data/kegiatan-register/(:any)'] = 'entry-data/Endarup_controller/getDataKegiatanByID/$1';
+$route['entry-data/data-rup/main-data/rincian-obyek-register/(:any)'] = 'entry-data/Endarup_controller/getDataROByID/$1';
+$route['entry-data/data-rup/uplaod-data'] = 'entry-data/Endarup_controller/uploadData';
+$route['entry-data/data-rup/revisi-data/(:any)'] = 'entry-data/Endarup_controller/revisiData/$1';
+$route['entry-data/data-rup/upload-revisi'] = 'entry-data/Endarup_controller/uploadRevisi';
+$route['entry-data/data-rup/upload-revisi-datatable'] = 'entry-data/Endarup_controller/updateRUPDataTable';
+$route['entry-data/data-rup/upload-revisi-datatable-form'] = 'entry-data/Endarup_controller/updateRUPDataTableForm';
+$route['entry-data/data-rup/tester'] = 'entry-data/Endarup_controller/getTester';
+
 
 
 // ------ Realisasi - Rencana Umum Pengadaan ------ //
