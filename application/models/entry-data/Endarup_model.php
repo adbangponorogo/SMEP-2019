@@ -227,8 +227,7 @@ class Endarup_model extends CI_Model {
                         "id_rup_awal"                 => $data["id_rup_awal"],
                         "id_rup_sebelumnya"           => $data["id_rup_sebelumnya"],
                         "is_aktif"                    => $data["is_aktif"],
-                        "is_last_paket"               => $data["is_last_paket"],
-                        "alasan_revisi"               => $data["alasan_revisi"]
+                        "is_last_paket"               => $data["is_last_paket"]
                     );
 
 
@@ -295,21 +294,21 @@ class Endarup_model extends CI_Model {
 
 
         // Create Histoy Revisi
-        $check_revisi_ke = $this->getAllDataHistoryRevisiRUP($get_data["id_rup_awal"])->num_rows();
-        $get_revisi = intval($check_revisi_ke) + 1;
-        $cara_pengadaan = ["-", "PENYEDIA", "SWAKELOLA", "PENYEDIADALAMSWAKELOLA"];
-        $this->insertDataHistoryPaket(
-                                        array(
-                                            "tahun"               => $get_data["tahun"],
-                                            "id_rup_awal"         => $get_data["id_rup_awal"],
-                                            "id_rup_sebelumnya"   => $get_data["id_rup_sebelumnya"],
-                                            "id_rup_baru"         => $rup_last_id,
-                                            "revisi_ke"           => $get_revisi,
-                                            "jenis"               => $cara_pengadaan[$get_data["cara_pengadaan"]],
-                                            "tipe"                => "SATUKESATU",
-                                            "alasan_revisi"       => $get_data["alasan_revisi"],
-                                        )
-                                    );
+        // $check_revisi_ke = $this->getAllDataHistoryRevisiRUP($get_data["id_rup_awal"])->num_rows();
+        // $get_revisi = intval($check_revisi_ke) + 1;
+        // $cara_pengadaan = ["-", "PENYEDIA", "SWAKELOLA", "PENYEDIADALAMSWAKELOLA"];
+        // $this->insertDataHistoryPaket(
+        //                                 array(
+        //                                     "tahun"               => $get_data["tahun"],
+        //                                     "id_rup_awal"         => $get_data["id_rup_awal"],
+        //                                     "id_rup_sebelumnya"   => $get_data["id_rup_sebelumnya"],
+        //                                     "id_rup_baru"         => $rup_last_id,
+        //                                     "revisi_ke"           => $get_revisi,
+        //                                     "jenis"               => $cara_pengadaan[$get_data["cara_pengadaan"]],
+        //                                     "tipe"                => "SATUKESATU",
+        //                                     "alasan_revisi"       => $get_data["alasan_revisi"],
+        //                                 )
+        //                             );
     }
 
     public function updateDataRUPByID($id, $data){

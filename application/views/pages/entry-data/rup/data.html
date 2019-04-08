@@ -554,7 +554,7 @@
       dataType  : 'JSON',
       success   : function(JSON){
         callDataRUP(id_program, id_kegiatan, id_ro);
-        jQuery(".rupenda-alasan-revisi-verification-data-input").val("");
+        // jQuery(".rupenda-alasan-revisi-verification-data-input").val("");
         jQuery(".smep-rupenda-verification-data-modal").modal("hide");
       },
       error     : function(jqXHR, textStatus, errorThrown){
@@ -811,7 +811,7 @@
 
 
   jQuery(document).on("click", ".smep-rupenda-verification-multi-data-btn", function(){
-    jQuery(".smep-rupenda-alasan-revisi-multi-data").val(jQuery(".rupenda-alasan-revisi-verification-multi-data-input").val());
+    // jQuery(".smep-rupenda-alasan-revisi-multi-data").val(jQuery(".rupenda-alasan-revisi-verification-multi-data-input").val());
     endaRUPMultiRevisiDatatableForm();
     return false;
   });
@@ -835,13 +835,13 @@
   // *
 
   jQuery(document).on("click", ".smep-rupenda-upload-verification-data-btn", function(){
-    var alasan_revisi = jQuery(".rupenda-alasan-revisi-verification-data-input");
-    if (alasan_revisi.val() != "") {
+    // var alasan_revisi = jQuery(".rupenda-alasan-revisi-verification-data-input");
+    // if (alasan_revisi.val() != "") {
+    // }
+    // else{
+    //   alasan_revisi.focus();
+    // }
       endaRUPRevisiDatatableForm();
-    }
-    else{
-      alasan_revisi.focus();
-    }
     return false;
   });
 
@@ -2749,7 +2749,7 @@
     var pra_dipa            = jQuery(".rupenda-pra-dipa-edit");
     var nomor_renja         = jQuery(".rupenda-nomor-renja-edit");
     var jumlah_paket        = jQuery(".rupenda-jumlah-paket-edit");
-    var alasan_revisi       = jQuery(".rupenda-alasan-revisi-edit");
+    // var alasan_revisi       = jQuery(".rupenda-alasan-revisi-edit");
 
 
 
@@ -2764,13 +2764,13 @@
                   if (pra_dipa.val() == 0) {
                     if (nomor_renja.val() != '') {
                       if (jumlah_paket.val() != '') {
-                        if (alasan_revisi.val() != '') {
+                        // if (alasan_revisi.val() != '') {
+                        // }
+                        // else{
+                        //   alasan_revisi.focus();
+                        //   endaRUPFormWarningModal(2, "Alasan Revisi");
+                        // }
                           endaRUPEditDateChecker(cara_pengadaan.val());
-                        }
-                        else{
-                          alasan_revisi.focus();
-                          endaRUPFormWarningModal(2, "Alasan Revisi");
-                        }
                       }
                       else{
                         jumlah_paket.focus();
@@ -2783,13 +2783,13 @@
                   }
                   if (pra_dipa.val() == 1) {
                     if (jumlah_paket.val() != '') {
-                      if (alasan_revisi.val() != '') {
+                      // if (alasan_revisi.val() != '') {
+                      // }
+                      // else{
+                      //   alasan_revisi.focus();
+                      //   endaRUPFormWarningModal(2, "Alasan Revisi");
+                      // }
                         endaRUPEditDateChecker(cara_pengadaan.val());
-                      }
-                      else{
-                        alasan_revisi.focus();
-                        endaRUPFormWarningModal(2, "Alasan Revisi");
-                      }
                     }
                     else{
                       jumlah_paket.focus();
