@@ -53,6 +53,7 @@ class Adminrup_model extends CI_Model {
         $this->db->from("tb_rup");
         $this->db->where("id_skpd", $id_skpd);
         $this->db->where("cara_pengadaan", $cara_pengadaan);
+        $this->db->where("is_aktif", 1);
         $this->db->order_by('id', 'ASC');
         $data = $this->db->get();
         return $data;

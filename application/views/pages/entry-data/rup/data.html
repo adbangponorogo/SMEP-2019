@@ -1823,7 +1823,6 @@
     var cara_pengadaan      = jQuery(".rupenda-cara-pengadaan-reg");
 
 
-
     // ===== Condition Logic =====
     if (id_program.val() != 'all') {
       if (id_kegiatan.val() != 'all') {
@@ -1831,7 +1830,7 @@
           if (nama_paket.val() != '') {
             if (volume_pekerjaan.val() != '') {
               if (pagu_pekerjaan.val() != '') {
-                if (pagu_pekerjaan.val() != 0 && pagu_pekerjaan.val() <= max_pagu_pekerjaan.val()) {
+                if (parseInt(pagu_pekerjaan.val()) != 0 && parseInt(pagu_pekerjaan.val()) <= parseInt(max_pagu_pekerjaan.val())) {
                   if (pra_dipa.val() == 0) {
                     if (nomor_renja.val() != '') {
                       if (jumlah_paket.val() != '') {
@@ -2760,7 +2759,7 @@
           if (nama_paket.val() != '') {
             if (volume_pekerjaan.val() != '') {
               if (pagu_pekerjaan.val() != '') {
-                if (pagu_pekerjaan.val() != 0 && pagu_pekerjaan.val() <= max_pagu_pekerjaan.val()) {
+                if (parseInt(pagu_pekerjaan.val()) != 0 && parseInt(pagu_pekerjaan.val()) <= parseInt(max_pagu_pekerjaan.val())) {
                   if (pra_dipa.val() == 0) {
                     if (nomor_renja.val() != '') {
                       if (jumlah_paket.val() != '') {

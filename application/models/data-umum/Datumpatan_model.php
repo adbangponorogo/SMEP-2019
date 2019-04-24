@@ -151,6 +151,7 @@ class Datumpatan_model extends CI_Model {
         $this->db->where("id_program", $id_program);
         $this->db->where("id_kegiatan", $id_kegiatan);
         $this->db->where("cara_pengadaan", 1);
+        $this->db->where("is_aktif", 1);
         $data = $this->db->get();
         return $data;
     }
@@ -162,6 +163,7 @@ class Datumpatan_model extends CI_Model {
         $this->db->where("id_program", $id_program);
         $this->db->where("id_kegiatan", $id_kegiatan);
         $this->db->where("cara_pengadaan", 2);
+        $this->db->where("is_aktif", 1);
         $data = $this->db->get();
         return $data;
     }

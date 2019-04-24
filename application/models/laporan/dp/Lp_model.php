@@ -25,6 +25,7 @@ class Lp_model extends CI_Model {
 		$this->db->group_by('a.id');
 		$this->db->where('a.id_parent_prog', $id_parent_prog);
 		$this->db->where('b.jenis_pengadaan', $jenis_pengadaan);
+		$this->db->where('b.is_aktif', 1);
 		return $this->db->get();
 	}
 

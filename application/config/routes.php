@@ -58,6 +58,7 @@ $route['translate_uri_dashes'] = 'FALSE';
 // ------ Authentication ------ //
 $route['app/auth/loginPage'] = 'app/Applogin_controller/loginPage';
 $route['app/auth/sessionPage'] = 'app/Applogin_controller/LostSessionPage';
+$route['app/auth/maintainancePage'] = 'app/Applogin_controller/MaintainanceSessionPage';
 $route['app/auth/login'] = 'app/Applogin_controller/loginProcess';
 $route['app/auth/checkSession'] = 'app/Applogin_controller/checkSession';
 $route['app/auth/logout'] = 'app/Applogin_controller/logoutProcess';
@@ -290,6 +291,7 @@ $route['api/users-ppk/between/(:any)/(:any)/(:any)'] = 'administrator/Adminapisi
 $route['api/users-ppk/by-date/(:any)/(:any)'] = 'administrator/Adminapisirup_controller/ppk/$1/$2';
 $route['api/struktur-anggaran/between/(:any)/(:any)/(:any)'] = 'administrator/Adminapisirup_controller/strukturAnggaran/$1/$2/$3';
 $route['api/struktur-anggaran/by-date/(:any)/(:any)'] = 'administrator/Adminapisirup_controller/strukturAnggaran/$1/$2';
+$route['api/check-status'] = 'administrator/Adminapisirup_controller/APIcheckStatus';
 
 // ------ Rekapitulasi Rencana Pengadaan ------ //
 $route['administrator/rencana-pengadaan/main-page'] = 'administrator/Adminrapan_controller/mainPage';

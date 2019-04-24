@@ -200,6 +200,7 @@
 						<div class="col-md-12">
 							<div class="form-gorup">
 								<input type="hidden" name="id_rup" class="sirupenda-idrup-reg">
+								<input type="hidden" name="id_rup_awal" class="sirupenda-idrupawal-reg">
 								<input type="hidden" name="id_skpd" class="sirupenda-idskpd-reg">
 								<input type="hidden" name="tahun" class="sirupenda-tahun-reg">
 								<button class="btn btn-primary smep-sirupenda-register-send-btn">Simpan</button>
@@ -241,6 +242,7 @@
 		    async     : true,
 		    dataType  : 'JSON',
 		    success   : function(JSON){
+		    	jQuery(".sirupenda-idrupawal-reg").val(JSON[0][10]);
 		    	jQuery(".sirupenda-program-reg").val(JSON[0][0]);
 		    	jQuery(".sirupenda-kegiatan-reg").val(JSON[0][1]);
 		    	jQuery(".sirupenda-nama-paket-reg").val(JSON[0][2]);

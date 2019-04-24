@@ -278,7 +278,7 @@
         	jQuery(".total_pagu7").html(JSON[4][13]);
           },
           error     : function(jqXHR, textStatus, errorThrown){
-            console.log('failed');
+            location.href = window.location.href+"app/auth/sessionPage";
           }
         });
   	}

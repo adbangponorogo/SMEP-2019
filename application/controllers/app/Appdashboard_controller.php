@@ -49,15 +49,24 @@ class Appdashboard_controller extends CI_Controller {
 
 				// ================= Realisasi SKPD ================ //
 				// ================================================= //
-				$result_realisasi = $this->model->getDataRealisasiSKPD($rows_skpd->kd_skpd, 'all');
-				if ($result_realisasi->num_rows() > 0) {
-					foreach ($result_realisasi->result() as $rows_realisasi) {
-						$total_paket_realisasi = $rows_realisasi->total_paket_realisasi;
-						$pagu_realisasi_skpd = $rows_realisasi->jumlah;
+
+				$result_realisasi_ro = $this->model->getDataRealisasiROSKPD($rows_skpd->kd_skpd);
+				if ($result_realisasi_ro->num_rows() > 0) {
+					foreach ($result_realisasi_ro->result() as $rows_realisasi_ro) {
+						$pagu_realisasi_skpd = $rows_realisasi_ro->nilai;
 					}
 				}
 				else{
 					$pagu_realisasi_skpd = 0;
+				}
+
+				$result_realisasi = $this->model->getDataRealisasiSKPD($rows_skpd->kd_skpd, 'all');
+				if ($result_realisasi->num_rows() > 0) {
+					foreach ($result_realisasi->result() as $rows_realisasi) {
+						$total_paket_realisasi = $rows_realisasi->total_paket_realisasi;
+					}
+				}
+				else{
 					$total_paket_realisasi = 0;
 				}
 

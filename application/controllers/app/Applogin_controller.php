@@ -35,6 +35,19 @@ class Applogin_controller extends MY_Controller {
 		}
 	}
 
+	public function MaintainanceSessionPage(){
+		global $smep;
+		
+		if (empty($this->session->userdata('auth_id'))) {
+			$data['title'] = strtoupper('SMEP '.$smep->tingkat.' '.$smep->klpd);
+			$data['logo'] = $smep->logo;
+			$this->load->view('Maintainance_view', $data);
+		}
+		else{
+			redirect(base_url());
+		}
+	}
+
 	public function loginProcess(){
 		$username = strtolower($this->input->post("username"));
 		$password = md5($this->input->post("password"));

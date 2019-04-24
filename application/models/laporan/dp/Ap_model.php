@@ -41,6 +41,7 @@ class Ap_model extends CI_Model {
 		$this->db->group_by('a.id');
 		$this->db->where('a.kd_skpd', $kd_skpd);
 		$this->db->where('b.jenis_pengadaan', 2);
+        $this->db->where('b.is_aktif', 1);
 		return $this->db->get();
 	}
 
@@ -51,6 +52,7 @@ class Ap_model extends CI_Model {
 		$this->db->group_by('a.id');
 		$this->db->where('a.id_parent_prog', $id_parent_prog);
 		$this->db->where('b.jenis_pengadaan', 2);
+        $this->db->where('b.is_aktif', 1);
 		return $this->db->get();
 	}
 
@@ -68,8 +70,9 @@ class Ap_model extends CI_Model {
 		$this->db->select('a.*');
 		$this->db->from('simda_program a');
 		$this->db->join("tb_rup b", "a.id = b.id_program");
-		$this->db->group_by('a.id');
 		$this->db->where('a.kd_skpd', $kd_skpd);
+        $this->db->where('b.is_aktif', 1);
+		$this->db->group_by('a.id');
 		return $this->db->get();
 	}
 
@@ -141,6 +144,7 @@ class Ap_model extends CI_Model {
             $this->db->where("b.id_skpd", $id_skpd);
         }
         $this->db->where_in("a.sumber_dana", array(7,8,9));
+        $this->db->where('b.is_aktif', 1);
         $data = $this->db->get();
         return $data;
     }
@@ -152,6 +156,7 @@ class Ap_model extends CI_Model {
         $this->db->join("tb_sumber_realisasi_obyek c", "b.id_rincian_obyek = c.id_rincian_obyek");
         $this->db->where("a.kd_skpd", $kd_skpd);
         $this->db->where_in("c.sumber_dana", array(1,2,3,4,5,6));
+        $this->db->where('b.is_aktif', 1);
         $data = $this->db->get();
         return $data;
     }
@@ -162,6 +167,7 @@ class Ap_model extends CI_Model {
         $this->db->join("tb_rup b", "a.id = b.id_program");
         $this->db->where("a.kd_skpd", $kd_skpd);
         $this->db->where("b.jenis_pengadaan", 2);
+        $this->db->where('b.is_aktif', 1);
         $data = $this->db->get();
         return $data;
     }
@@ -173,6 +179,7 @@ class Ap_model extends CI_Model {
         $this->db->join("tb_sumber_realisasi_obyek c", "b.id_rincian_obyek = c.id_rincian_obyek");
         $this->db->where("a.kd_skpd", $kd_skpd);
         $this->db->where_in("c.sumber_dana", array(7,8,9));
+        $this->db->where('b.is_aktif', 1);
         $data = $this->db->get();
         return $data;
     }
@@ -183,6 +190,7 @@ class Ap_model extends CI_Model {
         $this->db->join("tb_rup b", "a.id_rincian_obyek = b.id_rincian_obyek");
         $this->db->where("b.id_skpd", $id_skpd);
         $this->db->where("b.id_program", $id_program);
+        $this->db->where('b.is_aktif', 1);
         $data = $this->db->get();
         return $data;
     }
@@ -194,6 +202,7 @@ class Ap_model extends CI_Model {
         $this->db->where("a.id_skpd", $id_skpd);
         $this->db->where("a.id_program", $id_program);
         $this->db->where("b.sumber_dana", $sumber_dana);
+        $this->db->where('a.is_aktif', 1);
         $data = $this->db->get();
         return $data;
     }
@@ -204,6 +213,7 @@ class Ap_model extends CI_Model {
         $this->db->where("id_skpd", $id_skpd);
         $this->db->where("id_program", $id_program);
         $this->db->where("jenis_pengadaan", 2);
+        $this->db->where('is_aktif', 1);
         $data = $this->db->get();
         return $data;
     }
@@ -216,6 +226,7 @@ class Ap_model extends CI_Model {
         $this->db->where("b.id_skpd", $id_skpd);
         $this->db->where("b.id_program", $id_program);
         $this->db->where("c.sumber_dana", $sumber_dana);
+        $this->db->where('b.is_aktif', 1);
         $data = $this->db->get();
         return $data;
     }
@@ -226,6 +237,7 @@ class Ap_model extends CI_Model {
         $this->db->join("tb_rup b", "a.id = b.id_kegiatan");
         $this->db->where("a.kd_skpd", $kd_skpd);
         $this->db->where("b.id_program", $id_program);
+        $this->db->where('b.is_aktif', 1);
         $data = $this->db->get();
         return $data;
     }
@@ -237,6 +249,7 @@ class Ap_model extends CI_Model {
         $this->db->where("a.kd_skpd", $kd_skpd);
         $this->db->where("b.id_program", $id_program);
         $this->db->where("b.jenis_pengadaan", 2);
+        $this->db->where('b.is_aktif', 1);
         $data = $this->db->get();
         return $data;
     }
@@ -248,6 +261,7 @@ class Ap_model extends CI_Model {
         $this->db->where("b.id_skpd", $id_skpd);
         $this->db->where("b.id_program", $id_program);
         $this->db->where("b.id_kegiatan", $id_kegiatan);
+        $this->db->where('b.is_aktif', 1);
         $data = $this->db->get();
         return $data;
     }
@@ -260,6 +274,7 @@ class Ap_model extends CI_Model {
         $this->db->where("a.id_program", $id_program);
         $this->db->where("a.id_kegiatan", $id_kegiatan);
         $this->db->where("b.sumber_dana", $sumber_dana);
+        $this->db->where('a.is_aktif', 1);
         $data = $this->db->get();
         return $data;
     }
@@ -271,6 +286,7 @@ class Ap_model extends CI_Model {
         $this->db->where("id_program", $id_program);
         $this->db->where("id_kegiatan", $id_kegiatan);
         $this->db->where("jenis_pengadaan", 2);
+        $this->db->where('is_aktif', 1);
         $data = $this->db->get();
         return $data;
     }
@@ -284,6 +300,7 @@ class Ap_model extends CI_Model {
         $this->db->where("b.id_program", $id_program);
         $this->db->where("b.id_kegiatan", $id_kegiatan);
         $this->db->where("c.sumber_dana", $sumber_dana);
+        $this->db->where('b.is_aktif', 1);
         $data = $this->db->get();
         return $data;
     }
@@ -312,6 +329,7 @@ class Ap_model extends CI_Model {
         $this->db->where("id_program", $id_program);
         $this->db->where("id_kegiatan", $id_kegiatan);
         $this->db->where("id_rincian_obyek", $id_rincian_obyek);
+        $this->db->where('is_aktif', 1);
         $data = $this->db->get();
         return $data;
     }
@@ -324,6 +342,7 @@ class Ap_model extends CI_Model {
         $this->db->where("b.id_program", $id_program);
         $this->db->where("b.id_kegiatan", $id_kegiatan);
         $this->db->where("b.id_rincian_obyek", $id_rincian_obyek);
+        $this->db->where('b.is_aktif', 1);
         $data = $this->db->get();
         return $data;
     }
@@ -335,6 +354,7 @@ class Ap_model extends CI_Model {
         $this->db->where("id_program", $id_program);
         $this->db->where("id_kegiatan", $id_kegiatan);
         $this->db->where("jenis_pengadaan", 2);
+        $this->db->where('is_aktif', 1);
         $data = $this->db->get();
         return $data;
     }

@@ -34,6 +34,7 @@ class Adminmisc_model extends CI_Model {
         if ($skpd != "all") {
             $this->db->where("a.id", $skpd);
         }
+        $this->db->where("c.is_aktif", 1);
         $this->db->order_by('b.urutan', 'ASC');
         $data = $this->db->get();
         return $data;

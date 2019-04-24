@@ -21,8 +21,8 @@ class Adminrebela_controller extends CI_Controller {
 	public function getPrintData(){
 		if ($this->session->userdata("auth_id") != "") {
 			$jenis_realisasi = $this->input->post("jenis_realisasi");
-			$tahun = $this->input->post("tahun");
 			$bulan = $this->input->post("bulan");
+			$tahun = $this->input->post("tahun");
 
 			switch ($jenis_realisasi) {
 				case '1':
@@ -127,19 +127,19 @@ class Adminrebela_controller extends CI_Controller {
 				foreach ($result_skpd->result() as $rows_skpd) {
 					$result_pagu = $this->model->getDataPaguSKPD($rows_skpd->kd_skpd);
 					foreach ($result_pagu->result() as $rows_pagu) {
-						$result_realisasi = $this->model->getDataRealisasiSKPD($rows_skpd->id);
+						$result_realisasi = $this->model->getDataRealisasiROSKPD($rows_skpd->kd_skpd, $bulan);
 						foreach ($result_realisasi->result() as $rows_realisasi) {
 
 							// Values
 
 							$object->getActiveSheet()->setCellValue('A'.$mulai, $no++);
 							$object->getActiveSheet()->setCellValue('B'.$mulai, $rows_skpd->nama_skpd);
-							$object->getActiveSheet()->setCellValue('C'.$mulai, intval($rows_pagu->btl)+intval($rows_pagu->bl));
+							$object->getActiveSheet()->setCellValue('C'.$mulai, ($rows_pagu->btl+$rows_pagu->bl));
 							$object->getActiveSheet()->setCellValue('D'.$mulai, $rows_pagu->btl);
 							$object->getActiveSheet()->setCellValue('E'.$mulai, $rows_pagu->bl);
-							$object->getActiveSheet()->setCellValue('F'.$mulai, $this->nullValue($rows_realisasi->realisasi_keuangan));
+							$object->getActiveSheet()->setCellValue('F'.$mulai, $this->nullValue($rows_realisasi->nilai));
 							if (!is_null($rows_pagu->bl) || $rows_pagu->bl != '') {
-								if (!is_null($rows_realisasi->realisasi_keuangan) || $rows_realisasi->realisasi_keuangan != '') {
+								if (!is_null($rows_realisasi->nilai) || $rows_realisasi->nilai != '') {
 									$object->getActiveSheet()->setCellValue('G'.$mulai, '=F'.$mulai.'/E'.$mulai.'');
 								}
 							}
@@ -166,12 +166,22 @@ class Adminrebela_controller extends CI_Controller {
 				}
 
 				// Values
+				$result_total_pagu = $this->model->getDataPaguSKPD('all');
+				foreach ($result_total_pagu->result() as $rows_total_pagu) {
+					$pagu_btl 		= $rows_total_pagu->btl;
+					$pagu_bl 		= $rows_total_pagu->bl;
+					$total_pagu 	= $pagu_btl+$pagu_bl;
+				}
 
+				$result_total_realisasi = $this->model->getDataRealisasiROSKPD('all', $bulan);
+				foreach ($result_total_realisasi->result() as $rows_total_realisasi) {
+					$total_realisasi 	= $rows_total_realisasi->nilai;
+				}
 				$object->getActiveSheet()->setCellValue('A'.($mulai), 'TOTAL');
-				$object->getActiveSheet()->setCellValue('C'.($mulai), '=SUM(C9:C'.(($mulai)-1).')');
-				$object->getActiveSheet()->setCellValue('D'.($mulai), '=SUM(D9:D'.(($mulai)-1).')');
-				$object->getActiveSheet()->setCellValue('E'.($mulai), '=SUM(E9:E'.(($mulai)-1).')');
-				$object->getActiveSheet()->setCellValue('F'.($mulai), '=SUM(F9:F'.(($mulai)-1).')');
+				$object->getActiveSheet()->setCellValue('C'.($mulai), $total_pagu);
+				$object->getActiveSheet()->setCellValue('D'.($mulai), $pagu_btl);
+				$object->getActiveSheet()->setCellValue('E'.($mulai), $pagu_bl);
+				$object->getActiveSheet()->setCellValue('F'.($mulai), $total_realisasi);
 				$object->getActiveSheet()->setCellValue('G'.($mulai), '=F'.$mulai.'/E'.$mulai.'');
 
 
@@ -221,7 +231,7 @@ class Adminrebela_controller extends CI_Controller {
 				$object->getActiveSheet()->getStyle('A2:E4')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 
 				// TABLE HEADER
-				$table_title_head_row_first = array("NO", "ORGANISASI", "PAGU", "REALISASI", "");
+				$table_title_head_row_first = array("NO", "ORGANISASI", "PAGU RUP", "REALISASI", "");
 				$table_title_head_row_second = array("FISIK", "KEUANGAN");
 
 				$start_column_first = 0;
@@ -254,9 +264,9 @@ class Adminrebela_controller extends CI_Controller {
 				$mulai = 8;
 				$result_skpd = $this->model->getDataSKPD();
 				foreach ($result_skpd->result() as $rows_skpd) {
-					$result_pagu = $this->model->getDataPaguKonstruksiSKPD($rows_skpd->id);
+					$result_pagu = $this->model->getDataPaguKonstruksiSKPD($rows_skpd->kd_skpd, $bulan);
 					foreach ($result_pagu->result() as $rows_pagu) {
-						$result_realisasi = $this->model->getDataRealisasiSKPD($rows_skpd->id);
+						$result_realisasi = $this->model->getDataRealisasiSKPD($rows_skpd->kd_skpd, $bulan);
 						foreach ($result_realisasi->result() as $rows_realisasi) {
 
 							// Values
@@ -268,6 +278,12 @@ class Adminrebela_controller extends CI_Controller {
 								if (!is_null($rows_realisasi->realisasi_keuangan) || $rows_realisasi->realisasi_keuangan != '') {
 									$object->getActiveSheet()->setCellValue('D'.$mulai, '=E'.$mulai.'/C'.$mulai.'');
 								}
+								else{
+									$object->getActiveSheet()->setCellValue('D'.$mulai, 0);
+								}
+							}
+							else{
+								$object->getActiveSheet()->setCellValue('D'.$mulai, 0);
 							}
 							$object->getActiveSheet()->setCellValue('E'.$mulai, $this->nullValue($rows_realisasi->realisasi_keuangan));
 

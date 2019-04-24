@@ -426,7 +426,7 @@ class Endarup_controller extends CI_Controller {
                               $id_user_ppk = $rows_ppk->id."-[".$rows_ppk->username."]-".$rows_ppk->nama;
                          }
                     }
-                    if ($rows_rup->id_user_ppk != "") {
+                    if ($rows_rup->id_user_ppk == "") {
                          $id_user_ppk = 'none';
                     }
 

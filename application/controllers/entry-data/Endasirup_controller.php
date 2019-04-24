@@ -256,7 +256,8 @@ class Endasirup_controller extends CI_Controller {
                                         $sumber_dana,
                                         $jenis_pengadaan,
                                         $metode_pemilihan,
-                                        $jenis_belanja
+                                        $jenis_belanja,
+                                        $rows_rup->id_rup_awal
                                    );
                          }
 
@@ -365,10 +366,11 @@ class Endasirup_controller extends CI_Controller {
 			if (count(explode('-', $this->input->post("tanggal_pencairan"))) == 3)
 			list(, $bulan_pencairan, ) = explode('-', $this->input->post("tanggal_pencairan"));
 
-			$data = array(
+			$data = array( 
 				"tahun" => $this->input->post("tahun"),
 				"id_skpd" => $this->input->post("id_skpd"),
 				"id_rup" => $this->input->post("id_rup"),
+                    "id_rup_awal" => $this->input->post("id_rup_awal"),
 				"tanggal_pencairan" => $this->input->post("tanggal_pencairan"),
 				"bulan_pencairan" => $bulan_pencairan,
 				"realisasi_keuangan" => $this->input->post("realisasi_keuangan"),
@@ -486,6 +488,7 @@ class Endasirup_controller extends CI_Controller {
                     $data[0][19] = $rows->nomor_surat;
                     $data[0][20] = $rows->tanggal_surat_serah_terima;
                     $data[0][23] = $rows->tanggal_penetapan_pemenang;
+                    $data[0][24] = $rows->id_rup_awal;
                }
                echo json_encode($data);
           }
@@ -501,7 +504,8 @@ class Endasirup_controller extends CI_Controller {
 				list(, $bulan_pencairan, ) = explode('-', $this->input->post("tanggal_pencairan"));
 
 			$data = array(
-				"tanggal_pencairan" => $this->input->post("tanggal_pencairan"),
+				"id_rup_awal" => $this->input->post("id_rup_awal"),
+                    "tanggal_pencairan" => $this->input->post("tanggal_pencairan"),
 				"bulan_pencairan" => $bulan_pencairan,
 				"realisasi_keuangan" => $this->input->post("realisasi_keuangan"),
 				"realisasi_fisik" => $this->input->post("realisasi_fisik"),

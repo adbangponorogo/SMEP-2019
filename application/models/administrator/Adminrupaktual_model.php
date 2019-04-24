@@ -62,6 +62,7 @@ class Adminrupaktual_model extends CI_Model {
         $this->db->from("tb_rup");
         $this->db->where("id_skpd", $id_skpd);
         $this->db->where("cara_pengadaan", $cara_pengadaan);
+        $this->db->where("is_aktif", 1);
         $this->db->order_by('id', 'ASC');
         $data = $this->db->get();
         return $data;
@@ -71,6 +72,7 @@ class Adminrupaktual_model extends CI_Model {
         $this->db->select("sum(pagu_paket) as pagu_paket");
         $this->db->from("tb_rup");
         $this->db->where("id_skpd", $id_skpd);
+        $this->db->where("is_aktif", 1);
         $data = $this->db->get();
         return $data;
     }
@@ -80,6 +82,7 @@ class Adminrupaktual_model extends CI_Model {
         $this->db->from("tb_rup");
         $this->db->where("id_skpd", $id_skpd);
         $this->db->where("jenis_pengadaan", $jenis_pengadaan);
+        $this->db->where("is_aktif", 1);
         $data = $this->db->get();
         return $data;
     }

@@ -221,7 +221,8 @@ class Endasitepra_controller extends CI_Controller {
 			    				$proses_pengadaan,
 		        				$tanda_tangan_kontrak,
 		        				$pelaksanaan_pekerjaan,
-		        				$proses_hand_over
+		        				$proses_hand_over,
+			    				$rows_rup->id_rup_awal
 			    				);
 	    			}
 	    		}
@@ -239,6 +240,7 @@ class Endasitepra_controller extends CI_Controller {
     		if ($result->num_rows() <= 0) {
     			$data = array(
     				"id_rup" => $this->input->post("id_rup"),
+    				"id_rup_awal" => $this->input->post("id_rup_awal"),
     				"proses_pengadaan" => $this->input->post("proses_pengadaan"),
     				"tanda_tangan_kontrak" => $this->input->post("tanda_tangan_kontrak"),
     				"pelaksanaan_pekerjaan" => $this->input->post("pelaksanaan_pekerjaan"),

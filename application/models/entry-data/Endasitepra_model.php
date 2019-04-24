@@ -21,6 +21,7 @@ class Endasitepra_model extends CI_Model {
       $this->db->from("tb_rup");
       $this->db->where("id_skpd", $id_skpd);
       $this->db->where_in("metode_pemilihan", array(2, 3, 5, 6));
+      $this->db->where("is_aktif", 1);
       $data = $this->db->get();
       return $data;
     }

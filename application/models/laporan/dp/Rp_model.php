@@ -15,6 +15,7 @@ class Rp_model extends CI_Model {
 		$this->db->group_by('a.id');
 		$this->db->where('a.kd_skpd', $kd_skpd);
 		$this->db->where('b.jenis_pengadaan', $jenis_pengadaan);
+		$this->db->where('b.is_aktif', 1);
 		return $this->db->get();
 	}
 
@@ -25,6 +26,7 @@ class Rp_model extends CI_Model {
 		$this->db->group_by('a.id');
 		$this->db->where('a.id_parent_prog', $id_parent_prog);
 		$this->db->where('b.jenis_pengadaan', $jenis_pengadaan);
+		$this->db->where('b.is_aktif', 1);
 		return $this->db->get();
 	}
 
@@ -34,6 +36,7 @@ class Rp_model extends CI_Model {
 		$this->db->join("spse_pegawai b", "a.id_user_ppk = b.id", 'left');
 		$this->db->where('a.id_kegiatan', $id_keg);
 		$this->db->where('a.jenis_pengadaan', $jenis_pengadaan);
+		$this->db->where('a.is_aktif', 1);
 		return $this->db->get();
 	}
 
@@ -73,6 +76,7 @@ class Rp_model extends CI_Model {
 		$this->db->join("tb_rup b", "a.id = b.id_program");
 		$this->db->where("a.kd_skpd", $kd_skpd);
 		$this->db->where("b.jenis_pengadaan", $jenis_pengadaan);
+		$this->db->where('b.is_aktif', 1);
 		$data = $this->db->get();
 		return $data;
 	}
@@ -83,6 +87,7 @@ class Rp_model extends CI_Model {
 		$this->db->join("tb_rup b", "a.id = b.id_kegiatan");
 		$this->db->where("a.id_program", $id_program);
 		$this->db->where("a.kd_program", $kd_program);
+		$this->db->where('b.is_aktif', 1);
 		$this->db->order_by('a.id', 'ASC');
 		$data = $this->db->get();
 		return $data;
@@ -98,6 +103,7 @@ class Rp_model extends CI_Model {
 		if ($bulan != 'all') {
 			$this->db->where("date_format(tanggal_buat, '%m') = ", $bulan);
 		}
+		$this->db->where('is_aktif', 1);
 		$this->db->order_by("id");
 		$data = $this->db->get();
 		return $data;

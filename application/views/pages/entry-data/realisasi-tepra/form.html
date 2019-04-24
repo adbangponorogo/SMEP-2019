@@ -117,6 +117,7 @@
 					<div class="col-md-12">
 						<h3 class="page-header"></h3>
 						<input type="hidden" name="id_rup" class="sitepraenda-idrup-update">
+						<input type="hidden" name="id_rup_awal" class="sitepraenda-idrupawal-update">
 						<button class="btn btn-primary smep-sitepraenda-save-btn">Simpan</button>
 						<button class="btn btn-danger smep-sitepraenda-cancel-btn">Batal</button>
 					</div>
@@ -142,6 +143,7 @@
           	dataType  : 'JSON',
           	success   : function(JSON){
           		jQuery(".sitepraenda-idrup-update").val(JSON[0][0]);
+          		jQuery(".sitepraenda-idrupawal-update").val(JSON[0][13]);
           		jQuery(".sitepraenda-program-update").val(JSON[0][1]);
           		jQuery(".sitepraenda-kegiatan-update").val(JSON[0][2]);
           		jQuery(".sitepraenda-nama-paket-update").val(JSON[0][3]);

@@ -188,7 +188,7 @@ class Datumdapan_controller extends CI_Controller {
 				$nama_kegiatan = "Semua Kegiatan";
 			}
 			else{
-				$result_kegiatan = $this->model->getDataKegiatanByID($skpd, $kegiatan, TRUE);
+				$result_kegiatan = $this->model->getDataKegiatanByID($skpd, $kegiatan, TRUE); 
 				foreach ($result_kegiatan->result() as $rows_kegiatan) {
 					$nama_kegiatan = $rows_kegiatan->keterangan_kegiatan;
 				}

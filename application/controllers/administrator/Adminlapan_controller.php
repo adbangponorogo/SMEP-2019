@@ -59,12 +59,12 @@ class Adminlapan_controller extends CI_Controller {
 			$object->getDefaultStyle()->getFont()->setName('Times New Roman');
 
 			$object->getActiveSheet()->getColumnDimension('A')->setWidth(8.57);
-			$object->getActiveSheet()->getColumnDimension('B')->setWidth(18.29);
+			$object->getActiveSheet()->getColumnDimension('B')->setWidth(51);
 			$object->getActiveSheet()->getColumnDimension('C')->setWidth(13.29);
 			$object->getActiveSheet()->getColumnDimension('D')->setWidth(13.29);
 			$object->getActiveSheet()->getColumnDimension('E')->setWidth(13.29);
 			$object->getActiveSheet()->getColumnDimension('F')->setWidth(13.29);
-			$object->getActiveSheet()->getColumnDimension('G')->setWidth(13.29);
+			$object->getActiveSheet()->getColumnDimension('G')->setWidth(13.29); 
 			$object->getActiveSheet()->getColumnDimension('H')->setWidth(11.14);
 
 			// -------- Title Form -------- //
@@ -122,51 +122,58 @@ class Adminlapan_controller extends CI_Controller {
 			$mulai = 9;
 			$result_skpd = $this->model->getDataSKPD();
 			foreach ($result_skpd->result() as $rows_skpd) {
-				$result_realisasi_rup = $this->model->getDataRealisasiRUP($rows_skpd->id, $jenis_pengadaan, $bulan);
-				foreach ($result_realisasi_rup->result() as $rows_realisasi_rup) {
-					$object->getActiveSheet()->setCellValue('A'.$mulai, $no++);
-					$object->getActiveSheet()->setCellValue('B'.$mulai, $rows_skpd->nama_skpd);
-					$object->getActiveSheet()->setCellValue('C'.$mulai, $this->nullValue($rows_realisasi_rup->pagu_paket));
-					$object->getActiveSheet()->setCellValue('D'.$mulai, $this->nullValue($rows_realisasi_rup->nilai_hps));
-					$object->getActiveSheet()->setCellValue('E'.$mulai, $this->nullValue($rows_realisasi_rup->nilai_kontrak));
-					if (!is_null($rows_realisasi_rup->pagu_paket) || $rows_realisasi_rup->pagu_paket != '') {
-						$object->getActiveSheet()->setCellValue('F'.$mulai, "=C".($mulai)."-E".($mulai)."");
+				$result_pagu = $this->model->getDataPaguSKPD($rows_skpd->kd_skpd);
+				foreach ($result_pagu->result() as $rows_pagu) {
+					$result_realisasi_rup = $this->model->getDataRealisasiRUP($rows_skpd->id, $jenis_pengadaan, $bulan);
+					foreach ($result_realisasi_rup->result() as $rows_realisasi_rup) {
+						$object->getActiveSheet()->setCellValue('A'.$mulai, $no++);
+						$object->getActiveSheet()->setCellValue('B'.$mulai, $rows_skpd->nama_skpd);
+						$object->getActiveSheet()->setCellValue('C'.$mulai, $this->nullValue($rows_pagu->jumlah));
+						$object->getActiveSheet()->setCellValue('D'.$mulai, $this->nullValue($rows_realisasi_rup->nilai_hps));
+						$object->getActiveSheet()->setCellValue('E'.$mulai, $this->nullValue($rows_realisasi_rup->nilai_kontrak));
+						if (!is_null($rows_realisasi_rup->pagu_paket) || $rows_realisasi_rup->pagu_paket != '') {
+							$object->getActiveSheet()->setCellValue('F'.$mulai, "=C".($mulai)."-E".($mulai)."");
+						}
+						else{
+							$object->getActiveSheet()->setCellValue('F'.$mulai, 0);
+						}
+						$object->getActiveSheet()->setCellValue('G'.($mulai), '=IF('
+																			.'(AND(C'.$mulai.' > 0, E'.$mulai.' > 0)),'
+																			.' E'.$mulai.'/C'.$mulai.','
+																			.' 0)');
+						$object->getActiveSheet()->setCellValue('H'.$mulai, "");
+						
+
+						// SETUP
+						$object->getActiveSheet()->getStyle('A'.($mulai).':H'.($mulai))->getAlignment()->setWrapText(true);
+						$object->getActiveSheet()->getStyle('A'.($mulai).':H'.($mulai))->getFont()->setSize(8);
+
+						$object->getActiveSheet()->getStyle('c'.($mulai).':F'.($mulai))->getNumberFormat()->setFormatCode('#,##0');
+						$object->getActiveSheet()->getStyle('G'.$mulai)->getNumberFormat()->setFormatCode('0.00%');
+
+						$object->getActiveSheet()->getStyle('A'.($mulai))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+						$object->getActiveSheet()->getStyle('A'.($mulai))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+						$object->getActiveSheet()->getStyle('B'.($mulai))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+						$object->getActiveSheet()->getStyle('B'.($mulai))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+						$object->getActiveSheet()->getStyle('C'.($mulai).':G'.($mulai))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+						$object->getActiveSheet()->getStyle('C'.($mulai).':G'.($mulai))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+						$object->getActiveSheet()->getStyle('H'.($mulai))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+						$object->getActiveSheet()->getStyle('H'.($mulai))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+
+						$object->getActiveSheet()->getStyle('A'.($mulai).':H'.($mulai))->applyFromArray(array('borders'=>array('allborders'=>array('style'=> PHPExcel_Style_Border::BORDER_THIN))));
 					}
-					else{
-						$object->getActiveSheet()->setCellValue('F'.$mulai, 0);
-					}
-					$object->getActiveSheet()->setCellValue('G'.($mulai), '=IF('
-																		.'(AND(C'.$mulai.' > 0, E'.$mulai.' > 0)),'
-																		.' E'.$mulai.'/C'.$mulai.','
-																		.' 0)');
-					$object->getActiveSheet()->setCellValue('H'.$mulai, "");
-					
-
-					// SETUP
-					$object->getActiveSheet()->getStyle('A'.($mulai).':H'.($mulai))->getAlignment()->setWrapText(true);
-					$object->getActiveSheet()->getStyle('A'.($mulai).':H'.($mulai))->getFont()->setSize(8);
-
-					$object->getActiveSheet()->getStyle('c'.($mulai).':F'.($mulai))->getNumberFormat()->setFormatCode('#,##0');
-					$object->getActiveSheet()->getStyle('G'.$mulai)->getNumberFormat()->setFormatCode('0.00%');
-
-					$object->getActiveSheet()->getStyle('A'.($mulai))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-					$object->getActiveSheet()->getStyle('A'.($mulai))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-					$object->getActiveSheet()->getStyle('B'.($mulai))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
-					$object->getActiveSheet()->getStyle('B'.($mulai))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-					$object->getActiveSheet()->getStyle('C'.($mulai).':G'.($mulai))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-					$object->getActiveSheet()->getStyle('C'.($mulai).':G'.($mulai))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-					$object->getActiveSheet()->getStyle('H'.($mulai))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-					$object->getActiveSheet()->getStyle('H'.($mulai))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-
-					$object->getActiveSheet()->getStyle('A'.($mulai).':H'.($mulai))->applyFromArray(array('borders'=>array('allborders'=>array('style'=> PHPExcel_Style_Border::BORDER_THIN))));
+					$mulai++;
 				}
-				$mulai++;
 			}
 
 			// Values
-
+			$result_total_pagu = $this->model->getDataPaguSKPD('all');
+			foreach ($result_total_pagu->result() as $rows_total_pagu) {
+				$total_pagu = $rows_total_pagu->jumlah;
+			}
 			$object->getActiveSheet()->setCellValue('A'.($mulai), 'TOTAL');
-			$object->getActiveSheet()->setCellValue('C'.($mulai), '=SUM(C9:C'.(($mulai)-1).')');
+			// $object->getActiveSheet()->setCellValue('C'.($mulai), '=SUM(C9:C'.(($mulai)-1).')');
+			$object->getActiveSheet()->setCellValue('C'.($mulai), $total_pagu);
 			$object->getActiveSheet()->setCellValue('D'.($mulai), '=SUM(D9:D'.(($mulai)-1).')');
 			$object->getActiveSheet()->setCellValue('E'.($mulai), '=SUM(E9:E'.(($mulai)-1).')');
 			$object->getActiveSheet()->setCellValue('F'.($mulai), '=SUM(F9:F'.(($mulai)-1).')');

@@ -70,7 +70,9 @@ class Datumdapan_model extends CI_Model {
         if ($status == TRUE) {
             $this->db->where("a.kd_gabungan", $kd_gabungan);
         }
-        $this->db->where("b.id", $id_skpd);
+        if ($id_skpd != 'all') {
+            $this->db->where("b.id", $id_skpd);
+        }
         $this->db->order_by("c.urutan", "ASC");
         $data = $this->db->get();
         return $data;

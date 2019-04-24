@@ -7,7 +7,7 @@ class Adminrebela_model extends CI_Model {
     {
         $this->load->database();
     }
-
+ 
     public function getDataSKPD(){
         $this->db->select("a.*");
         $this->db->from("simda_skpd a");
@@ -19,27 +19,46 @@ class Adminrebela_model extends CI_Model {
     }
 
     public function getDataPaguSKPD($kd_skpd){
-        $this->db->select("sum(btl1+btl2) as btl, sum(bl1+bl2+bl3) as bl");
+        $this->db->select("(SUM(btl1)+SUM(btl2)) as btl, (SUM(bl1)+SUM(bl2)+SUM(bl3)) as bl");
         $this->db->from("sirup_struktur_anggaran");
-        $this->db->where("kd_skpd", $kd_skpd);
+        if ($kd_skpd != 'all') {
+            $this->db->where("kd_skpd", $kd_skpd);
+        }
         $data = $this->db->get();
         return $data;
     }
 
-    public function getDataPaguKonstruksiSKPD($id_skpd){
+    public function getDataPaguKonstruksiSKPD($kd_skpd, $bulan){
         $this->db->select("sum(pagu_paket) as pagu_paket");
         $this->db->from("tb_rup");
-        $this->db->where("id_skpd", $id_skpd);
+        $this->db->where("kd_skpd", $kd_skpd);
         $this->db->where("jenis_pengadaan", 2);
+        $this->db->where("date_format(tanggal_update, '%m') <=", $bulan);
+        $this->db->where("is_aktif", 1);
+
         $data = $this->db->get();
         return $data;
     }
 
-    public function getDataRealisasiSKPD($id_skpd){
+    public function getDataRealisasiSKPD($kd_skpd, $bulan){
         $this->db->select("sum(a.realisasi_keuangan) as realisasi_keuangan");
         $this->db->from("tb_realisasi_rup a");
         $this->db->join("tb_rup b", "a.id_rup = b.id");
-        $this->db->where("b.id_skpd", $id_skpd);
+        $this->db->where("b.kd_skpd", $kd_skpd);
+        $this->db->where("b.jenis_pengadaan", 2);
+        $this->db->where("b.is_aktif", 1);
+        $this->db->where("a.bulan_pencairan <=", $bulan);
+        $data = $this->db->get();
+        return $data;
+    }
+
+    public function getDataRealisasiROSKPD($kd_skpd, $bulan){
+        $this->db->select("sum(nilai) as nilai");
+        $this->db->from("simda_realisasi_ro");
+        if ($kd_skpd != 'all') {
+            $this->db->where("kd_skpd", $kd_skpd);
+        }
+        $this->db->where("bulan_spm <=", $bulan);
         $data = $this->db->get();
         return $data;
     }
@@ -50,6 +69,7 @@ class Adminrebela_model extends CI_Model {
         $this->db->join("tb_rup b", "a.id_rincian_obyek = b.id_rincian_obyek");
         $this->db->where_in("a.sumber_dana", array(7,8,9));
         $this->db->order_by("b.id_skpd", 'ASC');
+        $this->db->where("b.is_aktif", 1);
         $data = $this->db->get();
         return $data;
     }
@@ -61,6 +81,7 @@ class Adminrebela_model extends CI_Model {
         $this->db->join("tb_sumber_realisasi_obyek c", "b.id_rincian_obyek = c.id_rincian_obyek");
         $this->db->where("a.kd_skpd", $kd_skpd);
         $this->db->where_in("c.sumber_dana", array(7,8,9));
+        $this->db->where("b.is_aktif", 1);
         $data = $this->db->get();
         return $data;
     }
@@ -71,6 +92,7 @@ class Adminrebela_model extends CI_Model {
         $this->db->join("tb_rup b", "a.id_rincian_obyek = b.id_rincian_obyek");
         $this->db->where("b.id_skpd", $id_skpd);
         $this->db->where("b.id_program", $id_program);
+        $this->db->where("b.is_aktif", 1);
         $data = $this->db->get();
         return $data;
     }
@@ -82,6 +104,7 @@ class Adminrebela_model extends CI_Model {
         $this->db->where("a.id_skpd", $id_skpd);
         $this->db->where("a.id_program", $id_program);
         $this->db->where("b.sumber_dana", $sumber_dana);
+        $this->db->where("a.is_aktif", 1);
         $data = $this->db->get();
         return $data;
     }
@@ -94,6 +117,7 @@ class Adminrebela_model extends CI_Model {
         $this->db->where("b.id_skpd", $id_skpd);
         $this->db->where("b.id_program", $id_program);
         $this->db->where("c.sumber_dana", $sumber_dana);
+        $this->db->where("b.is_aktif", 1);
         $data = $this->db->get();
         return $data;
     }
@@ -104,6 +128,7 @@ class Adminrebela_model extends CI_Model {
         $this->db->join("tb_rup b", "a.id = b.id_kegiatan");
         $this->db->where("a.kd_skpd", $kd_skpd);
         $this->db->where("b.id_program", $id_program);
+        $this->db->where("b.is_aktif", 1);
         $data = $this->db->get();
         return $data;
     }
@@ -115,6 +140,7 @@ class Adminrebela_model extends CI_Model {
         $this->db->where("b.id_skpd", $id_skpd);
         $this->db->where("b.id_program", $id_program);
         $this->db->where("b.id_kegiatan", $id_kegiatan);
+        $this->db->where("b.is_aktif", 1);
         $data = $this->db->get();
         return $data;
     }
@@ -127,6 +153,7 @@ class Adminrebela_model extends CI_Model {
         $this->db->where("a.id_program", $id_program);
         $this->db->where("a.id_kegiatan", $id_kegiatan);
         $this->db->where("b.sumber_dana", $sumber_dana);
+        $this->db->where("a.is_aktif", 1);
         $data = $this->db->get();
         return $data;
     }
@@ -140,6 +167,7 @@ class Adminrebela_model extends CI_Model {
         $this->db->where("b.id_program", $id_program);
         $this->db->where("b.id_kegiatan", $id_kegiatan);
         $this->db->where("c.sumber_dana", $sumber_dana);
+        $this->db->where("b.is_aktif", 1);
         $data = $this->db->get();
         return $data;
     }
@@ -168,6 +196,7 @@ class Adminrebela_model extends CI_Model {
         $this->db->where("id_program", $id_program);
         $this->db->where("id_kegiatan", $id_kegiatan);
         $this->db->where("id_rincian_obyek", $id_rincian_obyek);
+        $this->db->where("is_aktif", 1);
         $data = $this->db->get();
         return $data;
     }
@@ -180,6 +209,7 @@ class Adminrebela_model extends CI_Model {
         $this->db->where("b.id_program", $id_program);
         $this->db->where("b.id_kegiatan", $id_kegiatan);
         $this->db->where("b.id_rincian_obyek", $id_rincian_obyek);
+        $this->db->where("b.is_aktif", 1);
         $data = $this->db->get();
         return $data;
     }

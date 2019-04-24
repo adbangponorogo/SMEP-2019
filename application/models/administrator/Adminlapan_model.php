@@ -18,13 +18,24 @@ class Adminlapan_model extends CI_Model {
         return $data;
     }
 
+    public function getDataPaguSKPD($kd_skpd){
+        $this->db->select("SUM(jumlah) as jumlah");
+        $this->db->from("simda_rincian_obyek");
+        if ($kd_skpd != 'all') {
+            $this->db->where("kd_skpd", $kd_skpd);
+        }
+        $data = $this->db->get();
+        return $data;
+    }
+
     public function getDataRealisasiRUP($id_skpd, $jenis_pengadaan, $bulan){
         $this->db->select("sum(a.pagu_paket) as pagu_paket, sum(b.nilai_hps) as nilai_hps, sum(b.nilai_kontrak) as nilai_kontrak");
         $this->db->from("tb_rup a");
         $this->db->join("tb_realisasi_rup b", "a.id = b.id_rup");
         $this->db->where("a.id_skpd", $id_skpd);
         $this->db->where("a.jenis_pengadaan", $jenis_pengadaan);
-        // $this->db->where("a.bulan", $bulan);
+        $this->db->where("a.is_aktif", 1);
+        $this->db->where("b.bulan_pencairan <=", $bulan);
         $data = $this->db->get();
         return $data;
     }

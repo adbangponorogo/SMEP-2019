@@ -15,6 +15,7 @@ class Rup_model extends CI_Model {
 		$this->db->group_by('a.id');
 		$this->db->where('a.kd_skpd', $kd_skpd);
 		$this->db->where('b.cara_pengadaan', $cara_pengadaan);
+		$this->db->where('b.is_aktif', 1);
 		return $this->db->get();
 	}
 
@@ -25,6 +26,7 @@ class Rup_model extends CI_Model {
 		$this->db->group_by('a.id');
 		$this->db->where('a.id_parent_prog', $id_parent_prog);
 		$this->db->where('b.cara_pengadaan', $cara_pengadaan);
+		$this->db->where('b.is_aktif', 1);
 		return $this->db->get();
 	}
 
@@ -33,6 +35,7 @@ class Rup_model extends CI_Model {
 		$this->db->from('tb_rup');
 		$this->db->where('id_kegiatan', $id_keg);
 		$this->db->where('cara_pengadaan', $cara_pengadaan);
+		$this->db->where('is_aktif', 1);
 		return $this->db->get();
 	}
 

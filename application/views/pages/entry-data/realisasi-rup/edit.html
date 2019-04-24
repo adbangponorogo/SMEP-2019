@@ -202,6 +202,7 @@
 							<div class="form-gorup">
 								<input type="hidden" name="token" class="sirupenda-token-edit">
 								<input type="hidden" name="id_rup" class="sirupenda-id_rup-edit">
+								<input type="hidden" name="id_rup_awal" class="sirupenda-id_rup_awal-edit">
 								<button class="btn btn-primary smep-sirupenda-edit-change-btn">Simpan</button>
 								<button class="btn btn-danger smep-sirupenda-edit-cancel-btn">Batal</button>
 							</div>
@@ -263,6 +264,7 @@
 		    success   : function(JSON){
 		    	jQuery(".sirupenda-id_rup-edit").val(jQuery(".smep-unique-token").val());
 		    	jQuery(".sirupenda-token-edit").val(JSON[0][0]);
+		    	jQuery(".sirupenda-id_rup_awal-edit").val(JSON[0][24]);
 		    	jQuery(".sirupenda-tanggal-pencairan-edit").val(JSON[0][1]);
 		    	jQuery(".sirupenda-realisasi-keuangan-edit").val(JSON[0][2]);
 		    	jQuery(".sirupenda-real-realisasi-keuangan-edit").val(JSON[0][2]);

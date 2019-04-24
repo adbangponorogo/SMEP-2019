@@ -246,7 +246,7 @@ class Adminapisirup_controller extends Admin_Controller {
 						);
 		}
 		echo json_encode($data);
-	}
+	} 
 
 	public function ppk($tahun, $date, $dateEnd = NULL){
 		$result = $this->model->getPPK($tahun, $date, $dateEnd);
@@ -285,7 +285,7 @@ class Adminapisirup_controller extends Admin_Controller {
 			$bl_non_pegawai = intval($row->bl2)+intval($row->bl3);
 			
 			$data[] = array(
-										"ID"													=> $row->id_sirup,
+										"ID"											=> $row->id_sirup,
 						        "BELANJA_LANGSUNG_PEGAWAI"								=> $bl_pegawai,
 						        "BELANJA_LANGSUNG_BUKAN_PEGAWAI"						=> $bl_non_pegawai,
 
@@ -304,4 +304,326 @@ class Adminapisirup_controller extends Admin_Controller {
 		}
 		echo json_encode($data);
 	}
+
+
+	public function APIcheckStatus(){
+		// Style
+		echo "<style type='text/css'>b{font-family:Calibri;}</style>";
+		
+		// **
+		// **
+		//   Struktur Anggaran
+		// **
+		// **
+		echo "<b>1) Struktur Anggaran PEMDA</b> <br>";
+		echo "{<br>";
+			$result_struktur_anggaran_ID = $this->model->checkAPIStrukturAnggaran_ID();
+			if ($result_struktur_anggaran_ID->num_rows() > 0) {
+				echo "- ID : Status => Ada ".$result_struktur_anggaran_ID->num_rows()." Data Yang Tidak Diketahui <br>";
+			}
+			else{
+				echo "- ID : Status => OK <br>";
+			}
+		echo "}<br>";
+		
+
+
+
+
+		// **
+		// **
+		//   Swakelola
+		// **
+		// **
+		echo "<b>2) Swakelola</b><br>";
+		echo "{<br>";
+			$result_swakelola_ID = $this->model->checkAPISwakelola_ID();
+			if ($result_swakelola_ID->num_rows() > 0) {
+				echo "- ID : Status => Ada ".$result_swakelola_ID->num_rows()." Data Yang Tidak Diketahui <br>";
+			}
+			if ($result_swakelola_ID->num_rows() <= 0) {
+				echo "- ID : Status => OK <br>";
+			}
+
+			$result_swakelola_idkegiatan = $this->model->checkAPISwakelola_IDKegiatan();
+			if ($result_swakelola_idkegiatan->num_rows() > 0) {
+				echo "- ID Kegiatan : Status => Ada ".$result_swakelola_idkegiatan->num_rows()." Data Yang Tidak Diketahui <br>";
+			}
+			if ($result_swakelola_ID->num_rows() <= 0) {
+				echo "- ID Kegiatan : Status => OK <br>";
+			}
+
+			$result_swakelola_ppk = $this->model->checkAPISwakelola_PPK();
+			if ($result_swakelola_ppk->num_rows() > 0) {
+				echo "- ID PPK : Status => Ada ".$result_swakelola_ppk->num_rows()." Data Yang Tidak Diketahui <br>";
+			}
+			if ($result_swakelola_ID->num_rows() <= 0) {
+				echo "- ID PPK : Status => OK <br>";
+			}
+		echo "}<br>";
+
+
+
+
+
+		// **
+		// **
+		//   Penyedia
+		// **
+		// **
+		echo "<b>3) Penyedia</b><br>";
+		echo "{<br>";
+			$result_penyedia_ID = $this->model->checkAPIPenyedia_ID();
+			if ($result_penyedia_ID->num_rows() > 0) {
+				echo "- ID : Status => Ada ".$result_penyedia_ID->num_rows()." Data Yang Tidak Diketahui <br>";
+			}
+			if ($result_penyedia_ID->num_rows() <= 0) {
+				echo "- ID : Status => OK <br>";
+			}
+
+			$result_penyedia_idkegiatan = $this->model->checkAPIPenyedia_PPK();
+			if ($result_penyedia_idkegiatan->num_rows() > 0) {
+				echo "- ID Kegiatan : Status => Ada ".$result_penyedia_idkegiatan->num_rows()." Data Yang Tidak Diketahui <br>";
+			}
+			if ($result_penyedia_idkegiatan->num_rows() <= 0) {
+				echo "- ID Kegiatan : Status => OK <br>";
+			}
+
+			$result_penyedia_ppk = $this->model->checkAPIPenyedia_IDKegiatan();
+			if ($result_penyedia_ppk->num_rows() > 0) {
+				echo "- ID PPK : Status => Ada ".$result_penyedia_ppk->num_rows()." Data Yang Tidak Diketahui <br>";
+			}
+			if ($result_penyedia_ppk->num_rows() <= 0) {
+				echo "- ID PPK : Status => OK <br>";
+			}
+		echo "}<br>";
+
+
+
+
+
+		// **
+		// **
+		//   Rincian Obyek Akun
+		// **
+		// **
+		echo "<b>4) Rincian Obyek Akun</b><br>";
+		echo "{<br>";
+			$result_RincianObjekAkun_ID = $this->model->checkAPIRincianObyekAkun_ID();
+			if ($result_RincianObjekAkun_ID->num_rows() > 0) {
+				echo "- ID : Status => Ada ".$result_RincianObjekAkun_ID->num_rows()." Data Yang Tidak Diketahui <br>";
+			}
+			if ($result_RincianObjekAkun_ID->num_rows() <= 0) {
+				echo "- ID : Status => OK <br>";
+			}
+
+			$result_RincianObjekAkun_IDSKPD = $this->model->checkAPIRincianObyekAkun_IDSKPD();
+			if ($result_RincianObjekAkun_IDSKPD->num_rows() > 0) {
+				echo "- ID SKPD : Status => Ada ".$result_RincianObjekAkun_IDSKPD->num_rows()." Data Yang Tidak Diketahui <br>";
+			}
+			if ($result_RincianObjekAkun_IDSKPD->num_rows() <= 0) {
+				echo "- ID SKPD : Status => OK <br>";
+			}
+
+			$result_RincianObjekAkun_IDProgram = $this->model->checkAPIRincianObyekAkun_IDProgram();
+			if ($result_RincianObjekAkun_IDProgram->num_rows() > 0) {
+				echo "- ID Program : Status => Ada ".$result_RincianObjekAkun_IDProgram->num_rows()." Data Yang Tidak Diketahui <br>";
+			}
+			if ($result_RincianObjekAkun_IDProgram->num_rows() <= 0) {
+				echo "- ID Program : Status => OK <br>";
+			}
+
+			$result_RincianObjekAkun_IDKegiatan = $this->model->checkAPIRincianObyekAkun_IDKegiatan();
+			if ($result_RincianObjekAkun_IDKegiatan->num_rows() > 0) {
+				echo "- ID Kegiatan : Status => Ada ".$result_RincianObjekAkun_IDKegiatan->num_rows()." Data Yang Tidak Diketahui <br>";
+			}
+			if ($result_RincianObjekAkun_IDKegiatan->num_rows() <= 0) {
+				echo "- ID Kegiatan : Status => OK <br>";
+			}
+
+			$result_RincianObjekAkun_IDRO = $this->model->checkAPIRincianObyekAkun_IDRincianObyek();
+			if ($result_RincianObjekAkun_IDRO->num_rows() > 0) {
+				echo "- ID RO : Status => Ada ".$result_RincianObjekAkun_IDRO->num_rows()." Data Yang Tidak Diketahui <br>";
+			}
+			if ($result_RincianObjekAkun_IDRO->num_rows() <= 0) {
+				echo "- ID RO : Status => OK <br>";
+			}
+
+			$result_RincianObjekAkun_IDPPK = $this->model->checkAPIPenyedia_IDPPK();
+			if ($result_RincianObjekAkun_IDPPK->num_rows() > 0) {
+				echo "- ID PPK : Status => Ada ".$result_RincianObjekAkun_IDPPK->num_rows()." Data Yang Tidak Diketahui <br>";
+			}
+			if ($result_RincianObjekAkun_IDPPK->num_rows() <= 0) {
+				echo "- ID PPK : Status => OK <br>";
+			}
+		echo "}<br>";
+
+
+
+
+
+		// **
+		// **
+		//   Obyek Akun
+		// **
+		// **
+		echo "<b>5) Obyek Akun</b><br>";
+		echo "{<br>";
+			$result_ObjekAkun_ID = $this->model->checkAPIObyekAkun_ID();
+			if ($result_ObjekAkun_ID->num_rows() > 0) {
+				echo "- ID : Status => Ada ".$result_ObjekAkun_ID->num_rows()." Data Yang Tidak Diketahui <br>";
+			}
+			if ($result_ObjekAkun_ID->num_rows() <= 0) {
+				echo "- ID : Status => OK <br>";
+			}
+
+			$result_ObjekAkun_idprogram = $this->model->checkAPIObyekAkun_IDProgram();
+			if ($result_ObjekAkun_idprogram->num_rows() > 0) {
+				echo "- ID Program : Status => Ada ".$result_ObjekAkun_idprogram->num_rows()." Data Yang Tidak Diketahui <br>";
+			}
+			if ($result_ObjekAkun_idprogram->num_rows() <= 0) {
+				echo "- ID Program : Status => OK <br>";
+			}
+
+			$result_ObjekAkun_idkegiatan = $this->model->checkAPIObyekAkun_IDKegiatan();
+			if ($result_ObjekAkun_idkegiatan->num_rows() > 0) {
+				echo "- ID Kegiatan : Status => Ada ".$result_ObjekAkun_idkegiatan->num_rows()." Data Yang Tidak Diketahui <br>";
+			}
+			if ($result_ObjekAkun_idkegiatan->num_rows() <= 0) {
+				echo "- ID Kegiatan : Status => OK <br>";
+			}
+
+			$result_ObjekAkun_skpd = $this->model->checkAPIObyekAkun_IDSKPD();
+			if ($result_ObjekAkun_skpd->num_rows() > 0) {
+				echo "- ID SKPD : Status => Ada ".$result_ObjekAkun_skpd->num_rows()." Data Yang Tidak Diketahui <br>";
+			}
+			if ($result_ObjekAkun_skpd->num_rows() <= 0) {
+				echo "- ID SKPD : Status => OK <br>";
+			}
+		echo "}<br>";
+
+
+
+
+
+		// **
+		// **
+		//   History Kaji Ulang
+		// **
+		// **
+		echo "<b>6) History Kaji Ulang</b><br>";
+		echo "{<br>";
+			$result_HistoryRevisi_ID = $this->model->checkAPIHistoryKajiUlang_ID();
+			if ($result_HistoryRevisi_ID->num_rows() > 0) {
+				echo "- ID : Status => Ada ".$result_HistoryRevisi_ID->num_rows()." Data Yang Tidak Diketahui <br>";
+			}
+			if ($result_HistoryRevisi_ID->num_rows() <= 0) {
+				echo "- ID : Status => OK <br>";
+			}
+
+			$result_HistoryRevisi_IDAwal = $this->model->checkAPIHistoryKajiUlang_IDRUPAwal();
+			if ($result_HistoryRevisi_IDAwal->num_rows() > 0) {
+				echo "- ID RUP Awal: Status => Ada ".$result_HistoryRevisi_IDAwal->num_rows()." Data Yang Tidak Diketahui <br>";
+			}
+			if ($result_HistoryRevisi_IDAwal->num_rows() <= 0) {
+				echo "- ID RUP Awal : Status => OK <br>";
+			}
+
+			$result_HistoryRevisi_IDSebelumnya = $this->model->checkAPIHistoryKajiUlang_IDRUPSebelumnya();
+			if ($result_HistoryRevisi_IDSebelumnya->num_rows() > 0) {
+				echo "- ID RUP Sebelumnya : Status => Ada ".$result_HistoryRevisi_IDSebelumnya->num_rows()." Data Yang Tidak Diketahui <br>";
+			}
+			if ($result_HistoryRevisi_IDSebelumnya->num_rows() <= 0) {
+				echo "- ID RUP Sebelumnya : Status => OK <br>";
+			}
+
+			$result_HistoryRevisi_IDBaru = $this->model->checkAPIHistoryKajiUlang_IDRUPBaru();
+			if ($result_HistoryRevisi_IDBaru->num_rows() > 0) {
+				echo "- ID Baru : Status => Ada ".$result_HistoryRevisi_IDBaru->num_rows()." Data Yang Tidak Diketahui <br>";
+			}
+			if ($result_HistoryRevisi_IDBaru->num_rows() <= 0) {
+				echo "- ID Baru : Status => OK <br>";
+			}
+		echo "}<br>";
+
+
+
+
+
+		// **
+		// **
+		//   PPK
+		// **
+		// **
+		echo "<b>7) PPK</b><br>";
+		echo "{<br>";
+			$result_PPK_ID = $this->model->checkAPIPPK_ID();
+			if ($result_PPK_ID->num_rows() > 0) {
+				echo "- ID : Status => Ada ".$result_PPK_ID->num_rows()." Data Yang Tidak Diketahui <br>";
+			}
+			if ($result_PPK_ID->num_rows() <= 0) {
+				echo "- ID : Status => OK <br>";
+			}
+		echo "}<br>";
+
+
+
+
+
+		// **
+		// **
+		//   Program
+		// **
+		// **
+		echo "<b>8) Program</b><br>";
+		echo "{<br>";
+			$result_Program_ID = $this->model->checkAPIProgram_ID();
+			if ($result_Program_ID->num_rows() > 0) {
+				echo "- ID : Status => Ada ".$result_Program_ID->num_rows()." Data Yang Tidak Diketahui <br>";
+				echo "- ID SKPD : Status => Ada ".$result_Program_ID->num_rows()." Data Yang Tidak Diketahui <br>";
+			}
+			if ($result_Program_ID->num_rows() <= 0) {
+				echo "- ID : Status => OK <br>";
+				echo "- ID SKPD : Status => OK <br>";
+			}
+		echo "}<br>";
+
+
+
+
+
+		// **
+		// **
+		//   Kegiatan
+		// **
+		// **
+		echo "<b>9) Kegiatan</b><br>";
+		echo "{<br>";
+			$result_Kegiatan_ID = $this->model->checkAPIKegiatan_ID();
+			if ($result_Kegiatan_ID->num_rows() > 0) {
+				echo "- ID : Status => Ada ".$result_Kegiatan_ID->num_rows()." Data Yang Tidak Diketahui <br>";
+			}
+			if ($result_Kegiatan_ID->num_rows() <= 0) {
+				echo "- ID : Status => OK <br>";
+			}
+
+			$result_Kegiatan_IDProgram = $this->model->checkAPIKegiatan_IDProgram();
+			if ($result_Kegiatan_IDProgram->num_rows() > 0) {
+				echo "- ID Program : Status => Ada ".$result_Kegiatan_IDProgram->num_rows()." Data Yang Tidak Diketahui <br>";
+			}
+			if ($result_Kegiatan_IDProgram->num_rows() <= 0) {
+				echo "- ID Program : Status => OK <br>";
+			}
+
+			$result_Kegiatan_IDSKPD = $this->model->checkAPIKegiatan_IDSKPD();
+			if ($result_Kegiatan_IDSKPD->num_rows() > 0) {
+				echo "- ID SKPD : Status => Ada ".$result_Kegiatan_IDSKPD->num_rows()." Data Yang Tidak Diketahui <br>";
+			}
+			if ($result_Kegiatan_IDSKPD->num_rows() <= 0) {
+				echo "- ID SKPD : Status => OK <br>";
+			}
+		echo "}<br>";
+	}
+
+
 }

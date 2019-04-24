@@ -53,29 +53,38 @@ class Laportepraperencanaan_controller extends CI_Controller {
 
 	public function getDataDana($id_skpd){
 		if ($this->session->userdata('auth_id') != '') {
-			$result_skpd = $this->model->getDataSKPDUnique($id_skpd);
-			foreach ($result_skpd->result() as $rows_skpd) {
-				$result_ref_rup = $this->model->getDataRefRUP($rows_skpd->kd_skpd);
-				foreach ($result_ref_rup->result() as $rows_ref_rup) {
-					$belanja_daerah = intval($rows_ref_rup->btl1)+intval($rows_ref_rup->btl2)+intval($rows_ref_rup->bl1)+intval($rows_ref_rup->bl2)+intval($rows_ref_rup->bl3);
-					$btl = intval($rows_ref_rup->btl1)+intval($rows_ref_rup->btl2);
-					$bl = intval($rows_ref_rup->bl1)+intval($rows_ref_rup->bl2)+intval($rows_ref_rup->bl3);
-					$btl_pegawai = intval($rows_ref_rup->btl1);
-					$btl_non_pegawai = intval($rows_ref_rup->btl2);
-					$bl_pegawai = intval($rows_ref_rup->bl1);
-					$bl_non_pegawai = intval($rows_ref_rup->bl2)+intval($rows_ref_rup->bl3);
+			if ($id_skpd != 'all') {
+				$result_skpd = $this->model->getDataSKPDUnique($id_skpd);
+				foreach ($result_skpd->result() as $rows_skpd) {
+					$kd_skpd = $rows_skpd->kd_skpd;
+					$id_skpd_par = $rows_skpd->id;
+				}
+			}
+			else{
+				$kd_skpd = 'all';
+				$id_skpd_par = 'all';
+			}
+			
+			$result_ref_rup = $this->model->getDataRefRUP($kd_skpd);
+			foreach ($result_ref_rup->result() as $rows_ref_rup) {
+				$belanja_daerah = $rows_ref_rup->btl1+$rows_ref_rup->btl2+$rows_ref_rup->bl1+$rows_ref_rup->bl2+$rows_ref_rup->bl3;
+				$btl = $rows_ref_rup->btl1+$rows_ref_rup->btl2;
+				$bl = $rows_ref_rup->bl1+$rows_ref_rup->bl2+$rows_ref_rup->bl3;
+				$btl_pegawai = $rows_ref_rup->btl1;
+				$btl_non_pegawai = $rows_ref_rup->btl2;
+				$bl_pegawai = $rows_ref_rup->bl1;
+				$bl_non_pegawai = $rows_ref_rup->bl2+$rows_ref_rup->bl3;
 
-					$result_bj_rup = $this->model->getDataBelanjaRUP($rows_skpd->id, 2);
-					foreach ($result_bj_rup->result() as $rows_bj_rup) {
-						$bj_pagu = $rows_bj_rup->jumlah;
-						$bj_pkt = $rows_bj_rup->pagu_paket;
-					}
+				$result_bj_rup = $this->model->getDataBelanjaRUP($id_skpd_par, 2);
+				foreach ($result_bj_rup->result() as $rows_bj_rup) {
+					$bj_pagu = $rows_bj_rup->jumlah;
+					$bj_pkt = $rows_ref_rup->bl2;
+				}
 
-					$result_md_rup = $this->model->getDataBelanjaRUP($rows_skpd->id, 3);
-					foreach ($result_md_rup->result() as $rows_md_rup) {
-						$md_pagu = $rows_md_rup->jumlah;
-						$md_pkt = $rows_md_rup->pagu_paket;
-					}
+				$result_md_rup = $this->model->getDataBelanjaRUP($id_skpd_par, 3);
+				foreach ($result_md_rup->result() as $rows_md_rup) {
+					$md_pagu = $rows_md_rup->jumlah;
+					$md_pkt = $rows_ref_rup->bl3;
 				}
 			}
 			$belanja_daerah = $this->nullIntValue($belanja_daerah);
@@ -99,9 +108,9 @@ class Laportepraperencanaan_controller extends CI_Controller {
 						[number_format($bl_pegawai)],
 						[number_format($bl_non_pegawai)],
 						[number_format($bj_pagu)],
-						[$bj_pkt],
+						[number_format($bj_pkt)],
 						[number_format($md_pagu)],
-						[$md_pkt]
+						[number_format($md_pkt)]
 					];
 			echo json_encode($data);
 		}
@@ -155,38 +164,38 @@ class Laportepraperencanaan_controller extends CI_Controller {
 			// ---------- Barang -----------
 			$result_penyedia_barang1 = $this->model->getDataRekapRUP($id_skpd, 1, 1, "and pagu_paket <= 200000000");
 			foreach ($result_penyedia_barang1->result() as $rows_penyedia_barang1) {
-				$pkt11 = intval($this->nullIntValue($rows_penyedia_barang1->jumlah));
-				$pagu11 = intval($this->nullIntValue($rows_penyedia_barang1->pagu_paket));
+				$pkt11 = $this->nullIntValue($rows_penyedia_barang1->jumlah);
+				$pagu11 = $this->nullIntValue($rows_penyedia_barang1->pagu_paket);
 			}
 			$result_penyedia_barang2 = $this->model->getDataRekapRUP($id_skpd, 1, 1, "and pagu_paket > 200000000 and pagu_paket <= 2500000000");
 			foreach ($result_penyedia_barang2->result() as $rows_penyedia_barang2) {
-				$pkt12 = intval($this->nullIntValue($rows_penyedia_barang2->jumlah));
-				$pagu12 = intval($this->nullIntValue($rows_penyedia_barang2->pagu_paket));
+				$pkt12 = $this->nullIntValue($rows_penyedia_barang2->jumlah);
+				$pagu12 = $this->nullIntValue($rows_penyedia_barang2->pagu_paket);
 			}
 			$result_penyedia_barang3 = $this->model->getDataRekapRUP($id_skpd, 1, 1, "and pagu_paket > 2500000000 and pagu_paket <= 50000000000");
 			foreach ($result_penyedia_barang3->result() as $rows_penyedia_barang3) {
-				$pkt13 = intval($this->nullIntValue($rows_penyedia_barang3->jumlah));
-				$pagu13 = intval($this->nullIntValue($rows_penyedia_barang3->pagu_paket));
+				$pkt13 = $this->nullIntValue($rows_penyedia_barang3->jumlah);
+				$pagu13 = $this->nullIntValue($rows_penyedia_barang3->pagu_paket);
 			}
 			$result_penyedia_barang4 = $this->model->getDataRekapRUP($id_skpd, 1, 1, "and pagu_paket > 50000000000 and pagu_paket <= 100000000000");
 			foreach ($result_penyedia_barang4->result() as $rows_penyedia_barang4) {
-				$pkt14 = intval($this->nullIntValue($rows_penyedia_barang4->jumlah));
-				$pagu14 = intval($this->nullIntValue($rows_penyedia_barang4->pagu_paket));
+				$pkt14 = $this->nullIntValue($rows_penyedia_barang4->jumlah);
+				$pagu14 = $this->nullIntValue($rows_penyedia_barang4->pagu_paket);
 			}
 			$result_penyedia_barang5 = $this->model->getDataRekapRUP($id_skpd, 1, 1, "and pagu_paket> 100000000000");
 			foreach ($result_penyedia_barang5->result() as $rows_penyedia_barang5) {
-				$pkt15 = intval($this->nullIntValue($rows_penyedia_barang5->jumlah));
-				$pagu15 = intval($this->nullIntValue($rows_penyedia_barang5->pagu_paket));
+				$pkt15 = $this->nullIntValue($rows_penyedia_barang5->jumlah);
+				$pagu15 = $this->nullIntValue($rows_penyedia_barang5->pagu_paket);
 			}
 			$result_swakelola_barang = $this->model->getDataRekapRUP($id_skpd, 2, 1, "");
 			foreach ($result_swakelola_barang->result() as $rows_swakelola_barang) {
-				$pkt16 = intval($this->nullIntValue($rows_swakelola_barang->jumlah));
-				$pagu16 = intval($this->nullIntValue($rows_swakelola_barang->pagu_paket));
+				$pkt16 = $this->nullIntValue($rows_swakelola_barang->jumlah);
+				$pagu16 = $this->nullIntValue($rows_swakelola_barang->pagu_paket);
 			}
 			$result_total_barang = $this->model->getDataRekapTotalRUP($id_skpd, 1);
 			foreach ($result_total_barang->result() as $rows_total_barang) {
-				$pkt17 = intval($this->nullIntValue($rows_total_barang->jumlah));
-				$pagu17 = intval($this->nullIntValue($rows_total_barang->pagu_paket));
+				$pkt17 = $this->nullIntValue($rows_total_barang->jumlah);
+				$pagu17 = $this->nullIntValue($rows_total_barang->pagu_paket);
 			}
 
 
@@ -194,38 +203,38 @@ class Laportepraperencanaan_controller extends CI_Controller {
 
 			$result_penyedia_konstruksi1 = $this->model->getDataRekapRUP($id_skpd, 1, 2, "and pagu_paket <= 200000000");
 			foreach ($result_penyedia_konstruksi1->result() as $rows_penyedia_konstruksi1) {
-				$pkt21 = intval($this->nullIntValue($rows_penyedia_konstruksi1->jumlah));
-				$pagu21 = intval($this->nullIntValue($rows_penyedia_konstruksi1->pagu_paket));
+				$pkt21 = $this->nullIntValue($rows_penyedia_konstruksi1->jumlah);
+				$pagu21 = $this->nullIntValue($rows_penyedia_konstruksi1->pagu_paket);
 			}
 			$result_penyedia_konstruksi2 = $this->model->getDataRekapRUP($id_skpd, 1, 2, "and pagu_paket > 200000000 and pagu_paket <= 2500000000");
 			foreach ($result_penyedia_konstruksi2->result() as $rows_penyedia_konstruksi2) {
-				$pkt22 = intval($this->nullIntValue($rows_penyedia_konstruksi2->jumlah));
-				$pagu22 = intval($this->nullIntValue($rows_penyedia_konstruksi2->pagu_paket));
+				$pkt22 = $this->nullIntValue($rows_penyedia_konstruksi2->jumlah);
+				$pagu22 = $this->nullIntValue($rows_penyedia_konstruksi2->pagu_paket);
 			}
 			$result_penyedia_konstruksi3 = $this->model->getDataRekapRUP($id_skpd, 1, 2, "and pagu_paket > 2500000000 and pagu_paket <= 50000000000");
 			foreach ($result_penyedia_konstruksi3->result() as $rows_penyedia_konstruksi3) {
-				$pkt23 = intval($this->nullIntValue($rows_penyedia_konstruksi3->jumlah));
-				$pagu23 = intval($this->nullIntValue($rows_penyedia_konstruksi3->pagu_paket));
+				$pkt23 = $this->nullIntValue($rows_penyedia_konstruksi3->jumlah);
+				$pagu23 = $this->nullIntValue($rows_penyedia_konstruksi3->pagu_paket);
 			}
 			$result_penyedia_konstruksi4 = $this->model->getDataRekapRUP($id_skpd, 1, 2, "and pagu_paket > 50000000000 and pagu_paket <= 100000000000");
 			foreach ($result_penyedia_konstruksi4->result() as $rows_penyedia_konstruksi4) {
-				$pkt24 = intval($this->nullIntValue($rows_penyedia_konstruksi4->jumlah));
-				$pagu24 = intval($this->nullIntValue($rows_penyedia_konstruksi4->pagu_paket));
+				$pkt24 = $this->nullIntValue($rows_penyedia_konstruksi4->jumlah);
+				$pagu24 = $this->nullIntValue($rows_penyedia_konstruksi4->pagu_paket);
 			}
 			$result_penyedia_konstruksi5 = $this->model->getDataRekapRUP($id_skpd, 1, 2, "and pagu_paket> 100000000000");
 			foreach ($result_penyedia_konstruksi5->result() as $rows_penyedia_konstruksi5) {
-				$pkt25 = intval($this->nullIntValue($rows_penyedia_konstruksi5->jumlah));
-				$pagu25 = intval($this->nullIntValue($rows_penyedia_konstruksi5->pagu_paket));
+				$pkt25 = $this->nullIntValue($rows_penyedia_konstruksi5->jumlah);
+				$pagu25 = $this->nullIntValue($rows_penyedia_konstruksi5->pagu_paket);
 			}
 			$result_swakelola_konstruksi = $this->model->getDataRekapRUP($id_skpd, 2, 2, "");
 			foreach ($result_swakelola_konstruksi->result() as $rows_swakelola_konstruksi) {
-				$pkt26 = intval($this->nullIntValue($rows_swakelola_konstruksi->jumlah));
-				$pagu26 = intval($this->nullIntValue($rows_swakelola_konstruksi->pagu_paket));
+				$pkt26 = $this->nullIntValue($rows_swakelola_konstruksi->jumlah);
+				$pagu26 = $this->nullIntValue($rows_swakelola_konstruksi->pagu_paket);
 			}
 			$result_total_konstruksi = $this->model->getDataRekapTotalRUP($id_skpd, 2);
 			foreach ($result_total_konstruksi->result() as $rows_total_konstruksi) {
-				$pkt27 = intval($this->nullIntValue($rows_total_konstruksi->jumlah));
-				$pagu27 = intval($this->nullIntValue($rows_total_konstruksi->pagu_paket));
+				$pkt27 = $this->nullIntValue($rows_total_konstruksi->jumlah);
+				$pagu27 = $this->nullIntValue($rows_total_konstruksi->pagu_paket);
 			}
 			
 
@@ -233,38 +242,38 @@ class Laportepraperencanaan_controller extends CI_Controller {
 
 			$result_penyedia_konsultasi1 = $this->model->getDataRekapRUP($id_skpd, 1, 3, "and pagu_paket <= 200000000");
 			foreach ($result_penyedia_konsultasi1->result() as $rows_penyedia_konsultasi1) {
-				$pkt31 = intval($this->nullIntValue($rows_penyedia_konsultasi1->jumlah));
-				$pagu31 = intval($this->nullIntValue($rows_penyedia_konsultasi1->pagu_paket));
+				$pkt31 = $this->nullIntValue($rows_penyedia_konsultasi1->jumlah);
+				$pagu31 = $this->nullIntValue($rows_penyedia_konsultasi1->pagu_paket);
 			}
 			$result_penyedia_konsultasi2 = $this->model->getDataRekapRUP($id_skpd, 1, 3, "and pagu_paket > 200000000 and pagu_paket <= 2500000000");
 			foreach ($result_penyedia_konsultasi2->result() as $rows_penyedia_konsultasi2) {
-				$pkt32 = intval($this->nullIntValue($rows_penyedia_konsultasi2->jumlah));
-				$pagu32 = intval($this->nullIntValue($rows_penyedia_konsultasi2->pagu_paket));
+				$pkt32 = $this->nullIntValue($rows_penyedia_konsultasi2->jumlah);
+				$pagu32 = $this->nullIntValue($rows_penyedia_konsultasi2->pagu_paket);
 			}
 			$result_penyedia_konsultasi3 = $this->model->getDataRekapRUP($id_skpd, 1, 3, "and pagu_paket > 2500000000 and pagu_paket <= 50000000000");
 			foreach ($result_penyedia_konsultasi3->result() as $rows_penyedia_konsultasi3) {
-				$pkt33 = intval($this->nullIntValue($rows_penyedia_konsultasi3->jumlah));
-				$pagu33 = intval($this->nullIntValue($rows_penyedia_konsultasi3->pagu_paket));
+				$pkt33 = $this->nullIntValue($rows_penyedia_konsultasi3->jumlah);
+				$pagu33 = $this->nullIntValue($rows_penyedia_konsultasi3->pagu_paket);
 			}
 			$result_penyedia_konsultasi4 = $this->model->getDataRekapRUP($id_skpd, 1, 3, "and pagu_paket > 50000000000 and pagu_paket <= 100000000000");
 			foreach ($result_penyedia_konsultasi4->result() as $rows_penyedia_konsultasi4) {
-				$pkt34 = intval($this->nullIntValue($rows_penyedia_konsultasi4->jumlah));
-				$pagu34 = intval($this->nullIntValue($rows_penyedia_konsultasi4->pagu_paket));
+				$pkt34 = $this->nullIntValue($rows_penyedia_konsultasi4->jumlah);
+				$pagu34 = $this->nullIntValue($rows_penyedia_konsultasi4->pagu_paket);
 			}
 			$result_penyedia_konsultasi5 = $this->model->getDataRekapRUP($id_skpd, 1, 3, "and pagu_paket> 100000000000");
 			foreach ($result_penyedia_konsultasi5->result() as $rows_penyedia_konsultasi5) {
-				$pkt35 = intval($this->nullIntValue($rows_penyedia_konsultasi5->jumlah));
-				$pagu35 = intval($this->nullIntValue($rows_penyedia_konsultasi5->pagu_paket));
+				$pkt35 = $this->nullIntValue($rows_penyedia_konsultasi5->jumlah);
+				$pagu35 = $this->nullIntValue($rows_penyedia_konsultasi5->pagu_paket);
 			}
 			$result_swakelola_konsultasi = $this->model->getDataRekapRUP($id_skpd, 2, 3, "");
 			foreach ($result_swakelola_konsultasi->result() as $rows_swakelola_konsultasi) {
-				$pkt36 = intval($this->nullIntValue($rows_swakelola_konsultasi->jumlah));
-				$pagu36 = intval($this->nullIntValue($rows_swakelola_konsultasi->pagu_paket));
+				$pkt36 = $this->nullIntValue($rows_swakelola_konsultasi->jumlah);
+				$pagu36 = $this->nullIntValue($rows_swakelola_konsultasi->pagu_paket);
 			}
 			$result_total_konsultasi = $this->model->getDataRekapTotalRUP($id_skpd, 3);
 			foreach ($result_total_konsultasi->result() as $rows_total_konsultasi) {
-				$pkt37 = intval($this->nullIntValue($rows_total_konsultasi->jumlah));
-				$pagu37 = intval($this->nullIntValue($rows_total_konsultasi->pagu_paket));
+				$pkt37 = $this->nullIntValue($rows_total_konsultasi->jumlah);
+				$pagu37 = $this->nullIntValue($rows_total_konsultasi->pagu_paket);
 			}
 
 
@@ -272,38 +281,38 @@ class Laportepraperencanaan_controller extends CI_Controller {
 
 			$result_penyedia_jasalainnya1 = $this->model->getDataRekapRUP($id_skpd, 1, 4, "and pagu_paket <= 200000000");
 			foreach ($result_penyedia_jasalainnya1->result() as $rows_penyedia_jasalainnya1) {
-				$pkt41 = intval($this->nullIntValue($rows_penyedia_jasalainnya1->jumlah));
-				$pagu41 = intval($this->nullIntValue($rows_penyedia_jasalainnya1->pagu_paket));
+				$pkt41 = $this->nullIntValue($rows_penyedia_jasalainnya1->jumlah);
+				$pagu41 = $this->nullIntValue($rows_penyedia_jasalainnya1->pagu_paket);
 			}
 			$result_penyedia_jasalainnya2 = $this->model->getDataRekapRUP($id_skpd, 1, 4, "and pagu_paket > 200000000 and pagu_paket <= 2500000000");
 			foreach ($result_penyedia_jasalainnya2->result() as $rows_penyedia_jasalainnya2) {
-				$pkt42 = intval($this->nullIntValue($rows_penyedia_jasalainnya2->jumlah));
-				$pagu42 = intval($this->nullIntValue($rows_penyedia_jasalainnya2->pagu_paket));
+				$pkt42 = $this->nullIntValue($rows_penyedia_jasalainnya2->jumlah);
+				$pagu42 = $this->nullIntValue($rows_penyedia_jasalainnya2->pagu_paket);
 			}
 			$result_penyedia_jasalainnya3 = $this->model->getDataRekapRUP($id_skpd, 1, 4, "and pagu_paket > 2500000000 and pagu_paket <= 50000000000");
 			foreach ($result_penyedia_jasalainnya3->result() as $rows_penyedia_jasalainnya3) {
-				$pkt43 = intval($this->nullIntValue($rows_penyedia_jasalainnya3->jumlah));
-				$pagu43 = intval($this->nullIntValue($rows_penyedia_jasalainnya3->pagu_paket));
+				$pkt43 = $this->nullIntValue($rows_penyedia_jasalainnya3->jumlah);
+				$pagu43 = $this->nullIntValue($rows_penyedia_jasalainnya3->pagu_paket);
 			}
 			$result_penyedia_jasalainnya4 = $this->model->getDataRekapRUP($id_skpd, 1, 4, "and pagu_paket > 50000000000 and pagu_paket <= 100000000000");
 			foreach ($result_penyedia_jasalainnya4->result() as $rows_penyedia_jasalainnya4) {
-				$pkt44 = intval($this->nullIntValue($rows_penyedia_jasalainnya4->jumlah));
-				$pagu44 = intval($this->nullIntValue($rows_penyedia_jasalainnya4->pagu_paket));
+				$pkt44 = $this->nullIntValue($rows_penyedia_jasalainnya4->jumlah);
+				$pagu44 = $this->nullIntValue($rows_penyedia_jasalainnya4->pagu_paket);
 			}
 			$result_penyedia_jasalainnya5 = $this->model->getDataRekapRUP($id_skpd, 1, 4, "and pagu_paket> 100000000000");
 			foreach ($result_penyedia_jasalainnya5->result() as $rows_penyedia_jasalainnya5) {
-				$pkt45 = intval($this->nullIntValue($rows_penyedia_jasalainnya5->jumlah));
-				$pagu45 = intval($this->nullIntValue($rows_penyedia_jasalainnya5->pagu_paket));
+				$pkt45 = $this->nullIntValue($rows_penyedia_jasalainnya5->jumlah);
+				$pagu45 = $this->nullIntValue($rows_penyedia_jasalainnya5->pagu_paket);
 			}
 			$result_swakelola_jasalainnya = $this->model->getDataRekapRUP($id_skpd, 2, 4, "");
 			foreach ($result_swakelola_jasalainnya->result() as $rows_swakelola_jasalainnya) {
-				$pkt46 = intval($this->nullIntValue($rows_swakelola_jasalainnya->jumlah));
-				$pagu46 = intval($this->nullIntValue($rows_swakelola_jasalainnya->pagu_paket));
+				$pkt46 = $this->nullIntValue($rows_swakelola_jasalainnya->jumlah);
+				$pagu46 = $this->nullIntValue($rows_swakelola_jasalainnya->pagu_paket);
 			}
 			$result_total_jasalainnya = $this->model->getDataRekapTotalRUP($id_skpd, 4);
 			foreach ($result_total_jasalainnya->result() as $rows_total_jasalainnya) {
-				$pkt47 = intval($this->nullIntValue($rows_total_jasalainnya->jumlah));
-				$pagu47 = intval($this->nullIntValue($rows_total_jasalainnya->pagu_paket));
+				$pkt47 = $this->nullIntValue($rows_total_jasalainnya->jumlah);
+				$pagu47 = $this->nullIntValue($rows_total_jasalainnya->pagu_paket);
 			}
 
 
@@ -365,9 +374,14 @@ class Laportepraperencanaan_controller extends CI_Controller {
 			$this->load->library("Excel");
 			$object =  new PHPExcel();
 			$object->setActiveSheetIndex(0);
-			$result_skpd = $this->model->getDataSKPDUnique($skpd);
-			foreach ($result_skpd->result() as $rows_skpd) {
-				$nama_skpd = $rows_skpd->nama_skpd;
+			if ($skpd != 'all') {
+				$result_skpd = $this->model->getDataSKPDUnique($skpd);
+				foreach ($result_skpd->result() as $rows_skpd) {
+					$nama_skpd = $rows_skpd->nama_skpd;
+				}
+			}
+			if ($skpd == 'all') {
+				$nama_skpd = 'Pemerintah Daerah';
 			}
 
 			// -------- PAPER Setup -------- //
@@ -461,29 +475,38 @@ class Laportepraperencanaan_controller extends CI_Controller {
 
 
 			// ---- Pagu Value ----
-			$result_skpd = $this->model->getDataSKPDUnique($skpd);
-			foreach ($result_skpd->result() as $rows_skpd) {
-				$result_ref_rup = $this->model->getDataRefRUP($rows_skpd->kd_skpd);
-				foreach ($result_ref_rup->result() as $rows_ref_rup) {
-					$belanja_daerah = intval($rows_ref_rup->btl1)+intval($rows_ref_rup->btl2)+intval($rows_ref_rup->bl1)+intval($rows_ref_rup->bl2)+intval($rows_ref_rup->bl3);
-					$btl = intval($rows_ref_rup->btl1)+intval($rows_ref_rup->btl2);
-					$bl = intval($rows_ref_rup->bl1)+intval($rows_ref_rup->bl2)+intval($rows_ref_rup->bl3);
-					$btl_pegawai = intval($rows_ref_rup->btl1);
-					$btl_non_pegawai = intval($rows_ref_rup->btl2);
-					$bl_pegawai = intval($rows_ref_rup->bl1);
-					$bl_non_pegawai = intval($rows_ref_rup->bl2)+intval($rows_ref_rup->bl3);
+			if ($id_skpd != 'all') {
+				$result_skpd = $this->model->getDataSKPDUnique($id_skpd);
+				foreach ($result_skpd->result() as $rows_skpd) {
+					$kd_skpd = $rows_skpd->kd_skpd;
+					$id_skpd_par = $rows_skpd->id;
+				}
+			}
+			else{
+				$kd_skpd = 'all';
+				$id_skpd_par = 'all';
+			}
+			
+			$result_ref_rup = $this->model->getDataRefRUP($kd_skpd);
+			foreach ($result_ref_rup->result() as $rows_ref_rup) {
+				$belanja_daerah = $rows_ref_rup->btl1+$rows_ref_rup->btl2+$rows_ref_rup->bl1+$rows_ref_rup->bl2+$rows_ref_rup->bl3;
+				$btl = $rows_ref_rup->btl1+$rows_ref_rup->btl2;
+				$bl = $rows_ref_rup->bl1+$rows_ref_rup->bl2+$rows_ref_rup->bl3;
+				$btl_pegawai = $rows_ref_rup->btl1;
+				$btl_non_pegawai = $rows_ref_rup->btl2;
+				$bl_pegawai = $rows_ref_rup->bl1;
+				$bl_non_pegawai = $rows_ref_rup->bl2+$rows_ref_rup->bl3;
 
-					$result_bj_rup = $this->model->getDataBelanjaRUP($rows_skpd->id, 2);
-					foreach ($result_bj_rup->result() as $rows_bj_rup) {
-						$bj_pagu = $rows_bj_rup->jumlah;
-						$bj_pkt = $rows_bj_rup->pagu_paket;
-					}
+				$result_bj_rup = $this->model->getDataBelanjaRUP($id_skpd_par, 2);
+				foreach ($result_bj_rup->result() as $rows_bj_rup) {
+					$bj_pagu = $rows_bj_rup->jumlah;
+					$bj_pkt = $rows_ref_rup->bl2;
+				}
 
-					$result_md_rup = $this->model->getDataBelanjaRUP($rows_skpd->id, 3);
-					foreach ($result_md_rup->result() as $rows_md_rup) {
-						$md_pagu = $rows_md_rup->jumlah;
-						$md_pkt = $rows_md_rup->pagu_paket;
-					}
+				$result_md_rup = $this->model->getDataBelanjaRUP($id_skpd_par, 3);
+				foreach ($result_md_rup->result() as $rows_md_rup) {
+					$md_pagu = $rows_md_rup->jumlah;
+					$md_pkt = $rows_ref_rup->bl2;
 				}
 			}
 			$belanja_daerah = $this->nullIntValue($belanja_daerah);
@@ -593,177 +616,177 @@ class Laportepraperencanaan_controller extends CI_Controller {
 				// ------ Rekap Value -------
 
 				// ---------- Barang -----------
-				$result_penyedia_barang1 = $this->model->getDataRekapRUP($skpd, 1, 1, "and pagu_paket <= 200000000");
+				$result_penyedia_barang1 = $this->model->getDataRekapRUP($id_skpd, 1, 1, "and pagu_paket <= 200000000");
 				foreach ($result_penyedia_barang1->result() as $rows_penyedia_barang1) {
-					$pkt11 = intval($this->nullIntValue($rows_penyedia_barang1->jumlah));
-					$pagu11 = intval($this->nullIntValue($rows_penyedia_barang1->pagu_paket));
+					$pkt11 = $this->nullIntValue($rows_penyedia_barang1->jumlah);
+					$pagu11 = $this->nullIntValue($rows_penyedia_barang1->pagu_paket);
 				}
-				$result_penyedia_barang2 = $this->model->getDataRekapRUP($skpd, 1, 1, "and pagu_paket > 200000000 and pagu_paket <= 2500000000");
+				$result_penyedia_barang2 = $this->model->getDataRekapRUP($id_skpd, 1, 1, "and pagu_paket > 200000000 and pagu_paket <= 2500000000");
 				foreach ($result_penyedia_barang2->result() as $rows_penyedia_barang2) {
-					$pkt12 = intval($this->nullIntValue($rows_penyedia_barang2->jumlah));
-					$pagu12 = intval($this->nullIntValue($rows_penyedia_barang2->pagu_paket));
+					$pkt12 = $this->nullIntValue($rows_penyedia_barang2->jumlah);
+					$pagu12 = $this->nullIntValue($rows_penyedia_barang2->pagu_paket);
 				}
-				$result_penyedia_barang3 = $this->model->getDataRekapRUP($skpd, 1, 1, "and pagu_paket > 2500000000 and pagu_paket <= 50000000000");
+				$result_penyedia_barang3 = $this->model->getDataRekapRUP($id_skpd, 1, 1, "and pagu_paket > 2500000000 and pagu_paket <= 50000000000");
 				foreach ($result_penyedia_barang3->result() as $rows_penyedia_barang3) {
-					$pkt13 = intval($this->nullIntValue($rows_penyedia_barang3->jumlah));
-					$pagu13 = intval($this->nullIntValue($rows_penyedia_barang3->pagu_paket));
+					$pkt13 = $this->nullIntValue($rows_penyedia_barang3->jumlah);
+					$pagu13 = $this->nullIntValue($rows_penyedia_barang3->pagu_paket);
 				}
-				$result_penyedia_barang4 = $this->model->getDataRekapRUP($skpd, 1, 1, "and pagu_paket > 50000000000 and pagu_paket <= 100000000000");
+				$result_penyedia_barang4 = $this->model->getDataRekapRUP($id_skpd, 1, 1, "and pagu_paket > 50000000000 and pagu_paket <= 100000000000");
 				foreach ($result_penyedia_barang4->result() as $rows_penyedia_barang4) {
-					$pkt14 = intval($this->nullIntValue($rows_penyedia_barang4->jumlah));
-					$pagu14 = intval($this->nullIntValue($rows_penyedia_barang4->pagu_paket));
+					$pkt14 = $this->nullIntValue($rows_penyedia_barang4->jumlah);
+					$pagu14 = $this->nullIntValue($rows_penyedia_barang4->pagu_paket);
 				}
-				$result_penyedia_barang5 = $this->model->getDataRekapRUP($skpd, 1, 1, "and pagu_paket> 100000000000");
+				$result_penyedia_barang5 = $this->model->getDataRekapRUP($id_skpd, 1, 1, "and pagu_paket> 100000000000");
 				foreach ($result_penyedia_barang5->result() as $rows_penyedia_barang5) {
-					$pkt15 = intval($this->nullIntValue($rows_penyedia_barang5->jumlah));
-					$pagu15 = intval($this->nullIntValue($rows_penyedia_barang5->pagu_paket));
+					$pkt15 = $this->nullIntValue($rows_penyedia_barang5->jumlah);
+					$pagu15 = $this->nullIntValue($rows_penyedia_barang5->pagu_paket);
 				}
-				$result_swakelola_barang = $this->model->getDataRekapRUP($skpd, 2, 1, "");
+				$result_swakelola_barang = $this->model->getDataRekapRUP($id_skpd, 2, 1, "");
 				foreach ($result_swakelola_barang->result() as $rows_swakelola_barang) {
-					$pkt16 = intval($this->nullIntValue($rows_swakelola_barang->jumlah));
-					$pagu16 = intval($this->nullIntValue($rows_swakelola_barang->pagu_paket));
+					$pkt16 = $this->nullIntValue($rows_swakelola_barang->jumlah);
+					$pagu16 = $this->nullIntValue($rows_swakelola_barang->pagu_paket);
 				}
-				$result_total_barang = $this->model->getDataRekapTotalRUP($skpd, 1);
+				$result_total_barang = $this->model->getDataRekapTotalRUP($id_skpd, 1);
 				foreach ($result_total_barang->result() as $rows_total_barang) {
-					$pkt17 = intval($this->nullIntValue($rows_total_barang->jumlah));
-					$pagu17 = intval($this->nullIntValue($rows_total_barang->pagu_paket));
+					$pkt17 = $this->nullIntValue($rows_total_barang->jumlah);
+					$pagu17 = $this->nullIntValue($rows_total_barang->pagu_paket);
 				}
 
 
 				// ---------- Konstruksi -----------
 
-				$result_penyedia_konstruksi1 = $this->model->getDataRekapRUP($skpd, 1, 2, "and pagu_paket <= 200000000");
+				$result_penyedia_konstruksi1 = $this->model->getDataRekapRUP($id_skpd, 1, 2, "and pagu_paket <= 200000000");
 				foreach ($result_penyedia_konstruksi1->result() as $rows_penyedia_konstruksi1) {
-					$pkt21 = intval($this->nullIntValue($rows_penyedia_konstruksi1->jumlah));
-					$pagu21 = intval($this->nullIntValue($rows_penyedia_konstruksi1->pagu_paket));
+					$pkt21 = $this->nullIntValue($rows_penyedia_konstruksi1->jumlah);
+					$pagu21 = $this->nullIntValue($rows_penyedia_konstruksi1->pagu_paket);
 				}
-				$result_penyedia_konstruksi2 = $this->model->getDataRekapRUP($skpd, 1, 2, "and pagu_paket > 200000000 and pagu_paket <= 2500000000");
+				$result_penyedia_konstruksi2 = $this->model->getDataRekapRUP($id_skpd, 1, 2, "and pagu_paket > 200000000 and pagu_paket <= 2500000000");
 				foreach ($result_penyedia_konstruksi2->result() as $rows_penyedia_konstruksi2) {
-					$pkt22 = intval($this->nullIntValue($rows_penyedia_konstruksi2->jumlah));
-					$pagu22 = intval($this->nullIntValue($rows_penyedia_konstruksi2->pagu_paket));
+					$pkt22 = $this->nullIntValue($rows_penyedia_konstruksi2->jumlah);
+					$pagu22 = $this->nullIntValue($rows_penyedia_konstruksi2->pagu_paket);
 				}
-				$result_penyedia_konstruksi3 = $this->model->getDataRekapRUP($skpd, 1, 2, "and pagu_paket > 2500000000 and pagu_paket <= 50000000000");
+				$result_penyedia_konstruksi3 = $this->model->getDataRekapRUP($id_skpd, 1, 2, "and pagu_paket > 2500000000 and pagu_paket <= 50000000000");
 				foreach ($result_penyedia_konstruksi3->result() as $rows_penyedia_konstruksi3) {
-					$pkt23 = intval($this->nullIntValue($rows_penyedia_konstruksi3->jumlah));
-					$pagu23 = intval($this->nullIntValue($rows_penyedia_konstruksi3->pagu_paket));
+					$pkt23 = $this->nullIntValue($rows_penyedia_konstruksi3->jumlah);
+					$pagu23 = $this->nullIntValue($rows_penyedia_konstruksi3->pagu_paket);
 				}
-				$result_penyedia_konstruksi4 = $this->model->getDataRekapRUP($skpd, 1, 2, "and pagu_paket > 50000000000 and pagu_paket <= 100000000000");
+				$result_penyedia_konstruksi4 = $this->model->getDataRekapRUP($id_skpd, 1, 2, "and pagu_paket > 50000000000 and pagu_paket <= 100000000000");
 				foreach ($result_penyedia_konstruksi4->result() as $rows_penyedia_konstruksi4) {
-					$pkt24 = intval($this->nullIntValue($rows_penyedia_konstruksi4->jumlah));
-					$pagu24 = intval($this->nullIntValue($rows_penyedia_konstruksi4->pagu_paket));
+					$pkt24 = $this->nullIntValue($rows_penyedia_konstruksi4->jumlah);
+					$pagu24 = $this->nullIntValue($rows_penyedia_konstruksi4->pagu_paket);
 				}
-				$result_penyedia_konstruksi5 = $this->model->getDataRekapRUP($skpd, 1, 2, "and pagu_paket> 100000000000");
+				$result_penyedia_konstruksi5 = $this->model->getDataRekapRUP($id_skpd, 1, 2, "and pagu_paket> 100000000000");
 				foreach ($result_penyedia_konstruksi5->result() as $rows_penyedia_konstruksi5) {
-					$pkt25 = intval($this->nullIntValue($rows_penyedia_konstruksi5->jumlah));
-					$pagu25 = intval($this->nullIntValue($rows_penyedia_konstruksi5->pagu_paket));
+					$pkt25 = $this->nullIntValue($rows_penyedia_konstruksi5->jumlah);
+					$pagu25 = $this->nullIntValue($rows_penyedia_konstruksi5->pagu_paket);
 				}
-				$result_swakelola_konstruksi = $this->model->getDataRekapRUP($skpd, 2, 2, "");
+				$result_swakelola_konstruksi = $this->model->getDataRekapRUP($id_skpd, 2, 2, "");
 				foreach ($result_swakelola_konstruksi->result() as $rows_swakelola_konstruksi) {
-					$pkt26 = intval($this->nullIntValue($rows_swakelola_konstruksi->jumlah));
-					$pagu26 = intval($this->nullIntValue($rows_swakelola_konstruksi->pagu_paket));
+					$pkt26 = $this->nullIntValue($rows_swakelola_konstruksi->jumlah);
+					$pagu26 = $this->nullIntValue($rows_swakelola_konstruksi->pagu_paket);
 				}
-				$result_total_konstruksi = $this->model->getDataRekapTotalRUP($skpd, 2);
+				$result_total_konstruksi = $this->model->getDataRekapTotalRUP($id_skpd, 2);
 				foreach ($result_total_konstruksi->result() as $rows_total_konstruksi) {
-					$pkt27 = intval($this->nullIntValue($rows_total_konstruksi->jumlah));
-					$pagu27 = intval($this->nullIntValue($rows_total_konstruksi->pagu_paket));
+					$pkt27 = $this->nullIntValue($rows_total_konstruksi->jumlah);
+					$pagu27 = $this->nullIntValue($rows_total_konstruksi->pagu_paket);
 				}
 				
 
 				// ---------- Konsultasi -----------
 
-				$result_penyedia_konsultasi1 = $this->model->getDataRekapRUP($skpd, 1, 3, "and pagu_paket <= 200000000");
+				$result_penyedia_konsultasi1 = $this->model->getDataRekapRUP($id_skpd, 1, 3, "and pagu_paket <= 200000000");
 				foreach ($result_penyedia_konsultasi1->result() as $rows_penyedia_konsultasi1) {
-					$pkt31 = intval($this->nullIntValue($rows_penyedia_konsultasi1->jumlah));
-					$pagu31 = intval($this->nullIntValue($rows_penyedia_konsultasi1->pagu_paket));
+					$pkt31 = $this->nullIntValue($rows_penyedia_konsultasi1->jumlah);
+					$pagu31 = $this->nullIntValue($rows_penyedia_konsultasi1->pagu_paket);
 				}
-				$result_penyedia_konsultasi2 = $this->model->getDataRekapRUP($skpd, 1, 3, "and pagu_paket > 200000000 and pagu_paket <= 2500000000");
+				$result_penyedia_konsultasi2 = $this->model->getDataRekapRUP($id_skpd, 1, 3, "and pagu_paket > 200000000 and pagu_paket <= 2500000000");
 				foreach ($result_penyedia_konsultasi2->result() as $rows_penyedia_konsultasi2) {
-					$pkt32 = intval($this->nullIntValue($rows_penyedia_konsultasi2->jumlah));
-					$pagu32 = intval($this->nullIntValue($rows_penyedia_konsultasi2->pagu_paket));
+					$pkt32 = $this->nullIntValue($rows_penyedia_konsultasi2->jumlah);
+					$pagu32 = $this->nullIntValue($rows_penyedia_konsultasi2->pagu_paket);
 				}
-				$result_penyedia_konsultasi3 = $this->model->getDataRekapRUP($skpd, 1, 3, "and pagu_paket > 2500000000 and pagu_paket <= 50000000000");
+				$result_penyedia_konsultasi3 = $this->model->getDataRekapRUP($id_skpd, 1, 3, "and pagu_paket > 2500000000 and pagu_paket <= 50000000000");
 				foreach ($result_penyedia_konsultasi3->result() as $rows_penyedia_konsultasi3) {
-					$pkt33 = intval($this->nullIntValue($rows_penyedia_konsultasi3->jumlah));
-					$pagu33 = intval($this->nullIntValue($rows_penyedia_konsultasi3->pagu_paket));
+					$pkt33 = $this->nullIntValue($rows_penyedia_konsultasi3->jumlah);
+					$pagu33 = $this->nullIntValue($rows_penyedia_konsultasi3->pagu_paket);
 				}
-				$result_penyedia_konsultasi4 = $this->model->getDataRekapRUP($skpd, 1, 3, "and pagu_paket > 50000000000 and pagu_paket <= 100000000000");
+				$result_penyedia_konsultasi4 = $this->model->getDataRekapRUP($id_skpd, 1, 3, "and pagu_paket > 50000000000 and pagu_paket <= 100000000000");
 				foreach ($result_penyedia_konsultasi4->result() as $rows_penyedia_konsultasi4) {
-					$pkt34 = intval($this->nullIntValue($rows_penyedia_konsultasi4->jumlah));
-					$pagu34 = intval($this->nullIntValue($rows_penyedia_konsultasi4->pagu_paket));
+					$pkt34 = $this->nullIntValue($rows_penyedia_konsultasi4->jumlah);
+					$pagu34 = $this->nullIntValue($rows_penyedia_konsultasi4->pagu_paket);
 				}
-				$result_penyedia_konsultasi5 = $this->model->getDataRekapRUP($skpd, 1, 3, "and pagu_paket> 100000000000");
+				$result_penyedia_konsultasi5 = $this->model->getDataRekapRUP($id_skpd, 1, 3, "and pagu_paket> 100000000000");
 				foreach ($result_penyedia_konsultasi5->result() as $rows_penyedia_konsultasi5) {
-					$pkt35 = intval($this->nullIntValue($rows_penyedia_konsultasi5->jumlah));
-					$pagu35 = intval($this->nullIntValue($rows_penyedia_konsultasi5->pagu_paket));
+					$pkt35 = $this->nullIntValue($rows_penyedia_konsultasi5->jumlah);
+					$pagu35 = $this->nullIntValue($rows_penyedia_konsultasi5->pagu_paket);
 				}
-				$result_swakelola_konsultasi = $this->model->getDataRekapRUP($skpd, 2, 3, "");
+				$result_swakelola_konsultasi = $this->model->getDataRekapRUP($id_skpd, 2, 3, "");
 				foreach ($result_swakelola_konsultasi->result() as $rows_swakelola_konsultasi) {
-					$pkt36 = intval($this->nullIntValue($rows_swakelola_konsultasi->jumlah));
-					$pagu36 = intval($this->nullIntValue($rows_swakelola_konsultasi->pagu_paket));
+					$pkt36 = $this->nullIntValue($rows_swakelola_konsultasi->jumlah);
+					$pagu36 = $this->nullIntValue($rows_swakelola_konsultasi->pagu_paket);
 				}
-				$result_total_konsultasi = $this->model->getDataRekapTotalRUP($skpd, 3);
+				$result_total_konsultasi = $this->model->getDataRekapTotalRUP($id_skpd, 3);
 				foreach ($result_total_konsultasi->result() as $rows_total_konsultasi) {
-					$pkt37 = intval($this->nullIntValue($rows_total_konsultasi->jumlah));
-					$pagu37 = intval($this->nullIntValue($rows_total_konsultasi->pagu_paket));
+					$pkt37 = $this->nullIntValue($rows_total_konsultasi->jumlah);
+					$pagu37 = $this->nullIntValue($rows_total_konsultasi->pagu_paket);
 				}
 
 
 				// ---------- Jasa Lainnya -----------
 
-				$result_penyedia_jasalainnya1 = $this->model->getDataRekapRUP($skpd, 1, 4, "and pagu_paket <= 200000000");
+				$result_penyedia_jasalainnya1 = $this->model->getDataRekapRUP($id_skpd, 1, 4, "and pagu_paket <= 200000000");
 				foreach ($result_penyedia_jasalainnya1->result() as $rows_penyedia_jasalainnya1) {
-					$pkt41 = intval($this->nullIntValue($rows_penyedia_jasalainnya1->jumlah));
-					$pagu41 = intval($this->nullIntValue($rows_penyedia_jasalainnya1->pagu_paket));
+					$pkt41 = $this->nullIntValue($rows_penyedia_jasalainnya1->jumlah);
+					$pagu41 = $this->nullIntValue($rows_penyedia_jasalainnya1->pagu_paket);
 				}
-				$result_penyedia_jasalainnya2 = $this->model->getDataRekapRUP($skpd, 1, 4, "and pagu_paket > 200000000 and pagu_paket <= 2500000000");
+				$result_penyedia_jasalainnya2 = $this->model->getDataRekapRUP($id_skpd, 1, 4, "and pagu_paket > 200000000 and pagu_paket <= 2500000000");
 				foreach ($result_penyedia_jasalainnya2->result() as $rows_penyedia_jasalainnya2) {
-					$pkt42 = intval($this->nullIntValue($rows_penyedia_jasalainnya2->jumlah));
-					$pagu42 = intval($this->nullIntValue($rows_penyedia_jasalainnya2->pagu_paket));
+					$pkt42 = $this->nullIntValue($rows_penyedia_jasalainnya2->jumlah);
+					$pagu42 = $this->nullIntValue($rows_penyedia_jasalainnya2->pagu_paket);
 				}
-				$result_penyedia_jasalainnya3 = $this->model->getDataRekapRUP($skpd, 1, 4, "and pagu_paket > 2500000000 and pagu_paket <= 50000000000");
+				$result_penyedia_jasalainnya3 = $this->model->getDataRekapRUP($id_skpd, 1, 4, "and pagu_paket > 2500000000 and pagu_paket <= 50000000000");
 				foreach ($result_penyedia_jasalainnya3->result() as $rows_penyedia_jasalainnya3) {
-					$pkt43 = intval($this->nullIntValue($rows_penyedia_jasalainnya3->jumlah));
-					$pagu43 = intval($this->nullIntValue($rows_penyedia_jasalainnya3->pagu_paket));
+					$pkt43 = $this->nullIntValue($rows_penyedia_jasalainnya3->jumlah);
+					$pagu43 = $this->nullIntValue($rows_penyedia_jasalainnya3->pagu_paket);
 				}
-				$result_penyedia_jasalainnya4 = $this->model->getDataRekapRUP($skpd, 1, 4, "and pagu_paket > 50000000000 and pagu_paket <= 100000000000");
+				$result_penyedia_jasalainnya4 = $this->model->getDataRekapRUP($id_skpd, 1, 4, "and pagu_paket > 50000000000 and pagu_paket <= 100000000000");
 				foreach ($result_penyedia_jasalainnya4->result() as $rows_penyedia_jasalainnya4) {
-					$pkt44 = intval($this->nullIntValue($rows_penyedia_jasalainnya4->jumlah));
-					$pagu44 = intval($this->nullIntValue($rows_penyedia_jasalainnya4->pagu_paket));
+					$pkt44 = $this->nullIntValue($rows_penyedia_jasalainnya4->jumlah);
+					$pagu44 = $this->nullIntValue($rows_penyedia_jasalainnya4->pagu_paket);
 				}
-				$result_penyedia_jasalainnya5 = $this->model->getDataRekapRUP($skpd, 1, 4, "and pagu_paket> 100000000000");
+				$result_penyedia_jasalainnya5 = $this->model->getDataRekapRUP($id_skpd, 1, 4, "and pagu_paket> 100000000000");
 				foreach ($result_penyedia_jasalainnya5->result() as $rows_penyedia_jasalainnya5) {
-					$pkt45 = intval($this->nullIntValue($rows_penyedia_jasalainnya5->jumlah));
-					$pagu45 = intval($this->nullIntValue($rows_penyedia_jasalainnya5->pagu_paket));
+					$pkt45 = $this->nullIntValue($rows_penyedia_jasalainnya5->jumlah);
+					$pagu45 = $this->nullIntValue($rows_penyedia_jasalainnya5->pagu_paket);
 				}
-				$result_swakelola_jasalainnya = $this->model->getDataRekapRUP($skpd, 2, 4, "");
+				$result_swakelola_jasalainnya = $this->model->getDataRekapRUP($id_skpd, 2, 4, "");
 				foreach ($result_swakelola_jasalainnya->result() as $rows_swakelola_jasalainnya) {
-					$pkt46 = intval($this->nullIntValue($rows_swakelola_jasalainnya->jumlah));
-					$pagu46 = intval($this->nullIntValue($rows_swakelola_jasalainnya->pagu_paket));
+					$pkt46 = $this->nullIntValue($rows_swakelola_jasalainnya->jumlah);
+					$pagu46 = $this->nullIntValue($rows_swakelola_jasalainnya->pagu_paket);
 				}
-				$result_total_jasalainnya = $this->model->getDataRekapTotalRUP($skpd, 4);
+				$result_total_jasalainnya = $this->model->getDataRekapTotalRUP($id_skpd, 4);
 				foreach ($result_total_jasalainnya->result() as $rows_total_jasalainnya) {
-					$pkt47 = intval($this->nullIntValue($rows_total_jasalainnya->jumlah));
-					$pagu47 = intval($this->nullIntValue($rows_total_jasalainnya->pagu_paket));
+					$pkt47 = $this->nullIntValue($rows_total_jasalainnya->jumlah);
+					$pagu47 = $this->nullIntValue($rows_total_jasalainnya->pagu_paket);
 				}
 
 
-			// ---------- Total Lainnya ------------
+				// ---------- Total Lainnya ------------
 
-			$total_pkt1 = $pkt11 + $pkt21 + $pkt31 + $pkt41;
-			$total_pkt2 = $pkt12 + $pkt22 + $pkt32 + $pkt42;
-			$total_pkt3 = $pkt13 + $pkt23 + $pkt33 + $pkt43;
-			$total_pkt4 = $pkt14 + $pkt24 + $pkt34 + $pkt44;
-			$total_pkt5 = $pkt15 + $pkt25 + $pkt35 + $pkt45;
-			$total_pkt6 = $pkt16 + $pkt26 + $pkt36 + $pkt46;
-			$total_pkt7 = $pkt17 + $pkt27 + $pkt37 + $pkt47;
+				$total_pkt1 = $pkt11 + $pkt21 + $pkt31 + $pkt41;
+				$total_pkt2 = $pkt12 + $pkt22 + $pkt32 + $pkt42;
+				$total_pkt3 = $pkt13 + $pkt23 + $pkt33 + $pkt43;
+				$total_pkt4 = $pkt14 + $pkt24 + $pkt34 + $pkt44;
+				$total_pkt5 = $pkt15 + $pkt25 + $pkt35 + $pkt45;
+				$total_pkt6 = $pkt16 + $pkt26 + $pkt36 + $pkt46;
+				$total_pkt7 = $pkt17 + $pkt27 + $pkt37 + $pkt47;
 
-			$total_pagu1 = $pagu11 + $pagu21 + $pagu31 + $pagu41;
-			$total_pagu2 = $pagu12 + $pagu22 + $pagu32 + $pagu42;
-			$total_pagu3 = $pagu13 + $pagu23 + $pagu33 + $pagu43;
-			$total_pagu4 = $pagu14 + $pagu24 + $pagu34 + $pagu44;
-			$total_pagu5 = $pagu15 + $pagu25 + $pagu35 + $pagu45;
-			$total_pagu6 = $pagu16 + $pagu26 + $pagu36 + $pagu46;
-			$total_pagu7 = $pagu17 + $pagu27 + $pagu37 + $pagu47;
+				$total_pagu1 = $pagu11 + $pagu21 + $pagu31 + $pagu41;
+				$total_pagu2 = $pagu12 + $pagu22 + $pagu32 + $pagu42;
+				$total_pagu3 = $pagu13 + $pagu23 + $pagu33 + $pagu43;
+				$total_pagu4 = $pagu14 + $pagu24 + $pagu34 + $pagu44;
+				$total_pagu5 = $pagu15 + $pagu25 + $pagu35 + $pagu45;
+				$total_pagu6 = $pagu16 + $pagu26 + $pagu36 + $pagu46;
+				$total_pagu7 = $pagu17 + $pagu27 + $pagu37 + $pagu47;
 
 
 
