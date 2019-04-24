@@ -15,10 +15,12 @@
       include_once 'table.html';
       include_once 'register-form.html';
       include_once 'edit-form.html';
+      include_once 'modal-data.html';
       include_once 'modal-warning.html';
       include_once 'modal-verification-form.html';
       include_once 'modal-verification-data.html';
       include_once 'modal-verification-multi-data.html';
+      include_once 'modal-swakelola-form.html';
     ?>
   </div>
 </section>
@@ -468,7 +470,6 @@
       data      : jQuery(".rupenda-edit-form").serialize(),
       dataType  : 'JSON',
       success   : function(JSON){
-        // console.log(JSON);
         jQuery(".smep-rupenda-verification-modal").modal("hide");
         endaRUPHeaderCondition(0);
         endaRUPSearchCondition(true);
@@ -485,53 +486,6 @@
     });
   }
 
-
-  // function endaRUPNonAktifkanData(id_rup){
-  //   jQuery.ajax({
-  //     type      : 'AJAX',
-  //     method    : 'GET',
-  //     url       : 'entry-data/data-rup/update-non-aktif-paket/'+id_rup,
-  //     async     : false,
-  //     dataType  : 'JSON',
-  //     success   : function(JSON){
-  //     },
-  //     error     : function(jqXHR, textStatus, errorThrown){
-  //       location.href = window.location.href+"app/auth/sessionPage";
-  //     }
-  //   });
-  // }
-
-
-  // function endaRUPAktifkanData(id_rup){
-  //   jQuery.ajax({
-  //     type      : 'AJAX',
-  //     method    : 'GET',
-  //     url       : 'entry-data/data-rup/update-aktifkan-paket/'+id_rup,
-  //     async     : false,
-  //     dataType  : 'JSON',
-  //     success   : function(JSON){
-  //     },
-  //     error     : function(jqXHR, textStatus, errorThrown){
-  //       location.href = window.location.href+"app/auth/sessionPage";
-  //     }
-  //   });
-  // }
-
-
-  // function endaRUPBatalkanData(id_rup){
-  //   jQuery.ajax({
-  //     type      : 'AJAX',
-  //     method    : 'GET',
-  //     url       : 'entry-data/data-rup/update-batalkan-paket/'+id_rup,
-  //     async     : false,
-  //     dataType  : 'JSON',
-  //     success   : function(JSON){
-  //     },
-  //     error     : function(jqXHR, textStatus, errorThrown){
-  //       location.href = window.location.href+"app/auth/sessionPage";
-  //     }
-  //   });
-  // }
 
 
 
@@ -554,7 +508,7 @@
       dataType  : 'JSON',
       success   : function(JSON){
         callDataRUP(id_program, id_kegiatan, id_ro);
-        // jQuery(".rupenda-alasan-revisi-verification-data-input").val("");
+        jQuery(".rupenda-alasan-revisi-verification-data-input").val("");
         jQuery(".smep-rupenda-verification-data-modal").modal("hide");
       },
       error     : function(jqXHR, textStatus, errorThrown){
@@ -718,7 +672,7 @@
         dataRUP[rup] = [
                         get_data[rup].no+
                         "<input type='checkbox' name='token_data[]' style='margin-left:5px;' class='rupenda-idrup-data' value='"+get_data[rup].id+"'>",
-                        "<b><a class='"+get_data[rup].id+"' style='cursor:pointer;'>"+get_data[rup].nama_paket+"</a></b><br>"+
+                        "<b><a class='smep-rupenda-data-modal-open-btn' data-id='"+get_data[rup].id+"' style='cursor:pointer;'>"+get_data[rup].nama_paket+"</a></b><br>"+
                         "- Volume Pekerjaan : "+get_data[rup].volume_pekerjaan+"<br>"+
                         "- Cara Pengadaan : "+get_data[rup].cara_pengadaan+"<br>"+
                         "- Tanggal Buat : "+get_data[rup].tanggal_buat+"<br>"+
@@ -811,8 +765,13 @@
 
 
   jQuery(document).on("click", ".smep-rupenda-verification-multi-data-btn", function(){
-    // jQuery(".smep-rupenda-alasan-revisi-multi-data").val(jQuery(".rupenda-alasan-revisi-verification-multi-data-input").val());
-    endaRUPMultiRevisiDatatableForm();
+    if (jQuery(".rupenda-alasan-revisi-verification-multi-data-input").val() != '') {
+      jQuery(".smep-rupenda-alasan-revisi-multi-data").val(jQuery(".rupenda-alasan-revisi-verification-multi-data-input").val());
+      endaRUPMultiRevisiDatatableForm();
+    }
+    else{
+      jQuery(".rupenda-alasan-revisi-verification-multi-data-input").focus();
+    }
     return false;
   });
 
@@ -835,13 +794,13 @@
   // *
 
   jQuery(document).on("click", ".smep-rupenda-upload-verification-data-btn", function(){
-    // var alasan_revisi = jQuery(".rupenda-alasan-revisi-verification-data-input");
-    // if (alasan_revisi.val() != "") {
-    // }
-    // else{
-    //   alasan_revisi.focus();
-    // }
+    var alasan_revisi = jQuery(".rupenda-alasan-revisi-verification-data-input");
+    if (alasan_revisi.val() != "") {
       endaRUPRevisiDatatableForm();
+    }
+    else{
+      alasan_revisi.focus();
+    }
     return false;
   });
 
@@ -850,6 +809,307 @@
     jQuery(".smep-rupenda-verification-data-modal").modal("hide");
     return false;
   });
+
+
+  // *
+  // *
+  // ====================== Modal DataTable ======================= //
+  // *
+  // *
+
+
+  jQuery(document).on("click", ".smep-rupenda-data-modal-open-btn", function(){
+    endaRUPDetailsData(jQuery(this).data("id"));
+    jQuery(".smep-rupenda-data-modal").modal("show");
+    return false;
+  });
+
+
+  jQuery(document).on("click", ".smep-rupenda-data-modal-close-btn", function(){
+    jQuery(".smep-rupenda-data-modal").modal("hide");
+    return false;
+  });
+
+
+
+  // *
+  // *
+  // ==================  RUP Details Data ================= //
+  // *
+  // *
+
+  function endaRUPDetailsData(id_rup){
+    // ===== Call Data ===== //
+    var data = endaRUPEditData(id_rup);
+
+    // ===== Variable ===== //
+    var get_cara_pengadaan    = ['-', 'Penyedia', 'Swakelola'];
+    var get_tipe_swakelola    = ['-', 'Swakelola Tipe 1', 'Swakelola Tipe 2', 'Swakelola Tipe 3', 'Swakelola Tipe 4'];
+    var get_jenis_belanja     = [
+                                  '-',
+                                  'Belanja Pegawai',
+                                  'Belanja Barang/Jasa',
+                                  'Belanja Modal',
+                                  'Belum Teridentifikasi',
+                                  'Belanja Bunga Utang',
+                                  'Belanja Subsidi',
+                                  'Belanja Hibah',
+                                  'Belanja Bantuan Sosial',
+                                  'Belanja Lain-Lain'
+                                ];
+    var get_pra_dipa          = ['Ya', 'Tidak'];
+    var get_sumber_dana       = ['-', 'APBD', 'APBDP', 'APBN', 'APBNP', 'BLU', 'BLUD', 'BUMD', 'BUMN', 'PHLN', 'PNBP', 'Lainnya'];
+    var get_pdn               = ['Ya', 'Tidak'];
+    var get_usaha_kecil       = ['Ya', 'Tidak'];
+    var get_umumkan_paket     = ['Ya', 'Tidak'];
+    var get_jenis_pengadaan   = ['-', 'Barang', 'Konstruksi', 'Jasa Konsultasi', 'Jasa Lainnya'];
+    var get_metode_pemilihan  = ['-','E-Purchasing', 'Tender', 'Tender Cepat', 'Pengadaan Langsung', 'Penunjukkan Langsung', 'Seleksi'];
+
+
+
+    // Misc
+    if (data[0].no_izin_tahun_jamak == '') {
+      nomor_tahun_jamak = '-';
+    }
+    if (data[0].no_izin_tahun_jamak != '') {
+      nomor_tahun_jamak = data[0].no_izin_tahun_jamak;
+    }
+
+    if (data[0].skpd_swakelola != 'none') {
+      var split_skpd_swakelola = data[0].id_skpd_swakelola.split("-");
+      var skpd_swakelola = split_skpd_swakelola[1]+"-"+split_skpd_swakelola[2];
+    }
+    if (data[0].skpd_swakelola == 'none') {
+      var skpd_swakelola = '-';
+    }
+
+    var nama_ppk = data[0].id_user_ppk.split("-");
+
+
+    // Insert Value
+    jQuery(".rupenda-idrup-data-input").val("SMEPIDRUP-"+data[0].id);
+    jQuery(".rupenda-program-data-input").val("["+data[0].kd_program+"] - "+data[0].nama_program);
+    jQuery(".rupenda-kegiatan-data-input").val("["+data[0].kd_kegiatan+"] - "+data[0].nama_kegiatan);
+    jQuery(".rupenda-rincian-obyek-data-input").val("["+data[0].kd_rekening+"] - "+data[0].nama_rekening);
+    jQuery(".rupenda-kode-mak-data-input").val(
+                                                data[0].kd_urusan_mak+"."+
+                                                data[0].kd_kelompok_mak+"."+
+                                                data[0].kd_opd_mak+"."+
+                                                data[0].kd_program_mak+"."+
+                                                data[0].kd_kegiatan_mak+"."+
+                                                data[0].kd_rekening_mak
+                                              );
+    jQuery(".rupenda-nama-ppk-data-input").val(nama_ppk[1]+" - "+nama_ppk[2]);
+    jQuery(".rupenda-nama-paket-data-input").val(data[0].nama_paket);
+    jQuery(".rupenda-volume-pekerjaan-data-input").val(data[0].volume_pekerjaan);
+    jQuery(".rupenda-cara-pengadaan-data-input").val(get_cara_pengadaan[data[0].cara_pengadaan]);
+    jQuery(".rupenda-jenis-belanja-data-input").val(get_jenis_belanja[data[0].jenis_belanja]);
+    jQuery(".rupenda-uraian-pekerjaan-data-input").val(data[0].uraian_pekerjaan);
+    jQuery(".rupenda-spesifikasi-pekerjaan-data-input").val(data[0].spesifikasi_pekerjaan);
+    jQuery(".rupenda-lokasi-pekerjaan-data-input").val(data[0].lokasi_pekerjaan);
+    jQuery(".rupenda-pagu-pekerjaan-data-input").val(data[0].pagu_paket);
+    jQuery(".rupenda-pradipa-dpa-data-input").val(get_pra_dipa[data[0].pra_dipa]);
+    jQuery(".rupenda-nomor-izin-tahun-jamak-data-input").val(nomor_tahun_jamak);
+    jQuery(".rupenda-sumber-dana-data-input").val(get_sumber_dana[data[0].sumber_dana]);
+    jQuery(".rupenda-umumkan-paket-data-input").val(get_umumkan_paket[data[0].umumkan_paket]);
+    jQuery(".rupenda-jumlah-paket-data-input").val(data[0].jumlah_paket);
+    jQuery(".rupenda-jenis-pengadaan-data-input").val(get_jenis_pengadaan[data[0].jenis_pengadaan]);
+
+    data_revisi = '';
+    if (data[0].revisi_paket != '-') {
+      for (var i = 0; i < data[0].revisi_paket.length; i++) {
+        data_revisi +=  "<button class='btn btn-primary smep-rupenda-get-data-btn' data-id='"+data[0].revisi_paket[i]+"'>"+
+                          "<i class='fa fa-eye'></i>&nbsp;ID: "+data[0].revisi_paket[i]+""+
+                        "</button>";
+      }
+    }
+    if (data[0].revisi_paket == '-') {
+      data_revisi = "<input type='text' class='form-control rupenda-revisi-paket-data-input' readonly='readonly' value='"+data[0].revisi_paket+"'>";
+    }
+
+    jQuery(".rupenda-revisi-paket-data-form-group").html("<label>Revisi Paket</label><br>"+data_revisi);
+    jQuery(".smep-rupenda-get-data-btn").css("margin", "3px");
+
+    if (data[0].pra_dipa == 0) {
+      jQuery(".rupenda-nomor-renja-data-input").val(data[0].nomor_renja);
+    }
+
+    if (data[0].cara_pengadaan == 1) {
+      jQuery(".rupenda-pdn-data-input").val(get_pdn[data[0].produk_dalam_negeri]);
+      jQuery(".rupenda-usaha-kecil-data-input").val(get_usaha_kecil[data[0].usaha_kecil]);
+      jQuery(".rupenda-metode-pemilihan-data-input").val(get_metode_pemilihan[data[0].metode_pemilihan]);
+      jQuery(".rupenda-pengadaan-awal-data-input").val(endaRUPVerificationGetDate(data[0].pelaksanaan_pengadaan_awal));
+      jQuery(".rupenda-pengadaan-akhir-data-input").val(endaRUPVerificationGetDate(data[0].pelaksanaan_pengadaan_akhir));
+      jQuery(".rupenda-kontrak-awal-data-input").val(endaRUPVerificationGetDate(data[0].pelaksanaan_kontrak_awal));
+      jQuery(".rupenda-kontrak-akhir-data-input").val(endaRUPVerificationGetDate(data[0].pelaksanaan_kontrak_akhir));
+      jQuery(".rupenda-mulai-penggunaan-data-input").val(endaRUPVerificationGetDate(data[0].pelaksanaan_pemanfaatan));
+      endaRUPDataFormCondition(data[0].cara_pengadaan, 'none');
+    }
+    if (data[0].cara_pengadaan == 2) {
+      jQuery(".rupenda-tipe-swakelola-data-input").val(get_tipe_swakelola[data[0].tipe_swakelola]);
+      jQuery(".rupenda-pekerjaan-awal-data-input").val(endaRUPVerificationGetDate(data[0].pelaksanaan_pekerjaan_awal));
+      jQuery(".rupenda-pekerjaan-akhir-data-input").val(endaRUPVerificationGetDate(data[0].pelaksanaan_pekerjaan_akhir));
+      
+      if (data[0].tipe_swakelola == 2) {
+        jQuery(".rupenda-skpd-swakelola-data-input").val(skpd_swakelola);
+        endaRUPDataFormCondition(data[0].cara_pengadaan, data[0].tipe_swakelola);
+      }
+      else{
+        endaRUPDataFormCondition(data[0].cara_pengadaan, data[0].tipe_swakelola);
+      }
+    }
+
+    endaRUPDataPraDIPACondition(data[0].pra_dipa);
+  }
+
+
+
+  jQuery(document).on("click", ".smep-rupenda-get-data-btn", function(){
+    endaRUPDetailsData(jQuery(this).data("id"));
+    return false;
+  });
+
+
+
+  // *
+  // *
+  // ================== Data Form Condition ================= //
+  // *
+  // *
+
+  function endaRUPDataFormCondition(condition, type_swakelola){
+    // ===== Variable =====
+    get_condition = ["none", "penyedia", "swakelola"];
+  
+
+    // ===== Initial Condition =====
+    jQuery(".rupenda-tipe-swakelola-data-form-group").removeClass("hidden-show");
+    jQuery(".rupenda-tipe-swakelola-data-form-group").removeClass("visible-show");
+    jQuery(".rupenda-skpd-swakelola-data-form-group").removeClass("hidden-show");
+    jQuery(".rupenda-skpd-swakelola-data-form-group").removeClass("visible-show");
+    jQuery(".rupenda-pdn-data-form-group hidden-show").removeClass("hidden-show");
+    jQuery(".rupenda-pdn-data-form-group hidden-show").removeClass("visible-show");
+    jQuery(".rupenda-usaha-kecil-data-form-group").removeClass("hidden-show");
+    jQuery(".rupenda-usaha-kecil-data-form-group").removeClass("visible-show");
+    jQuery(".rupenda-metode-pemilihan-data-form-group").removeClass("hidden-show");
+    jQuery(".rupenda-metode-pemilihan-data-form-group").removeClass("visible-show");
+
+    jQuery(".rupenda-pengadaan-awal-data-form-group").removeClass("hidden-show");
+    jQuery(".rupenda-pengadaan-awal-data-form-group").removeClass("visible-show");
+    jQuery(".rupenda-pengadaan-akhir-data-form-group").removeClass("hidden-show");
+    jQuery(".rupenda-pengadaan-akhir-data-form-group").removeClass("visible-show");
+    jQuery(".rupenda-kontrak-awal-data-form-group").removeClass("hidden-show");
+    jQuery(".rupenda-kontrak-awal-data-form-group").removeClass("visible-show");
+    jQuery(".rupenda-kontrak-akhir-data-form-group").removeClass("hidden-show");
+    jQuery(".rupenda-kontrak-akhir-data-form-group").removeClass("visible-show");
+    jQuery(".rupenda-mulai-penggunaan-data-form-group").removeClass("hidden-show");
+    jQuery(".rupenda-mulai-penggunaan-data-form-group").removeClass("visible-show");
+    jQuery(".rupenda-pekerjaan-awal-data-form-group").removeClass("hidden-show");
+    jQuery(".rupenda-pekerjaan-awal-data-form-group").removeClass("visible-show");
+    jQuery(".rupenda-pekerjaan-akhir-data-form-group").removeClass("hidden-show");
+    jQuery(".rupenda-pekerjaan-akhir-data-form-group").removeClass("visible-show");
+
+
+    // ===== Condition Logic =====
+    if (get_condition[condition] == 'none') {
+      jQuery(".rupenda-tipe-swakelola-data-form-group").addClass("hidden-show");
+      jQuery(".rupenda-skpd-swakelola-data-form-group").addClass("hidden-show");
+      jQuery(".rupenda-pdn-data-form-group").addClass("hidden-show");
+      jQuery(".rupenda-usaha-kecil-data-form-group").addClass("hidden-show");
+      jQuery(".rupenda-metode-data-data-form-group").addClass("hidden-show");
+      jQuery(".rupenda-pengadaan-awal-data-form-group").addClass("hidden-show");
+      jQuery(".rupenda-pengadaan-akhir-data-form-group").addClass("hidden-show");
+      jQuery(".rupenda-kontrak-awal-data-form-group").addClass("hidden-show");
+      jQuery(".rupenda-kontrak-akhir-data-form-group").addClass("hidden-show");
+      jQuery(".rupenda-mulai-penggunaan-data-form-group").addClass("hidden-show");
+      jQuery(".rupenda-pekerjaan-awal-data-form-group").addClass("hidden-show");
+      jQuery(".rupenda-pekerjaan-akhir-data-form-group").addClass("hidden-show");
+    }
+    if (get_condition[condition] == 'penyedia') {
+      jQuery(".rupenda-tipe-swakelola-data-form-group").addClass("hidden-show");
+      jQuery(".rupenda-skpd-swakelola-data-form-group").addClass("hidden-show");
+      jQuery(".rupenda-pdn-data-form-group hidden-show").addClass("visible-show");
+      jQuery(".rupenda-usaha-data-kecil-form-group").addClass("visible-show");
+      jQuery(".rupenda-metode-pemilihan-data-form-group").addClass("visible-show");
+      jQuery(".rupenda-pengadaan-awal-data-form-group").addClass("visible-show");
+      jQuery(".rupenda-pengadaan-akhir-data-form-group").addClass("visible-show");
+      jQuery(".rupenda-kontrak-awal-data-form-group").addClass("visible-show");
+      jQuery(".rupenda-kontrak-akhir-data-form-group").addClass("visible-show");
+      jQuery(".rupenda-mulai-penggunaan-data-form-group").addClass("visible-show");
+      jQuery(".rupenda-pekerjaan-awal-data-form-group").addClass("hidden-show");
+      jQuery(".rupenda-pekerjaan-akhir-data-form-group").addClass("hidden-show");
+    }
+    if (get_condition[condition] == 'swakelola') {
+      jQuery(".rupenda-tipe-swakelola-data-form-group").addClass("visible-show");
+      jQuery(".rupenda-pdn-data-form-group hidden-show").addClass("hidden-show");
+      jQuery(".rupenda-usaha-kecil-data-form-group").addClass("hidden-show");
+      jQuery(".rupenda-metode-pemilihan-data-form-group").addClass("hidden-show");
+      jQuery(".rupenda-pengadaan-awal-data-form-group").addClass("hidden-show");
+      jQuery(".rupenda-pengadaan-akhir-data-form-group").addClass("hidden-show");
+      jQuery(".rupenda-kontrak-awal-data-form-group").addClass("hidden-show");
+      jQuery(".rupenda-kontrak-akhir-data-form-group").addClass("hidden-show");
+      jQuery(".rupenda-mulai-penggunaan-data-form-group").addClass("hidden-show");
+      jQuery(".rupenda-pekerjaan-awal-data-form-group").addClass("visible-show");
+      jQuery(".rupenda-pekerjaan-akhir-data-form-group").addClass("visible-show");
+      if (type_swakelola == 2) {
+        endaRUPDataSKPDSwakelolaCondition(type_swakelola);
+
+      }
+      else{
+        endaRUPDataSKPDSwakelolaCondition(type_swakelola);
+      }
+    }
+  }
+
+
+  // *
+  // *
+  // ================== Data SKPD Swakelola Condition ================= //
+  // *
+  // *
+
+  function endaRUPDataSKPDSwakelolaCondition(condition){
+    // ===== Initial Condition =====
+    jQuery(".rupenda-skpd-swakelola-data-form-group").removeClass("hidden-show");
+    jQuery(".rupenda-skpd-swakelola-data-form-group").removeClass("visible-show");
+
+
+    // ===== Condition Logic ===== //
+    if (condition == 2) {
+      jQuery(".rupenda-skpd-swakelola-data-form-group").addClass("visible-show");
+    }
+    else{
+      jQuery(".rupenda-skpd-swakelola-data-form-group").addClass("hidden-show");
+    }
+  }
+
+
+
+  // *
+  // *
+  // ================== data Pra DIPA/DPA Condition ================= //
+  // *
+  // *
+
+  function endaRUPDataPraDIPACondition(condition){
+    // ===== Variable =====
+    var get_condition = [true, false];
+    
+
+    // ===== Initial Condition =====
+    jQuery(".rupenda-pradipa-data-form-group").removeClass("hidden-show");
+    jQuery(".rupenda-pradipa-data-form-group").removeClass("visible-show");
+
+
+    // ===== Condition Logic ===== //
+    if (get_condition[condition] == true) {
+      jQuery(".rupenda-pradipa-data-form-group").addClass("visible-show");
+    }
+    else{
+      jQuery(".rupenda-pradipa-data-form-group").addClass("hidden-show");
+    }
+  }
+
 
 
   // *
@@ -1823,6 +2083,7 @@
     var cara_pengadaan      = jQuery(".rupenda-cara-pengadaan-reg");
 
 
+
     // ===== Condition Logic =====
     if (id_program.val() != 'all') {
       if (id_kegiatan.val() != 'all') {
@@ -2071,7 +2332,7 @@
     jQuery(".rupenda-tipe-swakelola-reg").val(1).change();
     jQuery(".rupenda-skpd-swakelola-reg").val(jQuery(".rupenda-skpd-swakelola-reg option:first").val()).change();
     jQuery(".rupenda-jenis-belanja-reg").val(2).change();
-    jQuery(".rupenda-spesifikasi-pekerjaan-reg").val("");
+    jQuery(".rupenda-spesifikasi-pekerjaan-reg").val("-");
     jQuery(".rupenda-pra-dipa-reg").val(1).change();
     jQuery(".rupenda-nomor-renja-reg").val("");
     jQuery(".rupenda-no-izin-tahun-jamak-reg").val("");
@@ -2082,13 +2343,13 @@
     jQuery(".rupenda-jumlah-paket-reg").val(1);
     jQuery(".rupenda-jenis-pengadaan-reg").val(1).change();
     jQuery(".rupenda-metode-pemilihan-reg").val(4).change();
-    jQuery(".rupenda-pelaksanaan-pengadaan-awal-reg").val("");
-    jQuery(".rupenda-pelaksanaan-pengadaan-akhir-reg").val("");
-    jQuery(".rupenda-pelaksanaan-kontrak-awal-reg").val("");
-    jQuery(".rupenda-pelaksanaan-kontrak-akhir-reg").val("");
-    jQuery(".rupenda-mulai-penggunaan-reg").val("");
-    jQuery(".rupenda-pelaksanaan-pekerjaan-awal-reg").val("");
-    jQuery(".rupenda-pelaksanaan-pekerjaan-akhir-reg").val("");
+    jQuery(".rupenda-pelaksanaan-pengadaan-awal-reg").datepicker('setDate', null);
+    jQuery(".rupenda-pelaksanaan-pengadaan-akhir-reg").datepicker('setDate', null);
+    jQuery(".rupenda-pelaksanaan-kontrak-awal-reg").datepicker('setDate', null);
+    jQuery(".rupenda-pelaksanaan-kontrak-akhir-reg").datepicker('setDate', null);
+    jQuery(".rupenda-mulai-penggunaan-reg").datepicker('setDate', null);
+    jQuery(".rupenda-pelaksanaan-pekerjaan-awal-reg").datepicker('setDate', null);
+    jQuery(".rupenda-pelaksanaan-pekerjaan-akhir-reg").datepicker('setDate', null);
   }
 
 
@@ -2171,7 +2432,6 @@
       jQuery(".rupenda-kdprogram-edit").val(data[0].kd_program_mak);
       jQuery(".rupenda-kdkegiatan-edit").val(data[0].kd_kegiatan_mak);
       jQuery(".rupenda-kdrekening-edit").val(data[0].kd_rekening_mak);
-    callDataEditPPK(data[0].id_user_ppk);
     jQuery(".rupenda-nama-paket-edit").val(data[0].nama_paket);
     jQuery(".rupenda-volume-pekerjaan-edit").val(data[0].volume_pekerjaan);
     jQuery(".rupenda-cara-pengadaan-edit").val(data[0].cara_pengadaan).change();
@@ -2192,6 +2452,13 @@
     jQuery(".rupenda-idrupawal-edit").val(data[0].id_rup_awal);
     jQuery(".rupenda-islastpaket-edit").val(data[0].is_last_paket);
     endaRUPEditFormCondition(data[0].cara_pengadaan);
+
+    if (data[0].id_user_ppk != 'none') {
+      jQuery(".rupenda-user-ppk-edit").val(data[0].id_user_ppk).change();
+    }
+    if (data[0].id_user_ppk == 'none') {
+      jQuery(".rupenda-user-ppk-edit").val(jQuery(".rupenda-user-ppk-edit option:first").val()).change();
+    }
 
     if (data[0].pra_dipa == 0) {
       jQuery(".rupenda-pra-dipa-edit").val(data[0].pra_dipa).change();
@@ -2748,7 +3015,7 @@
     var pra_dipa            = jQuery(".rupenda-pra-dipa-edit");
     var nomor_renja         = jQuery(".rupenda-nomor-renja-edit");
     var jumlah_paket        = jQuery(".rupenda-jumlah-paket-edit");
-    // var alasan_revisi       = jQuery(".rupenda-alasan-revisi-edit");
+    var alasan_revisi       = jQuery(".rupenda-alasan-revisi-edit");
 
 
 
@@ -2763,13 +3030,13 @@
                   if (pra_dipa.val() == 0) {
                     if (nomor_renja.val() != '') {
                       if (jumlah_paket.val() != '') {
-                        // if (alasan_revisi.val() != '') {
-                        // }
-                        // else{
-                        //   alasan_revisi.focus();
-                        //   endaRUPFormWarningModal(2, "Alasan Revisi");
-                        // }
+                        if (alasan_revisi.val() != '') {
                           endaRUPEditDateChecker(cara_pengadaan.val());
+                        }
+                        else{
+                          alasan_revisi.focus();
+                          endaRUPFormWarningModal(2, "Alasan Revisi");
+                        }
                       }
                       else{
                         jumlah_paket.focus();
@@ -2782,13 +3049,13 @@
                   }
                   if (pra_dipa.val() == 1) {
                     if (jumlah_paket.val() != '') {
-                      // if (alasan_revisi.val() != '') {
-                      // }
-                      // else{
-                      //   alasan_revisi.focus();
-                      //   endaRUPFormWarningModal(2, "Alasan Revisi");
-                      // }
+                      if (alasan_revisi.val() != '') {
                         endaRUPEditDateChecker(cara_pengadaan.val());
+                      }
+                      else{
+                        alasan_revisi.focus();
+                        endaRUPFormWarningModal(2, "Alasan Revisi");
+                      }
                     }
                     else{
                       jumlah_paket.focus();
@@ -3029,13 +3296,32 @@
     jQuery(".rupenda-jumlah-paket-edit").val(1);
     jQuery(".rupenda-jenis-pengadaan-edit").val(1).change();
     jQuery(".rupenda-metode-pemilihan-edit").val(4).change();
-    jQuery(".rupenda-pelaksanaan-pengadaan-awal-edit").val("");
-    jQuery(".rupenda-pelaksanaan-pengadaan-akhir-edit").val("");
-    jQuery(".rupenda-pelaksanaan-kontrak-awal-edit").val("");
-    jQuery(".rupenda-pelaksanaan-kontrak-akhir-edit").val("");
-    jQuery(".rupenda-mulai-penggunaan-edit").val("");
-    jQuery(".rupenda-pelaksanaan-pekerjaan-awal-edit").val("");
-    jQuery(".rupenda-pelaksanaan-pekerjaan-akhir-edit").val("");
+    jQuery(".rupenda-pelaksanaan-pengadaan-awal-edit").datepicker('setDate', null);
+    jQuery(".rupenda-pelaksanaan-pengadaan-akhir-edit").datepicker('setDate', null);
+    jQuery(".rupenda-pelaksanaan-kontrak-awal-edit").datepicker('setDate', null);
+    jQuery(".rupenda-pelaksanaan-kontrak-akhir-edit").datepicker('setDate', null);
+    jQuery(".rupenda-mulai-penggunaan-edit").datepicker('setDate', null);
+    jQuery(".rupenda-pelaksanaan-pekerjaan-awal-edit").datepicker('setDate', null);
+    jQuery(".rupenda-pelaksanaan-pekerjaan-akhir-edit").datepicker('setDate', null);
     jQuery(".rupenda-alasan-revisi-edit").val("");
   }
+
+
+
+  // *
+  // *
+  // ================== Swakelola Modal ================= //
+  // *
+  // *
+
+  jQuery(document).on("click", ".smep-rupenda-swakelola-modal-open-btn", function(){
+    jQuery(".smep-rupenda-swakelola-data-modal").modal("show");
+    return false;
+  });
+
+  jQuery(document).on("click", ".smep-rupenda-swakelola-modal-close-btn", function(){
+    jQuery(".smep-rupenda-swakelola-data-modal").modal("hide");
+    return false;
+  });
+
 </script>

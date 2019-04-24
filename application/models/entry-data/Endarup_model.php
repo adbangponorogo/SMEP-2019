@@ -160,7 +160,18 @@ class Endarup_model extends CI_Model {
         $this->db->select("*");
         $this->db->from("tb_rup_revisi");
         $this->db->where("id_rup_awal", $id_rup_awal);
-        $this->db->order_by("id", "ASC");
+        $this->db->order_by("id", "DESC");
+        $this->db->limit(1);
+        $data = $this->db->get();
+        return $data;
+    }
+
+    public function getAllDataHistoryRevisiEditRUP($id_rup_awal){
+        $this->db->select("*");
+        $this->db->from("tb_rup_revisi");
+        $this->db->where("id_rup_awal", $id_rup_awal);
+        $this->db->where("id_rup_awal", $id_rup_awal);
+        $this->db->order_by("tipe", "SATUKESATU");
         $data = $this->db->get();
         return $data;
     }
@@ -227,7 +238,8 @@ class Endarup_model extends CI_Model {
                         "id_rup_awal"                 => $data["id_rup_awal"],
                         "id_rup_sebelumnya"           => $data["id_rup_sebelumnya"],
                         "is_aktif"                    => $data["is_aktif"],
-                        "is_last_paket"               => $data["is_last_paket"]
+                        "is_last_paket"               => $data["is_last_paket"],
+                        "alasan_revisi"               => $data["alasan_revisi"]
                     );
 
 
@@ -294,21 +306,28 @@ class Endarup_model extends CI_Model {
 
 
         // Create Histoy Revisi
-        // $check_revisi_ke = $this->getAllDataHistoryRevisiRUP($get_data["id_rup_awal"])->num_rows();
-        // $get_revisi = intval($check_revisi_ke) + 1;
-        // $cara_pengadaan = ["-", "PENYEDIA", "SWAKELOLA", "PENYEDIADALAMSWAKELOLA"];
-        // $this->insertDataHistoryPaket(
-        //                                 array(
-        //                                     "tahun"               => $get_data["tahun"],
-        //                                     "id_rup_awal"         => $get_data["id_rup_awal"],
-        //                                     "id_rup_sebelumnya"   => $get_data["id_rup_sebelumnya"],
-        //                                     "id_rup_baru"         => $rup_last_id,
-        //                                     "revisi_ke"           => $get_revisi,
-        //                                     "jenis"               => $cara_pengadaan[$get_data["cara_pengadaan"]],
-        //                                     "tipe"                => "SATUKESATU",
-        //                                     "alasan_revisi"       => $get_data["alasan_revisi"],
-        //                                 )
-        //                             );
+        $check_revisi_ke = $this->getAllDataHistoryRevisiRUP($get_data["id_rup_awal"])->num_rows();
+        $get_revisi = intval($check_revisi_ke) + 1;
+        $cara_pengadaan = ["-", "PENYEDIA", "SWAKELOLA", "PENYEDIADALAMSWAKELOLA"];
+
+        if ($get_data["alasan_revisi"] != "") {
+            $alasan_revisi = $get_data["alasan_revisi"];
+        }
+        if ($get_data["alasan_revisi"] == "") {
+            $alasan_revisi = "-";
+        }
+        $this->insertDataHistoryPaket(
+                                        array(
+                                            "tahun"               => $get_data["tahun"],
+                                            "id_rup_awal"         => $get_data["id_rup_awal"],
+                                            "id_rup_sebelumnya"   => $get_data["id_rup_sebelumnya"],
+                                            "id_rup_baru"         => $rup_last_id,
+                                            "revisi_ke"           => $get_revisi,
+                                            "jenis"               => $cara_pengadaan[$get_data["cara_pengadaan"]],
+                                            "tipe"                => "SATUKESATU",
+                                            "alasan_revisi"       => $alasan_revisi,
+                                        )
+                                    );
     }
 
     public function updateDataRUPByID($id, $data){
@@ -322,6 +341,94 @@ class Endarup_model extends CI_Model {
         $this->db->update("tb_realisasi_rup", $data);
     }
 
+    public function updateRealisasiRUPTepraByIDRUPAwal(){
+        $result_rup_distinct = $this->getDataRUPDistinctIDRUPAwal();
+
+        // Check Data RUP
+        foreach ($result_rup_distinct->result() as $rows_rup_distinct) {
+            $result_rup = $this->getDataRUPDescID($rows_rup_distinct->id_rup_awal);
+            foreach ($result_rup->result() as $rows_rup) {
+                $data_revisi_rup = array("id_rup" => $rows_rup->id);
+                $this->updateIDRUPRealisasiRUP($rows_rup->id_rup_awal, $data_revisi_rup);
+                $this->updateIDRUPRealisasiTEPRA($rows_rup->id_rup_awal, $data_revisi_rup);
+            }
+        }
+
+        return TRUE;
+    }
+
+    public function updateHistoryRUPRevisiKe(){
+        $result_rup_distinct = $this->getDataRUPDistinctIDRUPAwal();
+
+        // Check Data RUP
+        foreach ($result_rup_distinct->result() as $rows_rup_distinct) {
+            $number = 1;
+            $result_history_rup = $this->getDataHistoryRUPByIDRUPAwal($rows_rup_distinct->id_rup_awal);
+            foreach ($result_history_rup->result() as $rows_history_rup) {
+                $data_revisi_history = array("revisi_ke" => $number++);
+                $this->updateRevisiKeHistoryRUP($rows_history_rup->id, $data_revisi_history);
+            }
+        }
+
+        return TRUE;
+    }
+
+
+    public function getDataRUPDistinctIDRUPAwal(){
+        $this->db->select("DISTINCT(id_rup_awal) as id_rup_awal");
+        $this->db->from("tb_rup");
+        $this->db->where("id_rup_awal >", 0);
+        $this->db->order_by("id", "ASC");
+        return $this->db->get();
+    }
+
+    public function getDataRUPDescID($id_rup_awal){
+        $this->db->select("*");
+        $this->db->from("tb_rup");
+        $this->db->where("id_rup_awal", $id_rup_awal);
+        $this->db->order_by("id", "DESC");
+        $this->db->limit(1);
+        return $this->db->get();
+    }
+
+    public function getDataHistoryRUPByIDRUPAwal($id_rup_awal){
+        $this->db->select("*");
+        $this->db->from("tb_rup_revisi");
+        $this->db->where("id_rup_awal", $id_rup_awal);
+        $this->db->order_by("id", "ASC");
+        return $this->db->get();
+    }
+
+
+    public function updateIDRUPRealisasiRUP($id_rup_awal, $data){
+        $this->db->where("id_rup_awal", $id_rup_awal);
+        $this->db->update("tb_realisasi_rup", $data);
+    }
+
+    public function updateIDRUPRealisasiTEPRA($id_rup_awal, $data){
+        $this->db->where("id_rup_awal", $id_rup_awal);
+        $this->db->update("tb_realisasi_tepra", $data);
+    }
+
+    public function updateRevisiKeHistoryRUP($id, $data){
+        $this->db->where("id", $id);
+        $this->db->update("tb_rup_revisi", $data);
+    }
+
+    public function deleteRUPIDZero(){
+        $this->db->where("id_program", 0);
+        $this->db->delete("tb_rup");
+        return TRUE;
+    }
+
+    public function deleteHistoryRevisiByIDRUPBaru(){
+        $ref = '(SELECT id FROM tb_rup)';
+        // $this->db->where("id_rup_sebelumnya NOT IN".$ref);
+        // $this->db->where("id_rup_baru NOT IN".$ref);
+        $this->db->where("alasan_revisi", "'-'");
+        $this->db->delete("tb_rup_revisi");
+        return TRUE;
+    }
 
     // public function getData($token){
     //     $this->db->select("*");
@@ -332,8 +439,4 @@ class Endarup_model extends CI_Model {
     // }
 
 
-    // public function deleteData($token){
-    //     $this->db->where("id", $token);
-    //     $this->db->delete("tb_rup");
-    // }
 }

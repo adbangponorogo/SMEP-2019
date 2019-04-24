@@ -96,6 +96,19 @@ class Endarup_controller extends CI_Controller {
 
      public function getDataRUP($id_skpd, $id_program, $id_kegiatan, $id_ro){
           if ($this->session->userdata('auth_id') != "") {
+               // Update Table
+               $upt_tbl_dltd_rup = $this->model->deleteRUPIDZero();
+               if ($upt_tbl_dltd_rup) {
+                    $upt_tbl_dltd_hstryrup = $this->model->deleteHistoryRevisiByIDRUPBaru();
+                    if ($upt_tbl_dltd_hstryrup) {
+                         $upt_tbl_rl_rup_tepra = $this->model->updateRealisasiRUPTepraByIDRUPAwal();
+                         if ($upt_tbl_rl_rup_tepra) {
+                              $upt_tbl_hstry_rvs = $this->model->updateHistoryRUPRevisiKe();
+                         }
+                    }
+               }
+
+               // Proses Data
                $result_skpd = $this->model->getAllDataSKPDByID($id_skpd);
                $data = array();
                foreach ($result_skpd->result() as $rows_skpd) {
@@ -448,8 +461,23 @@ class Endarup_controller extends CI_Controller {
                               $pagu_terpaketkan = $rows_rup->pagu_jumlah - $rows_rup_pagu->total_paket;
                          }
                     }
-                    else{
+                    if ($result_rup_pagu->num_rows() <= 0) {
                          $pagu_terpaketkan = $rows_ro->jumlah - 0;
+                    }
+
+                    if (intval($rows_rup->id_rup_awal) > 0) {
+                         $result_history_revisi = $this->model->getAllDataHistoryRevisiEditRUP($rows_rup->id_rup_awal);
+                         if ($result_history_revisi->num_rows() > 0) {
+                              foreach ($result_history_revisi->result() as $rows_history_revisi) {
+                                   $revisi_paket[] = $rows_history_revisi->id_rup_sebelumnya;
+                              }
+                         }
+                         else{
+                              $revisi_paket = '-';
+                         }
+                    }
+                    if (intval($rows_rup->id_rup_awal) <= 0) {
+                         $revisi_paket = '-';
                     }
 
                     $kd_mak = explode(".", $rows_rup->kd_mak);
@@ -507,7 +535,8 @@ class Endarup_controller extends CI_Controller {
                                    "pelaksanaan_pekerjaan_akhir" => $rows_rup->pelaksanaan_pekerjaan_akhir,
                                    "is_aktif"                    => $rows_rup->is_aktif,
                                    "id_rup_awal"                 => $rows_rup->id_rup_awal,
-                                   "is_last_paket"               => $rows_rup->is_last_paket
+                                   "is_last_paket"               => $rows_rup->is_last_paket,
+                                   "revisi_paket"                => $revisi_paket
                               );
                }
 
@@ -565,7 +594,7 @@ class Endarup_controller extends CI_Controller {
                $id_rup_awal                  = $this->input->post("id_rup_awal");
                $is_aktif                     = $this->input->post("is_aktif");
                $is_last_paket                = $this->input->post("is_last_paket");
-               // $alasan_revisi                = $this->input->post("alasan_revisi");
+               $alasan_revisi                = $this->input->post("alasan_revisi");
 
 
                if ($cara_pengadaan == 1) {
@@ -574,7 +603,7 @@ class Endarup_controller extends CI_Controller {
                     $pelaksanaan_pekerjaan_awal    = NULL;
                     $pelaksanaan_pekerjaan_akhir   = NULL;
                }
-               else{
+               if ($cara_pengadaan == 2) {
                     $produk_dalam_negeri           = NULL;
                     $usaha_kecil                   = NULL;
                     $metode_pemilihan              = NULL;
@@ -596,7 +625,7 @@ class Endarup_controller extends CI_Controller {
                if ($pra_dipa == 0) {
                     $nomor_renja = $nomor_renja;
                }
-               else{
+               if ($pra_dipa == 1) {
                     $nomor_renja = NULL;
                }
 
@@ -604,7 +633,7 @@ class Endarup_controller extends CI_Controller {
                if ($id_rup_awal == 0) {
                     $id_rup_awal = $id;
                }
-               else{
+               if ($id_rup_awal > 0) {
                     $id_rup_awal = $id_rup_awal;
                }
 
@@ -648,8 +677,8 @@ class Endarup_controller extends CI_Controller {
                          "id_rup_awal"                 => $id_rup_awal,
                          "id_rup_sebelumnya"           => $id,
                          "is_aktif"                    => $is_aktif,
-                         "is_last_paket"               => $is_last_paket
-                         // "alasan_revisi"               => $alasan_revisi
+                         "is_last_paket"               => $is_last_paket,
+                         "alasan_revisi"               => $alasan_revisi
                     );
                $this->model->updateData($data);
                echo json_encode(array("status"=>TRUE));
@@ -663,7 +692,7 @@ class Endarup_controller extends CI_Controller {
           if ($this->session->userdata('auth_id') != "") {
                $tipe_form          = $this->input->post("tipe_form");
                $id_rup             = $this->input->post("id_rup");
-               // $alasan_revisi      = $this->input->post("alasan_revisi");
+               $alasan_revisi      = $this->input->post("alasan_revisi");
                $tahun              = $this->input->post("tahun");
                $get_tipe_form      = ['-', 'SATUKESATU', 'SATUKEBANYAK', 'PENGAKTIFAN', 'NONAKTIFKAN', 'PEMBATALAN'];
                $get_cara_pengadaan = ['-', 'PENYEDIA', 'SWAKELOLA']; 
@@ -681,8 +710,15 @@ class Endarup_controller extends CI_Controller {
                     $id_rup_awal = $check_id_rup_awal;
                }
 
-               $check_revisi_ke    = $this->model->getAllDataHistoryRevisiRUP($id_rup)->num_rows();
-               // $revisi_paket       = intval($check_revisi_ke) + 1;
+               $check_revisi_ke    = $this->model->getAllDataHistoryRevisiRUP($id_rup);
+               if ($check_revisi_ke->num_rows() > 0) {
+                    foreach ($check_revisi_ke->result() as $rows_revisi_ke) {
+                         $revisi_paket       = $rows_revisi_ke->revisi_ke + 1;
+                    }
+               }
+               if ($check_revisi_ke->num_rows() <= 0) {
+                    $revisi_paket       = 1;
+               }
 
 
                // Update Data RUP
@@ -704,18 +740,18 @@ class Endarup_controller extends CI_Controller {
 
 
                // Create History Paket
-               // $data_history  = array(
-               //                               "tahun"             => $tahun,
-               //                               "id_rup_awal"       => $id_rup_awal,
-               //                               "id_rup_sebelumnya" => $id_rup,
-               //                               "id_rup_baru"       => $id_rup,
-               //                               "revisi_ke"         => $revisi_paket,
-               //                               "jenis"             => $get_cara_pengadaan[$cara_pengadaan],
-               //                               "tipe"              => $get_tipe_form[$tipe_form],
-               //                               "alasan_revisi"     => $alasan_revisi
-               //                          ); 
+               $data_history  = array(
+                                             "tahun"             => $tahun,
+                                             "id_rup_awal"       => $id_rup_awal,
+                                             "id_rup_sebelumnya" => $id_rup,
+                                             "id_rup_baru"       => $id_rup,
+                                             "revisi_ke"         => $revisi_paket,
+                                             "jenis"             => $get_cara_pengadaan[$cara_pengadaan],
+                                             "tipe"              => $get_tipe_form[$tipe_form],
+                                             "alasan_revisi"     => $alasan_revisi
+                                        ); 
 
-               // $this->model->insertDataHistoryPaket($data_history);
+               $this->model->insertDataHistoryPaket($data_history);
                echo json_encode(array("status"=>TRUE));
           }
           else{
@@ -727,7 +763,7 @@ class Endarup_controller extends CI_Controller {
           if ($this->session->userdata('auth_id') != "") {
                $tipe_form          = $this->input->post("kategori_eksekusi");
                $id_rup             = $this->input->post("token_data");
-               // $alasan_revisi      = $this->input->post("alasan_revisi");
+               $alasan_revisi      = $this->input->post("alasan_revisi");
                $tahun              = $this->input->post("tahun");
                $get_tipe_form      = ['-', 'SATUKESATU', 'SATUKEBANYAK', 'PENGAKTIFAN', 'NONAKTIFKAN', 'PEMBATALAN'];
                $get_cara_pengadaan = ['-', 'PENYEDIA', 'SWAKELOLA']; 
@@ -746,8 +782,15 @@ class Endarup_controller extends CI_Controller {
                          $id_rup_awal = $check_id_rup_awal;
                     }
 
-                    $check_revisi_ke    = $this->model->getAllDataHistoryRevisiRUP($id)->num_rows();
-                    // $revisi_paket       = intval($check_revisi_ke) + 1;
+                    $check_revisi_ke    = $this->model->getAllDataHistoryRevisiRUP($id_rup);
+                    if ($check_revisi_ke->num_rows() > 0) {
+                         foreach ($check_revisi_ke->result() as $rows_revisi_ke) {
+                              $revisi_paket       = $rows_revisi_ke->revisi_ke + 1;
+                         }
+                    }
+                    if ($check_revisi_ke->num_rows() <= 0) {
+                         $revisi_paket       = 1;
+                    }
 
 
                     // Update Data RUP
@@ -769,18 +812,18 @@ class Endarup_controller extends CI_Controller {
 
 
                     // Create History Paket
-                    // $data_history  = array(
-                    //                               "tahun"             => $tahun,
-                    //                               "id_rup_awal"       => $id_rup_awal,
-                    //                               "id_rup_sebelumnya" => $id,
-                    //                               "id_rup_baru"       => $id,
-                    //                               "revisi_ke"         => $revisi_paket,
-                    //                               "jenis"             => $get_cara_pengadaan[$cara_pengadaan],
-                    //                               "tipe"              => $get_tipe_form[$tipe_form],
-                    //                               "alasan_revisi"     => $alasan_revisi
-                    //                          ); 
+                    $data_history  = array(
+                                                  "tahun"             => $tahun,
+                                                  "id_rup_awal"       => $id_rup_awal,
+                                                  "id_rup_sebelumnya" => $id,
+                                                  "id_rup_baru"       => $id,
+                                                  "revisi_ke"         => $revisi_paket,
+                                                  "jenis"             => $get_cara_pengadaan[$cara_pengadaan],
+                                                  "tipe"              => $get_tipe_form[$tipe_form],
+                                                  "alasan_revisi"     => $alasan_revisi
+                                             ); 
 
-                    // $this->model->insertDataHistoryPaket($data_history);
+                    $this->model->insertDataHistoryPaket($data_history);
                }
                echo json_encode(array("status"=>TRUE));
           }
