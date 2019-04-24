@@ -623,7 +623,6 @@ class Adminapisirup_controller extends Admin_Controller {
 				echo "- ID SKPD : Status => OK <br>";
 			}
 		echo "}<br>";
-		echo "}<br>";
 	}
 
 

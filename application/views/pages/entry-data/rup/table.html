@@ -1,0 +1,58 @@
+<div class="col-md-12 smep-rupenda-box-table visible-show">
+  <div class="box box-primary">
+    <div class="box-header with-border" style="padding: 10px 0px;">
+      <div class="col-md-12" style="padding-top: 5px;">
+        <h3 class="box-title smep-rupenda-main-box-header">
+          Tabel Data
+        </h3>
+      </div>
+    </div>
+    <div class="box-body">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="table-responsive">
+            <form action="#" method="POST" class="rupenda-multi-data-form">
+              <div class="col-md-6">
+                <span class="pull-left">
+                  <button class="btn btn-primary btn-sm smep-rupenda-register-btn" style="margin: 1px 0px;">
+                    <i class="fa fa-plus"></i>&nbsp;Buat Data RUP
+                  </button>
+                </span>
+              </div>
+              <div class="col-md-6">
+                <span class="pull-right">
+                  <input type="checkbox" class="smep-rupenda-allcheck-multi-data">&nbsp;<span class="label bg-red color-pallete">select semua data</span>
+                  <select name="kategori_eksekusi" class="smep-rupenda-type-execution-multi-data select2-option">
+                    <option value="3">Aktifkan Paket</option>
+                    <option value="4">Non-Aktifkan Paket</option>
+                    <option value="5">Batalkan Paket</option>
+                  </select>
+                  <!-- <input type="hidden" name="alasan_revisi" class="smep-rupenda-alasan-revisi-multi-data"> -->
+                  <input type="hidden" name="tahun" class="smep-rupenda-tahun-multi-data">
+                  <button class="btn btn-danger btn-sm smep-rupenda-revisi-multi-data-btn">
+                    <i class="fa fa-exclamation"></i>&nbsp;Lakukan
+                  </button>
+                </span>
+              </div>
+              <div class="col-md-12" style="margin-top: 10px;">
+                <table class="table smep-rup-enda-table" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th width="5%" style="text-align: center;">No</th>
+                      <th width="35%" style="text-align: center;">Nama Paket</th>
+                      <th width="15%" style="text-align: center;">Jenis Belanja</th>
+                      <th width="15%" style="text-align: center;">Metode Pemilihan</th>
+                      <th width="15%" style="text-align: center;">Pagu</th>
+                      <th width="15%" style="text-align: center;">Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
