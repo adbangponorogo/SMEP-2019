@@ -145,7 +145,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	if ( !function_exists('export2xl') )
 	{
 		function export2xl($p, $xlFileName)
-		{
+		{	
 			$xl = PHPExcel_IOFactory::createWriter($p, 'Excel2007');
 
 			header('Content-Type: application/vnd.ms-excel');

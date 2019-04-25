@@ -57,6 +57,17 @@ class Adminrupaktual_model extends CI_Model {
     }
 
 
+    public function getDataPaguSKPD($kd_skpd){
+        // $this->db->select("(SUM(btl1)+SUM(btl2)+SUM(bl1)+SUM(bl2)+SUM(bl3)) as pagu_paket");
+        $this->db->select("(SUM(bl1)+SUM(bl2)+SUM(bl3)) as pagu_paket");
+        $this->db->from("sirup_struktur_anggaran");
+        if ($kd_skpd != 'all') {
+            $this->db->where("kd_skpd", $kd_skpd);
+        }
+        $data = $this->db->get();
+        return $data;
+    }
+
     public function getAllDataRUP($id_skpd, $cara_pengadaan){
         $this->db->select("*");
         $this->db->from("tb_rup");
@@ -68,19 +79,23 @@ class Adminrupaktual_model extends CI_Model {
         return $data;
     }
 
-    public function getDataPaguRUP($id_skpd){
+    public function getDataPaguRUP($kd_skpd, $cara_pengadaan){
         $this->db->select("sum(pagu_paket) as pagu_paket");
         $this->db->from("tb_rup");
-        $this->db->where("id_skpd", $id_skpd);
+        if ($kd_skpd != 'all') {
+            $this->db->where("kd_skpd", $kd_skpd);
+        }
+        $this->db->where("cara_pengadaan", $cara_pengadaan);
         $this->db->where("is_aktif", 1);
         $data = $this->db->get();
         return $data;
     }
 
-    public function getDataPaketRUP($id_skpd, $jenis_pengadaan){
+    public function getDataPaketRUP($kd_skpd, $cara_pengadaan, $jenis_pengadaan){
         $this->db->select("count(id) as paket");
         $this->db->from("tb_rup");
-        $this->db->where("id_skpd", $id_skpd);
+        $this->db->where("kd_skpd", $id_skpd);
+        $this->db->where("cara_pengadaan", $cara_pengadaan);
         $this->db->where("jenis_pengadaan", $jenis_pengadaan);
         $this->db->where("is_aktif", 1);
         $data = $this->db->get();

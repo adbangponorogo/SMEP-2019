@@ -18,7 +18,8 @@ class Adminrapan_model extends CI_Model {
     }
 
     public function getDataPaguSKPD($kd_skpd){
-        $this->db->select("(SUM(btl1)+SUM(btl2)+SUM(bl1)+SUM(bl2)+SUM(bl3)) as pagu_paket");
+        // $this->db->select("(SUM(btl1)+SUM(btl2)+SUM(bl1)+SUM(bl2)+SUM(bl3)) as pagu_paket");
+        $this->db->select("(SUM(bl1)+SUM(bl2)+SUM(bl3)) as pagu_paket");
         $this->db->from("sirup_struktur_anggaran");
         if ($kd_skpd != 'all') {
             $this->db->where("kd_skpd", $kd_skpd);

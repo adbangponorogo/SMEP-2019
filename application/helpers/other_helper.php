@@ -125,16 +125,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	{
 		function metode_pemilihan($i)
 		{
-			$metode_pemilihan = array(
-									'',
-									'e-Purchasing',//9
-									'Tender',//13
-									'Tender Cepat',//14
-									'Pengadaan Langsung',//8
-									'Penunjukkan Langsung',//7
-									'Seleksi'//15
-									);
-			return ($metode_pemilihan[$i])? $metode_pemilihan[$i] : '-';
+			if (!is_null($i)) {
+				$nama_metode_pemilihan = array(
+										'',
+										'e-Purchasing',//9
+										'Tender',//13
+										'Tender Cepat',//14
+										'Pengadaan Langsung',//8
+										'Penunjukkan Langsung',//7
+										'Seleksi'//15
+										);
+				$metode_pemilihan = $nama_metode_pemilihan[$i];
+			}
+			else{
+				$metode_pemilihan = '-';
+			}
+			// return ($metode_pemilihan[$i])? $metode_pemilihan[$i] : '-';
+			return $metode_pemilihan;
 		}
 	}
 
