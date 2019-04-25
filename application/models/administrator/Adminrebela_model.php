@@ -28,10 +28,24 @@ class Adminrebela_model extends CI_Model {
         return $data;
     }
 
+    public function getDataPaguRUPSKPD($kd_skpd, $bulan){
+        $this->db->select("sum(pagu_paket) as pagu_paket");
+        $this->db->from("tb_rup");
+        if ($kd_skpd != 'all') {
+            $this->db->where("kd_skpd", $kd_skpd);
+        }
+        $this->db->where("date_format(tanggal_update, '%m') <=", $bulan);
+        $this->db->where("is_aktif", 1);
+        $data = $this->db->get();
+        return $data;
+    }
+
     public function getDataPaguKonstruksiSKPD($kd_skpd, $bulan){
         $this->db->select("sum(pagu_paket) as pagu_paket");
         $this->db->from("tb_rup");
-        $this->db->where("kd_skpd", $kd_skpd);
+        if ($kd_skpd != 'all') {
+            $this->db->where("kd_skpd", $kd_skpd);
+        }
         $this->db->where("jenis_pengadaan", 2);
         $this->db->where("date_format(tanggal_update, '%m') <=", $bulan);
         $this->db->where("is_aktif", 1);
@@ -44,7 +58,9 @@ class Adminrebela_model extends CI_Model {
         $this->db->select("sum(a.realisasi_keuangan) as realisasi_keuangan");
         $this->db->from("tb_realisasi_rup a");
         $this->db->join("tb_rup b", "a.id_rup = b.id");
-        $this->db->where("b.kd_skpd", $kd_skpd);
+        if ($kd_skpd != 'all') {
+            $this->db->where("b.kd_skpd", $kd_skpd);
+        }
         $this->db->where("b.jenis_pengadaan", 2);
         $this->db->where("b.is_aktif", 1);
         $this->db->where("a.bulan_pencairan <=", $bulan);

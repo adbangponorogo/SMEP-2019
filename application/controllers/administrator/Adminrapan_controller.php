@@ -154,7 +154,7 @@ class Adminrapan_controller extends CI_Controller {
 			$no = 1;
 			$mulai = 12;
 			foreach ($result_skpd->result() as $rows_skpd) {
-				$result_pagu = $this->model->getDataPaguSKPD($rows_skpd->kd_skpd);
+				$result_pagu = $this->model->getDataPaguSKPD($rows_skpd->kd_skpd); 
 				foreach ($result_pagu->result() as $rows_pagu) {
 					$result_pagu_rup = $this->model->getDataPaguRUPSKPD($rows_skpd->kd_skpd, $jenis_pengadaan, $bulan);
 					foreach ($result_pagu_rup->result() as $rows_pagu_rup) {
@@ -184,7 +184,7 @@ class Adminrapan_controller extends CI_Controller {
 													$object->getActiveSheet()->setCellValue('A'.$mulai, $no++);
 													$object->getActiveSheet()->setCellValue('B'.$mulai, $rows_skpd->nama_skpd);
 													$object->getActiveSheet()->setCellValue('C'.$mulai, $this->nullValue($rows_pagu->pagu_paket));
-													$object->getActiveSheet()->setCellValue('D'.$mulai, $pagu_paket_rup);
+													$object->getActiveSheet()->setCellValue('D'.$mulai, $this->nullValue($pagu_paket_rup));
 													$object->getActiveSheet()->setCellValue('E'.$mulai, $this->nullValue($rows_swakelola->paket));
 													$object->getActiveSheet()->setCellValue('F'.$mulai, $this->nullValue($rows_tu->paket));
 													$object->getActiveSheet()->setCellValue('G'.$mulai, $this->nullValue($rows_tc->paket));
@@ -240,8 +240,8 @@ class Adminrapan_controller extends CI_Controller {
 			}
 			$object->getActiveSheet()->setCellValue('A'.($mulai), 'TOTAL');
 			// $object->getActiveSheet()->setCellValue('C'.($mulai), '=SUM(C12:C'.(($mulai)-1).')');
-			$object->getActiveSheet()->setCellValue('C'.($mulai), $total_pagu);
-			$object->getActiveSheet()->setCellValue('D'.($mulai), $total_pagu_rup);
+			$object->getActiveSheet()->setCellValue('C'.($mulai), $this->nullValue($total_pagu));
+			$object->getActiveSheet()->setCellValue('D'.($mulai), $this->nullValue($total_pagu_rup));
 			$object->getActiveSheet()->setCellValue('E'.($mulai), '=SUM(E12:E'.(($mulai)-1).')');
 			$object->getActiveSheet()->setCellValue('F'.($mulai), '=SUM(F12:F'.(($mulai)-1).')');
 			$object->getActiveSheet()->setCellValue('G'.($mulai), '=SUM(G12:G'.(($mulai)-1).')');

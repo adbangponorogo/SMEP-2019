@@ -513,22 +513,17 @@ class Adminapisirup_controller extends Admin_Controller {
 		// **
 		echo "<b>6) History Kaji Ulang</b><br>";
 		echo "{<br>";
-			$result_HistoryRevisi_ID = $this->model->checkAPIHistoryKajiUlang_ID();
-			if ($result_HistoryRevisi_ID->num_rows() > 0) {
-				echo "- ID : Status => Ada ".$result_HistoryRevisi_ID->num_rows()." Data Yang Tidak Diketahui <br>";
-			}
-			if ($result_HistoryRevisi_ID->num_rows() <= 0) {
-				echo "- ID : Status => OK <br>";
-			}
-
+			// ID RUP AWAL
 			$result_HistoryRevisi_IDAwal = $this->model->checkAPIHistoryKajiUlang_IDRUPAwal();
 			if ($result_HistoryRevisi_IDAwal->num_rows() > 0) {
-				echo "- ID RUP Awal: Status => Ada ".$result_HistoryRevisi_IDAwal->num_rows()." Data Yang Tidak Diketahui <br>";
+				echo "- ID RUP Awal : Status => Ada ".$result_HistoryRevisi_IDAwal->num_rows()." Data Yang Tidak Diketahui <br>";
 			}
 			if ($result_HistoryRevisi_IDAwal->num_rows() <= 0) {
 				echo "- ID RUP Awal : Status => OK <br>";
 			}
 
+
+			// ID RUP SEBELUMNYA
 			$result_HistoryRevisi_IDSebelumnya = $this->model->checkAPIHistoryKajiUlang_IDRUPSebelumnya();
 			if ($result_HistoryRevisi_IDSebelumnya->num_rows() > 0) {
 				echo "- ID RUP Sebelumnya : Status => Ada ".$result_HistoryRevisi_IDSebelumnya->num_rows()." Data Yang Tidak Diketahui <br>";
@@ -537,13 +532,25 @@ class Adminapisirup_controller extends Admin_Controller {
 				echo "- ID RUP Sebelumnya : Status => OK <br>";
 			}
 
-			$result_HistoryRevisi_IDBaru = $this->model->checkAPIHistoryKajiUlang_IDRUPBaru();
-			if ($result_HistoryRevisi_IDBaru->num_rows() > 0) {
-				echo "- ID Baru : Status => Ada ".$result_HistoryRevisi_IDBaru->num_rows()." Data Yang Tidak Diketahui <br>";
+
+			// ID RUP BARU
+			$result_HistoryRevisi_IDBaru_penyedia = $this->model->checkAPIHistoryKajiUlang_IDRUPBaru(1);
+			if ($result_HistoryRevisi_IDBaru_penyedia->num_rows() > 0) {
+				echo "- ID RUP Baru - PENYEDIA : Status => Ada ".$result_HistoryRevisi_IDBaru_penyedia->num_rows()." Data Yang Tidak Diketahui <br>";
 			}
-			if ($result_HistoryRevisi_IDBaru->num_rows() <= 0) {
-				echo "- ID Baru : Status => OK <br>";
+			if ($result_HistoryRevisi_IDBaru_penyedia->num_rows() <= 0) {
+				echo "- ID RUP Baru - PENYEDIA : Status => OK <br>";
 			}
+
+			$result_HistoryRevisi_IDAwal_swakelola = $this->model->checkAPIHistoryKajiUlang_IDRUPBaru(2);
+			if ($result_HistoryRevisi_IDAwal_swakelola->num_rows() > 0) {
+				echo "- ID RUP Baru - SWAKELOLA : Status => Ada ".$result_HistoryRevisi_IDAwal_swakelola->num_rows()." Data Yang Tidak Diketahui <br>";
+			}
+			if ($result_HistoryRevisi_IDAwal_swakelola->num_rows() <= 0) {
+				echo "- ID RUP Baru - SWAKELOLA : Status => OK <br>";
+			}
+
+
 		echo "}<br>";
 
 

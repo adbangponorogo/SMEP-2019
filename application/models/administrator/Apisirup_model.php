@@ -447,7 +447,7 @@ class Apisirup_model extends CI_Model {
 	public function checkAPIHistoryKajiUlang_IDRUPAwal(){
 		$this->db->select("*");
 		$this->db->from("sirup_revisi_gabungan");
-		$this->db->where("id_rup_awal NOT IN (SELECT CONCAT('2019', id_rup_awal) FROM sirup_rinci_objek_akun)");
+		$this->db->where("id_rup_awal NOT IN (SELECT CONCAT('2019', id) FROM sirup_rinci_objek_akun)");
 		$this->db->order_by("id", "ASC");
 		return $this->db->get();
 	}
@@ -460,10 +460,17 @@ class Apisirup_model extends CI_Model {
 		return $this->db->get();
 	}
 
-	public function checkAPIHistoryKajiUlang_IDRUPBaru(){
+	public function checkAPIHistoryKajiUlang_IDRUPBaru($jenis){
 		$this->db->select("*");
 		$this->db->from("sirup_revisi_gabungan");
-		$this->db->where("id_rup_baru NOT IN (SELECT CONCAT('2019', id) FROM sirup_rinci_objek_akun)");
+		if ($jenis == 1) {
+			$this->db->where("id_rup_baru NOT IN (SELECT id FROM sirup_penyedia)");
+			$this->db->where("jenis NOT IN ('SWAKELOLA')");
+		}
+		if ($jenis == 2) {
+			$this->db->where("id_rup_baru NOT IN (SELECT id FROM sirup_swakelola)");
+			$this->db->where("jenis NOT IN ('PENYEDIA')");
+		}
 		$this->db->order_by("id", "ASC");
 		return $this->db->get();
 	}
