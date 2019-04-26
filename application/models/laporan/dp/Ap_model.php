@@ -28,10 +28,10 @@ class Ap_model extends CI_Model {
 	public function getRO($id_parent_keg, $bln){
 		$this->db->select('a.*, a.jumlah pagu, SUM(b.nilai) real_keu');
 		$this->db->from('v_rincian_obyek a');
-		$this->db->join('simda_realisasi_ro b', 'a.id=b.id AND b.bln<='.$bln, 'left');
+		$this->db->join('simda_realisasi_ro b', "a.id=b.id AND b.bln<='".$bln."' AND b.no_spj NOT LIKE '%TU-NIHIL%'", 'left');
 		$this->db->group_by('a.id');
 		$this->db->where('a.id_parent_keg', $id_parent_keg);
-		return $this->db->get();
+        return $this->db->get();
 	}
 
 	public function getProgAP2($kd_skpd){
