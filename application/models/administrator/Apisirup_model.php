@@ -464,11 +464,11 @@ class Apisirup_model extends CI_Model {
 		$this->db->select("*");
 		$this->db->from("sirup_revisi_gabungan");
 		if ($jenis == 1) {
-			$this->db->where("id_rup_baru NOT IN (SELECT id FROM sirup_penyedia)");
+			$this->db->where("id_rup_baru NOT IN (SELECT id FROM sirup_penyedia WHERE is_aktif = 1)");
 			$this->db->where("jenis NOT IN ('SWAKELOLA')");
 		}
 		if ($jenis == 2) {
-			$this->db->where("id_rup_baru NOT IN (SELECT id FROM sirup_swakelola)");
+			$this->db->where("id_rup_baru NOT IN (SELECT id FROM sirup_swakelola WHERE is_aktif = 1)");
 			$this->db->where("jenis NOT IN ('PENYEDIA')");
 		}
 		$this->db->order_by("id", "ASC");

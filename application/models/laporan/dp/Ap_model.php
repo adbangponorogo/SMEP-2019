@@ -94,6 +94,18 @@ class Ap_model extends CI_Model {
 		return $this->db->get();
 	}
 
+    public function getPaketAPRUP($id_keg, $bln){
+        $this->db->select('a.*, c.kd_rekening, SUM(b.realisasi_keuangan) AS real_keu, SUM(b.realisasi_fisik/100) AS real_fisik');
+        $this->db->from('tb_rup a');
+        $this->db->join('tb_realisasi_rup b', 'a.id=b.id_rup AND b.bulan_pencairan <='.$bln, 'left');
+        $this->db->join('simda_rincian_obyek c', 'a.id_rincian_obyek=c.id', 'left');
+        $this->db->where('a.id_kegiatan', $id_keg);
+        $this->db->where('a.is_aktif', 1);
+        $this->db->where('a.is_deleted', 0);
+        $this->db->group_by('a.id');
+        return $this->db->get();
+    }
+
     public function getDataUser($token){
         $this->db->select("*");
         $this->db->from("v_auth");

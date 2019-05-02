@@ -31,11 +31,12 @@ class Lp_model extends CI_Model {
 
 	public function getPaket($id_keg, $bln, $jenis_pengadaan){
 		$this->db->select('a.*, SUM(b.realisasi_keuangan) real_keu, SUM(b.realisasi_fisik/100) real_fisik');
-		$this->db->from('v_rup a');
+		// $this->db->from('v_rup a');
+		$this->db->from('tb_rup a');
 		$this->db->join('tb_realisasi_rup b', 'a.id=b.id_rup AND b.bulan_pencairan<='.$bln, 'left');
-		$this->db->group_by('a.id');
 		$this->db->where('a.id_kegiatan', $id_keg);
 		$this->db->where('a.jenis_pengadaan', $jenis_pengadaan);
+		$this->db->group_by('a.id');
 		return $this->db->get();
 	}
 
@@ -65,4 +66,6 @@ class Lp_model extends CI_Model {
 		$this->db->order_by('b.urutan', 'ASC');
 		return $this->db->get();
 	}
+
+
 }

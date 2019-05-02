@@ -370,7 +370,7 @@ class Ap_controller extends Admin_Controller {
 					$row++;
 
 					$no = 0;
-					$ro = $this->model->getPaketAP3($e->id, $obj->bulan+0);
+					$ro = $this->model->getPaketAPRUP($e->id, $obj->bulan+0);
 					foreach ($ro->result() as $f){
 						// -------- Rincian Obyek ---------
 						$x->setCellValue('A'.$row, ++$no);

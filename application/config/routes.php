@@ -206,6 +206,7 @@ $route['laporan/ap/tester'] = 'laporan/dp/Ap_controller/getTester';
 // ------ Laporan Tepra Perencanaan ------ //
 $route['laporan/tepra/perencanaan/main-page'] = 'laporan/dp/Tepraperencanaan_controller/mainPage';
 $route['laporan/tepra/perencanaan/print-data'] = 'laporan/dp/Tepraperencanaan_controller/getPrintData';
+$route['laporan/tepra/perencanaan/rekap-paket/(:any)'] = 'laporan/dp/Tepraperencanaan_controller/getDataRekapRUP/$1';
 
 // ------------------/ Laporan DP End /------------------ //
 
@@ -223,7 +224,6 @@ $route['laporan/tepra/perencanaan/skpd/all/(:any)'] = 'laporan/Laportepraperenca
 $route['laporan/tepra/perencanaan/dana/(:any)'] = 'laporan/Laportepraperencanaan_controller/getDataDana/$1';
 $route['laporan/tepra/perencanaan/pagu-paket/(:any)/(:any)'] = 'laporan/Laportepraperencanaan_controller/getDataPaketPaguRUP/$1/$2';
 $route['laporan/tepra/perencanaan/paket/(:any)/(:any)'] = 'laporan/Laportepraperencanaan_controller/getDataPaketRUP/$1/$2';
-$route['laporan/tepra/perencanaan/rekap-paket/(:any)'] = 'laporan/Laportepraperencanaan_controller/getDataRekapRUP/$1';
 //$route['laporan/tepra/perencanaan/print-data'] = 'laporan/Laportepraperencanaan_controller/getPrintData';
 
 

@@ -8,51 +8,54 @@ class Tepraperencanaan_model extends CI_Model {
 		$this->load->database();
 	}
 
-	public function getBelanja($id_skpd){
+	public function getBelanja($kd_skpd){
 		$this->db->select('sum(btl1) as btl1, sum(btl2) as btl2, sum(bl1) as bl1, sum(bl2) as bl2, sum(bl3) as bl3');
 		$this->db->from('sirup_struktur_anggaran');
-		if ($id_skpd != 'all') {
-			$this->db->where('id', $id_skpd);
+		if ($kd_skpd != 'all') {
+			$this->db->where('kd_skpd', $kd_skpd);
 		}
 		return $this->db->get();
 	}
 
-	public function getBM($id_skpd){
+	public function getBM($kd_skpd){
 		$this->db->select('COUNT(*) jml');
 		$this->db->from('tb_rup');
-		if ($id_skpd != 'all') {
-			$this->db->where('id_skpd', $id_skpd);
+		if ($kd_skpd != 'all') {
+			$this->db->where('kd_skpd', $kd_skpd);
 		}
 		$this->db->where('jenis_belanja', 3);// 3 = Belanja Modal
 		$this->db->where('is_aktif', 1);// 3 = Belanja Modal
 		return $this->db->get();
 	}
 
-	public function getBP($id_skpd){
+	public function getBP($kd_skpd){
 		$this->db->select('COUNT(*) jml');
 		$this->db->from('tb_rup');
-		if ($id_skpd != 'all') {
-			$this->db->where('id_skpd', $id_skpd);
+		if ($kd_skpd != 'all') {
+			$this->db->where('kd_skpd', $kd_skpd);
 		}
 		$this->db->where('jenis_belanja', 2);// 1 = Belanja Pegawai
 		$this->db->where('is_aktif', 1);// 1 = Belanja Pegawai
 		return $this->db->get();
 	}
 
-	public function getPaket($id_skpd, $cara_pengadaan, $range_pagu_atas, $range_pagu_bawah=0){
+	public function getPaket($kd_skpd, $cara_pengadaan, $range_pagu_atas, $range_pagu_bawah=0){
 		$this->db->select('jenis_pengadaan, COUNT(*) jml, SUM(pagu_paket) pagu');
 		$this->db->from('tb_rup');
-		$this->db->group_by('jenis_pengadaan');
-		$this->db->where('id_skpd', $id_skpd);
-		if (strtolower($cara_pengadaan) == 'penyedia')
-			$cara_pengadaan = 1;
-		else
-			$cara_pengadaan = 2;
-		$this->db->where('cara_pengadaan', $cara_pengadaan);
-		$this->db->where('pagu_paket>', $range_pagu_bawah);
-		if ($range_pagu_atas)
+		if ($kd_skpd != 'all') {
+            $this->db->where('kd_skpd', $kd_skpd);
+        }
+        $get_cara_pengadaan = 2;
+		if (strtolower($cara_pengadaan) == 'penyedia'){
+			$get_cara_pengadaan = 1;
+        }
+		if ($range_pagu_atas > 0){
 			$this->db->where('pagu_paket<=', $range_pagu_atas);
+        }
+		$this->db->where('pagu_paket>', $range_pagu_bawah);
+		$this->db->where('cara_pengadaan', $get_cara_pengadaan);
         $this->db->where('is_aktif', 1);
+		$this->db->group_by('jenis_pengadaan');
 		return $this->db->get();
 	}
 
@@ -150,25 +153,41 @@ class Tepraperencanaan_model extends CI_Model {
     }
 
 
-    public function getDataRekapRUP($id_skpd, $cara_pengadaan, $jenis_pengadaan, $max_pagu){
-        if ($id_skpd != 'all') {
-            $skpd = 'id_skpd = '.$id_skpd." and ";
+    public function getDataRekapRUP($kd_skpd, $cara_pengadaan, $jenis_pengadaan, $range_pagu_atas, $range_pagu_bawah = 0){
+        // if ($id_skpd != 'all') {
+        //     $skpd = 'id_skpd = '.$id_skpd." and ";
+        // }
+        // else{
+        //     $skpd = '';
+        // }
+        // $data = $this->db->query("select count(id) as jumlah, sum(pagu_paket) as pagu_paket from tb_rup where ".$skpd."cara_pengadaan = ".$cara_pengadaan." ".$max_pagu." and jenis_pengadaan = ".$jenis_pengadaan." AND is_aktif = 1");
+        // return $data;
+
+        $this->db->select('COUNT(*) AS jumlah, SUM(pagu_paket) AS pagu_paket');
+        $this->db->from('tb_rup');
+        if ($kd_skpd != 'all') {
+            $this->db->where('kd_skpd', $kd_skpd);
         }
-        else{
-            $skpd = '';
+        if ($range_pagu_atas != 0 && $range_pagu_atas > 0){
+            $this->db->where('pagu_paket <=', $range_pagu_atas);
         }
-        $data = $this->db->query("select count(id) as jumlah, sum(pagu_paket) as pagu_paket from tb_rup where ".$skpd."cara_pengadaan = ".$cara_pengadaan." ".$max_pagu." and jenis_pengadaan = ".$jenis_pengadaan." AND is_aktif = 1");
-        return $data;
+        $this->db->where('pagu_paket >', $range_pagu_bawah);
+        $this->db->where('cara_pengadaan', $cara_pengadaan);
+        $this->db->where('jenis_pengadaan', $jenis_pengadaan);
+        $this->db->where('is_aktif', 1);
+        $this->db->group_by('jenis_pengadaan');
+        return $this->db->get();
     }
 
-    public function getDataRekapTotalRUP($id_skpd, $jenis_pengadaan){
-        if ($id_skpd != 'all') {
-            $skpd = 'id_skpd = '.$id_skpd." and ";
+    public function getDataRekapTotalRUP($kd_skpd, $jenis_pengadaan){
+        $this->db->select('COUNT(*) AS jumlah, SUM(pagu_paket) AS pagu_paket');
+        $this->db->from('tb_rup');
+        if ($kd_skpd != 'all') {
+            $this->db->where('kd_skpd', $kd_skpd);
         }
-        else{
-            $skpd = '';
-        }
-        $data = $this->db->query("select count(id) as jumlah, sum(pagu_paket) as pagu_paket from tb_rup where ".$skpd."jenis_pengadaan = ".$jenis_pengadaan." AND is_aktif = 1");
-        return $data;
+        $this->db->where('jenis_pengadaan', $jenis_pengadaan);
+        $this->db->where('is_aktif', 1);
+        $this->db->group_by('jenis_pengadaan');
+        return $this->db->get();
     }
 }
