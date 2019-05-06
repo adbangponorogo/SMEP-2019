@@ -316,7 +316,7 @@ class Tepraperencanaan_controller extends Admin_Controller {
 
 				// ---------- Jasa Lainnya -----------
 
-				$ppkt41k = 0;
+				$pkt41 = 0;
 				$pagu41 = 0;
 				$result_penyedia_jasalainnya1 = $this->model->getDataRekapRUP($kd_skpd, 1, 4, 200000000);
 				foreach ($result_penyedia_jasalainnya1->result() as $rows_penyedia_jasalainnya1) {

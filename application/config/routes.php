@@ -247,6 +247,8 @@ $route['laporan/realisasi-belanja-langsung/print-data'] = 'laporan/Laporrebela_c
 // ------ Berita Acara Serah Terima ------ //
 $route['laporan/bast/main-page'] = 'laporan/Laporbast_controller/mainPage';
 $route['laporan/bast/(:any)'] = 'laporan/Laporbast_controller/getMainData/$1';
+$route['laporan/bast/cetak-bast'] = 'laporan/Laporbast_controller/getPrintBastData';
+$route['laporan/bast/print-lampiran-bast'] = 'laporan/Laporbast_controller/getPrintLampiranBastData';
 
 // ------ Rencana Umum Pengadaan ------ //
 //$route['laporan/rup/main-page'] = 'laporan/Laporrup_controller/mainPage';

@@ -79,24 +79,26 @@ class Adminrupaktual_model extends CI_Model {
         return $data;
     }
 
-    public function getDataPaguRUP($kd_skpd, $cara_pengadaan){
+    public function getDataPaguRUP($kd_skpd, $cara_pengadaan, $bulan){
         $this->db->select("sum(pagu_paket) as pagu_paket");
         $this->db->from("tb_rup");
         if ($kd_skpd != 'all') {
             $this->db->where("kd_skpd", $kd_skpd);
         }
         $this->db->where("cara_pengadaan", $cara_pengadaan);
+        $this->db->where("date_format(tanggal_update, '%m') <=", $bulan);
         $this->db->where("is_aktif", 1);
         $data = $this->db->get();
         return $data;
     }
 
-    public function getDataPaketRUP($kd_skpd, $cara_pengadaan, $jenis_pengadaan){
+    public function getDataPaketRUP($kd_skpd, $cara_pengadaan, $jenis_pengadaan, $bulan){
         $this->db->select("count(id) as paket");
         $this->db->from("tb_rup");
-        $this->db->where("kd_skpd", $id_skpd);
+        $this->db->where("kd_skpd", $kd_skpd);
         $this->db->where("cara_pengadaan", $cara_pengadaan);
         $this->db->where("jenis_pengadaan", $jenis_pengadaan);
+        $this->db->where("date_format(tanggal_update, '%m') <=", $bulan);
         $this->db->where("is_aktif", 1);
         $data = $this->db->get();
         return $data;
