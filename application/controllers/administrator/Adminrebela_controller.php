@@ -137,11 +137,11 @@ class Adminrebela_controller extends CI_Controller {
 
 								$object->getActiveSheet()->setCellValue('A'.$mulai, $no++);
 								$object->getActiveSheet()->setCellValue('B'.$mulai, $rows_skpd->nama_skpd);
-								$object->getActiveSheet()->setCellValue('C'.$mulai, ($this->nullValue($rows_pagu->btl)+$this->nullValue($rows_pagu->bl)));
-								$object->getActiveSheet()->setCellValue('D'.$mulai, $this->nullValue($rows_pagu->btl));
-								$object->getActiveSheet()->setCellValue('E'.$mulai, $this->nullValue($rows_pagu->bl));
-								$object->getActiveSheet()->setCellValue('F'.$mulai, $this->nullValue($rows_pagu_rup->pagu_paket));
-								$object->getActiveSheet()->setCellValue('G'.$mulai, $this->nullValue($rows_realisasi->nilai));
+								$object->getActiveSheet()->setCellValue('C'.$mulai, (($this->nullValue($rows_pagu->btl)+0)+($this->nullValue($rows_pagu->bl)+0)));
+								$object->getActiveSheet()->setCellValue('D'.$mulai, $this->nullValue($rows_pagu->btl)+0);
+								$object->getActiveSheet()->setCellValue('E'.$mulai, $this->nullValue($rows_pagu->bl)+0);
+								$object->getActiveSheet()->setCellValue('F'.$mulai, ($this->nullValue($rows_pagu_rup->pagu_paket)+0));
+								$object->getActiveSheet()->setCellValue('G'.$mulai, ($this->nullValue($rows_realisasi->nilai)+0));
 								$object->getActiveSheet()->setCellValue('H'.$mulai, 0);
 								if (!is_null($rows_pagu->bl) || $rows_pagu->bl != '') {
 									if (!is_null($rows_realisasi->nilai) || $rows_realisasi->nilai != '') {
@@ -172,28 +172,12 @@ class Adminrebela_controller extends CI_Controller {
 				}
 
 				// Values
-				$result_total_pagu = $this->model->getDataPaguSKPD('all');
-				foreach ($result_total_pagu->result() as $rows_total_pagu) {
-					$pagu_btl 		= $rows_total_pagu->btl;
-					$pagu_bl 		= $rows_total_pagu->bl;
-					$total_pagu 	= $pagu_btl+$pagu_bl;
-				}
-
-				$result_total_pagu_rup = $this->model->getDataPaguRUPSKPD('all', $bulan);
-				foreach ($result_total_pagu_rup->result() as $rows_total_pagu_rup) {
-					$total_pagu_rup 	= $rows_total_pagu_rup->pagu_paket;
-				}
-
-				$result_total_realisasi = $this->model->getDataRealisasiROSKPD('all', $bulan);
-				foreach ($result_total_realisasi->result() as $rows_total_realisasi) {
-					$total_realisasi 	= $rows_total_realisasi->nilai;
-				}
 				$object->getActiveSheet()->setCellValue('A'.($mulai), 'TOTAL');
-				$object->getActiveSheet()->setCellValue('C'.($mulai), $this->nullValue($total_pagu));
-				$object->getActiveSheet()->setCellValue('D'.($mulai), $this->nullValue($pagu_btl));
-				$object->getActiveSheet()->setCellValue('E'.($mulai), $this->nullValue($pagu_bl));
-				$object->getActiveSheet()->setCellValue('F'.($mulai), $this->nullValue($total_pagu_rup));
-				$object->getActiveSheet()->setCellValue('G'.($mulai), $this->nullValue($total_realisasi));
+				$object->getActiveSheet()->setCellValue('C'.($mulai), '=SUM(C9:C'.($mulai-1).')');
+				$object->getActiveSheet()->setCellValue('D'.($mulai), '=SUM(D9:D'.($mulai-1).')');
+				$object->getActiveSheet()->setCellValue('E'.($mulai), '=SUM(E9:E'.($mulai-1).')');
+				$object->getActiveSheet()->setCellValue('F'.($mulai), '=SUM(F9:F'.($mulai-1).')');
+				$object->getActiveSheet()->setCellValue('G'.($mulai), '=SUM(G9:G'.($mulai-1).')');
 				$object->getActiveSheet()->setCellValue('H'.($mulai), '=G'.$mulai.'/E'.$mulai.'');
 
 

@@ -142,18 +142,17 @@ $route['entry-data/data-rup/main-page'] = 'entry-data/Endarup_controller/mainPag
 $route['entry-data/data-rup/main-data/program/(:any)'] = 'entry-data/Endarup_controller/getDataProgram/$1';
 $route['entry-data/data-rup/main-data/kegiatan/(:any)/(:any)'] = 'entry-data/Endarup_controller/getDataKegiatan/$1/$2';
 $route['entry-data/data-rup/main-data/rincian-obyek/(:any)/(:any)/(:any)'] = 'entry-data/Endarup_controller/getDataRO/$1/$2/$3';
-$route['entry-data/data-rup/main-data/rup/(:any)/(:any)/(:any)/(:any)'] = 'entry-data/Endarup_controller/getDataRUP/$1/$2/$3/$4';
+$route['entry-data/data-rup/main-data/rincian-obyek/pagu/(:any)'] = 'entry-data/Endarup_controller/getDataPaguByIDRO/$1';
+$route['entry-data/data-rup/main-data/rup'] = 'entry-data/Endarup_controller/getDataRUP';
+$route['entry-data/data-rup/main-data/rup/datatable/(:any)'] = 'entry-data/Endarup_controller/getDataRUPDataTable/$1';
+$route['entry-data/data-rup/main-data/form-skpd/(:any)'] = 'entry-data/Endarup_controller/getDataSKPDForm/$1';
 $route['entry-data/data-rup/main-data/ppk/(:any)'] = 'entry-data/Endarup_controller/getDataPPK/$1';
 $route['entry-data/data-rup/main-data/skpd-swakelola/(:any)'] = 'entry-data/Endarup_controller/getDataSKPDSwakelola/$1';
-$route['entry-data/data-rup/main-data/form-skpd/(:any)'] = 'entry-data/Endarup_controller/getDataSKPDForm/$1';
-$route['entry-data/data-rup/main-data/program-register/(:any)'] = 'entry-data/Endarup_controller/getDataProgramByID/$1';
-$route['entry-data/data-rup/main-data/kegiatan-register/(:any)'] = 'entry-data/Endarup_controller/getDataKegiatanByID/$1';
-$route['entry-data/data-rup/main-data/rincian-obyek-register/(:any)'] = 'entry-data/Endarup_controller/getDataROByID/$1';
-$route['entry-data/data-rup/uplaod-data'] = 'entry-data/Endarup_controller/uploadData';
+$route['entry-data/data-rup/upload-data'] = 'entry-data/Endarup_controller/uploadData';
 $route['entry-data/data-rup/revisi-data/(:any)'] = 'entry-data/Endarup_controller/revisiData/$1';
 $route['entry-data/data-rup/upload-revisi'] = 'entry-data/Endarup_controller/uploadRevisi';
-$route['entry-data/data-rup/upload-revisi-datatable'] = 'entry-data/Endarup_controller/updateRUPDataTable';
-$route['entry-data/data-rup/upload-revisi-datatable-form'] = 'entry-data/Endarup_controller/updateRUPDataTableForm';
+$route['entry-data/data-rup/update-data'] = 'entry-data/Endarup_controller/updateRUPData';
+$route['entry-data/data-rup/upload-multi-data'] = 'entry-data/Endarup_controller/updateRUPMultiData';
 $route['entry-data/data-rup/tester'] = 'entry-data/Endarup_controller/getTester';
 
 

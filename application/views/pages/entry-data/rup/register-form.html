@@ -35,24 +35,24 @@
               <input type="text" name="kd_urusan" class="form-control rupenda-kdurusan-reg" readonly="readonly" style="float: left; width: 10%; text-align: center;">
               <input type="text" name="kd_kelompok" class="form-control rupenda-kdkelompok-reg" readonly="readonly" style="float: left; width: 10%; text-align: center;">
               <input type="text" name="kd_opd" class="form-control rupenda-kdopd-reg" readonly="readonly" style="float: left; width: 30%; text-align: center;">
-              <input type="text" name="kd_program" class="form-control rupenda-kdprogram-reg" readonly="readonly" style="float: left; width: 10%; text-align: center;">
-              <input type="text" name="kd_kegiatan" class="form-control rupenda-kdkegiatan-reg" readonly="readonly" style="float: left; width: 10%; text-align: center;">
-              <input type="text" name="kd_rekening" class="form-control rupenda-kdrekening-reg" readonly="readonly" style="float: left; width: 30%; text-align: center;">
+              <input type="text" name="kd_program" class="form-control rupenda-kdprogram-reg" readonly="readonly" style="float: left; width: 10%; text-align: center;" value="-">
+              <input type="text" name="kd_kegiatan" class="form-control rupenda-kdkegiatan-reg" readonly="readonly" style="float: left; width: 10%; text-align: center;" value="-">
+              <input type="text" name="kd_rekening" class="form-control rupenda-kdrekening-reg" readonly="readonly" style="float: left; width: 30%; text-align: center;" value="-">
             </div>
 
             <!-- * -->
             <!-- ====== Column 1 ===== -->
             <!-- * -->
-            <input type="hidden" name="id_program" class="rupenda-idprogram-reg">
-            <input type="hidden" name="id_kegiatan" class="rupenda-idkegiatan-reg">
-            <input type="hidden" name="id_ro" class="rupenda-idro-reg">
+            <input type="hidden" name="program" class="rupenda-program-reg">
+            <input type="hidden" name="kegiatan" class="rupenda-kegiatan-reg">
+            <input type="hidden" name="rincian_obyek" class="rupenda-ro-reg">
 
             <!-- * -->
             <!-- ====== Column 2 ===== -->
             <!-- * -->
-            <input type="hidden" class="rupenda-nama-program-reg">
+            <!-- <input type="hidden" class="rupenda-nama-program-reg">
             <input type="hidden" class="rupenda-nama-kegiatan-reg">
-            <input type="hidden" class="rupenda-nama-ro-reg">
+            <input type="hidden" class="rupenda-nama-ro-reg"> -->
           
           </div>
         </div>
@@ -139,11 +139,15 @@
                   </select>
                 </div>
                 <div class="form-group">
-                  <label>Uraian Pekerjaan</label>
+                  <label>Uraian Pekerjaan&nbsp;
+                    <i class="fa fa-exclamation-circle" style="color: #d33724;"></i>
+                  </label>
                   <textarea name="uraian_pekerjaan" class="form-control rupenda-uraian-pekerjaan-reg" placeholder="Uraian Pekerjaan" style="min-width: 100%; max-width: 100%; min-height:70px; max-height: 70px;"></textarea>
                 </div>
                 <div class="form-group">
-                  <label>Spesifikasi Pekerjaan</label>
+                  <label>Spesifikasi Pekerjaan&nbsp;
+                    <i class="fa fa-exclamation-circle" style="color: #d33724;"></i>
+                  </label>
                   <textarea name="spesifikasi_pekerjaan" class="form-control rupenda-spesifikasi-pekerjaan-reg" placeholder="Spesifikasi Pekerjaan" style="min-width: 100%; max-width: 100%; min-height:70px; max-height: 70px;">-</textarea>
                 </div>
               </div>
@@ -157,7 +161,9 @@
               <!-- * -->
               <div class="col-md-6" style="padding: 0px 5px; padding-left: 20px;">
                 <div class="form-group">
-                  <label>Lokasi Pekerjaan</label>
+                  <label>Lokasi Pekerjaan&nbsp;
+                    <i class="fa fa-exclamation-circle" style="color: #d33724;"></i>
+                  </label>
                   <input type="text" name="lokasi_pekerjaan" class="form-control rupenda-lokasi-pekerjaan-reg" placeholder="Lokasi Pekerjaan">
                 </div>
                 <div class="form-group">
@@ -178,7 +184,9 @@
                   </select>
                 </div>
                 <div class="form-group rupenda-nomor-renja-form-group hidden-show">
-                  <label>Nomor Renja</label>
+                  <label>Nomor Renja&nbsp;
+                    <i class="fa fa-exclamation-circle" style="color: #d33724;"></i>
+                  </label>
                   <input type="text" name="nomor_renja" class="form-control rupenda-nomor-renja-reg" placeholder="Nomor Renja">
                 </div>
                 <div class="form-group">
@@ -201,14 +209,14 @@
                     <option value="11">Lainnya</option>
                   </select>
                 </div>
-                <div class="form-group rupenda-pdn-form-group hidden-show">
+                <div class="form-group rupenda-pdn-form-group visible-show">
                   <label>Produk Dalam Negeri</label>
                   <select name="produk_dalam_negeri" class="form-control rupenda-pdn-reg select2-option" style="float: left; width: 100%">
                     <option value="0">Ya</option>
                     <option value="1" selected="selected">Tidak</option>
                   </select>
                 </div>
-                <div class="form-group rupenda-usaha-kecil-form-group hidden-show">
+                <div class="form-group rupenda-usaha-kecil-form-group visible-show">
                   <label>Usaha Kecil</label>
                   <select name="usaha_kecil" class="form-control rupenda-usaha-kecil-reg select2-option" style="float: left; width: 100%">
                     <option value="0">Ya</option>
@@ -344,7 +352,7 @@
                   <input type="text" name="pelaksanaan_kontrak_awal" class="form-control month-picker rupenda-pelaksanaan-kontrak-awal-reg">
                 </div>
                 <div class="form-group">
-                  <label>Selesai&nbsp;
+                  <label>Mulai&nbsp;
                     <i class="fa fa-exclamation-circle" style="color: #d33724;"></i>
                   </label>
                   <input type="text" name="pelaksanaan_kontrak_akhir" class="form-control month-picker rupenda-pelaksanaan-kontrak-akhir-reg">
@@ -361,12 +369,18 @@
               <!-- * -->
 
               <div class="col-md-4">
-                <h3 class="page-header" style="font-size: 15px;"><b>Mulai Penggunaan</b></h3>
+                <h3 class="page-header" style="font-size: 15px;"><b>Bulan Penggunaan</b></h3>
                 <div class="form-group">
-                  <label>Bulan&nbsp;
+                  <label>Awal&nbsp;
                     <i class="fa fa-exclamation-circle" style="color: #d33724;"></i>
                   </label>
-                  <input type="text" name="pelaksanaan_pemanfaatan" class="form-control month-picker rupenda-mulai-penggunaan-reg">
+                  <input type="text" name="pelaksanaan_penggunaan_awal" class="form-control month-picker rupenda-penggunaan-awal-reg">
+                </div>
+                <div class="form-group">
+                  <label>Akhir&nbsp;
+                    <i class="fa fa-exclamation-circle" style="color: #d33724;"></i>
+                  </label>
+                  <input type="text" name="pelaksanaan_penggunaan_akhir" class="form-control month-picker rupenda-penggunaan-akhir-reg">
                 </div>
               </div>
             </div>
@@ -427,7 +441,6 @@
 
               <div class="col-md-12">
                 <div class="form-group">
-                  <input type="hidden" class="rupenda-type-form-reg" value="1">
                   <input type="hidden" name="tahun" class="rupenda-tahun-reg">
                   <input type="hidden" name="id_skpd" class="rupenda-idskpd-reg">
                   <input type="hidden" name="kd_skpd" class="rupenda-kdskpd-reg">

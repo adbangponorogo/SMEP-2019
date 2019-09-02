@@ -20,6 +20,7 @@ class Endasirup_model extends CI_Model {
         $this->db->select("*");
         $this->db->from("tb_rup");
         $this->db->where("id", $token);
+        $this->db->where("is_aktif", 1);
         $data = $this->db->get();
         return $data;
     }

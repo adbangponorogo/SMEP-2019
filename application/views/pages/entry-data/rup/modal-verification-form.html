@@ -55,7 +55,7 @@
                     <label>Tipe Swakelola</label>
                     <input type="text" class="form-control rupenda-tipe-swakelola-verification-input" readonly="readonly">
                 </div>
-                <div class="form-group rupenda-skpd-swakelola-verification-form-group">
+                <div class="form-group rupenda-skpd-swakelola-verification-form-group hidden-show">
                     <label>SKPD Swakelola</label>
                     <input type="text" class="form-control rupenda-skpd-swakelola-verification-input" readonly="readonly">
                 </div>
@@ -79,11 +79,11 @@
                     <label>Pagu Pekerjaan</label>
                     <input type="text" class="form-control rupenda-pagu-pekerjaan-verification-input" readonly="readonly">
                 </div>
-                <div class="form-group rupenda-pradipa-verification-form-group">
+                <div class="form-group">
                     <label>Pra DIPA/DPA</label>
                     <input type="text" class="form-control rupenda-pradipa-dpa-verification-input" readonly="readonly">
                 </div>
-                <div class="form-group rupenda-pradipa-verification-form-group">
+                <div class="form-group rupenda-nomor-renja-verification-form-group hidden-show">
                     <label>Nomor Renja</label>
                     <input type="text" class="form-control rupenda-nomor-renja-verification-input" readonly="readonly">
                 </div>
@@ -91,11 +91,11 @@
                     <label>Nomor Izin Tahun Jamak</label>
                     <input type="text" class="form-control rupenda-nomor-izin-tahun-jamak-verification-input" readonly="readonly">
                 </div>
-                <div class="form-group rupenda-pdn-verification-form-group">
+                <div class="form-group rupenda-pdn-verification-form-group hidden-show">
                     <label>Produk Dalam Negeri</label>
                     <input type="text" class="form-control rupenda-pdn-verification-input" readonly="readonly">
                 </div>
-                <div class="form-group rupenda-usaha-kecil-verification-form-group">
+                <div class="form-group rupenda-usaha-kecil-verification-form-group hidden-show">
                     <label>Usaha Kecil</label>
                     <input type="text" class="form-control rupenda-usaha-kecil-verification-input" readonly="readonly">
                 </div>
@@ -117,7 +117,7 @@
                     <label>Jenis Pengadaan</label>
                     <input type="text" class="form-control rupenda-jenis-pengadaan-verification-input" readonly="readonly">
                 </div>
-                <div class="form-group rupenda-metode-pemilihan-verification-form-group">
+                <div class="form-group rupenda-metode-pemilihan-verification-form-group hidden-show">
                     <label>Metode Pemilihan</label>
                     <input type="text" class="form-control rupenda-metode-pemilihan-verification-input" readonly="readonly">
                 </div>
@@ -127,31 +127,37 @@
 
                 <!-- Jadwal Pengadaan -->
                 <h4 class="modal-header" style="text-align: center; margin-top: 15px;">Jadwal Pengadaan</h4>
-                <div class="form-group rupenda-pengadaan-awal-verification-form-group">
+                <div class="form-group rupenda-pengadaan-awal-verification-form-group hidden-show">
                     <label>Pelaksanaan Pengadaan Awal</label>
                     <input type="text" class="form-control rupenda-pengadaan-awal-verification-input" readonly="readonly">
                 </div>
-                <div class="form-group rupenda-pengadaan-akhir-verification-form-group">
+                <div class="form-group rupenda-pengadaan-akhir-verification-form-group hidden-show">
                     <label>Pelaksanaan Pengadaan Akhir</label>
                     <input type="text" class="form-control rupenda-pengadaan-akhir-verification-input" readonly="readonly">
                 </div>
-                <div class="form-group rupenda-kontrak-awal-verification-form-group">
+                <div class="form-group rupenda-kontrak-awal-verification-form-group hidden-show">
                     <label>Pelaksanaan Kontrak Awal</label>
                     <input type="text" class="form-control rupenda-kontrak-awal-verification-input" readonly="readonly">
                 </div>
-                <div class="form-group rupenda-kontrak-akhir-verification-form-group">
+                <div class="form-group rupenda-kontrak-akhir-verification-form-group hidden-show">
                     <label>Pelaksanaan Kontrak Akhir</label>
                     <input type="text" class="form-control rupenda-kontrak-akhir-verification-input" readonly="readonly">
                 </div>
-                <div class="form-group rupenda-mulai-penggunaan-verification-form-group">
-                    <label>Pelaksanaan Mulai Penggunaan</label>
-                    <input type="text" class="form-control rupenda-mulai-penggunaan-verification-input" readonly="readonly">
+                <div class="form-group rupenda-penggunaan-awal-verification-form-group hidden-show">
+                    <label>Pelaksanaan Penggunaan Awal</label>
+                    <input type="text" class="form-control rupenda-penggunaan-awal-verification-input" readonly="readonly">
                 </div>
-                <div class="form-group rupenda-pekerjaan-awal-verification-form-group">
+                <div class="form-group rupenda-penggunaan-akhir-verification-form-group hidden-show">
+                    <label>Pelaksanaan Penggunaan Akhir</label>
+                    <input type="text" class="form-control rupenda-penggunaan-akhir-verification-input" readonly="readonly">
+                </div>
+
+
+                <div class="form-group rupenda-pekerjaan-awal-verification-form-group hidden-show">
                     <label>Pelaksanaan Pekerjaan Awal</label>
                     <input type="text" class="form-control rupenda-pekerjaan-awal-verification-input" readonly="readonly">
                 </div>
-                <div class="form-group rupenda-pekerjaan-akhir-verification-form-group">
+                <div class="form-group rupenda-pekerjaan-akhir-verification-form-group hidden-show">
                     <label>Pelaksanaan Pekerjaan Akhir</label>
                     <input type="text" class="form-control rupenda-pekerjaan-akhir-verification-input" readonly="readonly">
                 </div>
@@ -169,7 +175,7 @@
                 <div class="col-md-6">
                     <div class="pull-left">
                         <div class="form-group">
-                            <input type="hidden" class="rupenda-type-verification-input">
+                            <input type="hidden" class="rupenda-action-type-verification-input">
                             <button class="btn btn-primary smep-rupenda-upload-btn">
                                 <i class="fa fa-save"></i>&nbsp;Ya, saya yakin ingin menyimpannya.
                             </button>
