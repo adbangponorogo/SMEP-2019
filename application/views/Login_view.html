@@ -15,13 +15,15 @@
 <body class="hold-transition login-page">
   <?php
     include_once 'pages/app/login/modal.html';
+		list(,$url) = explode('/', $_SERVER['REQUEST_URI']);
+		$sts_apbd = (strpos($url, 'sp') !== false)? '(Sebelum PAK)' : '(Sesudah PAK)';
   ?>
 <div class="login-box">
   <div class="login-logo">
       <img src="<?=base_url(LOGOPATH).$logo?>" alt="" style="width:150px;"><br>
     <a><b>SMEP</b></a><br>
     <h5><b>Sistem Monitoring Evaluasi Pelaporan</b></h5>
-    <h5><b>Tahun Anggaran 2019 (Sebelum PAK)</b></h5>
+    <h5><b>Tahun Anggaran 2019 <?=$sts_apbd?></b></h5>
   </div>
   <div class="login-box-body">
     <p class="login-box-msg">Sign in to start your session</p>
