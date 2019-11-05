@@ -12,9 +12,11 @@ class Lp_model extends CI_Model {
 		$this->db->select('a.*');
 		$this->db->from('simda_program a');
 		$this->db->join("tb_rup b", "a.id = b.id_program");
-		$this->db->group_by('a.id');
 		$this->db->where('a.kd_skpd', $kd_skpd);
 		$this->db->where('b.jenis_pengadaan', $jenis_pengadaan);
+		$this->db->where('b.is_aktif', 1);
+		$this->db->where('b.is_last_paket', 1);
+		$this->db->group_by('a.id');
 		return $this->db->get();
 	}
 
@@ -22,10 +24,11 @@ class Lp_model extends CI_Model {
 		$this->db->select('a.*');
 		$this->db->from('simda_kegiatan a');
 		$this->db->join("tb_rup b", "a.id = b.id_kegiatan");
-		$this->db->group_by('a.id');
 		$this->db->where('a.id_parent_prog', $id_parent_prog);
 		$this->db->where('b.jenis_pengadaan', $jenis_pengadaan);
 		$this->db->where('b.is_aktif', 1);
+		$this->db->where('b.is_last_paket', 1);
+		$this->db->group_by('a.id');
 		return $this->db->get();
 	}
 
@@ -36,6 +39,8 @@ class Lp_model extends CI_Model {
 		$this->db->join('tb_realisasi_rup b', 'a.id=b.id_rup AND b.bulan_pencairan<='.$bln, 'left');
 		$this->db->where('a.id_kegiatan', $id_keg);
 		$this->db->where('a.jenis_pengadaan', $jenis_pengadaan);
+		$this->db->where('a.is_aktif', 1);
+		$this->db->where('a.is_last_paket', 1);
 		$this->db->group_by('a.id');
 		return $this->db->get();
 	}

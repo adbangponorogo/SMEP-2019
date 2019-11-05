@@ -49,6 +49,9 @@ class Appdashboard_model extends CI_Model {
             $this->db->where("date_format(a.tanggal_buat, '%m') = ", $bulan);
         }
         $this->db->where("b.is_aktif", 1);
+        $this->db->where("b.is_final", 1);
+        $this->db->where("b.is_deleted", 0);
+        $this->db->where("b.is_last_paket", 1);
         $data = $this->db->get();
         return $data;
     }
@@ -58,6 +61,9 @@ class Appdashboard_model extends CI_Model {
         $this->db->from("tb_rup");
         $this->db->where("kd_skpd", $kd_skpd);
         $this->db->where("is_aktif", 1);
+        $this->db->where("is_final", 1);
+        $this->db->where("is_deleted", 0);
+        $this->db->where("is_last_paket", 1);
         $data = $this->db->get();
         return $data;
     }
@@ -68,6 +74,9 @@ class Appdashboard_model extends CI_Model {
         $this->db->where_not_in("SELECT DISTINCT(id_rup) from tb_realisasi_rup a JOIN tb_rup b on a.id_rup = b.id WHERE b.kd_skpd =".$kd_skpd);
         $this->db->where("kd_skpd", $kd_skpd);
         $this->db->where("is_aktif", 1);
+        $this->db->where("is_final", 1);
+        $this->db->where("is_deleted", 0);
+        $this->db->where("is_last_paket", 1);
         $data = $this->db->get();
         return $data;
     }
